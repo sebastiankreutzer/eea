@@ -1,6 +1,10 @@
 package de.tu.darmstadt.informatik.eea.states;
 
+import java.awt.Color;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
 
@@ -12,47 +16,35 @@ public abstract class BasicGameState implements Screen {
 	public BasicGameState(EEAGame game) {
 		this.game = game;
 		game.addState(this);
-		em = new EntityManager();
+		em = new EntityManager(game.getViewport());
 	}
 	
 	/**
-	 * TODO
 	 * @param delta
 	 */
 	protected abstract void update(float delta);
 	
-	/**
-	 * TODO
-	 */
-	protected abstract void render();
-	
-	/**
-	 * TODO
-	 */
-	protected abstract void init();
-	
-	
 	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub		
+		em.update(delta);
 		update(delta);
-		render();
+
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		em.renderEntities();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub		
+		game.getViewport().update(width, height, true);
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub		
 	}
 
 	@Override

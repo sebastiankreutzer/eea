@@ -11,29 +11,28 @@ public class Entity extends Actor {
 
 	private List<Component> components;
 	private RenderComponent renderComponent;
-	
-	
+
 	public Entity(String id) {
 		this.id = id;
 	}
-	
+
 	public void addComponent(Component c) {
 		components.add(c);
-		
+
 		if (c instanceof RenderComponent)
 			this.renderComponent = (RenderComponent) c;
-		
+
 		c.setOwnerEntity(this);
 	}
-	
+
 	public void removeComponent(Component c) {
 		components.remove(c);
 	}
-	
+
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		if (renderComponent !=  null)
+		if (renderComponent != null)
 			renderComponent.render(batch);
 	}
 
@@ -44,11 +43,9 @@ public class Entity extends Actor {
 			c.update(delta);
 		}
 	}
-	
+
 	public String getID() {
 		return id;
 	}
-	
-	
 
 }
