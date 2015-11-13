@@ -38,6 +38,10 @@ public class EEAGame extends Game {
 		viewport = new FitViewport(800, 600);
 	}
 	
+	public Viewport getViewport() {
+		return viewport;
+	}
+	
 	public int getFramerate() {
 		return Gdx.graphics.getFramesPerSecond();
 	}
