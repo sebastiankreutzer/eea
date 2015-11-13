@@ -1,4 +1,4 @@
-package tu.darmstadt.informatik.eea;
+package de.tu.darmstadt.informatik.eea;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

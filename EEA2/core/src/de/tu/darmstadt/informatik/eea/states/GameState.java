@@ -1,4 +1,4 @@
-package tu.darmstadt.informatik.eea.states;
+package de.tu.darmstadt.informatik.eea.states;
 
 public class GameState {
 	private final String stateName;
