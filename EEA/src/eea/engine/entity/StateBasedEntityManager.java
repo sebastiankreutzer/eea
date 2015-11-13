@@ -197,7 +197,7 @@ public class StateBasedEntityManager {
    * @return true if there is at least one entity with the chosen ID prefix in
    *         the selected state
    */
-  public boolean hasEntity(int state, String prefix) {
+  public boolean hasEntity(int state,g String prefix) {
     List<Entity> chosen = entities.get(Integer.valueOf(state));
     if (prefix == null || chosen == null)
       return false; // cannot be successful!
