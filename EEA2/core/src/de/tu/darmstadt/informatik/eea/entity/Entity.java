@@ -1,5 +1,6 @@
 package de.tu.darmstadt.informatik.eea.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -9,7 +10,7 @@ public class Entity extends Actor {
 
 	private final String id;
 
-	private List<Component> components;
+	private List<Component> components = new ArrayList<Component>();
 	private RenderComponent renderComponent;
 
 	public Entity(String id) {

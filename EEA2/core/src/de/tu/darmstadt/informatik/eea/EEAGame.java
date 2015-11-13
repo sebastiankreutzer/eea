@@ -39,11 +39,6 @@ public abstract class EEAGame extends Game {
 	public void dispose() {
 		super.dispose();
 	}
-
-	@Override
-	public void create () {
-		
-	}
 	
 	public Viewport getViewport() {
 		return viewport;

@@ -3,8 +3,14 @@ import de.tu.darmstadt.informatik.eea.EEAGame;
 import de.tu.darmstadt.informatik.eea.states.BasicGameState;
 
 public class LaunchGame extends EEAGame {
-	public final BasicGameState MainMenuState = new MainMenuState(this);
+	public BasicGameState MainMenuState;
 	
-	public LaunchGame() {
+	public LaunchGame() {		
 	}
+
+	@Override
+	public void create() {
+		// man muss die States in der create methode initialisieren , da hier sichergestellt ist , dass libgdx initialisiert ist
+		MainMenuState = new MainMenuState(this);
+	}	
 }
