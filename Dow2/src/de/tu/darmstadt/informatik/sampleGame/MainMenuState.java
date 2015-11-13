@@ -18,6 +18,7 @@ public class MainMenuState extends BasicGameState {
 		Entity background = new Entity("menu");
 		background.setPosition(400, 300);	// Startposition des Hintergrunds
     	background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente
+    	em.addEntity(background);
 	}
 
 	@Override

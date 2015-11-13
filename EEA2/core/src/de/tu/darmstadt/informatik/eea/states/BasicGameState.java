@@ -1,9 +1,8 @@
 package de.tu.darmstadt.informatik.eea.states;
 
-import java.awt.Color;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
@@ -12,6 +11,7 @@ public abstract class BasicGameState implements Screen {
 	
 	protected final EEAGame game;
 	protected final EntityManager em;
+	private Color backgroundColor = new Color(101f/255, 156f/255, 239f/255, 1.0f);
 	
 	public BasicGameState(EEAGame game) {
 		this.game = game;
@@ -27,13 +27,21 @@ public abstract class BasicGameState implements Screen {
 	
 	@Override
 	public void show() {
+		updateBackgroundColor();
+	}
+	
+	public void setBackgroundColor(int r, int g, int b){
+		this.backgroundColor = new Color(r/255f, g/255f, b/255f, 1.0f);
+	}
+	
+	public void updateBackgroundColor(){
+		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, 1.0f);
 	}
 
 	@Override
 	public void render(float delta) {
 		em.update(delta);
 		update(delta);
-
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		em.renderEntities();
 	}
