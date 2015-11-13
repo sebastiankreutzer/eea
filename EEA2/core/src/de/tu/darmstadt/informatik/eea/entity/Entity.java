@@ -26,6 +26,10 @@ public class Entity extends Actor {
 		c.setOwnerEntity(this);
 	}
 	
+	public void removeComponent(Component c) {
+		components.remove(c);
+	}
+	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
