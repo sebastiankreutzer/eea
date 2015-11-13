@@ -2,10 +2,16 @@ package de.tu.darmstadt.informatik.eea.states;
 
 import com.badlogic.gdx.Screen;
 
+import de.tu.darmstadt.informatik.eea.EEAGame;
+
 public abstract class BasicGameState implements Screen {
+	
+	protected final EEAGame game;
 	protected final EntityManager em;
 	
-	public BasicGameState() {
+	public BasicGameState(EEAGame game) {
+		this.game = game;
+		game.addState(this);
 		em = new EntityManager();
 	}
 	
@@ -61,7 +67,7 @@ public abstract class BasicGameState implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub		
+		game.removeState(this);
 	}
 
 }

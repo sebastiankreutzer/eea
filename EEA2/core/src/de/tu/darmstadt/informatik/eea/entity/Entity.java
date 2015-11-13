@@ -10,6 +10,7 @@ public class Entity extends Actor {
 	private final String id;
 
 	private List<Component> components;
+	private RenderComponent renderComponent;
 	
 	
 	public Entity(String id) {
@@ -18,13 +19,18 @@ public class Entity extends Actor {
 	
 	public void addComponent(Component c) {
 		components.add(c);
+		
+		if (c instanceof RenderComponent)
+			this.renderComponent = (RenderComponent) c;
+		
 		c.setOwnerEntity(this);
 	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		// TODO Let RenderComponent draw
+		if (renderComponent !=  null)
+			renderComponent.render(batch);
 	}
 
 	@Override
