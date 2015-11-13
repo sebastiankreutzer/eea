@@ -10,15 +10,22 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.tu.darmstadt.informatik.eea.states.BasicGameState;
 
-public class EEAGame extends Game {
+public abstract class EEAGame extends Game {
 	
 	 /*
 	  * Add game states here
 	  */
 	
 	private List<BasicGameState> states = new ArrayList<BasicGameState>();
-	
 	private Viewport viewport;
+	
+	public EEAGame(float width, float height) {
+		this.viewport = new FitViewport(width, height);
+	}
+	
+	public EEAGame() {
+		this(800, 600);
+	}
 	
 	public void addState(BasicGameState state) {
 		states.add(state);
@@ -35,7 +42,7 @@ public class EEAGame extends Game {
 
 	@Override
 	public void create () {
-		viewport = new FitViewport(800, 600);
+		
 	}
 	
 	public Viewport getViewport() {
