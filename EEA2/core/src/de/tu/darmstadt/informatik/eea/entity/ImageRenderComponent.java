@@ -17,9 +17,12 @@ public class ImageRenderComponent extends RenderComponent {
 	@Override
 	public void render(Batch batch) {
 		batch.draw(texture, owner.getX(), owner.getY(), owner.getOriginX(), owner.getOriginY(), owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), owner.getRotation(), 0, 0, texture.getWidth(), texture.getHeight(), false, false);
-		
 	}
 	
-	
+	@Override
+	public void setOwnerEntity(Entity owningEntity) {
+		super.setOwnerEntity(owningEntity);
+		owner.setSize(texture.getWidth(), texture.getHeight());
+	}
 
 }
