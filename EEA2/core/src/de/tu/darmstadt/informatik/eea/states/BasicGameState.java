@@ -76,6 +76,7 @@ public abstract class BasicGameState implements Screen {
 
 	@Override
 	public void dispose() {
+		em.dispose();
 		game.removeState(this);
 	}
 

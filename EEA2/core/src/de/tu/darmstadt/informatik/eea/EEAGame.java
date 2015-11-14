@@ -11,10 +11,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tu.darmstadt.informatik.eea.states.BasicGameState;
 
 public abstract class EEAGame extends Game {
-	
-	 /*
-	  * Add game states here
-	  */
+
+	public EEAGraphics graphics;
 	
 	private List<BasicGameState> states = new ArrayList<BasicGameState>();
 	private Viewport viewport;
@@ -34,6 +32,17 @@ public abstract class EEAGame extends Game {
 	public void removeState(BasicGameState state) {
 		states.remove(state);
 	}
+	
+	@Override
+	public void create(){
+		graphics = new EEAGraphics();
+		initStates();
+		startGame();
+	}
+	
+	protected abstract void initStates();
+	
+	protected abstract void startGame();
 	
 	@Override
 	public void resize (int width, int height) {

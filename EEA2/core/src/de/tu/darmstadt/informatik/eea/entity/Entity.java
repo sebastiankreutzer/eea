@@ -48,5 +48,9 @@ public class Entity extends Actor {
 	public String getID() {
 		return id;
 	}
+	
+	public void dispose(){
+		if (renderComponent != null) renderComponent.dispose();
+	}
 
 }

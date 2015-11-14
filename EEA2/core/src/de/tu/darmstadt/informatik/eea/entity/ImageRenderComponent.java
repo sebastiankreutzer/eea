@@ -25,4 +25,9 @@ public class ImageRenderComponent extends RenderComponent {
 		owner.setSize(texture.getWidth(), texture.getHeight());
 	}
 
+	@Override
+	public void dispose() {
+		texture.dispose();
+	}
+
 }
