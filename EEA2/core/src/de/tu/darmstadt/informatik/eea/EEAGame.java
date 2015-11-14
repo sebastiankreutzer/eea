@@ -36,6 +36,12 @@ public abstract class EEAGame extends Game {
 	}
 	
 	@Override
+	public void resize (int width, int height) {
+		if (viewport != null) viewport.update(width, height, true);
+		if (screen != null) screen.resize(width, height);
+	}
+	
+	@Override
 	public void dispose() {
 		super.dispose();
 	}
