@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.entity.Component;
+import de.tu.darmstadt.informatik.eea.entity.Entity;
 
 public abstract class EEAEvent extends Component {
 	
@@ -17,6 +18,7 @@ public abstract class EEAEvent extends Component {
 	
 	public void addAction(Action action){
 		actions.add(action);
+		action.setActor(owner);
 	}
 	
 	public void removeAction(Action action){
@@ -25,6 +27,13 @@ public abstract class EEAEvent extends Component {
 	
 	public void clearActions(){
 		actions.clear();
+	}
+	
+	public void setOwnerEntity(Entity e){
+		super.setOwnerEntity(e);
+		for(Action action : actions){
+			action.setActor(e);
+		}
 	}
 	
 	public abstract boolean eventTriggered(float delta);

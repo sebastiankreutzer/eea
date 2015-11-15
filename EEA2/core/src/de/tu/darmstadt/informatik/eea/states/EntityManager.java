@@ -60,6 +60,7 @@ public class EntityManager {
 				((Entity) a).dispose();
 			}
 		}
+		stage.clear();
 	}
 
 }
