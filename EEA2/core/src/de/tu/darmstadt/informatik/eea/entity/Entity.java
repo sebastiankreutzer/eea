@@ -1,6 +1,7 @@
 package de.tu.darmstadt.informatik.eea.entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,6 +12,7 @@ public class Entity extends Actor {
 	private final String id;
 
 	private List<Component> components = new ArrayList<Component>();
+	private Iterator<Component> iterator;
 	private RenderComponent renderComponent;
 
 	public Entity(String id) {
@@ -40,13 +42,24 @@ public class Entity extends Actor {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		for (Component c : components) {
-			c.update(delta);
+		iterator = components.iterator();
+		while(iterator.hasNext()){
+			iterator.next().update(delta);
 		}
 	}
 
 	public String getID() {
 		return id;
+	}
+	
+	public void dispose(){
+		if (renderComponent != null) renderComponent.dispose();
+		iterator = components.iterator();
+		while(iterator.hasNext()){
+			iterator.next();
+			iterator.remove();
+		}
+		components.clear();
 	}
 
 }

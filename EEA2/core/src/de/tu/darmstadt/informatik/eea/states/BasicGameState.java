@@ -13,6 +13,8 @@ public abstract class BasicGameState implements Screen {
 	protected final EntityManager em;
 	private Color backgroundColor = new Color(101f/255, 156f/255, 239f/255, 1.0f);
 	
+	private boolean paused = false;
+	
 	public BasicGameState(EEAGame game) {
 		this.game = game;
 		game.addState(this);
@@ -40,33 +42,41 @@ public abstract class BasicGameState implements Screen {
 
 	@Override
 	public void render(float delta) {
-		em.update(delta);
-		update(delta);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		em.renderEntities();
+		if (!paused) {
+			em.update(delta);
+			update(delta);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			em.renderEntities();
+		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		game.getViewport().update(width, height, true);
+		
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
 	@Override
 	public void pause() {
+		paused = true;
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub		
+		paused = false;	
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub		
+		em.dispose();	
 	}
 
 	@Override
 	public void dispose() {
+		em.dispose();
 		game.removeState(this);
 	}
 

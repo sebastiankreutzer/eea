@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.eea.states;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -50,6 +51,16 @@ public class EntityManager {
 	
 	public void renderEntities() {
 		stage.draw();
+	}
+
+
+	public void dispose() {
+		for (Actor a : stage.getActors()) {
+			if (a instanceof Entity) {
+				((Entity) a).dispose();
+			}
+		}
+		stage.clear();
 	}
 
 }
