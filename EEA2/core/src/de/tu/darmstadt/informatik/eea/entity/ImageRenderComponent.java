@@ -26,8 +26,8 @@ public class ImageRenderComponent extends RenderComponent {
 	}
 
 	@Override
-	public void dispose() {
-		texture.dispose();
+	public void dispose() { 
+		texture.dispose(); // FIXME This might not be a good idea since the same texture might be used by multiple entities.
 	}
 
 }

@@ -1,5 +1,9 @@
 package de.tu.darmstadt.informatik.eea.entity;
 
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +50,22 @@ public class Entity extends Actor {
 		while(iterator.hasNext()){
 			iterator.next().update(delta);
 		}
+	}
+	
+	public Shape getShape() {
+		Shape shape = new Rectangle.Float(getX(), getY(), getWidth(), getHeight());
+		AffineTransform at = new AffineTransform();
+		at.rotate(Math.toRadians(getRotation()), getOriginX(), getOriginY());
+		return at.createTransformedShape(shape);
+	}
+	
+	public boolean collides(Entity other) {
+		// Note: Shape does not allow to directly test for intersection of two rotated rectangles.
+		Area area = new Area(getShape());
+		Area otherArea = new Area(other.getShape());
+		// Set the first area to the intersection of the two shapes and test if the result is empty.
+		area.intersect(otherArea);
+		return !area.isEmpty();
 	}
 
 	public String getID() {
