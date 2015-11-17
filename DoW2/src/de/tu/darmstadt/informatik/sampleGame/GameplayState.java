@@ -17,6 +17,7 @@ import de.tu.darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu.darmstadt.informatik.eea.event.LoopEvent;
 import de.tu.darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu.darmstadt.informatik.eea.states.BasicGameState;
+import de.tu.darmstadt.informatik.sampleGame.LaunchGame;
 
 public class GameplayState extends BasicGameState {
 
@@ -32,7 +33,7 @@ public class GameplayState extends BasicGameState {
 	public void init() {
     	
     	// Hintergrund laden
-    	Entity background = new Entity("background");
+    	final Entity background = new Entity("background");
     	background.addComponent(new ImageRenderComponent(new Texture("background.png"))); // Bildkomponente
     	    	
     	// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
