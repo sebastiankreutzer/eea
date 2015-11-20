@@ -21,6 +21,22 @@ public class OREvent extends EEAEvent {
 		return false;
 	}
 	
+	@Override
+	public void onAddComponent() {
+		super.onAddComponent();
+		for(EEAEvent event : events){
+			event.onAddComponent();
+		}
+	}
+	
+	@Override
+	public void onRemoveComponent() {
+		super.onRemoveComponent();
+		for(EEAEvent event : events){
+			event.onRemoveComponent();
+		}
+	}
+	
 	public void setOwnerEntity(Entity owner) {
 		super.setOwnerEntity(owner);
 		for (EEAEvent event : events) {

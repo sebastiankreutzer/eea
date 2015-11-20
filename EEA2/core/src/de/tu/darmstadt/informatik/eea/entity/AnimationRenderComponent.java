@@ -25,8 +25,5 @@ public class AnimationRenderComponent extends RenderComponent {
 		batch.draw(animation.getKeyFrame(elapsedTime, true), owner.getX(), owner.getY(), owner.getOriginX(), owner.getOriginY(), owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), owner.getRotation());
 	}
 	
-	public void dispose(){
-        textureAtlas.dispose();
-	}
 
 }

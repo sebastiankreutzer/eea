@@ -1,12 +1,11 @@
 package de.tu.darmstadt.informatik.eea.event;
 
-import com.badlogic.gdx.Gdx;
-
-public class KeyPressedEvent extends EEAEvent {
+public class KeyPressedEvent extends EEAInputEvent {
 	
 	public static final String ID = "KeyPressedEvent";
 	
 	private final int key;
+	private boolean keyWasDown = false;
 	
 	/**
 	 * @param key Key from the libGDX @Input.Keys
@@ -15,10 +14,22 @@ public class KeyPressedEvent extends EEAEvent {
 		super(ID);
 		this.key = key;
 	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		if(key == keycode){
+			keyWasDown = true;
+		}
+		return false;
+	}
 
 	@Override
 	public boolean eventTriggered(float delta) {
-		return Gdx.input.isKeyPressed(key);
+		if(keyWasDown) {
+			keyWasDown = false;
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -87,13 +87,17 @@ public class EntityManager {
 		stage.draw();
 	}
 
-	public void dispose() {
-		// TODO Is this method really necessary? (See ImageRenderComponent)
+	public void reset() {
 		for (Entity e : entities) {
-			e.dispose();
+			e.remove();
 		}
 		stage.clear();
 		entities.clear();
+	}
+	
+	public void dispose() {
+		reset();
+		stage.dispose();
 	}
 
 }

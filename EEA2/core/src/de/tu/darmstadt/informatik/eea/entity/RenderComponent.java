@@ -16,5 +16,4 @@ public abstract class RenderComponent extends Component{
 	
 	public abstract void render(Batch batch);
 	
-	public abstract void dispose();
 }

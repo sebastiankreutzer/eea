@@ -1,5 +1,7 @@
 package de.tu.darmstadt.informatik.sampleGame;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
@@ -22,10 +24,11 @@ public class MainMenuState extends BasicGameState {
 	}
 	
 	public void show(){
-		init();
+		super.show();
 	}
 
-	private void init() {
+	public void init() {
+		
 		Entity background = new Entity("menu");
     	background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente
     	em.addEntity(background);
@@ -38,7 +41,7 @@ public class MainMenuState extends BasicGameState {
     	new_Game_Entity.addComponent(new ImageRenderComponent(new Texture("entry.png")));
     	
     	// Erstelle das Ausloese-Event und die zugehoerige Action
-    	ANDEvent mainEvents = new ANDEvent(new MouseEnteredEvent(), new MouseClickedEvent());
+    	ANDEvent mainEvents = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
     	Action new_Game_Action = new ChangeStateAction(game, LaunchGame.GameplayState);
     	mainEvents.addAction(new_Game_Action);
     	new_Game_Entity.addComponent(mainEvents);
@@ -59,7 +62,7 @@ public class MainMenuState extends BasicGameState {
     	quit_Entity.addComponent(new ImageRenderComponent(new Texture("entry.png")));
     	
     	// Erstelle das Ausloese-Event und die zugehoerige Action
-    	ANDEvent mainEvents_q = new ANDEvent(new MouseEnteredEvent(), new MouseClickedEvent());
+    	ANDEvent mainEvents_q = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
     	Action quit_Action = new QuitAction();
     	mainEvents_q.addAction(quit_Action);
     	quit_Entity.addComponent(mainEvents_q);

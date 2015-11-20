@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.sampleGame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -23,13 +24,15 @@ public class GameplayState extends BasicGameState {
 
 	public GameplayState(EEAGame game) {
 		super(game);
-		//init();
+		
 	}
 	
 	public void show(){
-		init();
+		super.show();
+		
 	}
 	
+	@Override
 	public void init() {
     	
     	// Hintergrund laden
