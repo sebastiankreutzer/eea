@@ -33,6 +33,7 @@ public abstract class BasicGameState implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(im);
+		System.out.println("Input proceesor: " + getClass().getName());
 		updateBackgroundColor();
 	}
 	

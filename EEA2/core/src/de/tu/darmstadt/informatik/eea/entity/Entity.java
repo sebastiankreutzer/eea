@@ -78,7 +78,7 @@ public class Entity extends Actor {
 		if (renderComponent != null) renderComponent.dispose();
 		iterator = components.iterator();
 		while(iterator.hasNext()){
-			iterator.next();
+			iterator.next().onRemoveComponent();
 			iterator.remove();
 		}
 		components.clear();
