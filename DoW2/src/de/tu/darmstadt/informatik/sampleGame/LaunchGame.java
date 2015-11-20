@@ -1,10 +1,11 @@
 package de.tu.darmstadt.informatik.sampleGame;
+
 import de.tu.darmstadt.informatik.eea.EEAGame;
-import de.tu.darmstadt.informatik.eea.states.BasicGameState;
+import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 
 public class LaunchGame extends EEAGame {
-	public static BasicGameState MainMenuState;
-	public static BasicGameState GameplayState;
+	public static EEAGameState MainMenuState;
+	public static EEAGameState GameplayState;
 	
 	public LaunchGame() {
 	}

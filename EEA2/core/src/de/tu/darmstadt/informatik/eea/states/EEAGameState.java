@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
 
-public abstract class BasicGameState implements Screen {
+public abstract class EEAGameState implements Screen {
 	
 	protected final EEAGame game;
 	protected final EntityManager em;
@@ -18,7 +18,7 @@ public abstract class BasicGameState implements Screen {
 	private boolean paused = false;
 	private boolean initialized = false;
 	
-	public BasicGameState(EEAGame game) {
+	public EEAGameState(EEAGame game) {
 		this.game = game;
 		
 		game.addState(this);

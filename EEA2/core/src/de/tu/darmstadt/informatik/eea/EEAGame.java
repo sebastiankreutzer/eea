@@ -8,13 +8,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import de.tu.darmstadt.informatik.eea.states.BasicGameState;
+import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 
 public abstract class EEAGame extends Game {
 
 	public EEAGraphics graphics;
 	
-	private List<BasicGameState> states = new ArrayList<BasicGameState>();
+	private List<EEAGameState> states = new ArrayList<EEAGameState>();
 	private Viewport viewport;
 	
 	public EEAGame(float width, float height) {
@@ -25,11 +25,11 @@ public abstract class EEAGame extends Game {
 		this(800, 600);
 	}
 	
-	public void addState(BasicGameState state) {
+	public void addState(EEAGameState state) {
 		states.add(state);
 	}
 	
-	public void removeState(BasicGameState state) {
+	public void removeState(EEAGameState state) {
 		states.remove(state);
 	}
 	

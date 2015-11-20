@@ -14,9 +14,9 @@ import de.tu.darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
 import de.tu.darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu.darmstadt.informatik.eea.event.MouseEnteredEvent;
-import de.tu.darmstadt.informatik.eea.states.BasicGameState;
+import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 
-public class MainMenuState extends BasicGameState {
+public class MainMenuState extends EEAGameState {
 
 	public MainMenuState(EEAGame game) {
 		super(game);
