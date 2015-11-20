@@ -42,7 +42,7 @@ public class MainMenuState extends BasicGameState {
     	new_Game_Entity.addComponent(new ImageRenderComponent(new Texture("entry.png")));
     	
     	// Erstelle das Ausloese-Event und die zugehoerige Action
-    	ANDEvent mainEvents = new ANDEvent(new MouseEnteredEvent(), new MouseClickedEvent());
+    	ANDEvent mainEvents = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
     	Action new_Game_Action = new ChangeStateAction(game, LaunchGame.GameplayState);
     	mainEvents.addAction(new_Game_Action);
     	new_Game_Entity.addComponent(mainEvents);

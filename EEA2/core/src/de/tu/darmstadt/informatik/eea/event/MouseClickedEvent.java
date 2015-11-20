@@ -18,7 +18,7 @@ public class MouseClickedEvent extends EEAInputEvent {
 			mouseWasDown = true;
 		}
 		// Returning true would prevent that other events handle this event too.
-		return true;
+		return false;
 	}
 
 	@Override
