@@ -24,14 +24,15 @@ public class GameplayState extends BasicGameState {
 
 	public GameplayState(EEAGame game) {
 		super(game);
-		//init();
+		
 	}
 	
 	public void show(){
 		super.show();
-		init();
+		
 	}
 	
+	@Override
 	public void init() {
     	
     	// Hintergrund laden

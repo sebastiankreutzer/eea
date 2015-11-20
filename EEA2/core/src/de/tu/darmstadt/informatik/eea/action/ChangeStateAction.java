@@ -15,10 +15,10 @@ public class ChangeStateAction extends Action {
 		this(game, state, false);
 	}
 	
-	public ChangeStateAction(EEAGame game, BasicGameState state, boolean resetState){
+	public ChangeStateAction(EEAGame game, BasicGameState state, boolean resetOldState){
 		this.game = game;
 		this.state = state;
-		this.reset = resetState;
+		this.reset = resetOldState;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class ChangeStateAction extends Action {
 		game.setScreen(state);
 		
 		if(reset){
-			// TODO Reset state
+			
 		}
 		
 		return true;

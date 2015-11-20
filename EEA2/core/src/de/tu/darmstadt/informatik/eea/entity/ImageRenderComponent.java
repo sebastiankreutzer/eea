@@ -25,9 +25,4 @@ public class ImageRenderComponent extends RenderComponent {
 		owner.setSize(texture.getWidth(), texture.getHeight());
 	}
 
-	@Override
-	public void dispose() { 
-		texture.dispose(); // FIXME This might not be a good idea since the same texture might be used by multiple entities.
-	}
-
 }

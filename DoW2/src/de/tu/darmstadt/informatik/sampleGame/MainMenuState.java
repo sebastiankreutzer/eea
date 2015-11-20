@@ -25,10 +25,9 @@ public class MainMenuState extends BasicGameState {
 	
 	public void show(){
 		super.show();
-		init();
 	}
 
-	private void init() {
+	public void init() {
 		
 		Entity background = new Entity("menu");
     	background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente

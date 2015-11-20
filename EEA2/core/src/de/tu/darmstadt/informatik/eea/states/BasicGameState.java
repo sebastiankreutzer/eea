@@ -16,9 +16,11 @@ public abstract class BasicGameState implements Screen {
 	private Color backgroundColor = new Color(101f/255, 156f/255, 239f/255, 1.0f);
 	
 	private boolean paused = false;
+	private boolean initialized = false;
 	
 	public BasicGameState(EEAGame game) {
 		this.game = game;
+		
 		game.addState(this);
 		em = new EntityManager(game.getViewport());
 		im = new InputMultiplexer();
@@ -29,11 +31,16 @@ public abstract class BasicGameState implements Screen {
 	 */
 	protected abstract void update(float delta);
 	
+	protected abstract void init();
 	
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(im);
 		updateBackgroundColor();
+		if (!initialized) {
+			init();
+			initialized = true;
+		}
 	}
 	
 	public void setBackgroundColor(int r, int g, int b){
@@ -58,6 +65,10 @@ public abstract class BasicGameState implements Screen {
 	public void resize(int width, int height) {
 		
 	}
+	
+	public void reset() {
+		em.reset();
+	}
 
 	
 	/* (non-Javadoc)
@@ -75,7 +86,7 @@ public abstract class BasicGameState implements Screen {
 
 	@Override
 	public void hide() {
-		em.dispose();	
+		//em.reset();	
 	}
 
 	@Override

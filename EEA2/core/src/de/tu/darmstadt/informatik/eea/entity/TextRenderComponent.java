@@ -23,9 +23,4 @@ public class TextRenderComponent extends RenderComponent {
 		graphics.drawString(batch, text, owner.getX(), owner.getY() + owner.getHeight());
 	}
 
-	@Override
-	public void dispose() {
-		
-	}
-
 }

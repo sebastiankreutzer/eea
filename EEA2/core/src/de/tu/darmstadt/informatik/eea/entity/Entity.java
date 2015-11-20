@@ -73,15 +73,16 @@ public class Entity extends Actor {
 	public String getID() {
 		return id;
 	}
-	
-	public void dispose(){
-		if (renderComponent != null) renderComponent.dispose();
+
+	@Override
+	public boolean remove() {
 		iterator = components.iterator();
 		while(iterator.hasNext()){
 			iterator.next().onRemoveComponent();
 			iterator.remove();
 		}
 		components.clear();
+		return super.remove();
 	}
 
 }
