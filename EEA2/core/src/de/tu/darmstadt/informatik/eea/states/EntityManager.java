@@ -88,7 +88,6 @@ public class EntityManager {
 	}
 
 	public void dispose() {
-		System.out.println("Disposed");
 		// TODO Is this method really necessary? (See ImageRenderComponent)
 		for (Entity e : entities) {
 			e.dispose();
