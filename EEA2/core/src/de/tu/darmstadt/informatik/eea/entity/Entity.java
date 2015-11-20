@@ -30,9 +30,11 @@ public class Entity extends Actor {
 			this.renderComponent = (RenderComponent) c;
 
 		c.setOwnerEntity(this);
+		c.onAddComponent();
 	}
 
 	public void removeComponent(Component c) {
+		c.onRemoveComponent();
 		components.remove(c);
 	}
 

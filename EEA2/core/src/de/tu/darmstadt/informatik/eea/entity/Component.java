@@ -59,4 +59,12 @@ public abstract class Component {
 	   * 
 	   */
 	  public abstract void update(float delta);
+	  
+	  public void onAddComponent(){
+		  
+	  };
+	  
+	  public void onRemoveComponent(){
+		  
+	  };
 }

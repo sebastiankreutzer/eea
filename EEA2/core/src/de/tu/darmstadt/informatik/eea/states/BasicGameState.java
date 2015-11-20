@@ -1,6 +1,7 @@
 package de.tu.darmstadt.informatik.eea.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +12,7 @@ public abstract class BasicGameState implements Screen {
 	
 	protected final EEAGame game;
 	protected final EntityManager em;
+	protected final InputMultiplexer im;
 	private Color backgroundColor = new Color(101f/255, 156f/255, 239f/255, 1.0f);
 	
 	private boolean paused = false;
@@ -19,6 +21,7 @@ public abstract class BasicGameState implements Screen {
 		this.game = game;
 		game.addState(this);
 		em = new EntityManager(game.getViewport());
+		im = new InputMultiplexer();
 	}
 	
 	/**
@@ -29,6 +32,7 @@ public abstract class BasicGameState implements Screen {
 	
 	@Override
 	public void show() {
+		Gdx.input.setInputProcessor(im);
 		updateBackgroundColor();
 	}
 	
