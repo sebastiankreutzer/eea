@@ -18,9 +18,12 @@ public class Entity extends Actor {
 	private List<Component> components = new ArrayList<Component>();
 	private Iterator<Component> iterator;
 	private RenderComponent renderComponent;
+	
+	private boolean isPassable;
 
 	public Entity(String id) {
 		this.id = id;
+		isPassable = true;
 	}
 
 	public void addComponent(Component c) {
@@ -72,6 +75,14 @@ public class Entity extends Actor {
 
 	public String getID() {
 		return id;
+	}
+	
+	public void setPassable(boolean passable){
+		isPassable = passable;
+	}
+	
+	public boolean isPassable(){
+		return isPassable;
 	}
 
 	@Override
