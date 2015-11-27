@@ -65,6 +65,8 @@ public class Entity extends Actor {
 	}
 	
 	public boolean collides(Entity other) {
+	    if (other == null || (id != null && id.equals(other.getID())))
+	        return false;
 		// Note: Shape does not allow to directly test for intersection of two rotated rectangles.
 		Area area = new Area(getShape());
 		Area otherArea = new Area(other.getShape());
