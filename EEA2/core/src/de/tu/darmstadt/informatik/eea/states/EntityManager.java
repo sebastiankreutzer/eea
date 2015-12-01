@@ -100,4 +100,8 @@ public class EntityManager {
 		stage.dispose();
 	}
 
+	public void setDebug(boolean b) {
+		stage.setDebugAll(b);
+	}
+
 }

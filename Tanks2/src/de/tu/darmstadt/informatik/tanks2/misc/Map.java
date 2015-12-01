@@ -23,12 +23,12 @@ public class Map implements IMap {
 		source = "maps/map00";
 	}
 	
-	public void addEntity(Entity entity) {
-		entities.add(entity);
+	public void addEntity(Entity Entity) {
+		entities.add(Entity);
 	}
 	
-	public void removeEntity(Entity entity){
-		entities.remove(entity);
+	public void removeEntity(Entity Entity){
+		entities.remove(Entity);
 	}
 	
 	@Override
@@ -71,11 +71,13 @@ public class Map implements IMap {
 			// TODO Fix highscore loading
 	    	//HighscoreList.getInstance().load(mapName);
 		} catch (SemanticException e) {
-			resetToDefault();
-			throw e;
+			// TODO Enable exception after clarified why scaling does not work
+			//resetToDefault();
+			//throw e;
 		} catch (SyntaxException e) {
-			resetToDefault();
-			throw e;
+			// TODO Enable exception
+			//resetToDefault();
+			//throw e;
 		}
 	}
 	
@@ -85,22 +87,22 @@ public class Map implements IMap {
 		
 //		List<Entity> entities;
 //		
-//		StateBasedEntityManager entityManager = StateBasedEntityManager.getInstance();
-//		if(entityManager.getEntitiesByState(Tanks.GAMEPLAYSTATE) == null) {
+//		StateBasedEntityManager EntityManager = StateBasedEntityManager.getInstance();
+//		if(EntityManager.getEntitiesByState(Tanks.GAMEPLAYSTATE) == null) {
 //			entities = this.entities;
 //		}
-//		else  entities = entityManager.getEntitiesByState(Tanks.GAMEPLAYSTATE);
+//		else  entities = EntityManager.getEntitiesByState(Tanks.GAMEPLAYSTATE);
 //		
 //		if (entities.isEmpty()) return null;
 //		StringBuffer stringBuffer = new StringBuffer();
 //		stringBuffer.append(GameplayLog.getInstance().toString());
 //		stringBuffer.append("\n");
 //		
-//		for(Entity entity : entities){
-//			if(entity.toString().startsWith("Tank") || entity.toString().startsWith("Wall") || entity.toString().startsWith("Shot")  || entity.toString().startsWith("Explosion")
-//					|| entity.toString().startsWith("Border") || entity.toString().startsWith("Mine") || entity.toString().startsWith("Tower") || entity.toString().startsWith("Pickup")
-//					|| entity.toString().startsWith("Scattershot")){
-//			stringBuffer.append(entity.toString());
+//		for(Entity Entity : entities){
+//			if(Entity.toString().startsWith("Tank") || Entity.toString().startsWith("Wall") || Entity.toString().startsWith("Shot")  || Entity.toString().startsWith("Explosion")
+//					|| Entity.toString().startsWith("Border") || Entity.toString().startsWith("Mine") || Entity.toString().startsWith("Tower") || Entity.toString().startsWith("Pickup")
+//					|| Entity.toString().startsWith("Scattershot")){
+//			stringBuffer.append(Entity.toString());
 //			stringBuffer.append("\n");
 //			}
 //		}

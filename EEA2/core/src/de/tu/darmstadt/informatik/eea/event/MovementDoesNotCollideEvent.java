@@ -15,6 +15,7 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 	public MovementDoesNotCollideEvent(float currentSpeed, EEAMovement move) {
 		super(ID);
 	    speed = currentSpeed;
+	    addAction(move);
 	    this.move = move;
 	}
 

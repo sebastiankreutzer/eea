@@ -15,7 +15,7 @@ public class MoveAction extends EEAMovement {
 	public Vector2 getNextPosition(float delta) {
 		Vector2 p = new Vector2(getActor().getX(), getActor().getY());
 		p.add(dX * delta, dY * delta);
-		return null;
+		return p;
 	}
 	
 }

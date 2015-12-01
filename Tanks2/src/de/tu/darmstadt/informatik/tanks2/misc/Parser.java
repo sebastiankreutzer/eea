@@ -309,7 +309,7 @@ public class Parser implements IParser {
 		int streangth = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
 		//this.accept(Token.COMMA);
-		float speed = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling()) / 100.0f;
+		float speed = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
 		//this.accept(Token.COMMA);
 		int rotation = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
