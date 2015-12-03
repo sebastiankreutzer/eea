@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
+import de.tu.darmstadt.informatik.tanks2.highscore.HighscoreList;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IMap;
 import de.tu.darmstadt.informatik.tanks2.misc.ErrorReporter;
 import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
@@ -72,8 +73,7 @@ public class Map implements IMap {
 			new Checker(parser.parseMap()).check();
 			// Load highscore file of map if exist
 			String mapName = GameplayLog.getInstance().getMapName();
-			// TODO Fix highscore loading
-	    	//HighscoreList.getInstance().load(mapName);
+	    	HighscoreList.getInstance().load(mapName);
 		} catch (SemanticException e) {
 			// TODO Enable exception after clarified why scaling does not work
 			//resetToDefault();
