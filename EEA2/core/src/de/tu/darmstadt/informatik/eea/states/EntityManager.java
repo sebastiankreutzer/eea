@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,12 +26,17 @@ public class EntityManager {
 	private List<Entity> entities;
 
 	public EntityManager(Viewport viewport) {
-		stage = new Stage(viewport);
+		stage = new Stage(viewport){
+			@Override
+			public void addActor(Actor actor) {
+				super.addActor(actor);
+				entities.add((Entity) actor);
+			}
+		};
 		entities = new ArrayList<Entity>();
 	}
 
 	public void addEntity(Entity e) {
-		entities.add(e);
 		stage.addActor(e);
 	}
 

@@ -18,6 +18,7 @@ public class SpawnPickupAction extends Action {
 		Entity pickup = new PickupFactory(type, 100, 0, 0.3f, (float)Math.random()*800, (float)Math.random()*600, true).createEntity();
 		// TODO Add to EntityManager
 		// em.addEntity(pickup);
+		getActor().getStage().addActor(pickup);
 		
 		return true;
 	}
