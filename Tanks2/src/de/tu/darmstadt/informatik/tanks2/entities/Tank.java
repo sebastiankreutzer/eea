@@ -104,7 +104,7 @@ public class Tank extends Entity implements ILife, IStrength, IShootAmmo, IMines
 
 
 	@Override
-	public int getStreangth() {
+	public int getStrength() {
 		return strength;
 	}
 

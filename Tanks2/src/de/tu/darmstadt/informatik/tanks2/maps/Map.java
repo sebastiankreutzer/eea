@@ -79,9 +79,8 @@ public class Map implements IMap {
 			//resetToDefault();
 			//throw e;
 		} catch (SyntaxException e) {
-			// TODO Enable exception
-			//resetToDefault();
-			//throw e;
+			resetToDefault();
+			throw e;
 		}
 	}
 	

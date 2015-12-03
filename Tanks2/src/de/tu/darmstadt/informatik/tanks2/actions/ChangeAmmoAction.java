@@ -24,23 +24,6 @@ public class ChangeAmmoAction extends EEAAction {
 		}
 		
 		return true;
-		
-		// TODO Avoid doing too much casting
-//		if(CollisionEvent.class.isInstance(event)){
-//			CollisionEvent colider = (CollisionEvent) event;
-//			Entity entity = colider.getCollidedEntity();
-//			if(IShootAmmo.class.isInstance(entity) && IMinesAmmo.class.isInstance(entity)){
-//				IShootAmmo shoot = (IShootAmmo) entity;
-//				shoot.changeShootAmmo(strength);
-//				
-//				IMinesAmmo mines = (IMinesAmmo) entity;
-//				mines.changeMinesAmmo((int)(strength/2));
-//				
-//				// TO DO Remove entity here or use a deleteEntityAction.
-//				//StateBasedEntityManager.getInstance().removeEntity(sb.getCurrentStateID(), colider.getOwnerEntity());
-//			}
-//		}
-//		return true;
 	}
 
 }

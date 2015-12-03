@@ -19,7 +19,7 @@ public class ShootAction extends EEAAction {
 	@Override
 	public boolean act(float delta) {
 		if(IStrength.class.isInstance(getActor())){
-			this.strength = ((IStrength) getActor()).getStreangth();
+			this.strength = ((IStrength) getActor()).getStrength();
 		}
 		
 		float rotation = getActor().getRotation();

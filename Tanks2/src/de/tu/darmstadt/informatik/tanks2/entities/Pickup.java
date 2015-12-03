@@ -38,7 +38,7 @@ public class Pickup extends Entity implements IStrength{
 	}
 
 	@Override
-	public int getStreangth() {
+	public int getStrength() {
 		return this.streangth;
 	}
 

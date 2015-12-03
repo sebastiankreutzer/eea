@@ -18,7 +18,7 @@ public class SpawnMineAction extends EEAAction {
 	@Override
 	public boolean act(float delta) {
 		if(IStrength.class.isInstance(getActor())){
-			strength = ((IStrength) getActor()).getStreangth() *2;
+			strength = ((IStrength) getActor()).getStrength() *2;
 		}
 		
 		Entity entity = new MineFactory(new Vector2(getActor().getX(), getActor().getY()),

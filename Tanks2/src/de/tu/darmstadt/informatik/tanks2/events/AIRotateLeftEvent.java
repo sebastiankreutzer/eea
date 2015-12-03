@@ -7,11 +7,10 @@ import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 
 public class AIRotateLeftEvent extends EEAEvent{
 	
-	private Entity target;
+	private Entity target = null;
 
-	public AIRotateLeftEvent(Entity target) {
+	public AIRotateLeftEvent() {
 		super("AIRotateLeftEvent");
-		this.target = target;
 	}
 	
 	@Override

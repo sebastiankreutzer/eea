@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
+import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
+import de.tu.darmstadt.informatik.eea.entity.Component;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
@@ -27,7 +29,9 @@ import de.tu.darmstadt.informatik.tanks2.events.AIShootEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
+import de.tu.darmstadt.informatik.tanks2.misc.EasyAI;
 import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
+import temp.removeASAP.Tanks;
 
 public class TankFactory {
 	
@@ -87,29 +91,29 @@ public class TankFactory {
 		if(name.equals("\"PlayerOne\"")){
 			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer.png")));
 			
-			RotateAction rightRotateAction = new RotateAction(speed);
-			RotateAction leftRotateAction = new RotateAction(-speed);
-			MoveAction forwardMoveAction = new MoveAction(speed, 0);
-			MoveAction backwardMoveAction = new MoveAction(-speed, 0);
+			RotateAction rightRotateAction = new RotateAction(-speed);
+			RotateAction leftRotateAction = new RotateAction(speed);
+			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(0, speed);
+			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(0, -speed);
 			
 			
 	    	// tank moves forward
-	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.UP), new MovementDoesNotCollideEvent(speed * 10, forwardMoveAction));
+	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.UP), new MovementDoesNotCollideEvent(speed, forwardMoveAction));
 	    	mainEvents.addAction(forwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank moves backward
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.DOWN), new MovementDoesNotCollideEvent(speed * 10, backwardMoveAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.DOWN), new MovementDoesNotCollideEvent(speed, backwardMoveAction));
 	    	mainEvents.addAction(backwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates left
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.LEFT), new MovementDoesNotCollideEvent(speed * 10, leftRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.LEFT), new MovementDoesNotCollideEvent(speed, leftRotateAction));
 	    	mainEvents.addAction(leftRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates right
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.RIGHT), new MovementDoesNotCollideEvent(speed * 10, rightRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.RIGHT), new MovementDoesNotCollideEvent(speed, rightRotateAction));
 	    	mainEvents.addAction(rightRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
@@ -208,40 +212,14 @@ public class TankFactory {
 		} else {
 			tank.addComponent(new ImageRenderComponent(new Texture("tankOppenent.png")));
 			
-			RotateAction rightRotateAction = new RotateAction(speed);
-			RotateAction leftRotateAction = new RotateAction(-speed);
-			MoveAction forwardMoveAction = new MoveAction(speed, 0);
-			MoveAction backwardMoveAction = new MoveAction(-speed, 0);
-			
-			// TODO fix AI
-			//Component component = new EasyAI(0.05f, 850000000f, 50);
-			//tank.addComponent(component);
-			// TODO Replace null with player
-			EEAEvent mainEvents = new AIRotateLeftEvent(null);
-			mainEvents.addAction(leftRotateAction);
-			tank.addComponent(mainEvents);
-			
-			mainEvents = new AIRotateRightEvent();
-			mainEvents.addAction(rightRotateAction);
-			tank.addComponent(mainEvents);
-			
 			if(this.difficulty.equals(Difficulty.NORMAL.toString())){
-				mainEvents = new AIMoveForwardEvent(speed*10, forwardMoveAction);
-				mainEvents.addAction(forwardMoveAction);
-				tank.addComponent(mainEvents);
-				
-				mainEvents = new AIMoveBackwardEvent(speed*10, backwardMoveAction);
-				mainEvents.addAction(backwardMoveAction);
-				tank.addComponent(mainEvents);
-				
+				// TODO Disable movement for easy difficulty?
 			}
 			
-			mainEvents = new ANDEvent(new HasShootAmmoLeftEvent(),new AIShootEvent());
-			mainEvents.addAction(new ShootAction());
-			mainEvents.addAction(new ChangeShootAmmoAction(-1));
-			tank.addComponent(mainEvents);
+			Component component = new EasyAI(Tanks.player1);
+			tank.addComponent(component);
 			
-			mainEvents = new TimeEvent(1000, true);
+			EEAEvent mainEvents = new TimeEvent(1000, true);
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
 		}

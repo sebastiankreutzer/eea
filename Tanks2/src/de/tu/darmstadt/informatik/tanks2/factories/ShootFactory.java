@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
+import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
@@ -54,7 +55,7 @@ public class ShootFactory {
 		
 		mainEvent = new LoopEvent();
 		// TODO Make the movement relative instead of absolute
-		mainEvent.addAction(new MoveAction(25f, 0f));
+		mainEvent.addAction(new MoveRelativeAction(0f, 25f));
 		simpleShot.addComponent(mainEvent);
 		
 		

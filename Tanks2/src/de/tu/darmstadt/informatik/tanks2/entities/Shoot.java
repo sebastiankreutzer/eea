@@ -35,7 +35,7 @@ public class Shoot extends Entity implements IStrength {
 	}
 
 	@Override
-	public int getStreangth() {
+	public int getStrength() {
 		return this.strength;
 	}
 
