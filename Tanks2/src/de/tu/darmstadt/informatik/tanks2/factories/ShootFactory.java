@@ -54,7 +54,7 @@ public class ShootFactory {
 		
 		mainEvent = new LoopEvent();
 		// TODO Make the movement relative instead of absolute
-		mainEvent.addAction(new MoveAction(0.30f, 0f));
+		mainEvent.addAction(new MoveAction(25f, 0f));
 		simpleShot.addComponent(mainEvent);
 		
 		

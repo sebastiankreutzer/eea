@@ -1,11 +1,9 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
 import de.tu.darmstadt.informatik.eea.EEAGame;
 import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 
-public class ChangeStateAction extends Action {
+public class ChangeStateAction extends EEAAction {
 	
 	private final EEAGame game;
 	private final EEAGameState state;

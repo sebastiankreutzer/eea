@@ -1,13 +1,13 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.MineFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IStrength;
 
-public class SpawnMineAction extends Action {
+public class SpawnMineAction extends EEAAction {
 	
 	private int strength;
 	
@@ -26,9 +26,7 @@ public class SpawnMineAction extends Action {
 				strength,
 				true).createEntity();
 		
-		// TODO add to entityManager
-		// em.addEntity(entity);
-		
+		getEntity().getManager().addEntity(entity);
 		return true;
 	}
 

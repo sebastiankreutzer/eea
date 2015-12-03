@@ -38,6 +38,7 @@ public class EntityManager {
 
 	public void addEntity(Entity e) {
 		stage.addActor(e);
+		e.setManager(this);
 	}
 
 	public Entity getEntity(String name) {
@@ -63,6 +64,7 @@ public class EntityManager {
 	public void removeEntity(Entity e) {
 		entities.remove(e);
 		e.remove();
+		e.setManager(null);
 	}
 
 	public Entity collides(Entity e) {

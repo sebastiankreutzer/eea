@@ -1,12 +1,11 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
+import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
 import de.tu.darmstadt.informatik.tanks2.factories.PickupFactory;
 
-public class SpawnPickupAction extends Action {
+public class SpawnPickupAction extends EEAAction {
 	
 	private PickUpType type;
 	
@@ -16,10 +15,7 @@ public class SpawnPickupAction extends Action {
 		else type = PickUpType.HEALTH;
 		
 		Entity pickup = new PickupFactory(type, 100, 0, 0.3f, (float)Math.random()*800, (float)Math.random()*600, true).createEntity();
-		// TODO Add to EntityManager
-		// em.addEntity(pickup);
-		getActor().getStage().addActor(pickup);
-		
+		getEntity().getManager().addEntity(pickup);
 		return true;
 	}
 
