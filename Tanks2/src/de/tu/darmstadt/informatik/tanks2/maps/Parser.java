@@ -1,4 +1,4 @@
-package de.tu.darmstadt.informatik.tanks2.misc;
+package de.tu.darmstadt.informatik.tanks2.maps;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,6 +16,11 @@ import de.tu.darmstadt.informatik.tanks2.factories.TowerFactory;
 import de.tu.darmstadt.informatik.tanks2.factories.WallFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IMap;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IParser;
+import de.tu.darmstadt.informatik.tanks2.misc.ErrorReporter;
+import de.tu.darmstadt.informatik.tanks2.misc.Options;
+import de.tu.darmstadt.informatik.tanks2.misc.Scanner;
+import de.tu.darmstadt.informatik.tanks2.misc.SourcePosition;
+import de.tu.darmstadt.informatik.tanks2.misc.Token;
 import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 
 public class Parser implements IParser {

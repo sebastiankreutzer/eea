@@ -1,4 +1,4 @@
-package de.tu.darmstadt.informatik.tanks2.misc;
+package de.tu.darmstadt.informatik.tanks2.maps;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,6 +10,10 @@ import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IMap;
+import de.tu.darmstadt.informatik.tanks2.misc.ErrorReporter;
+import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
+import de.tu.darmstadt.informatik.tanks2.misc.Scanner;
+import de.tu.darmstadt.informatik.tanks2.misc.SourceFile;
 
 public class Map implements IMap {
 	

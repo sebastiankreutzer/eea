@@ -15,12 +15,10 @@ public class MainMenuState extends EEAGameState {
 
 	public MainMenuState(EEAGame game) {
 		super(game);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void update(float delta) {
-		// TODO Auto-generated method stub
 
 	}
 

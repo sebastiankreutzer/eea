@@ -10,7 +10,7 @@ import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
-import de.tu.darmstadt.informatik.tanks2.misc.Map;
+import de.tu.darmstadt.informatik.tanks2.maps.Map;
 
 public class GameplayState extends EEAGameState {
 

@@ -1,4 +1,4 @@
-package de.tu.darmstadt.informatik.tanks2.misc;
+package de.tu.darmstadt.informatik.tanks2.maps;
 
 import java.util.List;
 
