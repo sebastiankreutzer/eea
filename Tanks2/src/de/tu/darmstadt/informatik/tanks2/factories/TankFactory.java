@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
+import de.tu.darmstadt.informatik.eea.entity.Component;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
@@ -27,6 +28,7 @@ import de.tu.darmstadt.informatik.tanks2.events.AIShootEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
+import de.tu.darmstadt.informatik.tanks2.misc.EasyAI;
 import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 
 public class TankFactory {
@@ -213,9 +215,10 @@ public class TankFactory {
 			MoveAction forwardMoveAction = new MoveAction(speed, 0);
 			MoveAction backwardMoveAction = new MoveAction(-speed, 0);
 			
-			//Component component = new EasyAI(0.05f, 850000000f, 50); 
-			//tank.addComponent(component);
-			EEAEvent mainEvents = new AIRotateLeftEvent();
+			Component component = new EasyAI(0.05f, 850000000f, 50);
+			tank.addComponent(component);
+			// TODO Replace null with player
+			EEAEvent mainEvents = new AIRotateLeftEvent(null);
 			mainEvents.addAction(leftRotateAction);
 			tank.addComponent(mainEvents);
 			

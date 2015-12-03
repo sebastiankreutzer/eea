@@ -16,6 +16,7 @@ import de.tu.darmstadt.informatik.tanks2.factories.TowerFactory;
 import de.tu.darmstadt.informatik.tanks2.factories.WallFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IMap;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IParser;
+import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 
 public class Parser implements IParser {
 
@@ -306,7 +307,7 @@ public class Parser implements IParser {
 		int mines = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
 		//this.accept(Token.COMMA);
-		int streangth = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
+		int strength = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
 		//this.accept(Token.COMMA);
 		float speed = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
@@ -323,7 +324,8 @@ public class Parser implements IParser {
 		//this.accept(Token.COMMA);
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
-		map.addEntity(new TankFactory(name, maxLife, life, shootsMax, shoots, minesMax, mines, streangth, speed,rotation, scaling, x, y, Options.getInstance().getDifficulty(),debug).createEntity());
+		String difficulty = Options.getInstance().getDifficulty();
+		map.addEntity(new TankFactory(name, maxLife, life, shootsMax, shoots, minesMax, mines, strength, speed,rotation, scaling, x, y, difficulty, debug).createEntity());
 		
 		//this.accept(Token.RPAREN);
 		

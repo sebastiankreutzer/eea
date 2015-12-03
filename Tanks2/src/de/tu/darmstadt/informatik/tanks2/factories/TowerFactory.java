@@ -60,8 +60,8 @@ public class TowerFactory {
 		
 		tower.addComponent(new ImageRenderComponent(new Texture("flac.png")));
 		
-		
-		EEAEvent mainEvent = new AIRotateLeftEvent();
+		//TODO Replace null with player entity
+		EEAEvent mainEvent = new AIRotateLeftEvent(null);
 		mainEvent.addAction(new RotateAction(-speed));
 		tower.addComponent(mainEvent);
 		

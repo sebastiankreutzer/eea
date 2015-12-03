@@ -2,20 +2,20 @@ package de.tu.darmstadt.informatik.tanks2.events;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 
 public class AIRotateLeftEvent extends EEAEvent{
 	
-	private Vector2 playerPosition;
+	private Entity target;
 
-	public AIRotateLeftEvent() {
+	public AIRotateLeftEvent(Entity target) {
 		super("AIRotateLeftEvent");
-		playerPosition = new Vector2(0,0);
+		this.target = target;
 	}
 	
 	@Override
 	public boolean eventTriggered(float delta) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
