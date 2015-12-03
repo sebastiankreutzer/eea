@@ -16,6 +16,7 @@ public class SpawnPickupAction extends EEAAction {
 		
 		Entity pickup = new PickupFactory(type, 100, 0, 0.3f, (float)Math.random()*800, (float)Math.random()*600, true).createEntity();
 		getEntity().getManager().addEntity(pickup);
+		
 		return true;
 	}
 
