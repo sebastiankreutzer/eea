@@ -1,10 +1,9 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
+import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
 
-public class ChangeMineAmmoAction extends Action {
+public class ChangeMineAmmoAction extends EEAAction {
 	
 	private int value;
 

@@ -1,13 +1,10 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
-import de.tu.darmstadt.informatik.eea.entity.Entity;
-import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
+import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 
-public class ChangeAmmoAction extends Action {
+public class ChangeAmmoAction extends EEAAction {
 	
 	private int strength;
 	

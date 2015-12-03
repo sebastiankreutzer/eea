@@ -1,13 +1,13 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ScatterShootFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IStrength;
 
-public class ScatterShootAction extends Action {
+public class ScatterShootAction extends EEAAction {
 	
 
 	private int strength;
@@ -31,18 +31,16 @@ public class ScatterShootAction extends Action {
 		pos.x += 2f * size.y/2.0f*java.lang.Math.sin(java.lang.Math.toRadians(rotation));
 		pos.y -= 2f *size.y/2.0f*java.lang.Math.cos(java.lang.Math.toRadians(rotation));
 		
-		// TODO this cast is not nice
 		Entity simpleShoot = new ScatterShootFactory(time,
 				strength,
-				((Entity) getActor()).getID(),
+				getEntity().getID(),
 				rotation,
 				getActor().getScaleX() * 1f,
 				pos.x,
 				pos.y,
 				true).createEntity();
 		
-		// TODO Add to entity manager
-		// em.addEntity(simpleShoot);
+		getEntity().getManager().addEntity(simpleShoot);
 		// TODO GameplayLog
 		// if(event.getOwnerEntity().getID().equals("\"PlayerOne\"")) GameplayLog.getInstance().incrementNumberOfShots(1);
 		return true;

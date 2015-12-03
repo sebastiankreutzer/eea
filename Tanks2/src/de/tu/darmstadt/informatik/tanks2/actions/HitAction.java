@@ -1,13 +1,12 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
+import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.ILife;
 
-public class HitAction extends Action {
+public class HitAction extends EEAAction {
 	
 	private int strength;
 	
@@ -25,8 +24,7 @@ public class HitAction extends Action {
 			// TODO Creating a new Factory every time an explosion occurs seems quite overkilling.
 			explosion = new ExplosionFactory(getTarget().getX() - getTarget().getWidth()/2, getTarget().getY()-getTarget().getHeight()/2, 
 					0.01f, getTarget().getWidth(), getTarget().getHeight(), false).createEntity();
-			// TODO Add explosion to entitymanager
-			// em.addEntity(explosion);
+			getEntity().getManager().addEntity(explosion);
 			
 			if(!l.hasLifeLeft()){
 				// TODO Check whether this is a good idea.

@@ -21,14 +21,11 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 
 	@Override
 	public boolean eventTriggered(float delta) {
-		// TODO Fix collision handling
 	    Vector2 position = move.getNextPosition(delta);
 
 	    // now, determine if there is a collision between this
 	    // "clone of the owning entity" and another object
-	    //Entity collider = em.collides(sb.getCurrentStateID(), entity);
-	    
-	    Entity collider = null;
+	    Entity collider = owner.getManager().collides(owner);
 
 	    // if this is not the case, or the colliding entity can be passed
 	    // without an effect, indicate that the movement can be performed.

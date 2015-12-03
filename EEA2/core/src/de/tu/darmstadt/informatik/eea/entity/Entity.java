@@ -11,6 +11,8 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import de.tu.darmstadt.informatik.eea.states.EntityManager;
+
 public class Entity extends Actor {
 
 	private final String id;
@@ -19,11 +21,14 @@ public class Entity extends Actor {
 	private Iterator<Component> iterator;
 	private RenderComponent renderComponent;
 	
+	private EntityManager manager;
+	
 	private boolean isPassable;
 
 	public Entity(String id) {
 		this.id = id;
 		isPassable = true;
+		manager = null;
 	}
 
 	public void addComponent(Component c) {
@@ -96,6 +101,18 @@ public class Entity extends Actor {
 		}
 		components.clear();
 		return super.remove();
+	}
+	
+	public boolean isActive() {
+		return manager != null;
+	}
+	
+	public void setManager(EntityManager manager) {
+		this.manager = manager;
+	}
+	
+	public EntityManager getManager() {
+		return manager;
 	}
 
 }

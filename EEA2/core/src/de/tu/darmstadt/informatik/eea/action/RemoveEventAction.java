@@ -1,11 +1,9 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 
-public class RemoveEventAction extends Action {
+public class RemoveEventAction extends EEAAction {
 	
 	private EEAEvent event;
 	
