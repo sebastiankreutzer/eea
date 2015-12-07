@@ -37,17 +37,15 @@ public class EasyAI extends AI {
 	
 	private EEAAction calculateNextMove(){
 		
-		float opponentRotation = (target.getRotation() + 360) % 360;
-		double rotation = (owner.getY() - target.getY()) / (owner.getX() - target.getX());
-		rotation = Math.toDegrees(Math.atan(rotation));
-		
-		if(owner.getX() <= target.getX()) rotation += 270;
-		else rotation += 90;
+		float opponentRotation = (owner.getRotation() + 360) % 360;
+		float rotation = (float) Math.toDegrees(
+				Math.atan2(owner.getY() - target.getY(), owner.getX() - target.getX())
+				) - 90;
 		
 		if (Math.abs(rotation - opponentRotation) >= 5){
 			float r  = (float) ((rotation + opponentRotation) % 360);
-			if(r < 180) new RotateAction(speed);
-			else new RotateAction(-speed);
+			if(r < 180) return new RotateAction(speed);
+			else return new RotateAction(-speed);
 		}
 		
 		float distance = Vector2.dst(owner.getX(), owner.getY(), target.getX(), target.getY());
@@ -56,50 +54,11 @@ public class EasyAI extends AI {
 		
 		return new ShootAction();
 	}
-	
-	private void calculateNextState(){
-		switch(state){
-		
-		case rotating: 	if(needsToRotate()) break;
-					   	if(needsToMove()) {state = State.moving; break;}
-					   	state = State.shooting; break;
-		
-		case moving:   	if(needsToRotate()) {state = State.rotating; break;}
-						if(needsToMove()) break;
-		   				state = State.shooting; break;
-		
-		case shooting:	if(needsToRotate()) {state = State.rotating; break;}
-						if(needsToMove()) {state = State.moving; break;}
-						break;			
-		}
-	}
 		
 	private boolean findTarget(){
 		target = owner.getManager().getEntity(Tanks.player1);
 		if(target != null) return true;
 		return false;
-	}
-	
-	private boolean needsToRotate(){
-		if(target != null){
-			float opponentRotation = (target.getRotation() + 360) % 360;
-			double rotation = (owner.getY() - target.getY()) / (owner.getX() - target.getX());
-			
-			//Line OpponentToPlayer = new Line(opponentPosition, playerPosition);
-			//double rotation = OpponentToPlayer.getDY() / OpponentToPlayer.getDX();
-			rotation = Math.toDegrees(Math.atan(rotation));
-			
-			if(owner.getX() <= target.getX()) rotation += 270;
-			if(owner.getX() > target.getX()) rotation += 90;
-			
-			return (Math.abs(rotation - opponentRotation) >= 5);
-		}
-		return false;
-	}
-	
-	private boolean needsToMove(){
-		float distance = Vector2.dst2(owner.getX(), owner.getY(), target.getX(), target.getY());
-		return (distance >= 300 || distance <= 250);
 	}
 
 }
