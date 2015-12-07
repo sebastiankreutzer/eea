@@ -13,10 +13,9 @@ public class EntityOutOfScreenEvent extends EEAEvent {
 	@Override
 	public boolean eventTriggered(float delta) {
 		Vector2 lb = new Vector2(owner.getX(), owner.getY());
-		if(lb.x < 0 || lb.y < 0) {
+		if(lb.x < 0 || lb.y < 0 || lb.x > owner.getStage().getWidth() || lb.y > owner.getStage().getHeight()) {
 			return true;
 		}
-		owner.getStage().getHeight();
 		return false;
 	}
 
