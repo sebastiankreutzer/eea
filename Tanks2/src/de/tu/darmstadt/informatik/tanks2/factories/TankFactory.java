@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
 import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
@@ -21,11 +22,6 @@ import de.tu.darmstadt.informatik.tanks2.actions.ScatterShootAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.actions.SpawnMineAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tank;
-import de.tu.darmstadt.informatik.tanks2.events.AIMoveBackwardEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIMoveForwardEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateRightEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIShootEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
@@ -49,11 +45,12 @@ public class TankFactory {
 	private final Vector2 position;
 	private final String difficulty;
 	private final boolean debug;
+	private EEAGraphics eeaGraphics;
 	
 	
 	public TankFactory(String name, int maxLife, int life, 
 			int shootsMax, int shoots,int minesMax, int mines, 
-			int streangth,float speed, int rotation, float scaling, int x, int y,String difficulty ,boolean debug){
+			int streangth,float speed, int rotation, float scaling, int x, int y,String difficulty ,boolean debug, EEAGraphics eeaGraphics){
 		this.name = name;
 		this.maxLife = maxLife;
 		this.life = life;
@@ -68,6 +65,7 @@ public class TankFactory {
 		this.position = new Vector2(x,y);
 		this.difficulty = difficulty;
 		this.debug = debug;
+		this.eeaGraphics = eeaGraphics;
 	}
 	
 	public Entity createEntity(){
@@ -89,7 +87,7 @@ public class TankFactory {
 		
 		//TODO Remove magic String
 		if(name.equals("\"PlayerOne\"")){
-			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer.png")));
+			tank.addComponent(new ImageRenderComponent("tankPlayer.png", eeaGraphics));
 			
 			RotateAction rightRotateAction = new RotateAction(-speed);
 			RotateAction leftRotateAction = new RotateAction(speed);
@@ -119,19 +117,19 @@ public class TankFactory {
 	    	
 	    	// tank shoots
 	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.K)) , new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ShootAction());
+	    	mainEvents.addAction(new ShootAction(eeaGraphics));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank mines
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.M), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction());
+	    	mainEvents.addAction(new SpawnMineAction(eeaGraphics));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	//Tank ScatterShoot
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.L), new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ScatterShootAction(500));
+	    	mainEvents.addAction(new ScatterShootAction(500,eeaGraphics));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
@@ -159,7 +157,7 @@ public class TankFactory {
 			// TODO GameLog
 			// GameplayLog.getInstance().setMultiplayer(true);
 			
-			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer2.png")));
+			tank.addComponent(new ImageRenderComponent("tankPlayer2.png", eeaGraphics));
 			
 			RotateAction rightRotateAction = new RotateAction(speed);
 			RotateAction leftRotateAction = new RotateAction(-speed);
@@ -188,19 +186,19 @@ public class TankFactory {
 	    	
 	    	// tank shoots
 	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.G)) , new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ShootAction());
+	    	mainEvents.addAction(new ShootAction(eeaGraphics));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank mines
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.F), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction());
+	    	mainEvents.addAction(new SpawnMineAction(eeaGraphics));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	//Tank ScatterShoot
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.H), new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ScatterShootAction(500));
+	    	mainEvents.addAction(new ScatterShootAction(500,eeaGraphics));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
@@ -210,13 +208,13 @@ public class TankFactory {
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
 		} else {
-			tank.addComponent(new ImageRenderComponent(new Texture("tankOppenent.png")));
+			tank.addComponent(new ImageRenderComponent("tankOppenent.png", eeaGraphics));
 			
 			if(this.difficulty.equals(Difficulty.NORMAL.toString())){
 				// TODO Disable movement for easy difficulty?
 			}
 			
-			Component component = new EasyAI(Tanks.player1);
+			Component component = new EasyAI(Tanks.player1, eeaGraphics);
 			tank.addComponent(component);
 			
 			EEAEvent mainEvents = new TimeEvent(1000, true);

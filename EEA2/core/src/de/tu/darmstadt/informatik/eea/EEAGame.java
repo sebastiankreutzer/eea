@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -66,5 +67,5 @@ public abstract class EEAGame extends Game {
 	public float getAspectRatio() {
 		return viewport.getScreenWidth() / viewport.getScreenHeight();
 	}
-
+	
 }

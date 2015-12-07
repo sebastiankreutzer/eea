@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.MineFactory;
@@ -10,9 +11,11 @@ import de.tu.darmstadt.informatik.tanks2.interfaces.IStrength;
 public class SpawnMineAction extends EEAAction {
 	
 	private int strength;
+	private EEAGraphics eeaGraphics;
 	
-	public SpawnMineAction(){
+	public SpawnMineAction(EEAGraphics eeaGraphics){
 		strength = 0;
+		this.eeaGraphics = eeaGraphics;
 	}
 	
 	@Override
@@ -24,7 +27,7 @@ public class SpawnMineAction extends EEAAction {
 		Entity entity = new MineFactory(new Vector2(getActor().getX(), getActor().getY()),
 				getActor().getScaleX()*2,
 				strength,
-				true).createEntity();
+				true, eeaGraphics).createEntity();
 		
 		getEntity().getManager().addEntity(entity);
 		return true;

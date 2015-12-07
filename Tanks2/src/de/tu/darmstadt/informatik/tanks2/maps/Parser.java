@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.tanks2.maps;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu.darmstadt.informatik.tanks2.factories.BackgroundFactory;
@@ -21,7 +22,6 @@ import de.tu.darmstadt.informatik.tanks2.misc.Options;
 import de.tu.darmstadt.informatik.tanks2.misc.Scanner;
 import de.tu.darmstadt.informatik.tanks2.misc.SourcePosition;
 import de.tu.darmstadt.informatik.tanks2.misc.Token;
-import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 
 public class Parser implements IParser {
 
@@ -44,25 +44,27 @@ public class Parser implements IParser {
 	  private Token currentToken;
 	  private SourcePosition previousTokenPosition;
 	  private boolean debug;
-
-	  public Parser(Scanner lexer, ErrorReporter reporter) {
+	  private EEAGraphics eeaGraphics;
+	
+	  public Parser(Scanner lexer, ErrorReporter reporter, EEAGraphics eeaGraphics) {
 	    lexicalAnalyser = lexer;
 	    errorReporter = reporter;
 	    previousTokenPosition = new SourcePosition();
 	    debug = false;
+	    this.eeaGraphics = eeaGraphics;
 	  }
 	  
 	  public void setDebug(boolean debug){
 		  this.debug = debug;
 	  }
 	
-	public IMap parseMap() throws SyntaxException {
+	  public IMap parseMap() throws SyntaxException {
 		
 	    previousTokenPosition.start = 0;
 	    previousTokenPosition.finish = 0;
 	    currentToken = lexicalAnalyser.scan();
 		
-		Map map = parse(Map.getInstance());
+		Map map = parse(Map.getInstance(eeaGraphics));
 		while(currentToken.getType() != Token.EOT){
 			switch(currentToken.getType()){
 				case Token.Tank:
@@ -114,7 +116,7 @@ public class Parser implements IParser {
 		int x = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
-		map.addEntity(new MineFactory(new Vector2(x, y), scale, strength, debug).createEntity());
+		map.addEntity(new MineFactory(new Vector2(x, y), scale, strength, debug, eeaGraphics).createEntity());
 		return map;
 	}
 	protected Map parseScattershoot(Map map) throws SyntaxException {
@@ -131,7 +133,7 @@ public class Parser implements IParser {
 
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 
-		map.addEntity(new ScatterShootFactory(time, streangth, "Shoot", rotation, scale, x,y , debug).createEntity());	
+		map.addEntity(new ScatterShootFactory(time, streangth, "Shoot", rotation, scale, x,y , debug, eeaGraphics).createEntity());	
 		
 		return map;
 	}
@@ -151,7 +153,7 @@ public class Parser implements IParser {
 		
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
-		map.addEntity(new PickupFactory(type, streangth, rotation, scaling, x, y, debug).createEntity());
+		map.addEntity(new PickupFactory(type, streangth, rotation, scaling, x, y, debug, eeaGraphics).createEntity());
 		
 		
 		return map;
@@ -179,7 +181,7 @@ public class Parser implements IParser {
 //		GameplayLog.getInstance().getTimer().setElapsedTime(time);
 //		GameplayLog.getInstance().setNumberOfShots(shots);
 		
-		map.addEntity(new BackgroundFactory(backGround.substring(1, backGround.length()-1)).createEntity());
+		map.addEntity(new BackgroundFactory(backGround.substring(1, backGround.length()-1), this.eeaGraphics).createEntity());
 		
 		return map;
 	}
@@ -219,7 +221,7 @@ public class Parser implements IParser {
 		
 		
 		
-		map.addEntity(new TowerFactory(maxLife, life, maxShoots, shoots, streangth, speed, rotation, scaling, x, y, debug).createEntity());
+		map.addEntity(new TowerFactory(maxLife, life, maxShoots, shoots, streangth, speed, rotation, scaling, x, y, debug, eeaGraphics).createEntity());
 		
 		return map;
 	}
@@ -269,7 +271,7 @@ public class Parser implements IParser {
 		
 		//this.accept(Token.RPAREN);
 		
-		map.addEntity(new ExplosionFactory(x, y, speed, width, height, debug).createEntity());
+		map.addEntity(new ExplosionFactory(x, y, speed, width, height, debug, eeaGraphics).createEntity());
 		return map;
 	}
 	
@@ -330,7 +332,7 @@ public class Parser implements IParser {
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
 		String difficulty = Options.getInstance().getDifficulty();
-		map.addEntity(new TankFactory(name, maxLife, life, shootsMax, shoots, minesMax, mines, strength, speed,rotation, scaling, x, y, difficulty, debug).createEntity());
+		map.addEntity(new TankFactory(name, maxLife, life, shootsMax, shoots, minesMax, mines, strength, speed,rotation, scaling, x, y, difficulty, debug, eeaGraphics).createEntity());
 		
 		//this.accept(Token.RPAREN);
 		
@@ -363,7 +365,7 @@ public class Parser implements IParser {
 		
 		//this.accept(Token.RPAREN);
 		
-		map.addEntity(new ShootFactory(streangth, "Shoot", rotation, scale, x,y , debug).createEntity());		
+		map.addEntity(new ShootFactory(streangth, "Shoot", rotation, scale, x,y , debug, eeaGraphics).createEntity());		
 		return map;
 	}
 	
@@ -390,7 +392,7 @@ public class Parser implements IParser {
 		//this.accept(Token.COMMA);
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
-		map.addEntity(new WallFactory(maxLife, life, rotation, scaling, x, y, debug).createEntity());
+		map.addEntity(new WallFactory(maxLife, life, rotation, scaling, x, y, debug, eeaGraphics).createEntity());
 		
 		//this.accept(Token.RPAREN);
 		return map;

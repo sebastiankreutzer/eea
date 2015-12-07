@@ -3,6 +3,7 @@ package de.tu.darmstadt.informatik.tanks2.misc;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
@@ -19,8 +20,11 @@ public class EasyAI extends AI {
 	
 	float speed = 0, strength = 0;
 
-	public EasyAI(String target) {
+	private EEAGraphics eeaGraphics;
+
+	public EasyAI(String target, EEAGraphics eeaGraphics) {
 		super(ID, target);
+		this.eeaGraphics = eeaGraphics;
 		if(owner instanceof Tank){
 			Tank tank = (Tank) owner;
 			speed = tank.getSpeed();
@@ -52,7 +56,7 @@ public class EasyAI extends AI {
 		if (distance >= 300) return new MoveAction(speed, 0);
 		if (distance <= 250) return new MoveAction(-speed, 0);
 		
-		return new ShootAction();
+		return new ShootAction(eeaGraphics);
 	}
 		
 	private boolean findTarget(){

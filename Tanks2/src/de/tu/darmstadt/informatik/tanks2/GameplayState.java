@@ -18,7 +18,7 @@ public class GameplayState extends EEAGameState {
 
 	public GameplayState(EEAGame game) {
 		super(game);
-	    this.map = Map.getInstance();
+	    this.map = Map.getInstance(game.graphics);
 	}
 
 	@Override

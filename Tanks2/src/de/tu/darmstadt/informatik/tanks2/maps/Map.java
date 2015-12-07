@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
@@ -21,6 +22,7 @@ public class Map implements IMap {
 	private String source;
 	private static Map map = new Map();
 	private List<Entity> entities;
+	private EEAGraphics eeaGraphics;
 	
 	private Map() {
 		entities = new CopyOnWriteArrayList<Entity>();
@@ -41,7 +43,8 @@ public class Map implements IMap {
 		return entities;
 	}
 	
-	public static Map getInstance() {
+	public static Map getInstance(EEAGraphics eeaGraphics) {
+		map.eeaGraphics = eeaGraphics;
 		return map;
 	}
 	
@@ -67,7 +70,7 @@ public class Map implements IMap {
 		source = map;
 		SourceFile sc = new SourceFile(source);
 		Scanner lexer = new Scanner(sc);
-		Parser parser = new Parser(lexer, new ErrorReporter());
+		Parser parser = new Parser(lexer, new ErrorReporter(), eeaGraphics);
 		parser.setDebug(debug);
 		try {
 			new Checker(parser.parseMap()).check();

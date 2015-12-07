@@ -38,7 +38,7 @@ public class OptionsState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente
+		background.addComponent(new ImageRenderComponent("menu.png", game.graphics)); // Bildkomponente
 		
 		// Erzeuge folgendes Event "Escape-Taste gedrueckt"
 		EEAEvent ESC_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
@@ -68,7 +68,7 @@ public class OptionsState extends EEAGameState {
 				return true;
 			}    		
     	};
-		mef.prepareMenuEntry("Ton", new Texture("entry.png"), toggleSound);
+		mef.prepareMenuEntry("Ton", "entry.png", toggleSound);
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText().addComponent(soundText);
 		
@@ -85,7 +85,7 @@ public class OptionsState extends EEAGameState {
 				return true;
 			}
 		};
-		mef.prepareMenuEntry("Schwierigkeit", new Texture("entry.png"), difficulty);
+		mef.prepareMenuEntry("Schwierigkeit","entry.png", difficulty);
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText().addComponent(difficultyText);
 	}

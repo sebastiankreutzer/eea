@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ShootFactory;
@@ -11,9 +12,11 @@ public class ShootAction extends EEAAction {
 	
 
 	private int strength;
+	private EEAGraphics eeaGraphics;
 
-	public ShootAction(){
+	public ShootAction(EEAGraphics eeaGraphics){
 		this.strength = 0;
+		this.eeaGraphics = eeaGraphics;
 	}
 	
 	@Override
@@ -35,7 +38,7 @@ public class ShootAction extends EEAAction {
 				getActor().getScaleX() * 0.5f,
 				pos.x,
 				pos.y,
-				true).createEntity();
+				true, eeaGraphics).createEntity();
 		
 		getEntity().getManager().addEntity(simpleShoot);
 		// TODO GameplayLog

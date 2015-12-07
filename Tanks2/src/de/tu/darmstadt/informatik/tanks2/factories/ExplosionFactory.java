@@ -1,12 +1,8 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import de.tu.darmstadt.informatik.eea.entity.AnimationRenderComponent;
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu.darmstadt.informatik.eea.entity.RenderComponent;
 import de.tu.darmstadt.informatik.tanks2.entities.Explosion;
 
 public class ExplosionFactory {
@@ -18,14 +14,16 @@ public class ExplosionFactory {
 	final float width;
 	final float height;
 	final boolean debug;
+	private EEAGraphics eeaGraphics;
 	
-	public ExplosionFactory(float x, float y, float speed, float width, float height, boolean debug){
+	public ExplosionFactory(float x, float y, float speed, float width, float height, boolean debug, EEAGraphics eeaGraphics){
 		this.debug = debug;
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
 		this.width = width;
 		this.height = height;
+		this.eeaGraphics = eeaGraphics;
 	}
 	
 	public Entity createEntity() {
@@ -51,7 +49,7 @@ public class ExplosionFactory {
 //				new TextureRegion(new Texture("expl15.png")),
 //				new TextureRegion(new Texture("expl16.png"))
 //		});// 0.01f, width, height, false);
-		ImageRenderComponent anim = new ImageRenderComponent(new Texture("expl02.png"));
+		ImageRenderComponent anim = new ImageRenderComponent("expl02.png", eeaGraphics);
 		explosion.addComponent(anim);
 		return explosion;
 	}
