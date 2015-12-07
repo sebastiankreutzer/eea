@@ -1,8 +1,8 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.math.Vector2;
 
-public class MoveAction extends Action {
+public class MoveAction extends EEAMovement {
 	
 	private float dX, dY;
 	
@@ -12,9 +12,10 @@ public class MoveAction extends Action {
 	}
 
 	@Override
-	public boolean act(float delta) {
-		target.moveBy(dX * delta, dY * delta);
-		return true;
+	public Vector2 getNextPosition(float delta) {
+		Vector2 p = new Vector2(getActor().getX(), getActor().getY());
+		p.add(dX * delta, dY * delta);
+		return p;
 	}
 	
 }

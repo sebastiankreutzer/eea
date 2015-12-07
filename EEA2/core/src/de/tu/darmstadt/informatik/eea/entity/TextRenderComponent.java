@@ -17,6 +17,10 @@ public class TextRenderComponent extends RenderComponent {
 		this.text = text;
 		graphics = eeagraphics;
 	}
+	
+	public void setText(String text){
+		this.text = text;
+	}
 
 	@Override
 	public void render(Batch batch) {

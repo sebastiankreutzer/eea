@@ -1,21 +1,19 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
 import de.tu.darmstadt.informatik.eea.EEAGame;
-import de.tu.darmstadt.informatik.eea.states.BasicGameState;
+import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 
-public class ChangeStateAction extends Action {
+public class ChangeStateAction extends EEAAction {
 	
 	private final EEAGame game;
-	private final BasicGameState state;
+	private final EEAGameState state;
 	private boolean reset;
 	
-	public ChangeStateAction(EEAGame game, BasicGameState state){
+	public ChangeStateAction(EEAGame game, EEAGameState state){
 		this(game, state, false);
 	}
 	
-	public ChangeStateAction(EEAGame game, BasicGameState state, boolean resetOldState){
+	public ChangeStateAction(EEAGame game, EEAGameState state, boolean resetOldState){
 		this.game = game;
 		this.state = state;
 		this.reset = resetOldState;

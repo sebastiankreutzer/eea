@@ -17,10 +17,10 @@ import de.tu.darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu.darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu.darmstadt.informatik.eea.event.LoopEvent;
 import de.tu.darmstadt.informatik.eea.event.MouseClickedEvent;
-import de.tu.darmstadt.informatik.eea.states.BasicGameState;
+import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 import de.tu.darmstadt.informatik.sampleGame.LaunchGame;
 
-public class GameplayState extends BasicGameState {
+public class GameplayState extends EEAGameState {
 
 	public GameplayState(EEAGame game) {
 		super(game);

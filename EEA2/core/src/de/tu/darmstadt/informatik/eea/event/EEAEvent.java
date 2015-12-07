@@ -9,7 +9,7 @@ import de.tu.darmstadt.informatik.eea.entity.Entity;
 
 public abstract class EEAEvent extends Component {
 	
-	private ArrayList<Action> actions;
+	protected ArrayList<Action> actions;
 
 	public EEAEvent(String componentID) {
 		super(componentID);

@@ -11,6 +11,8 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import de.tu.darmstadt.informatik.eea.states.EntityManager;
+
 public class Entity extends Actor {
 
 	private final String id;
@@ -18,9 +20,15 @@ public class Entity extends Actor {
 	private List<Component> components = new ArrayList<Component>();
 	private Iterator<Component> iterator;
 	private RenderComponent renderComponent;
+	
+	private EntityManager manager;
+	
+	private boolean isPassable;
 
 	public Entity(String id) {
 		this.id = id;
+		isPassable = true;
+		manager = null;
 	}
 
 	public void addComponent(Component c) {
@@ -57,11 +65,13 @@ public class Entity extends Actor {
 	public Shape getShape() {
 		Shape shape = new Rectangle.Float(getX(), getY(), getWidth(), getHeight());
 		AffineTransform at = new AffineTransform();
-		at.rotate(Math.toRadians(getRotation()), getOriginX(), getOriginY());
+		at.rotate(Math.toRadians(getRotation()), getOriginX()+getX(), getOriginY()+getY());
 		return at.createTransformedShape(shape);
 	}
 	
 	public boolean collides(Entity other) {
+	    if (other == null || (id != null && id.equals(other.getID())))
+	        return false;
 		// Note: Shape does not allow to directly test for intersection of two rotated rectangles.
 		Area area = new Area(getShape());
 		Area otherArea = new Area(other.getShape());
@@ -73,6 +83,14 @@ public class Entity extends Actor {
 	public String getID() {
 		return id;
 	}
+	
+	public void setPassable(boolean passable){
+		isPassable = passable;
+	}
+	
+	public boolean isPassable(){
+		return isPassable;
+	}
 
 	@Override
 	public boolean remove() {
@@ -83,6 +101,18 @@ public class Entity extends Actor {
 		}
 		components.clear();
 		return super.remove();
+	}
+	
+	public boolean isActive() {
+		return manager != null;
+	}
+	
+	public void setManager(EntityManager manager) {
+		this.manager = manager;
+	}
+	
+	public EntityManager getManager() {
+		return manager;
 	}
 
 }

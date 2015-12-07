@@ -24,13 +24,19 @@ public class EntityManager {
 	private List<Entity> entities;
 
 	public EntityManager(Viewport viewport) {
-		stage = new Stage(viewport);
+		stage = new Stage(viewport){
+			@Override
+			public void addActor(Actor actor) {
+				super.addActor(actor);
+				entities.add((Entity) actor);
+			}
+		};
 		entities = new ArrayList<Entity>();
 	}
 
 	public void addEntity(Entity e) {
-		entities.add(e);
 		stage.addActor(e);
+		e.setManager(this);
 	}
 
 	public Entity getEntity(String name) {
@@ -56,6 +62,7 @@ public class EntityManager {
 	public void removeEntity(Entity e) {
 		entities.remove(e);
 		e.remove();
+		e.setManager(null);
 	}
 
 	public Entity collides(Entity e) {
@@ -98,6 +105,10 @@ public class EntityManager {
 	public void dispose() {
 		reset();
 		stage.dispose();
+	}
+
+	public void setDebug(boolean b) {
+		stage.setDebugAll(b);
 	}
 
 }
