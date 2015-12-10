@@ -10,6 +10,7 @@ import de.tu.darmstadt.informatik.eea.action.RotateAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tank;
+import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 import temp.removeASAP.Tanks;
 
 public class EasyAI extends AI {
@@ -46,22 +47,26 @@ public class EasyAI extends AI {
 				) + 90;
 		float deltaRotation = ((owner.getRotation() - rotationToTarget) % 360 + 360) % 360;
 		
-		if (Math.abs(deltaRotation - 180) <= 175) {
-			if(deltaRotation < 180) return new RotateAction(-speed);
-			else return new RotateAction(speed);
-		}
+		if (Math.abs(deltaRotation - 180) <= 175) return determineRotateAction(deltaRotation);
 		
 		float distance = Vector2.dst2(owner.getX(), owner.getY(), target.getX(), target.getY());
 		if (distance <= Math.pow(250, 2)) return new MoveRelativeAction(-speed, 0);
 		if (distance >= Math.pow(300, 2)) return new MoveRelativeAction(speed, 0);
 		
-		return new ShootAction();
+		if(((IShootAmmo) owner).hasShootAmmo())	return new ShootAction();
+		
+		return determineRotateAction(deltaRotation);
 	}
 		
 	private boolean findTarget(){
 		target = owner.getManager().getEntity(Tanks.player1);
 		if(target != null) return true;
 		return false;
+	}
+	
+	private RotateAction determineRotateAction(float deltaRotation){
+		if(deltaRotation < 180) return new RotateAction(-speed);
+		else return new RotateAction(speed);		
 	}
 
 }

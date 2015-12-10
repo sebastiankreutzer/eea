@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ShootFactory;
+import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IStrength;
 import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 
@@ -21,6 +22,7 @@ public class ShootAction extends EEAAction {
 	public boolean act(float delta) {
 		if(IStrength.class.isInstance(getActor())){
 			this.strength = ((IStrength) getActor()).getStrength();
+			((IShootAmmo) getActor()).changeShootAmmo(-1);
 		}
 		
 		float rotation = getActor().getRotation();

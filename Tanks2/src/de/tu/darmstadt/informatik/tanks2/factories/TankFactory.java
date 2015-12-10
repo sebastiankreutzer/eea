@@ -221,7 +221,7 @@ public class TankFactory {
 			Component component = new EasyAI(Tanks.player1);
 			tank.addComponent(component);
 			
-			EEAEvent mainEvents = new TimeEvent(1000, true);
+			EEAEvent mainEvents = new TimeEvent(10, true);
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
 		}

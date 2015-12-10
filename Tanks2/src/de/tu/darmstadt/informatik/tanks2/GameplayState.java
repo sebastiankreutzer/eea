@@ -15,6 +15,8 @@ import de.tu.darmstadt.informatik.tanks2.maps.Map;
 public class GameplayState extends EEAGameState {
 
 	private Map map;
+	
+	private Entity ammoLabel, lifeLabel;
 
 	public GameplayState(EEAGame game) {
 		super(game);
