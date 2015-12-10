@@ -4,14 +4,18 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.awt.geom.PathIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import de.tu.darmstadt.informatik.eea.states.EntityManager;
+import sun.java2d.pipe.ShapeSpanIterator;
 
 public class Entity extends Actor {
 
@@ -77,6 +81,7 @@ public class Entity extends Actor {
 		Area otherArea = new Area(other.getShape());
 		// Set the first area to the intersection of the two shapes and test if the result is empty.
 		area.intersect(otherArea);
+		
 		return !area.isEmpty();
 	}
 

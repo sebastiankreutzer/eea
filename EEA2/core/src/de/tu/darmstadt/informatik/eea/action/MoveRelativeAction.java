@@ -4,11 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MoveRelativeAction extends EEAMovement {
 	
-	float dC, dO;
+	float deltaOrtho, deltaLinear;
 	
-	public MoveRelativeAction(float colinear, float orthogonal) {
-		dC = colinear;
-		dO = orthogonal;
+	public MoveRelativeAction(float linear, float ortho) {
+		deltaOrtho = ortho;
+		deltaLinear = linear;
 	}
 
 	@Override
@@ -19,8 +19,8 @@ public class MoveRelativeAction extends EEAMovement {
 		float sin = (float) Math.sin(rotation);
 		
 		return new Vector2(
-				(dC * cos - dO * sin) * delta + getActor().getX(),
-				(dC * sin + dO * cos) * delta + getActor().getY()
+				(deltaOrtho * cos - deltaLinear * sin) * delta + getActor().getX(),
+				(deltaOrtho * sin + deltaLinear * cos) * delta + getActor().getY()
 				);
 	}
 

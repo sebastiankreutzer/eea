@@ -5,7 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
+import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
+import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tank;
 import temp.removeASAP.Tanks;
@@ -21,6 +23,11 @@ public class EasyAI extends AI {
 
 	public EasyAI(String target) {
 		super(ID, target);
+	}
+	
+	@Override
+	public void setOwnerEntity(Entity owningEntity) {
+		super.setOwnerEntity(owningEntity);
 		if(owner instanceof Tank){
 			Tank tank = (Tank) owner;
 			speed = tank.getSpeed();
@@ -37,20 +44,22 @@ public class EasyAI extends AI {
 	
 	private EEAAction calculateNextMove(){
 		
-		float opponentRotation = (owner.getRotation() + 360) % 360;
-		float rotation = (float) Math.toDegrees(
+		float rotationToTarget = (float) Math.toDegrees(
 				Math.atan2(owner.getY() - target.getY(), owner.getX() - target.getX())
-				) - 90;
+				) + 90;
+
 		
-		if (Math.abs(rotation - opponentRotation) >= 5){
-			float r  = (float) ((rotation + opponentRotation) % 360);
-			if(r < 180) return new RotateAction(speed);
-			else return new RotateAction(-speed);
+		float rot = ((owner.getRotation() - rotationToTarget) % 360 + 360) % 360;
+		System.out.println(rot);
+		
+		if (Math.abs(rot - 180) <= 175) {
+			if(rot < 180) return new RotateAction(-speed);
+			else return new RotateAction(speed);
 		}
 		
-		float distance = Vector2.dst(owner.getX(), owner.getY(), target.getX(), target.getY());
-		if (distance >= 300) return new MoveAction(speed, 0);
-		if (distance <= 250) return new MoveAction(-speed, 0);
+		float distance = Vector2.dst2(owner.getX(), owner.getY(), target.getX(), target.getY());
+		if (distance <= Math.pow(250, 2)) return new MoveRelativeAction(-speed, 0);
+		if (distance >= Math.pow(300, 2)) return new MoveRelativeAction(speed, 0);
 		
 		return new ShootAction();
 	}

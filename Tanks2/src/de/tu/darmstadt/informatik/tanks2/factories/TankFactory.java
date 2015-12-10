@@ -30,6 +30,7 @@ import de.tu.darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.misc.EasyAI;
+import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 import temp.removeASAP.Tanks;
 
@@ -62,7 +63,8 @@ public class TankFactory {
 		this.minesMax = minesMax;
 		this.mines = mines;
 		this.streangth = streangth;
-		this.speed = speed;
+		// TODO Debug
+		this.speed = speed *10;
 		this.rotation = rotation;
 		this.scaling = scaling;
 		this.position = new Vector2(x,y);
@@ -91,10 +93,11 @@ public class TankFactory {
 		if(name.equals("\"PlayerOne\"")){
 			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer.png")));
 			
-			RotateAction rightRotateAction = new RotateAction(-speed);
-			RotateAction leftRotateAction = new RotateAction(speed);
-			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(0, speed);
-			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(0, -speed);
+			// TODO Remove debug values
+			RotateAction rightRotateAction = new RotateAction(-speed*2);
+			RotateAction leftRotateAction = new RotateAction(speed*2);
+			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
+			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
 			
 			
 	    	// tank moves forward
@@ -156,8 +159,7 @@ public class TankFactory {
 		} else if(name.equals("Player2")){
 			
 			// Mehrspielermodus
-			// TODO GameLog
-			// GameplayLog.getInstance().setMultiplayer(true);
+			GameplayLog.getInstance().setMultiplayer(true);
 			
 			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer2.png")));
 			
