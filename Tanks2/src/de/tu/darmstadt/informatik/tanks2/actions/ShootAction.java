@@ -6,6 +6,7 @@ import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ShootFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IStrength;
+import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 
 public class ShootAction extends EEAAction {
 	
@@ -26,8 +27,9 @@ public class ShootAction extends EEAAction {
 		Vector2 pos = new Vector2(getActor().getX(), getActor().getY());
 		Vector2 size = new Vector2(getActor().getWidth(), getActor().getHeight());
 		
-		pos.x += 2f * size.y/2.0f*java.lang.Math.sin(java.lang.Math.toRadians(rotation));
-		pos.y -= 2f *size.y/2.0f*java.lang.Math.cos(java.lang.Math.toRadians(rotation));
+		// TODO Set to center
+		//pos.x += 2f * size.y/2.0f*java.lang.Math.sin(java.lang.Math.toRadians(rotation));
+		//pos.y -= 2f *size.y/2.0f*java.lang.Math.cos(java.lang.Math.toRadians(rotation));
 		
 		Entity simpleShoot = new ShootFactory(strength,
 				getEntity().getID(),
@@ -38,8 +40,10 @@ public class ShootAction extends EEAAction {
 				true).createEntity();
 		
 		getEntity().getManager().addEntity(simpleShoot);
-		// TODO GameplayLog
-		// if(event.getOwnerEntity().getID().equals("\"PlayerOne\"")) GameplayLog.getInstance().incrementNumberOfShots(1);
+		
+		if(getEntity().getID().equals("\"PlayerOne\"")){
+			GameplayLog.getInstance().incrementNumberOfShots(1);
+		}
 		return true;
 	}
 	

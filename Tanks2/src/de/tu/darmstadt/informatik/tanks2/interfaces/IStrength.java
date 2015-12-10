@@ -4,6 +4,6 @@ public interface IStrength {
 	
 	public void changeStreangth(int value);
 	public int getStrength();
-	public void setStreangth(int streangth);
+	public void setStrength(int streangth);
 
 }

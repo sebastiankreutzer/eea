@@ -37,7 +37,7 @@ public class PickupFactory {
 	
 	public Entity createEntity() {
 		Pickup pickup = new Pickup(type);
-		pickup.setStreangth(strength);
+		pickup.setStrength(strength);
 		pickup.setScale(scaling);
 		pickup.setPosition(position.x, position.y);
 		pickup.setRotation(rotation);

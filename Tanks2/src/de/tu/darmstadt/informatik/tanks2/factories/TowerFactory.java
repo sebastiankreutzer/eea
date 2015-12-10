@@ -51,7 +51,7 @@ public class TowerFactory {
 		tower.setLife(life);
 		tower.setShootMaxAmmo(maxShoots);
 		tower.setShootAtmmo(shoots);
-		tower.setStreangth(streangth);
+		tower.setStrength(streangth);
 		tower.setRotation(rotation);
 		tower.setScale(scaling);
 		tower.setPosition(position.x, position.y);

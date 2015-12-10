@@ -40,7 +40,7 @@ public class Shoot extends Entity implements IStrength {
 	}
 
 	@Override
-	public void setStreangth(int streangth) {
+	public void setStrength(int streangth) {
 		this.strength = streangth;
 	}
 

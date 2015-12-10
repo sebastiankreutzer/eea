@@ -16,9 +16,6 @@ public class EasyAI extends AI {
 	
 	public static final String ID = "EasyAI";
 	
-	private static enum State {rotating, moving, shooting};
-	private State state = State.rotating;
-	
 	float speed = 0, strength = 0;
 
 	public EasyAI(String target) {
@@ -47,13 +44,10 @@ public class EasyAI extends AI {
 		float rotationToTarget = (float) Math.toDegrees(
 				Math.atan2(owner.getY() - target.getY(), owner.getX() - target.getX())
 				) + 90;
-
+		float deltaRotation = ((owner.getRotation() - rotationToTarget) % 360 + 360) % 360;
 		
-		float rot = ((owner.getRotation() - rotationToTarget) % 360 + 360) % 360;
-		System.out.println(rot);
-		
-		if (Math.abs(rot - 180) <= 175) {
-			if(rot < 180) return new RotateAction(-speed);
+		if (Math.abs(deltaRotation - 180) <= 175) {
+			if(deltaRotation < 180) return new RotateAction(-speed);
 			else return new RotateAction(speed);
 		}
 		

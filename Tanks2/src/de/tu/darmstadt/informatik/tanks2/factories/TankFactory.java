@@ -43,7 +43,7 @@ public class TankFactory {
 	private final int shootsMax;
 	private final int mines;
 	private final int minesMax;
-	private final int streangth;
+	private final int strength;
 	private final float speed;
 	private final int rotation;
 	private final float scaling;
@@ -62,7 +62,7 @@ public class TankFactory {
 		this.shoots = shoots;
 		this.minesMax = minesMax;
 		this.mines = mines;
-		this.streangth = streangth;
+		this.strength = streangth;
 		// TODO Debug
 		this.speed = speed *10;
 		this.rotation = rotation;
@@ -87,7 +87,7 @@ public class TankFactory {
 		tank.setShootAtmmo(shoots);
 		tank.setMinesMaxAmmo(minesMax);
 		tank.setMinesAmmo(mines);
-		tank.setStreangth(streangth);
+		tank.setStrength(strength);
 		
 		//TODO Remove magic String
 		if(name.equals("\"PlayerOne\"")){
@@ -155,18 +155,18 @@ public class TankFactory {
 	    	//mainEvents = new CollisionEvent();
 	    	//mainEvents.addAction(new HitAction(30));
 	    	//tank.AddEvent(mainEvents);
-	    	// TODO Replace this magic string
-		} else if(name.equals("Player2")){
+	    	
+		} else if(name.equals(Tanks.player2)){
 			
 			// Mehrspielermodus
 			GameplayLog.getInstance().setMultiplayer(true);
 			
 			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer2.png")));
 			
-			RotateAction rightRotateAction = new RotateAction(speed);
-			RotateAction leftRotateAction = new RotateAction(-speed);
-			MoveAction forwardMoveAction = new MoveAction(speed, 0);
-			MoveAction backwardMoveAction = new MoveAction(-speed, 0);
+			RotateAction rightRotateAction = new RotateAction(-speed);
+			RotateAction leftRotateAction = new RotateAction(speed);
+			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
+			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
 			
 	    	// tank moves forward
 	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.W), new MovementDoesNotCollideEvent(speed * 10, forwardMoveAction));
