@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
 import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
-import de.tu.darmstadt.informatik.eea.entity.Component;
+import de.tu.darmstadt.informatik.eea.entity.EEAComponent;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
@@ -218,7 +218,7 @@ public class TankFactory {
 				// TODO Disable movement for easy difficulty?
 			}
 			
-			Component component = new EasyAI(Tanks.player1);
+			EEAComponent component = new EasyAI(Tanks.player1);
 			tank.addComponent(component);
 			
 			EEAEvent mainEvents = new TimeEvent(10, true);

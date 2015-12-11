@@ -21,8 +21,8 @@ public class Entity extends Actor {
 
 	private final String id;
 
-	private List<Component> components = new ArrayList<Component>();
-	private Iterator<Component> iterator;
+	private List<EEAComponent> components = new ArrayList<EEAComponent>();
+	private Iterator<EEAComponent> iterator;
 	private RenderComponent renderComponent;
 	
 	private EntityManager manager;
@@ -35,7 +35,7 @@ public class Entity extends Actor {
 		manager = null;
 	}
 
-	public void addComponent(Component c) {
+	public void addComponent(EEAComponent c) {
 		components.add(c);
 
 		if (c instanceof RenderComponent)
@@ -45,7 +45,7 @@ public class Entity extends Actor {
 		c.onAddComponent();
 	}
 
-	public void removeComponent(Component c) {
+	public void removeComponent(EEAComponent c) {
 		c.onRemoveComponent();
 		components.remove(c);
 	}

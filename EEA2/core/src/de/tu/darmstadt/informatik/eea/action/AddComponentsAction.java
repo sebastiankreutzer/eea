@@ -1,21 +1,21 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import de.tu.darmstadt.informatik.eea.entity.Component;
+import de.tu.darmstadt.informatik.eea.entity.EEAComponent;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 
 public class AddComponentsAction extends EEAAction {
 	
-	private Component[] components;
+	private EEAComponent[] components;
 	private Entity entity;
 	
-	public AddComponentsAction(Entity entity, Component... components){
+	public AddComponentsAction(Entity entity, EEAComponent... components){
 		this.components = components;
 		this.entity = entity;
 	}
 
 	@Override
 	public boolean act (float delta) {
-		for(Component component : components){
+		for(EEAComponent component : components){
 			entity.addComponent(component);
 		}
 		return true;
