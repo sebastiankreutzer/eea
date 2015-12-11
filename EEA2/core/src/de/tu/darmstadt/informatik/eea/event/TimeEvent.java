@@ -1,6 +1,4 @@
-package de.tu.darmstadt.informatik.tanks2.events;
-
-import de.tu.darmstadt.informatik.eea.event.EEAEvent;
+package de.tu.darmstadt.informatik.eea.event;
 
 public class TimeEvent extends EEAEvent {
 	

@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu.darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
-import de.tu.darmstadt.informatik.tanks2.actions.AddComponentsAction;
+import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeLifeAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
-import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
 
 public class PickupFactory {
 	

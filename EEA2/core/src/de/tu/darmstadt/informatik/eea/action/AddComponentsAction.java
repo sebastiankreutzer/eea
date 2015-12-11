@@ -1,6 +1,5 @@
-package de.tu.darmstadt.informatik.tanks2.actions;
+package de.tu.darmstadt.informatik.eea.action;
 
-import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Component;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 

@@ -10,10 +10,10 @@ import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 import de.tu.darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu.darmstadt.informatik.eea.event.LoopEvent;
+import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.HitAction;
 import de.tu.darmstadt.informatik.tanks2.actions.SpawnShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.ScatterShoot;
-import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
 
 public class ScatterShootFactory extends ShootFactory {
 	

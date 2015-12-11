@@ -8,6 +8,7 @@ import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
+import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tower;
@@ -15,7 +16,6 @@ import de.tu.darmstadt.informatik.tanks2.events.AIRotateLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.AIRotateRightEvent;
 import de.tu.darmstadt.informatik.tanks2.events.AIShootEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
 
 public class TowerFactory {
 
