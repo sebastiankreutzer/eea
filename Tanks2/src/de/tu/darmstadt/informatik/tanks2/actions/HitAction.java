@@ -1,5 +1,6 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
+
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -20,10 +21,8 @@ public class HitAction extends EEAAction {
 			ILife l = (ILife) getTarget();
 			l.changeLife(-strength);
 			
-			Entity explosion = new Entity("Explosion");
-			// TODO Creating a new Factory every time an explosion occurs seems quite overkilling.
-			explosion = new ExplosionFactory(getTarget().getX() - getTarget().getWidth()/2, getTarget().getY()-getTarget().getHeight()/2, 
-					0.01f, getTarget().getWidth(), getTarget().getHeight(), false).createEntity();
+			Entity explosion = ExplosionFactory.createExplosion(getTarget().getX(), getTarget().getY(), 
+					0.01f, getTarget().getWidth() * getTarget().getScaleX(), getTarget().getHeight() * getTarget().getScaleY(), false);
 			getEntity().getManager().addEntity(explosion);
 			
 			if(!l.hasLifeLeft()){

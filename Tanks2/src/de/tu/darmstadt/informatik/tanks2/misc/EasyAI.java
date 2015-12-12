@@ -5,22 +5,27 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
+import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
+import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tank;
+import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 import temp.removeASAP.Tanks;
 
 public class EasyAI extends AI {
 	
 	public static final String ID = "EasyAI";
 	
-	private static enum State {rotating, moving, shooting};
-	private State state = State.rotating;
-	
 	float speed = 0, strength = 0;
 
 	public EasyAI(String target) {
 		super(ID, target);
+	}
+	
+	@Override
+	public void setOwnerEntity(Entity owningEntity) {
+		super.setOwnerEntity(owningEntity);
 		if(owner instanceof Tank){
 			Tank tank = (Tank) owner;
 			speed = tank.getSpeed();
@@ -37,28 +42,31 @@ public class EasyAI extends AI {
 	
 	private EEAAction calculateNextMove(){
 		
-		float opponentRotation = (owner.getRotation() + 360) % 360;
-		float rotation = (float) Math.toDegrees(
+		float rotationToTarget = (float) Math.toDegrees(
 				Math.atan2(owner.getY() - target.getY(), owner.getX() - target.getX())
-				) - 90;
+				) + 90;
+		float deltaRotation = ((owner.getRotation() - rotationToTarget) % 360 + 360) % 360;
 		
-		if (Math.abs(rotation - opponentRotation) >= 5){
-			float r  = (float) ((rotation + opponentRotation) % 360);
-			if(r < 180) return new RotateAction(speed);
-			else return new RotateAction(-speed);
-		}
+		if (Math.abs(deltaRotation - 180) <= 175) return determineRotateAction(deltaRotation);
 		
-		float distance = Vector2.dst(owner.getX(), owner.getY(), target.getX(), target.getY());
-		if (distance >= 300) return new MoveAction(speed, 0);
-		if (distance <= 250) return new MoveAction(-speed, 0);
+		float distance = Vector2.dst2(owner.getX(), owner.getY(), target.getX(), target.getY());
+		if (distance <= Math.pow(250, 2)) return new MoveRelativeAction(-speed, 0);
+		if (distance >= Math.pow(300, 2)) return new MoveRelativeAction(speed, 0);
 		
-		return new ShootAction();
+		if(((IShootAmmo) owner).hasShootAmmo())	return new ShootAction();
+		
+		return determineRotateAction(deltaRotation);
 	}
 		
 	private boolean findTarget(){
 		target = owner.getManager().getEntity(Tanks.player1);
 		if(target != null) return true;
 		return false;
+	}
+	
+	private RotateAction determineRotateAction(float deltaRotation){
+		if(deltaRotation < 180) return new RotateAction(-speed);
+		else return new RotateAction(speed);		
 	}
 
 }

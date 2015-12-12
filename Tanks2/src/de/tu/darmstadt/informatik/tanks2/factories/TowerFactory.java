@@ -3,19 +3,12 @@ package de.tu.darmstadt.informatik.tanks2.factories;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-import de.tu.darmstadt.informatik.eea.action.RotateAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu.darmstadt.informatik.eea.event.ANDEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
+import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
-import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tower;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateRightEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIShootEvent;
-import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
 
 public class TowerFactory {
 
@@ -51,7 +44,7 @@ public class TowerFactory {
 		tower.setLife(life);
 		tower.setShootMaxAmmo(maxShoots);
 		tower.setShootAtmmo(shoots);
-		tower.setStreangth(streangth);
+		tower.setStrength(streangth);
 		tower.setRotation(rotation);
 		tower.setScale(scaling);
 		tower.setPosition(position.x, position.y);
@@ -60,20 +53,9 @@ public class TowerFactory {
 		
 		tower.addComponent(new ImageRenderComponent(new Texture("flac.png")));
 		
-		EEAEvent mainEvent = new AIRotateLeftEvent();
-		mainEvent.addAction(new RotateAction(-speed));
-		tower.addComponent(mainEvent);
+		// TODO Add AI
 		
-		mainEvent = new AIRotateRightEvent();
-		mainEvent.addAction(new RotateAction(speed));
-		tower.addComponent(mainEvent);
-		
-		mainEvent = new ANDEvent(new HasShootAmmoLeftEvent(),new AIShootEvent());
-		mainEvent.addAction(new ShootAction());
-		mainEvent.addAction(new ChangeShootAmmoAction(-1));		
-		tower.addComponent(mainEvent);
-		
-		mainEvent = new TimeEvent(1000, true);
+		EEAEvent mainEvent = new TimeEvent(1000, true);
     	mainEvent.addAction(new ChangeShootAmmoAction(1));
     	tower.addComponent(mainEvent);
 		

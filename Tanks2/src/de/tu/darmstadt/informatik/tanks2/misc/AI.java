@@ -3,11 +3,11 @@ package de.tu.darmstadt.informatik.tanks2.misc;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
-import de.tu.darmstadt.informatik.eea.entity.Component;
+import de.tu.darmstadt.informatik.eea.entity.EEAComponent;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IArtificialIntelligence;
 
-public abstract class AI extends Component implements IArtificialIntelligence {
+public abstract class AI extends EEAComponent implements IArtificialIntelligence {
 	
 	protected String nameTarget;
 	protected Entity target;

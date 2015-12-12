@@ -4,32 +4,29 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-import de.tu.darmstadt.informatik.eea.action.MoveAction;
 import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
-import de.tu.darmstadt.informatik.eea.entity.Component;
+import de.tu.darmstadt.informatik.eea.entity.EEAComponent;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
+import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 import de.tu.darmstadt.informatik.eea.event.KeyDownEvent;
 import de.tu.darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu.darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
+import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeMineAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
+import de.tu.darmstadt.informatik.tanks2.actions.HitAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ScatterShootAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.actions.SpawnMineAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tank;
-import de.tu.darmstadt.informatik.tanks2.events.AIMoveBackwardEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIMoveForwardEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateRightEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIShootEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.misc.EasyAI;
+import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 import temp.removeASAP.Tanks;
 
@@ -42,7 +39,7 @@ public class TankFactory {
 	private final int shootsMax;
 	private final int mines;
 	private final int minesMax;
-	private final int streangth;
+	private final int strength;
 	private final float speed;
 	private final int rotation;
 	private final float scaling;
@@ -61,8 +58,9 @@ public class TankFactory {
 		this.shoots = shoots;
 		this.minesMax = minesMax;
 		this.mines = mines;
-		this.streangth = streangth;
-		this.speed = speed;
+		this.strength = streangth;
+		// TODO Debug
+		this.speed = speed *10;
 		this.rotation = rotation;
 		this.scaling = scaling;
 		this.position = new Vector2(x,y);
@@ -85,16 +83,16 @@ public class TankFactory {
 		tank.setShootAtmmo(shoots);
 		tank.setMinesMaxAmmo(minesMax);
 		tank.setMinesAmmo(mines);
-		tank.setStreangth(streangth);
+		tank.setStrength(strength);
 		
-		//TODO Remove magic String
-		if(name.equals("\"PlayerOne\"")){
+		if(name.equals(Tanks.player1)){
 			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer.png")));
 			
-			RotateAction rightRotateAction = new RotateAction(-speed);
-			RotateAction leftRotateAction = new RotateAction(speed);
-			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(0, speed);
-			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(0, -speed);
+			// TODO Remove debug values
+			RotateAction rightRotateAction = new RotateAction(-speed*2);
+			RotateAction leftRotateAction = new RotateAction(speed*2);
+			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
+			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
 			
 			
 	    	// tank moves forward
@@ -141,30 +139,17 @@ public class TankFactory {
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
 	    	
-	    	/*mainEvents = new MultiEvent(new MouseEnteredEvent(), new MouseClickedEvent());
-	    	mainEvents.addAction(new ChangeStateAction(SlickBlocksGame.MAINMENUSTATE));//new DestroyEntityAction());
-	    	tank.addEvent(mainEvents);*/
-	    	
-	    	//mainEvents = new leftScreenEvent();
-	    	//mainEvents.addAction(new MoveBACKWARD(0.f));
-	    	//player.AddEvent(mainEvents);
-	    	
-	    	//mainEvents = new CollisionEvent();
-	    	//mainEvents.addAction(new HitAction(30));
-	    	//tank.AddEvent(mainEvents);
-	    	// TODO Replace this magic string
-		} else if(name.equals("Player2")){
+		} else if(name.equals(Tanks.player2)){
 			
 			// Mehrspielermodus
-			// TODO GameLog
-			// GameplayLog.getInstance().setMultiplayer(true);
+			GameplayLog.getInstance().setMultiplayer(true);
 			
 			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer2.png")));
 			
-			RotateAction rightRotateAction = new RotateAction(speed);
-			RotateAction leftRotateAction = new RotateAction(-speed);
-			MoveAction forwardMoveAction = new MoveAction(speed, 0);
-			MoveAction backwardMoveAction = new MoveAction(-speed, 0);
+			RotateAction rightRotateAction = new RotateAction(-speed);
+			RotateAction leftRotateAction = new RotateAction(speed);
+			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
+			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
 			
 	    	// tank moves forward
 	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.W), new MovementDoesNotCollideEvent(speed * 10, forwardMoveAction));
@@ -216,10 +201,10 @@ public class TankFactory {
 				// TODO Disable movement for easy difficulty?
 			}
 			
-			Component component = new EasyAI(Tanks.player1);
+			EEAComponent component = new EasyAI(Tanks.player1);
 			tank.addComponent(component);
 			
-			EEAEvent mainEvents = new TimeEvent(1000, true);
+			EEAEvent mainEvents = new TimeEvent(10, true);
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
 		}

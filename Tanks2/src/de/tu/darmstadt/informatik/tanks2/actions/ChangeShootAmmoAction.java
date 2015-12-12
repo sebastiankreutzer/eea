@@ -13,10 +13,14 @@ public class ChangeShootAmmoAction extends EEAAction {
 	
 	@Override
 	public boolean act(float delta) {
-		if(IShootAmmo.class.isInstance(getTarget())){
-			IShootAmmo s = (IShootAmmo) getTarget();
-			s.changeShootAmmo(value);
+		IShootAmmo s;
+		if(target != null) {
+			s = (IShootAmmo) getTarget();
+		} else {
+			s = (IShootAmmo) getActor();
 		}
+		s.changeShootAmmo(value);
+		
 		return true;
 	}
 

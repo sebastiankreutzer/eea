@@ -4,12 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
 import de.tu.darmstadt.informatik.eea.action.ChangeStateAction;
+import de.tu.darmstadt.informatik.eea.action.MusicAction;
 import de.tu.darmstadt.informatik.eea.action.QuitAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.entity.TextRenderComponent;
+import de.tu.darmstadt.informatik.eea.event.EEAEvent;
+import de.tu.darmstadt.informatik.eea.event.LoopEvent;
 import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 import de.tu.darmstadt.informatik.tanks2.factories.MenuEntryFactory;
+import de.tu.darmstadt.informatik.tanks2.misc.Options;
 
 public class MainMenuState extends EEAGameState {
 
@@ -26,6 +30,13 @@ public class MainMenuState extends EEAGameState {
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
 		background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente
+		
+		if(Options.getInstance().isSoundEnabled()) {
+			EEAEvent soundEvent = new LoopEvent();
+			MusicAction backgroundSound = new MusicAction("theme.ogg", 1);
+			soundEvent.addAction(backgroundSound);
+			background.addComponent(soundEvent);
+		}
 
 		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
 		em.addEntity(background);

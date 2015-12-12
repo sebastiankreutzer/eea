@@ -128,7 +128,7 @@ public class Tower extends Entity implements ILife, IShootAmmo, IStrength, ISpee
 	}
 
 	@Override
-	public void setStreangth(int streangth) {
+	public void setStrength(int streangth) {
 		this.streangth = streangth;
 		
 	}

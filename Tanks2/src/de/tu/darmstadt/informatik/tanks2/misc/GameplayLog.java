@@ -4,20 +4,20 @@ public class GameplayLog {
 	
 	private static GameplayLog log = new GameplayLog();
 	private int numberOfShots;
-	//private StopWatch timer;
-	private String nextMap;
-	private long timeLimit;
-	private String background;
-	private String mapName;
+	private String mapName, nextMap, background;
+	private long startTime, elapsedTime, timeLimit;
 	private boolean multiplayer;
 	
 	private GameplayLog(){
 		this.numberOfShots = 0;
-		//this.timer = new StopWatch();
 		this.setNextMap("null");
 		this.setBackground("null");
 		this.setMapName("null");
-		this.setTimeLimit(0);
+
+		startTime = System.currentTimeMillis();
+		setTimeLimit(0);
+		setElapsedTime(0);
+		
 		this.multiplayer = false;
 	}
 	
@@ -53,6 +53,10 @@ public class GameplayLog {
 		this.nextMap = nextMap;
 	}
 
+	public void setElapsedTime(long time) {
+		elapsedTime = time;
+	}
+
 	public long getTimeLimit() {
 		return timeLimit;
 	}
@@ -80,9 +84,7 @@ public class GameplayLog {
 		stringBuffer.append(" ");
 		stringBuffer.append(timeLimit);
 		stringBuffer.append(" ");
-		// TODO Compute actual delta since start
-		stringBuffer.append(
-				System.currentTimeMillis());
+		stringBuffer.append(elapsedTime);
 		stringBuffer.append(" ");
 		stringBuffer.append(numberOfShots);
 		return stringBuffer.toString();
@@ -96,6 +98,5 @@ public class GameplayLog {
 		return multiplayer;
 	}
 	
-
 }
 
