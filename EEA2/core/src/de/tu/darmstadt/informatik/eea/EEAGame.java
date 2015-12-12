@@ -10,6 +10,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 
+/**
+ *\\TODO Description
+ * @author Sebastian Kreutzer, Johann Reinhard
+ * @version 1.0
+ */
 public abstract class EEAGame extends Game {
 
 	public EEAGraphics graphics;
@@ -17,18 +22,34 @@ public abstract class EEAGame extends Game {
 	private List<EEAGameState> states = new ArrayList<EEAGameState>();
 	private Viewport viewport;
 	
+	/**
+	 * Creates a new game with a given width and height.
+	 * @param width The width of the viewport.
+	 * @param height The height of the viewport.
+	 */
 	public EEAGame(float width, float height) {
 		this.viewport = new FitViewport(width, height);
 	}
 	
+	/**
+	 * Creates a new game with the default width and height.
+	 */
 	public EEAGame() {
 		this(800, 600);
 	}
 	
+	/**
+	 * Adds a {@link de.tu.darmstadt.informatik.eea.states.EEAGameState} to the list of states.
+	 * @param state The state to be added to the list of states.
+	 */
 	public void addState(EEAGameState state) {
 		states.add(state);
 	}
 	
+	/**
+	 * Removes a {@link de.tu.darmstadt.informatik.eea.states.EEAGameState} from the list of states.
+	 * @param state The state to be removed from the list of states.
+	 */
 	public void removeState(EEAGameState state) {
 		states.remove(state);
 	}
@@ -40,8 +61,14 @@ public abstract class EEAGame extends Game {
 		startGame();
 	}
 	
+	/**
+	 * Initializes each {@link de.tu.darmstadt.informatik.eea.states.EEAGameState} after the game was created.
+	 */
 	protected abstract void initStates();
 	
+	/**
+	 * Starts the game after each {@link de.tu.darmstadt.informatik.eea.states.EEAGameState} was initialized.
+	 */
 	protected abstract void startGame();
 	
 	@Override
@@ -59,6 +86,10 @@ public abstract class EEAGame extends Game {
 		return viewport;
 	}
 	
+	/**
+	 * Returns the frames per second (FPS) of this game.
+	 * @return FPS
+	 */
 	public int getFramerate() {
 		return Gdx.graphics.getFramesPerSecond();
 	}

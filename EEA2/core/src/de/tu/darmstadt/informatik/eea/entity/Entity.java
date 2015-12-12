@@ -17,6 +17,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.tu.darmstadt.informatik.eea.states.EntityManager;
 import sun.java2d.pipe.ShapeSpanIterator;
 
+/**
+ * The Entity class represents any object in your game, independent of the specific uses.
+ * Multiple {@link de.tu.darmstadt.informatik.eea.entity.EEAComponent} can be used to determine the specific
+ * behavior of any entity, a special {@link de.tu.darmstadt.informatik.eea.entity.RenderComponent}
+ * determines how the entity should be displayed if necessary. Entities must be added to an
+ * {@link de.tu.darmstadt.informatik.eea.states.EntityManager}.
+ * @author Tim Borowski, Sebastian Kreutzer, Johann Reinhard
+ * @version 2.0
+ */
 public class Entity extends Actor {
 
 	private final String id;
@@ -29,12 +38,22 @@ public class Entity extends Actor {
 	
 	private boolean isPassable;
 
+	/**
+	 * Creates an entity with the given ID.
+	 * @param id The ID that identifies this entity.
+	 */
 	public Entity(String id) {
 		this.id = id;
 		isPassable = true;
 		manager = null;
 	}
 
+	/**
+	 * Adds a {@link de.tu.darmstadt.informatik.eea.entity.EEAComponent} to the components of this 
+	 * entity. If this component is a {@link de.tu.darmstadt.informatik.eea.entity.RenderComponent}
+	 * the current, if any, will be replaced.
+	 * @param c The component to add to this entity.
+	 */
 	public void addComponent(EEAComponent c) {
 		components.add(c);
 
@@ -45,6 +64,13 @@ public class Entity extends Actor {
 		c.onAddComponent();
 	}
 
+	
+	/**
+	 * Removes this {@link de.tu.darmstadt.informatik.eea.entity.EEAComponent} from the list of registered
+	 * components of this {@link de.tu.darmstadt.informatik.eea.entity.Entity}. This method does not remove 
+	 * the registered {@link de.tu.darmstadt.informatik.eea.entity.RenderComponent}.
+	 * @param c The component to remove from this entity.
+	 */
 	public void removeComponent(EEAComponent c) {
 		c.onRemoveComponent();
 		components.remove(c);
@@ -108,7 +134,12 @@ public class Entity extends Actor {
 		return super.remove();
 	}
 	
-	public boolean isActive() {
+	/**
+	 * Checks whether this entity has a registered 
+	 * {@link de.tu.darmstadt.informatik.eea.states.EntityManager}.
+	 * @return true if this entity has a registered manager, otherwise.
+	 */
+	public boolean isManaged() {
 		return manager != null;
 	}
 	

@@ -1,6 +1,9 @@
 package de.tu.darmstadt.informatik.eea.entity;
 
 /**
+ * The component class provides an abstract template for objects that belong to an
+ * {@link de.tu.darmstadt.informatik.eea.entity.Entity} instance, its owner.
+ * Components can be identified and distinguished by their ID.
  * @author 
  * @version 2.0
  */
