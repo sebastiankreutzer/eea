@@ -93,7 +93,7 @@ public class Entity extends Actor {
 	}
 	
 	public Shape getShape() {
-		Shape shape = new Rectangle.Float(getX(), getY(), getWidth(), getHeight());
+		Shape shape = new Rectangle.Float(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
 		AffineTransform at = new AffineTransform();
 		at.rotate(Math.toRadians(getRotation()), getOriginX()+getX(), getOriginY()+getY());
 		return at.createTransformedShape(shape);
