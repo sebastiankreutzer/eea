@@ -117,8 +117,7 @@ public class Map implements IMap {
 	 */
 	public void clear() {
 		entities = new CopyOnWriteArrayList<Entity>();
-		// TODO Fix GameplayLog
-		//GameplayLog.getInstance().setMultiplayer(false);
+		GameplayLog.getInstance().setMultiplayer(false);
 	}
 	
 	public void resetToDefault() {

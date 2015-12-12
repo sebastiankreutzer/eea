@@ -17,6 +17,7 @@ import de.tu.darmstadt.informatik.tanks2.factories.WallFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IMap;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IParser;
 import de.tu.darmstadt.informatik.tanks2.misc.ErrorReporter;
+import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu.darmstadt.informatik.tanks2.misc.Options;
 import de.tu.darmstadt.informatik.tanks2.misc.Scanner;
 import de.tu.darmstadt.informatik.tanks2.misc.SourcePosition;
@@ -171,13 +172,12 @@ public class Parser implements IParser {
 		
 		int shots = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
-		// TODO Fix GameplayLog
-//		GameplayLog.getInstance().setBackground(backGround);
-//		GameplayLog.getInstance().setMapName(mapName.substring(1, mapName.length()-1));
-//		GameplayLog.getInstance().setNextMap(nextMap);
-//		GameplayLog.getInstance().setTimeLimit(timeLimit);
-//		GameplayLog.getInstance().getTimer().setElapsedTime(time);
-//		GameplayLog.getInstance().setNumberOfShots(shots);
+		GameplayLog.getInstance().setBackground(backGround);
+		GameplayLog.getInstance().setMapName(mapName.substring(1, mapName.length()-1));
+		GameplayLog.getInstance().setNextMap(nextMap);
+		GameplayLog.getInstance().setTimeLimit(timeLimit);
+		GameplayLog.getInstance().setElapsedTime(time);
+		GameplayLog.getInstance().setNumberOfShots(shots);
 		
 		map.addEntity(new BackgroundFactory(backGround.substring(1, backGround.length()-1)).createEntity());
 		
@@ -269,7 +269,7 @@ public class Parser implements IParser {
 		
 		//this.accept(Token.RPAREN);
 		
-		map.addEntity(new ExplosionFactory(x, y, speed, width, height, debug).createEntity());
+		map.addEntity(ExplosionFactory.createExplosion(x, y, speed, width, height, debug));
 		return map;
 	}
 	

@@ -11,28 +11,11 @@ import de.tu.darmstadt.informatik.tanks2.entities.Explosion;
 
 public class ExplosionFactory {
 	
-
-	final float x;
-	final float y;
-	final float speed;
-	final float width;
-	final float height;
-	final boolean debug;
-	
-	public ExplosionFactory(float x, float y, float speed, float width, float height, boolean debug){
-		this.debug = debug;
-		this.x = x;
-		this.y = y;
-		this.speed = speed;
-		this.width = width;
-		this.height = height;
-	}
-	
-	public Entity createEntity() {
+	public static Entity createExplosion(float x, float y, float speed, float width, float height, boolean debug) {
 		Entity explosion = new Explosion("Explosion"+Math.random(), width, height, speed);
 		explosion.setPosition(x, y);
 //		new TextureRegion(new Texture(""));
-//		// TODO set width, height and loop
+//		// TODO set width, height and loop, set debug options
 //		RenderComponent anim = new AnimationRenderComponent(0.9f, new TextureRegion[]{
 //				new TextureRegion(new Texture("expl01.png")),
 //				new TextureRegion(new Texture("expl02.png")),

@@ -10,7 +10,6 @@ public abstract class RenderComponent extends EEAComponent{
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
 		
 	}
 	

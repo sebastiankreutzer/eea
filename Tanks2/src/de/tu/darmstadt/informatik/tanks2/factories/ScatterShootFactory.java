@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.MoveAction;
+import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
@@ -48,7 +49,6 @@ public class ScatterShootFactory extends ShootFactory {
 		
 		mainEvent = new EntityOutOfScreenEvent();
 		mainEvent.addAction(new DestroyEntityAction());
-		//mainEvent.addAction(new ResetEntity(new Vector2f(gc.getWidth()/2, gc.getHeight()/2)));
 		scatterShoot.addComponent(mainEvent);
 		
 		
@@ -57,8 +57,7 @@ public class ScatterShootFactory extends ShootFactory {
 		scatterShoot.addComponent(mainEvent);
 		
 		mainEvent = new LoopEvent();
-		// TODO Make relative instead of absolute
-		mainEvent.addAction(new MoveAction(0.30f, 0f));
+		mainEvent.addAction(new MoveRelativeAction(30f, 0f));
 		scatterShoot.addComponent(mainEvent);
 		
 		
