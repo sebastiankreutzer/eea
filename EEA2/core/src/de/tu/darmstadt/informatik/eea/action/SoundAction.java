@@ -3,6 +3,14 @@ package de.tu.darmstadt.informatik.eea.action;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
+/**
+ * This class provides an action that triggers the play back of a Sound file. A Sound file is a
+ * small (< 1 MB) audio file that is played only once per play back (it does not loop). The audio is played
+ * every time this action acts and as a result, the registered audio file can be played multiple times 
+ * simultaneously.
+ * @author Johann Reinhard
+ * @version 1.0
+ */
 public class SoundAction extends EEAAudioAction {
 	
 	protected String path;

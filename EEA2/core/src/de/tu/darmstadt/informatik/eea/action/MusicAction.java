@@ -3,6 +3,14 @@ package de.tu.darmstadt.informatik.eea.action;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
+/**
+ * This class provides an action that triggers the play back of a Music file. A Music file is a
+ * long audio file that is played repeatedly (it does loop forever). The audio is played
+ * the first time this action acts and as a result, the registered audio file cannot be played multiple times 
+ * simultaneously.
+ * @author Johann Reinhard
+ * @version 1.0
+ */
 public class MusicAction extends EEAAudioAction {
 
 	boolean isPlaying = false;
@@ -18,10 +26,15 @@ public class MusicAction extends EEAAudioAction {
 		music.setPan(pan, volume);
 	}
 
+	/**
+	 * Starts the play back of the music stream. In case the stream was paused this will resume 
+	 * the play back. In case the music stream is finished playing this will restart the play back.
+	 * @return true
+	 */
 	@Override
 	public boolean act(float delta) {
 		if(!music.isPlaying()) {
-			music.setPan(pan, volume);
+			music.play();
 		}
 		return true;
 	}
