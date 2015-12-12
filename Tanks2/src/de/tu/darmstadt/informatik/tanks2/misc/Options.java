@@ -17,10 +17,6 @@ public class Options {
 	
 	private static Options options = new Options();
 	
-	// TODO Sound
-	//private static Sound bgm;
-
-	
 	// Difficulty settings
 	private Difficulty difficulty;
 	// Sound settings
@@ -73,8 +69,6 @@ public class Options {
 	 * @return true if the sound is enables otherwise false
 	 */
 	public boolean isSoundEnabled() {
-		// TODO Sound
-		//return (bgm != null) && soundEnabled;
 		return soundEnabled;
 	}
 	

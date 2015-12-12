@@ -10,6 +10,7 @@ import de.tu.darmstadt.informatik.eea.entity.EEAComponent;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
+import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 import de.tu.darmstadt.informatik.eea.event.KeyDownEvent;
 import de.tu.darmstadt.informatik.eea.event.KeyPressedEvent;
@@ -17,6 +18,7 @@ import de.tu.darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
 import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeMineAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
+import de.tu.darmstadt.informatik.tanks2.actions.HitAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ScatterShootAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.actions.SpawnMineAction;
@@ -83,8 +85,7 @@ public class TankFactory {
 		tank.setMinesAmmo(mines);
 		tank.setStrength(strength);
 		
-		//TODO Remove magic String
-		if(name.equals("\"PlayerOne\"")){
+		if(name.equals(Tanks.player1)){
 			tank.addComponent(new ImageRenderComponent(new Texture("tankPlayer.png")));
 			
 			// TODO Remove debug values
@@ -137,18 +138,6 @@ public class TankFactory {
 	    	mainEvents.addAction(new ChangeMineAmmoAction(1));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
-	    	
-	    	/*mainEvents = new MultiEvent(new MouseEnteredEvent(), new MouseClickedEvent());
-	    	mainEvents.addAction(new ChangeStateAction(SlickBlocksGame.MAINMENUSTATE));//new DestroyEntityAction());
-	    	tank.addEvent(mainEvents);*/
-	    	
-	    	//mainEvents = new leftScreenEvent();
-	    	//mainEvents.addAction(new MoveBACKWARD(0.f));
-	    	//player.AddEvent(mainEvents);
-	    	
-	    	//mainEvents = new CollisionEvent();
-	    	//mainEvents.addAction(new HitAction(30));
-	    	//tank.AddEvent(mainEvents);
 	    	
 		} else if(name.equals(Tanks.player2)){
 			
