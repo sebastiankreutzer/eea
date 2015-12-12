@@ -15,10 +15,29 @@ public class MusicAction extends EEAAudioAction {
 
 	boolean isPlaying = false;
 	Music music;
+	
+	/**
+	 * Creates a new MusicAction, used for playing long, looping audio files.
+	 * @param path The path to the file.
+	 */
+	public MusicAction(String path) {
+		this(path, 1, 1);
+	}
 
 	/**
 	 * Creates a new MusicAction, used for playing long, looping audio files.
-	 * @see de.tu.darmstadt.informatik.eea.action.EEAAudioAction#de.tu.darmstadt.informatik.eea.action.EEAAudioAction.EEAAudioAction(String path, float volume, float pan)
+	 * @param path The path to the file.
+	 * @param volume The volume between 0 and 1 (full).
+	 */
+	public MusicAction(String path, float volume) {
+		this(path, volume, 1);
+	}
+
+	/**
+	 * Creates a new MusicAction, used for playing long, looping audio files.
+	 * @param path The path to the file.
+	 * @param volume The volume between 0 and 1 (full).
+	 * @param pan The pan between -1 (left) and 1 (right), default 0 (center).
 	 */
 	public MusicAction(String path, float volume, float pan) {
 		super(volume, pan);
@@ -42,13 +61,13 @@ public class MusicAction extends EEAAudioAction {
 	@Override
 	public void setVolume(float volume) {
 		super.setVolume(volume);
-		music.setVolume(getVolume());
+		if(music != null) music.setVolume(getVolume());
 	}
 
 	@Override
 	public void setPan(float pan) {
 		super.setPan(pan);
-		music.setPan(getPan(), volume);
+		if(music != null) music.setPan(getPan(), volume);
 	}
 
 }

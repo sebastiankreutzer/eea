@@ -53,7 +53,7 @@ public class Options {
 	 * Toggles the sound dependent on sound settings
 	 * @throws SlickException 
 	 */
-	public void toggleSound() {
+	private void toggleSound() {
 		// TODO Sound
 //		if(soundEnabled) {
 //			bgm = new Sound("assets/theme.ogg");
