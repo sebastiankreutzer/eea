@@ -3,9 +3,10 @@ package de.tu.darmstadt.informatik.tanks2.misc;
 public class GameplayLog {
 	
 	private static GameplayLog log = new GameplayLog();
+	public Timer timer;
 	private int numberOfShots;
 	private String mapName, nextMap, background;
-	private long startTime, elapsedTime, timeLimit;
+	private long timeLimit;
 	private boolean multiplayer;
 	
 	private GameplayLog(){
@@ -13,10 +14,9 @@ public class GameplayLog {
 		this.setNextMap("null");
 		this.setBackground("null");
 		this.setMapName("null");
-
-		startTime = System.currentTimeMillis();
+		
+		timer = new Timer();
 		setTimeLimit(0);
-		setElapsedTime(0);
 		
 		this.multiplayer = false;
 	}
@@ -53,10 +53,6 @@ public class GameplayLog {
 		this.nextMap = nextMap;
 	}
 
-	public void setElapsedTime(long time) {
-		elapsedTime = time;
-	}
-
 	public long getTimeLimit() {
 		return timeLimit;
 	}
@@ -84,7 +80,7 @@ public class GameplayLog {
 		stringBuffer.append(" ");
 		stringBuffer.append(timeLimit);
 		stringBuffer.append(" ");
-		stringBuffer.append(elapsedTime);
+		stringBuffer.append(timer.get());
 		stringBuffer.append(" ");
 		stringBuffer.append(numberOfShots);
 		return stringBuffer.toString();
@@ -96,6 +92,32 @@ public class GameplayLog {
 	
 	public boolean isMultiplayer() {
 		return multiplayer;
+	}
+	
+	public class Timer {
+		
+		long startTime, elapsedTime = 0;
+		
+		public void start() {
+			startTime = System.currentTimeMillis();
+		}
+		
+		public void stop() {
+			elapsedTime = elapsedTime + System.currentTimeMillis() - startTime;
+		}
+		
+		public void set(long time) {
+			elapsedTime = time;
+		}
+		
+		public long get() {
+			return System.currentTimeMillis() - startTime;
+		}
+		
+		public void reset() {
+			elapsedTime = 0;
+		}
+		
 	}
 	
 }

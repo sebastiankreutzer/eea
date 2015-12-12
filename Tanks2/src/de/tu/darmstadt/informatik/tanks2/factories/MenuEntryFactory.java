@@ -24,7 +24,7 @@ public class MenuEntryFactory {
 	
 	private String name;
 	private Texture texture;
-	private Action action;
+	private Action[] actions;
 	
 	public MenuEntryFactory(EntityManager entitymanager, EEAGraphics graphics){
 		em = entitymanager;
@@ -38,10 +38,10 @@ public class MenuEntryFactory {
 		distY = height;
 	}
 	
-	public void prepareMenuEntry(String name, Texture texture, Action action){
+	public void prepareMenuEntry(String name, Texture texture, Action... action){
 		this.name = name;
 		this.texture = texture;
-		this.action = action;
+		this.actions = action;
 		
 		startY = startY - distY - space;
 	}
@@ -59,7 +59,8 @@ public class MenuEntryFactory {
 		em.addEntity(imageEntity);
 		
 		ANDEvent event = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
-		event.addAction(action);
+		for(Action a : actions)
+		event.addAction(a);
 		imageEntity.addComponent(event);
 		
 		return imageEntity;
