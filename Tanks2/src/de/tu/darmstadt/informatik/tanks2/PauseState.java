@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import de.tu.darmstadt.informatik.eea.EEAGame;
 import de.tu.darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
-import de.tu.darmstadt.informatik.eea.action.QuitAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.entity.TextRenderComponent;
@@ -46,7 +45,6 @@ public class PauseState extends EEAGameState {
 		MenuEntryFactory mef = new MenuEntryFactory(em, game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 		
-	    //Action new_game = new ChangeStateInitAction(Tanks.GAMEPLAYSTATE);
 		mef.prepareMenuEntry("Zurück zum pausierten Spiel", new Texture("entry.png"), new ChangeStateAction(game, LaunchTanks.gameState){
 			@Override
 			public boolean act(float delta) {

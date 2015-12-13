@@ -16,6 +16,7 @@ import de.tu.darmstadt.informatik.eea.event.KeyDownEvent;
 import de.tu.darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu.darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
 import de.tu.darmstadt.informatik.eea.event.TimeEvent;
+import de.tu.darmstadt.informatik.tanks2.AI.TankAI;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeMineAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.actions.HitAction;
@@ -25,7 +26,6 @@ import de.tu.darmstadt.informatik.tanks2.actions.SpawnMineAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tank;
 import de.tu.darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
 import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.misc.EasyAI;
 import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 import temp.removeASAP.Tanks;
@@ -201,7 +201,7 @@ public class TankFactory {
 				// TODO Disable movement for easy difficulty?
 			}
 			
-			EEAComponent component = new EasyAI(Tanks.player1);
+			EEAComponent component = new TankAI(Tanks.player1);
 			tank.addComponent(component);
 			
 			EEAEvent mainEvents = new TimeEvent(10, true);

@@ -50,7 +50,6 @@ public class MainMenuState extends EEAGameState {
 		MenuEntryFactory mef = new MenuEntryFactory(em, game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 		
-	    //Action new_game = new ChangeStateInitAction(Tanks.GAMEPLAYSTATE);
 		mef.prepareMenuEntry("Neues Spiel", new Texture("entry.png"), new ChangeStateAction(game, LaunchTanks.gameState){
 			@Override
 			public boolean act(float delta) {
