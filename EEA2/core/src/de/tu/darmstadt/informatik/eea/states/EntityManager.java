@@ -61,7 +61,6 @@ public class EntityManager {
 
 	public void removeEntity(Entity e) {
 		entities.remove(e);
-		e.remove();
 		e.setManager(null);
 	}
 

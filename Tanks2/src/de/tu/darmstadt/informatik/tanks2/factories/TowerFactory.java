@@ -7,8 +7,10 @@ import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 import de.tu.darmstadt.informatik.eea.event.TimeEvent;
+import de.tu.darmstadt.informatik.tanks2.AI.TowerAI;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tower;
+import temp.removeASAP.Tanks;
 
 public class TowerFactory {
 
@@ -48,12 +50,13 @@ public class TowerFactory {
 		tower.setRotation(rotation);
 		tower.setScale(scaling);
 		tower.setPosition(position.x, position.y);
-		tower.setSpeed(speed);
+		// TODO Debug values
+		tower.setSpeed(speed * 50);
 		tower.setPassable(false);
 		
 		tower.addComponent(new ImageRenderComponent(new Texture("flac.png")));
 		
-		// TODO Add AI
+		tower.addComponent(new TowerAI(Tanks.player1));
 		
 		EEAEvent mainEvent = new TimeEvent(1000, true);
     	mainEvent.addAction(new ChangeShootAmmoAction(1));
