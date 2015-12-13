@@ -259,22 +259,18 @@ public class GameplayState extends EEAGameState {
 
 
 		// Wird die Escape-Taste gedrueckt, ...
-		event = new KeyPressedEvent(Input.Keys.ESCAPE);
+		EEAEvent escapePressedEvent = new KeyPressedEvent(Input.Keys.ESCAPE);
 		// ... dann wechsle ins OnPauseMenu ...
-
-		// ... und stoppe den Timer
-		event.addAction(new EEAAction(){
-
+		escapePressedEvent.addAction(new ChangeStateAction(game, LaunchTanks.pauseState) {
 			@Override
 			public boolean act(float delta) {
+				super.act(delta);
+				// ... und stoppe den Timer
 				GameplayLog.getInstance().timer.stop();
 				return true;
 			}
-
 		});
-		// TODO Add a pause menu state
-		// event.addAction(new ChangeStateAction(game, LaunchTanks.pauseState));
-		entity.addComponent(event);
+		entity.addComponent(escapePressedEvent);
 
 
 		long timeLimit = GameplayLog.getInstance().getTimeLimit();
@@ -311,10 +307,10 @@ public class GameplayState extends EEAGameState {
 			event = new RandomEvent(0.25);
 			event.addAction(new SpawnPickupAction());
 			entity.addComponent(event);
-
-			// Hinzufuegen der dummy-Entity
-			em.addEntity(entity);
 		}
+
+		// Hinzufuegen der dummy-Entity
+		em.addEntity(entity);
 
 		createUI();
 

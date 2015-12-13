@@ -30,11 +30,11 @@ public class MainMenuState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente
+		background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente // TODO Load image from AssetManager
 		
 		if(Options.getInstance().isSoundEnabled()) {
 			EEAEvent soundEvent = new LoopEvent();
-			MusicAction backgroundSound = new MusicAction("theme.ogg", 1);
+			MusicAction backgroundSound = new MusicAction("theme.ogg", 1); // TODO Load music from AssetManager
 			soundEvent.addAction(backgroundSound);
 			background.addComponent(soundEvent);
 		}
