@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
+
 public class AnimationRenderComponent extends RenderComponent {
 	
 	final static private String ID = "AnimationRenderComponent";
@@ -13,6 +15,7 @@ public class AnimationRenderComponent extends RenderComponent {
     private TextureAtlas textureAtlas;
     private Animation animation;
     private float elapsedTime = 0;
+    private boolean removeWhenFinished;
 	
 	public AnimationRenderComponent(float duration, String file) {
 		super(ID);
@@ -30,14 +33,26 @@ public class AnimationRenderComponent extends RenderComponent {
 		setPlayMode(playMode);
 	}
 	
+	public void setRemoveWhenFinished(boolean remove) {
+		this.removeWhenFinished = remove;
+	}
+	
 	public void setPlayMode(Animation.PlayMode mode){
 		animation.setPlayMode(mode);
 	}
 
 	@Override
+	public void update(float delta) {
+		super.update(delta);
+		elapsedTime += delta;
+		if (removeWhenFinished && animation.isAnimationFinished(elapsedTime)) {
+			getOwnerEntity().addAction(new DestroyEntityAction());
+		}
+	}
+
+	@Override
 	public void render(Batch batch) {
-		elapsedTime += Gdx.graphics.getDeltaTime();
-		batch.draw(animation.getKeyFrame(elapsedTime, true), owner.getX(), owner.getY(), owner.getOriginX(), owner.getOriginY(), owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), owner.getRotation());
+		batch.draw(animation.getKeyFrame(elapsedTime, false), owner.getX(), owner.getY(), owner.getOriginX(), owner.getOriginY(), owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), owner.getRotation());
 	}
 	
 

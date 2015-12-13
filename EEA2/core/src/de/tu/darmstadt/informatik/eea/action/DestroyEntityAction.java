@@ -1,7 +1,11 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import com.badlogic.gdx.scenes.scene2d.actions.RemoveActorAction;
 
-public class DestroyEntityAction extends RemoveActorAction {
+public class DestroyEntityAction extends EEAAction {
+
+	@Override
+	public boolean act(float delta) {
+		return getEntity().remove();
+	}
 
 }

@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.eea.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.Align;
 
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
 
@@ -9,6 +10,8 @@ public class ImageRenderComponent extends RenderComponent {
 	
 	public static final String ID = "ImageRenderComponent";
 	private IResourcesManager resourcesManager;
+	// TODO Better to keep the reference to Texture instead of a string to avoid searching for this
+	// texture every scaling event
 	private String texturePath;
 	
 	public ImageRenderComponent(String texturePath, IResourcesManager resourcesManager) {

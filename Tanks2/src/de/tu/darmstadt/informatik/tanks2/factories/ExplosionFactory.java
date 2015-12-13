@@ -36,6 +36,7 @@ public class ExplosionFactory {
 				new TextureRegion(new Texture("expl16.png"))
 		});// 0.01f, width, height, false);
 		anim.setPlayMode(PlayMode.NORMAL);
+		anim.setRemoveWhenFinished(true);
 		//ImageRenderComponent anim = new ImageRenderComponent(new Texture("expl02.png"));
 		explosion.addComponent(anim);
 		

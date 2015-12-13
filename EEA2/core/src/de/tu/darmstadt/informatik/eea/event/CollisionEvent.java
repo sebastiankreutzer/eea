@@ -21,7 +21,6 @@ public class CollisionEvent extends EEAEvent {
 		Entity entity = getOwnerEntity().getManager().collides(getOwnerEntity());
 
 		if (entity != null) {
-			System.out.println("Collision!");
 			for (Action a : actions) {
 				a.setTarget(entity);
 			}
