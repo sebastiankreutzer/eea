@@ -8,6 +8,9 @@ public class ResourcesManager implements IResourcesManager {
 	
 	@Override
 	public Texture getTexture(String path) {
+		if(!assetManager.isLoaded(path)){
+			loadTexture(path);
+		}		
 		return assetManager.get(path);
 	}
 
