@@ -37,7 +37,7 @@ public class OptionsState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png", game.graphics.getResourcesManager())); // Bildkomponente
+		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager())); // Bildkomponente
 		
 		// Erzeuge folgendes Event "Escape-Taste gedrueckt"
 		EEAEvent ESC_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
@@ -54,7 +54,7 @@ public class OptionsState extends EEAGameState {
 		mainMenuText.addComponent(new TextRenderComponent("Einstellungen", game.graphics));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(em, game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory(em, game);
 		mef.setDimensions(55, 330, 380, 60);
 		
     	// Ton einschalten/ausschalten

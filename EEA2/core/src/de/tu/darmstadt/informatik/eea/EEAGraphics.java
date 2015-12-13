@@ -9,7 +9,6 @@ public class EEAGraphics {
 	
 	private BitmapFont font = new BitmapFont();
 	private ShapeRenderer render;
-	private IResourcesManager resourcesManager = new ResourcesManager();	
 	
 	public EEAGraphics() {
 	}
@@ -22,9 +21,5 @@ public class EEAGraphics {
 		render.begin(ShapeType.Filled);
 		render.box(0, 10, 20, 100, 100, 100);
 		render.end();
-	}
-	
-	public IResourcesManager getResourcesManager(){
-		return this.resourcesManager;
 	}
 }

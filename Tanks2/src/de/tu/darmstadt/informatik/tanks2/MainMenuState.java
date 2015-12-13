@@ -28,7 +28,7 @@ public class MainMenuState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png", game.graphics.getResourcesManager())); // Bildkomponente
+		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager())); // Bildkomponente
 		
 		if(Options.getInstance().isSoundEnabled()) {
 			EEAEvent soundEvent = new LoopEvent();
@@ -45,7 +45,7 @@ public class MainMenuState extends EEAGameState {
 		mainMenuText.addComponent(new TextRenderComponent("Hauptmenü", game.graphics));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(em, game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory(em, game);
 		mef.setDimensions(55, 390, 380, 60);
 		
 		mef.prepareMenuEntry("Neues Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState){

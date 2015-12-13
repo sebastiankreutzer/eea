@@ -33,7 +33,7 @@ public class PauseState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png",game.graphics.getResourcesManager())); // Bildkomponente // TODO Load image from AssetManager
+		background.addComponent(new ImageRenderComponent("menu.png",game.getResourcesManager())); // Bildkomponente // TODO Load image from AssetManager
 		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
 		em.addEntity(background);
 		
@@ -42,7 +42,7 @@ public class PauseState extends EEAGameState {
 		mainMenuText.addComponent(new TextRenderComponent("Spiel ist pausiert", game.graphics));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(em, game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory(em, game);
 		mef.setDimensions(55, 390, 380, 60);
 		
 		mef.prepareMenuEntry("Zurück zum pausierten Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {

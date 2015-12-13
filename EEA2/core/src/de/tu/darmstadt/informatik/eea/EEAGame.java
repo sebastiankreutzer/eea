@@ -19,8 +19,9 @@ public abstract class EEAGame extends Game {
 
 	public EEAGraphics graphics;
 	
-	private List<EEAGameState> states = new ArrayList<EEAGameState>();
-	private Viewport viewport;
+	private final List<EEAGameState> states = new ArrayList<EEAGameState>();
+	private final IResourcesManager resourcesManager = new ResourcesManager();	
+	private final Viewport viewport;
 	
 	/**
 	 * Creates a new game with a given width and height.
@@ -84,6 +85,10 @@ public abstract class EEAGame extends Game {
 	
 	public Viewport getViewport() {
 		return viewport;
+	}
+	
+	public IResourcesManager getResourcesManager(){
+		return this.resourcesManager;
 	}
 	
 	/**

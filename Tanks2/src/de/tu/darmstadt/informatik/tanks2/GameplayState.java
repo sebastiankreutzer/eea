@@ -41,7 +41,7 @@ public class GameplayState extends EEAGameState {
 
 	public GameplayState(EEAGame game) {
 		super(game);
-		IResourcesManager _resourcesManager = game.graphics.getResourcesManager();
+		IResourcesManager _resourcesManager = game.getResourcesManager();
 		this.resourcesManager = _resourcesManager;
 		map = Map.getInstance();
 	}
