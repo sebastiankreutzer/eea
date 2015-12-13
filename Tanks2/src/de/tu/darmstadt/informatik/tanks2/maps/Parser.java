@@ -2,7 +2,6 @@ package de.tu.darmstadt.informatik.tanks2.maps;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
