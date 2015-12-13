@@ -176,7 +176,7 @@ public class Parser implements IParser {
 		GameplayLog.getInstance().setMapName(mapName.substring(1, mapName.length()-1));
 		GameplayLog.getInstance().setNextMap(nextMap);
 		GameplayLog.getInstance().setTimeLimit(timeLimit);
-		GameplayLog.getInstance().setElapsedTime(time);
+		GameplayLog.getInstance().timer.set(time);
 		GameplayLog.getInstance().setNumberOfShots(shots);
 		
 		map.addEntity(new BackgroundFactory(backGround.substring(1, backGround.length()-1)).createEntity());
