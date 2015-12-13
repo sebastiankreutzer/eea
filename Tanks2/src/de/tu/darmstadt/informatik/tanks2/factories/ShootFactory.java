@@ -1,10 +1,9 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
-import de.tu.darmstadt.informatik.eea.action.MoveAction;
 import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
@@ -23,14 +22,16 @@ public class ShootFactory {
 	protected final String owner;
 	protected final int strength;
 	protected final boolean debug;
+	private IResourcesManager resourcesManager;
 	
-	public ShootFactory(int strength, String owner,float rotation, float scale , float x, float y, boolean debug){
+	public ShootFactory(int strength, String owner,float rotation, float scale , float x, float y, boolean debug, IResourcesManager resourcesManager){
 		this.owner = owner;
 		this.rotation = rotation;
 		this.scale = scale;
 		this.position = new Vector2(x,y);
 		this.strength = strength;
 		this.debug = debug;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	public Entity createEntity() {
@@ -41,7 +42,7 @@ public class ShootFactory {
 		simpleShot.setRotation(rotation);
 		simpleShot.setScale(scale);
 		
-		simpleShot.addComponent(new ImageRenderComponent(new Texture("shoot.png")));
+		simpleShot.addComponent(new ImageRenderComponent("shoot.png", resourcesManager));
 		
 		EEAEvent mainEvent = new EntityOutOfScreenEvent();
 		mainEvent.addAction(new DestroyEntityAction());

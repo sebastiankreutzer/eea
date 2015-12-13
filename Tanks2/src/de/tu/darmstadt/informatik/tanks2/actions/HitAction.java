@@ -1,6 +1,5 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
-
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -20,9 +19,10 @@ public class HitAction extends EEAAction {
 		if(ILife.class.isInstance(getTarget())){
 			ILife l = (ILife) getTarget();
 			l.changeLife(-strength);
-			
+
 			Entity explosion = ExplosionFactory.createExplosion(getTarget().getX(), getTarget().getY(), 
 					0.01f, getTarget().getWidth() * getTarget().getScaleX(), getTarget().getHeight() * getTarget().getScaleY(), false);
+			
 			getEntity().getManager().addEntity(explosion);
 			
 			if(!l.hasLifeLeft()){

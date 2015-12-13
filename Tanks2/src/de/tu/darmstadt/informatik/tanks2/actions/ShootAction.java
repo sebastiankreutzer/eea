@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ShootFactory;
@@ -13,9 +14,11 @@ public class ShootAction extends EEAAction {
 	
 
 	private int strength;
+	private IResourcesManager resourcesManager;
 
-	public ShootAction(){
+	public ShootAction(IResourcesManager resourcesManager){
 		this.strength = 0;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	@Override
@@ -27,7 +30,7 @@ public class ShootAction extends EEAAction {
 		
 		float rotation = getActor().getRotation();
 		Vector2 pos = new Vector2(getActor().getX(), getActor().getY());
-		Vector2 size = new Vector2(getActor().getWidth(), getActor().getHeight());
+		//Vector2 size = new Vector2(getActor().getWidth(), getActor().getHeight());
 		
 		// TODO Set to center
 		//pos.x += 2f * size.y/2.0f*java.lang.Math.sin(java.lang.Math.toRadians(rotation));
@@ -39,7 +42,7 @@ public class ShootAction extends EEAAction {
 				getActor().getScaleX() * 0.5f,
 				pos.x,
 				pos.y,
-				true).createEntity();
+				true, resourcesManager).createEntity();
 		
 		getEntity().getManager().addEntity(simpleShoot);
 		

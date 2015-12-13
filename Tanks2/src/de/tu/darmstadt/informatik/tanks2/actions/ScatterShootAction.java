@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ScatterShootFactory;
@@ -13,10 +14,12 @@ public class ScatterShootAction extends EEAAction {
 
 	private int strength;
 	private long time;
+	private IResourcesManager resourcesManager;
 
-	public ScatterShootAction(long time){
+	public ScatterShootAction(long time, IResourcesManager resourcesManager){
 		this.strength = 0;
 		this.time = time;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	@Override
@@ -39,7 +42,7 @@ public class ScatterShootAction extends EEAAction {
 				getActor().getScaleX() * 1f,
 				pos.x,
 				pos.y,
-				true).createEntity();
+				true, resourcesManager).createEntity();
 		
 		getEntity().getManager().addEntity(simpleShoot);
 		

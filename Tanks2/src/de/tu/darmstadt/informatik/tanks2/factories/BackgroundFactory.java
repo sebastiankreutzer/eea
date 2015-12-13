@@ -1,21 +1,22 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
-
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 
 public class BackgroundFactory {
 	
 	private final String file;
+	private IResourcesManager resourcesManager;
 	
-	public BackgroundFactory(String file){
+	public BackgroundFactory(String file, IResourcesManager resourcesManager){
 		this.file = file;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	public Entity createEntity() {
 		Entity background = new Entity("background");
-		background.addComponent(new ImageRenderComponent(new Texture(file)));
+		background.addComponent(new ImageRenderComponent(file, resourcesManager));
 		return background;
 	}
 

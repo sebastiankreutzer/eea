@@ -1,7 +1,5 @@
 package de.tu.darmstadt.informatik.tanks2;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import de.tu.darmstadt.informatik.eea.EEAGame;
 import de.tu.darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu.darmstadt.informatik.eea.action.MusicAction;
@@ -30,7 +28,7 @@ public class MainMenuState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente // TODO Load image from AssetManager
+		background.addComponent(new ImageRenderComponent("menu.png", game.graphics.getResourcesManager())); // Bildkomponente
 		
 		if(Options.getInstance().isSoundEnabled()) {
 			EEAEvent soundEvent = new LoopEvent();
@@ -50,7 +48,7 @@ public class MainMenuState extends EEAGameState {
 		MenuEntryFactory mef = new MenuEntryFactory(em, game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 		
-		mef.prepareMenuEntry("Neues Spiel", new Texture("entry.png"), new ChangeStateAction(game, LaunchTanks.gameState){
+		mef.prepareMenuEntry("Neues Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState){
 			@Override
 			public boolean act(float delta) {
 				super.act(delta);
@@ -61,16 +59,16 @@ public class MainMenuState extends EEAGameState {
 		});
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Spielstand laden", new Texture("entry.png"), new QuitAction());
+		mef.prepareMenuEntry("Spielstand laden", "entry.png", new QuitAction());
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Highscore", new Texture("entry.png"), new QuitAction());
+		mef.prepareMenuEntry("Highscore", "entry.png", new QuitAction());
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Einstellungen", new Texture("entry.png"), new ChangeStateAction(game, LaunchTanks.options));
+		mef.prepareMenuEntry("Einstellungen", "entry.png", new ChangeStateAction(game, LaunchTanks.options));
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Beenden", new Texture("entry.png"), new QuitAction());
+		mef.prepareMenuEntry("Beenden", "entry.png", new QuitAction());
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
 	}

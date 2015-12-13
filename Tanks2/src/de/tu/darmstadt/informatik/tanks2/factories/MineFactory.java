@@ -1,8 +1,8 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu.darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -13,19 +13,23 @@ import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.HitAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Mine;
 
+
+
 public class MineFactory {
 	
 	private final Vector2 pos;
 	private final boolean debug;
 	private final int streangth;
 	private final float scaling;
+	private IResourcesManager resourcesManager;
 	
 	
-	public MineFactory(Vector2 pos, float scaling,int streangth,boolean debug){
+	public MineFactory(Vector2 pos, float scaling,int streangth,boolean debug, IResourcesManager resourcesManager){
 		this.pos = pos;
 		this.scaling = scaling;
 		this.streangth = streangth;
 		this.debug = debug;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	public Entity createEntity() {
@@ -33,7 +37,7 @@ public class MineFactory {
 		mine.setScale(scaling);
 		mine.setPosition(pos.x, pos.y);
 
-		mine.addComponent(new ImageRenderComponent(new Texture("mine.png")));
+		mine.addComponent(new ImageRenderComponent("mine.png", resourcesManager));
 		
 		//Event mainEvent = new TimeEvent(15000, false);
 		//mainEvent.addAction(new DestroyEntityAction());

@@ -97,5 +97,5 @@ public abstract class EEAGame extends Game {
 	public float getAspectRatio() {
 		return viewport.getScreenWidth() / viewport.getScreenHeight();
 	}
-
+	
 }

@@ -1,8 +1,8 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
@@ -11,6 +11,7 @@ import de.tu.darmstadt.informatik.tanks2.AI.TowerAI;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tower;
 import temp.removeASAP.Tanks;
+
 
 public class TowerFactory {
 
@@ -24,8 +25,10 @@ public class TowerFactory {
 	private final float scaling;
 	private final Vector2 position;
 	private final boolean debug;
+	private IResourcesManager resourcesManager;
 	
-	public TowerFactory(int maxLife, int life, int maxShoots, int shoots, int streangth, float speed,int rotation, float scaling, int x, int y, boolean debug){
+	public TowerFactory(int maxLife, int life, int maxShoots, int shoots, int streangth, float speed,int rotation,
+			float scaling, int x, int y, boolean debug, IResourcesManager resourcesManager){
 		this.maxLife = maxLife;
 		this.life = life;
 		this.maxShoots = maxShoots;
@@ -36,6 +39,7 @@ public class TowerFactory {
 		this.scaling = scaling;
 		position = new Vector2(x,y);
 		this.debug = debug;
+		this.resourcesManager = resourcesManager;
 		
 	}
 	
@@ -54,10 +58,9 @@ public class TowerFactory {
 		tower.setSpeed(speed * 50);
 		tower.setPassable(false);
 		
-		tower.addComponent(new ImageRenderComponent(new Texture("flac.png")));
-		
-		tower.addComponent(new TowerAI(Tanks.player1));
-		
+		tower.addComponent(new ImageRenderComponent("flac.png", resourcesManager));
+		tower.addComponent(new TowerAI(Tanks.player1, resourcesManager));
+
 		EEAEvent mainEvent = new TimeEvent(1000, true);
     	mainEvent.addAction(new ChangeShootAmmoAction(1));
     	tower.addComponent(mainEvent);

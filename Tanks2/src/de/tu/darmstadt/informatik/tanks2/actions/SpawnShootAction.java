@@ -1,5 +1,6 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ShootFactory;
@@ -8,10 +9,12 @@ public class SpawnShootAction extends EEAAction {
 	
 	private int strength;
 	private float rotation;
+	private IResourcesManager resourcesManager;
 	
-	public SpawnShootAction(float rotation , int strength){
+	public SpawnShootAction(float rotation , int strength, IResourcesManager resourcesManager){
 		this.strength = strength;
 		this.rotation = rotation;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	@Override
@@ -23,7 +26,7 @@ public class SpawnShootAction extends EEAAction {
 				getActor().getScaleX() * 0.5f,
 				getActor().getX(),
 				getActor().getY(),
-				true).createEntity();
+				true, resourcesManager).createEntity();
 		
 		getEntity().getManager().addEntity(simpleShoot);
 		return true;
