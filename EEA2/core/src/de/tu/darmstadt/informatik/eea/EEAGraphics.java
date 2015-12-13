@@ -1,6 +1,5 @@
 package de.tu.darmstadt.informatik.eea;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -8,12 +7,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class EEAGraphics {
 	
-	private BitmapFont font;
+	private BitmapFont font = new BitmapFont();
 	private ShapeRenderer render;
-
-	private AssetManager assetManager = new AssetManager();	
+	private IResourcesManager resourcesManager = new ResourcesManager();	
+	
 	public EEAGraphics() {
-		font = new BitmapFont();
 	}
 	
 	public void drawString(Batch batch, String string, float x, float y){
@@ -26,7 +24,7 @@ public class EEAGraphics {
 		render.end();
 	}
 	
-	public AssetManager getAssetManager(){
-		return assetManager;
+	public IResourcesManager getResourcesManager(){
+		return this.resourcesManager;
 	}
 }

@@ -1,6 +1,5 @@
 package de.tu.darmstadt.informatik.tanks2.actions;
 
-import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -10,11 +9,9 @@ import de.tu.darmstadt.informatik.tanks2.interfaces.ILife;
 public class HitAction extends EEAAction {
 	
 	private int strength;
-	private EEAGraphics eeaGraphics;
 	
-	public HitAction(int strength, EEAGraphics eeaGraphics){
+	public HitAction(int strength){
 		this.strength = strength;
-		this.eeaGraphics = eeaGraphics;
 	}
 	
 	@Override
@@ -22,12 +19,10 @@ public class HitAction extends EEAAction {
 		if(ILife.class.isInstance(getTarget())){
 			ILife l = (ILife) getTarget();
 			l.changeLife(-strength);
+
+			Entity explosion = ExplosionFactory.createExplosion(getTarget().getX(), getTarget().getY(), 
+					0.01f, getTarget().getWidth() * getTarget().getScaleX(), getTarget().getHeight() * getTarget().getScaleY(), false);
 			
-			Entity explosion = new Entity("Explosion");
-			// TODO Creating a new Factory every time an explosion occurs seems quite overkilling.
-			explosion = new ExplosionFactory(
-					getTarget().getX() - getTarget().getWidth()/2, getTarget().getY()-getTarget().getHeight()/2, 
-					0.01f, getTarget().getWidth(), getTarget().getHeight(), false, this.eeaGraphics).createEntity();
 			getEntity().getManager().addEntity(explosion);
 			
 			if(!l.hasLifeLeft()){

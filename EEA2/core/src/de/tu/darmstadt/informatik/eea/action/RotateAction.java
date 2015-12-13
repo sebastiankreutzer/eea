@@ -6,8 +6,13 @@ public class RotateAction extends EEAMovement {
 	
 	float rotation;
 	
-	public RotateAction(float degree) {
-		this.rotation = degree;
+	/**
+	 * Rotiert die Entity, wobei ein positiver Wert einer Rotation gegen und 
+	 * ein negativer Wert im Uhrzeigersinn entspricht.
+	 * @param rotation Die Richtung und Winkelgeschwindigkeit der Rotation
+	 */
+	public RotateAction(float rotation) {
+		this.rotation = rotation;
 	}
 	
 	@Override

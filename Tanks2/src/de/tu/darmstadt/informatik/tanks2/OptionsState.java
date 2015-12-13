@@ -1,7 +1,6 @@
 package de.tu.darmstadt.informatik.tanks2;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
@@ -38,7 +37,7 @@ public class OptionsState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png", game.graphics)); // Bildkomponente
+		background.addComponent(new ImageRenderComponent("menu.png", game.graphics.getResourcesManager())); // Bildkomponente
 		
 		// Erzeuge folgendes Event "Escape-Taste gedrueckt"
 		EEAEvent ESC_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);

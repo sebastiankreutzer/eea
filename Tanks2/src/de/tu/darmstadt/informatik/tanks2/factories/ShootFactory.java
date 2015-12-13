@@ -1,11 +1,9 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-import de.tu.darmstadt.informatik.eea.EEAGraphics;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
-import de.tu.darmstadt.informatik.eea.action.MoveAction;
 import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
@@ -24,16 +22,16 @@ public class ShootFactory {
 	protected final String owner;
 	protected final int strength;
 	protected final boolean debug;
-	private EEAGraphics eeaGraphics;
+	private IResourcesManager resourcesManager;
 	
-	public ShootFactory(int strength, String owner,float rotation, float scale , float x, float y, boolean debug, EEAGraphics eeaGraphics){
+	public ShootFactory(int strength, String owner,float rotation, float scale , float x, float y, boolean debug, IResourcesManager resourcesManager){
 		this.owner = owner;
 		this.rotation = rotation;
 		this.scale = scale;
 		this.position = new Vector2(x,y);
 		this.strength = strength;
 		this.debug = debug;
-		this.eeaGraphics = eeaGraphics;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	public Entity createEntity() {
@@ -44,7 +42,7 @@ public class ShootFactory {
 		simpleShot.setRotation(rotation);
 		simpleShot.setScale(scale);
 		
-		simpleShot.addComponent(new ImageRenderComponent("shoot.png", eeaGraphics));
+		simpleShot.addComponent(new ImageRenderComponent("shoot.png", resourcesManager));
 		
 		EEAEvent mainEvent = new EntityOutOfScreenEvent();
 		mainEvent.addAction(new DestroyEntityAction());
@@ -53,12 +51,11 @@ public class ShootFactory {
 		
 		
 		mainEvent = new CollisionEvent();
-		mainEvent.addAction(new HitAction(strength, eeaGraphics));
+		mainEvent.addAction(new HitAction(strength));
 		simpleShot.addComponent(mainEvent);
 		
 		mainEvent = new LoopEvent();
-		// TODO Make the movement relative instead of absolute
-		mainEvent.addAction(new MoveRelativeAction(0f, 25f));
+		mainEvent.addAction(new MoveRelativeAction(25f, 0f));
 		simpleShot.addComponent(mainEvent);
 		
 		

@@ -3,6 +3,7 @@ package de.tu.darmstadt.informatik.tanks2.factories;
 import com.badlogic.gdx.math.Vector2;
 
 import de.tu.darmstadt.informatik.eea.EEAGraphics;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.tanks2.entities.Wall;
@@ -15,17 +16,17 @@ public class WallFactory {
 	private final float scaling;
 	private final Vector2 position;
 	private final boolean debug;
-	private EEAGraphics eeaGraphics;
+	private IResourcesManager resourcesManager;
 	
 	
-	public WallFactory(int maxLife, int life, int rotation, int scaling,int x, int y, boolean debug, EEAGraphics eeaGraphics){
+	public WallFactory(int maxLife, int life, int rotation, int scaling,int x, int y, boolean debug, IResourcesManager resourcesManager){
 		this.maxLife = maxLife;
 		this.life = life;
 		this.rotation = rotation;
 		this.scaling = scaling / 100.0f;
 		this.position = new Vector2(x,y);
 		this.debug = debug;
-		this.eeaGraphics=eeaGraphics;
+		this.resourcesManager=resourcesManager;
 	}
 	
 	public Entity createEntity() {
@@ -37,7 +38,7 @@ public class WallFactory {
 		wall.setScale(scaling);
 		wall.setPassable(false);
 		
-		wall.addComponent(new ImageRenderComponent("thematrixer-net_stahlwand.jpg", eeaGraphics));
+		wall.addComponent(new ImageRenderComponent("thematrixer-net_stahlwand.jpg", resourcesManager));
 		
 		return wall;
 	}

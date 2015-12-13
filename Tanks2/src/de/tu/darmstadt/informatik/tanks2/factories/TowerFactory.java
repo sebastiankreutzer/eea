@@ -2,20 +2,14 @@ package de.tu.darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.tu.darmstadt.informatik.eea.EEAGraphics;
-import de.tu.darmstadt.informatik.eea.action.RotateAction;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu.darmstadt.informatik.eea.event.ANDEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
+import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
-import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Tower;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIRotateRightEvent;
-import de.tu.darmstadt.informatik.tanks2.events.AIShootEvent;
-import de.tu.darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
-import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
+
 
 public class TowerFactory {
 
@@ -29,9 +23,10 @@ public class TowerFactory {
 	private final float scaling;
 	private final Vector2 position;
 	private final boolean debug;
-	private EEAGraphics eeaGraphics;
+	private IResourcesManager resourcesManager;
 	
-	public TowerFactory(int maxLife, int life, int maxShoots, int shoots, int streangth, float speed,int rotation, float scaling, int x, int y, boolean debug, EEAGraphics eeaGraphics){
+	public TowerFactory(int maxLife, int life, int maxShoots, int shoots, int streangth, float speed,int rotation,
+			float scaling, int x, int y, boolean debug, IResourcesManager resourcesManager){
 		this.maxLife = maxLife;
 		this.life = life;
 		this.maxShoots = maxShoots;
@@ -42,7 +37,7 @@ public class TowerFactory {
 		this.scaling = scaling;
 		position = new Vector2(x,y);
 		this.debug = debug;
-		this.eeaGraphics = eeaGraphics;
+		this.resourcesManager = resourcesManager;
 		
 	}
 	
@@ -53,29 +48,17 @@ public class TowerFactory {
 		tower.setLife(life);
 		tower.setShootMaxAmmo(maxShoots);
 		tower.setShootAtmmo(shoots);
-		tower.setStreangth(streangth);
+		tower.setStrength(streangth);
 		tower.setRotation(rotation);
 		tower.setScale(scaling);
 		tower.setPosition(position.x, position.y);
 		tower.setSpeed(speed);
 		tower.setPassable(false);
 		
-		tower.addComponent(new ImageRenderComponent("flac.png", eeaGraphics));
+		tower.addComponent(new ImageRenderComponent("flac.png", resourcesManager));
 		
-		EEAEvent mainEvent = new AIRotateLeftEvent();
-		mainEvent.addAction(new RotateAction(-speed));
-		tower.addComponent(mainEvent);
-		
-		mainEvent = new AIRotateRightEvent();
-		mainEvent.addAction(new RotateAction(speed));
-		tower.addComponent(mainEvent);
-		
-		mainEvent = new ANDEvent(new HasShootAmmoLeftEvent(),new AIShootEvent());
-		mainEvent.addAction(new ShootAction(eeaGraphics));
-		mainEvent.addAction(new ChangeShootAmmoAction(-1));		
-		tower.addComponent(mainEvent);
-		
-		mainEvent = new TimeEvent(1000, true);
+		// TODO Add AI
+		EEAEvent mainEvent = new TimeEvent(1000, true);
     	mainEvent.addAction(new ChangeShootAmmoAction(1));
     	tower.addComponent(mainEvent);
 		

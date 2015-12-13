@@ -1,7 +1,6 @@
 package de.tu.darmstadt.informatik.eea.action;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 
 public abstract class EEAMovement extends EEAAction {
 	

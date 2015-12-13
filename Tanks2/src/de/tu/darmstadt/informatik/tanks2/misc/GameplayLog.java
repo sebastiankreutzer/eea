@@ -3,21 +3,21 @@ package de.tu.darmstadt.informatik.tanks2.misc;
 public class GameplayLog {
 	
 	private static GameplayLog log = new GameplayLog();
+	public Timer timer;
 	private int numberOfShots;
-	//private StopWatch timer;
-	private String nextMap;
+	private String mapName, nextMap, background;
 	private long timeLimit;
-	private String background;
-	private String mapName;
 	private boolean multiplayer;
 	
 	private GameplayLog(){
 		this.numberOfShots = 0;
-		//this.timer = new StopWatch();
 		this.setNextMap("null");
 		this.setBackground("null");
 		this.setMapName("null");
-		this.setTimeLimit(0);
+		
+		timer = new Timer();
+		setTimeLimit(0);
+		
 		this.multiplayer = false;
 	}
 	
@@ -80,9 +80,7 @@ public class GameplayLog {
 		stringBuffer.append(" ");
 		stringBuffer.append(timeLimit);
 		stringBuffer.append(" ");
-		// TODO Compute actual delta since start
-		stringBuffer.append(
-				System.currentTimeMillis());
+		stringBuffer.append(timer.get());
 		stringBuffer.append(" ");
 		stringBuffer.append(numberOfShots);
 		return stringBuffer.toString();
@@ -96,6 +94,31 @@ public class GameplayLog {
 		return multiplayer;
 	}
 	
-
+	public class Timer {
+		
+		long startTime, elapsedTime = 0;
+		
+		public void start() {
+			startTime = System.currentTimeMillis();
+		}
+		
+		public void stop() {
+			elapsedTime = elapsedTime + System.currentTimeMillis() - startTime;
+		}
+		
+		public void set(long time) {
+			elapsedTime = time;
+		}
+		
+		public long get() {
+			return System.currentTimeMillis() - startTime;
+		}
+		
+		public void reset() {
+			elapsedTime = 0;
+		}
+		
+	}
+	
 }
 

@@ -110,7 +110,7 @@ public class Tank extends Entity implements ILife, IStrength, IShootAmmo, IMines
 
 
 	@Override
-	public void setStreangth(int streangth) {
+	public void setStrength(int streangth) {
 		this.strength = streangth;
 	}
 

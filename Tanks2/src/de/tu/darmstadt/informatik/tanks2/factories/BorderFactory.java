@@ -1,7 +1,6 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
 import de.tu.darmstadt.informatik.eea.entity.Entity;
-import de.tu.darmstadt.informatik.tanks2.entities.Border;
 
 public class BorderFactory {
 	
@@ -17,7 +16,7 @@ public class BorderFactory {
 	
 	public Entity createEntity() {
 		
-		Entity border = new Border("Border"+Math.random());
+		Entity border = new Entity("Border"+Math.random());
 		border.setPosition(x, y);
 		border.setSize(width, height);
 		border.setVisible(false);

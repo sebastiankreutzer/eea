@@ -2,16 +2,18 @@ package de.tu.darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.tu.darmstadt.informatik.eea.EEAGraphics;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
+import de.tu.darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu.darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu.darmstadt.informatik.eea.event.EEAEvent;
-import de.tu.darmstadt.informatik.tanks2.actions.AddComponentsAction;
+import de.tu.darmstadt.informatik.eea.event.TimeEvent;
 import de.tu.darmstadt.informatik.tanks2.actions.HitAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Mine;
-import de.tu.darmstadt.informatik.tanks2.events.TimeEvent;
+
+
 
 public class MineFactory {
 	
@@ -19,15 +21,15 @@ public class MineFactory {
 	private final boolean debug;
 	private final int streangth;
 	private final float scaling;
-	private EEAGraphics eeaGraphics;
+	private IResourcesManager resourcesManager;
 	
 	
-	public MineFactory(Vector2 pos, float scaling,int streangth,boolean debug, EEAGraphics eeaGraphics){
+	public MineFactory(Vector2 pos, float scaling,int streangth,boolean debug, IResourcesManager resourcesManager){
 		this.pos = pos;
 		this.scaling = scaling;
 		this.streangth = streangth;
 		this.debug = debug;
-		this.eeaGraphics = eeaGraphics;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	public Entity createEntity() {
@@ -35,7 +37,7 @@ public class MineFactory {
 		mine.setScale(scaling);
 		mine.setPosition(pos.x, pos.y);
 
-		mine.addComponent(new ImageRenderComponent("mine.png", eeaGraphics));
+		mine.addComponent(new ImageRenderComponent("mine.png", resourcesManager));
 		
 		//Event mainEvent = new TimeEvent(15000, false);
 		//mainEvent.addAction(new DestroyEntityAction());
@@ -44,7 +46,7 @@ public class MineFactory {
 		EEAEvent mainEvent = new TimeEvent(2000, false);
 		
 		EEAEvent secondaryEvent = new CollisionEvent();
-		secondaryEvent.addAction(new HitAction(streangth, eeaGraphics));
+		secondaryEvent.addAction(new HitAction(streangth));
 		
 		mainEvent.addAction(new AddComponentsAction(mine, secondaryEvent));
 		mainEvent.addAction(new RemoveEventAction(mainEvent));

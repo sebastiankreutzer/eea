@@ -1,5 +1,7 @@
 package de.tu.darmstadt.informatik.eea.event;
 
+import java.util.List;
+
 import com.badlogic.gdx.math.Vector2;
 
 import de.tu.darmstadt.informatik.eea.action.EEAMovement;
@@ -9,31 +11,35 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 	
 	private static final String ID = "MovementDoesNotCollideEvent";
 	
-	private float speed;
 	EEAMovement move;
 	
 	public MovementDoesNotCollideEvent(float currentSpeed, EEAMovement move) {
 		super(ID);
-	    speed = currentSpeed;
-	    addAction(move);
+	    //speed = currentSpeed;
+	    //addAction(move);
 	    this.move = move;
 	}
 
 	@Override
 	public boolean eventTriggered(float delta) {
-	    Vector2 position = move.getNextPosition(delta);
+	    Vector2 oldPosition = new Vector2(owner.getX(), owner.getY());
+	    float oldRotation = owner.getRotation();
+	    
+	    move.act(delta);
 
-	    // now, determine if there is a collision between this
-	    // "clone of the owning entity" and another object
-	    Entity collider = owner.getManager().collides(owner);
+	    List<Entity> colliders = owner.getManager().getAllCollisions(owner);
 
-	    // if this is not the case, or the colliding entity can be passed
-	    // without an effect, indicate that the movement can be performed.
-	    if (collider == null) {
-	      return true; // no collision => go ahead
-	    } else {
-	      return (collider.isPassable()); // collision "relevant" or not?
+	    boolean collisionOccured = false;
+	    for (Entity c : colliders) {
+	    	if (!c.isPassable()) {
+	    		collisionOccured = true;
+	    		break;
+	    	}
 	    }
+	    
+	    owner.setPosition(oldPosition.x, oldPosition.y);
+	    owner.setRotation(oldRotation);
+	    return !collisionOccured;
 	}
 
 }
