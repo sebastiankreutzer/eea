@@ -2,7 +2,6 @@ package de.tu.darmstadt.informatik.eea.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.utils.Align;
 
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
 
@@ -18,7 +17,7 @@ public class ImageRenderComponent extends RenderComponent {
 		super(ID);
 		this.resourcesManager = resourcesManager;
 		this.texturePath = texturePath;
-		resourcesManager.loadTexture(texturePath);
+		resourcesManager.loadTextureAsync(texturePath);
 	}
 
 	@Override
