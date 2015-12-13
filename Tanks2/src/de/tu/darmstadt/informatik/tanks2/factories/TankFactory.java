@@ -219,7 +219,6 @@ public class TankFactory {
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
 		}
-		
 		return tank;
 	}
 

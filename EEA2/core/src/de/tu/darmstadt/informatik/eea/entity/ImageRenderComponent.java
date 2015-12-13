@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.eea.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.Align;
 
 public class ImageRenderComponent extends RenderComponent {
 	
@@ -23,6 +24,8 @@ public class ImageRenderComponent extends RenderComponent {
 	public void setOwnerEntity(Entity owningEntity) {
 		super.setOwnerEntity(owningEntity);
 		owner.setSize(texture.getWidth(), texture.getHeight());
+		//owner.setOrigin(owner.getWidth()  / 2, owner.getHeight()  / 2);
+		//System.out.println(owner.getScaleX());
 	}
 
 }
