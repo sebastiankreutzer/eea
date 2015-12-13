@@ -1,17 +1,17 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.tu.darmstadt.informatik.eea.entity.AnimationRenderComponent;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
-import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu.darmstadt.informatik.eea.entity.RenderComponent;
 import de.tu.darmstadt.informatik.tanks2.entities.Explosion;
 
 public class ExplosionFactory {
 	
+
 	public static Entity createExplosion(float x, float y, float speed, float width, float height, boolean debug) {
 		Entity explosion = new Explosion("Explosion"+Math.random(), width, height, speed);
 		explosion.setPosition(x, y);

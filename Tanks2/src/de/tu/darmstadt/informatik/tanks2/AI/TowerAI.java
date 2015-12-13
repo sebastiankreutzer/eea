@@ -1,5 +1,6 @@
 package de.tu.darmstadt.informatik.tanks2.AI;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
@@ -7,9 +8,11 @@ import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 public class TowerAI extends AI {
 	
 	public static final String ID = "TowerAI";
+	private IResourcesManager resourceManager;
 
-	public TowerAI(String target) {
+	public TowerAI(String target, IResourcesManager resourcesManager) {
 		super(ID, target);
+		this.resourceManager = resourcesManager;
 	}
 
 	@Override
@@ -18,7 +21,7 @@ public class TowerAI extends AI {
 		
 		if (Math.abs(deltaRotation - 180) <= 175) return determineRotateAction(deltaRotation);
 		
-		if(((IShootAmmo) owner).hasShootAmmo())	return new ShootAction();
+		if(((IShootAmmo) owner).hasShootAmmo())	return new ShootAction(resourceManager);
 		
 		return determineRotateAction(deltaRotation);
 	}

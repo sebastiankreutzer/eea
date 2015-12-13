@@ -1,14 +1,13 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.EEAGraphics;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu.darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu.darmstadt.informatik.eea.event.ANDEvent;
-import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 import de.tu.darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu.darmstadt.informatik.eea.event.MouseEnteredEvent;
 import de.tu.darmstadt.informatik.eea.states.EntityManager;
@@ -16,19 +15,21 @@ import de.tu.darmstadt.informatik.eea.states.EntityManager;
 public class MenuEntryFactory {
 	
 	private final EntityManager em;
-	private final EEAGraphics g;
+	private final IResourcesManager resourcesManager;
 	
 	private float startX = 0f, startY = 0f;
 	private float distX = 100f, distY = 20f;
 	private float space = 10f;
 	
 	private String name;
-	private Texture texture;
 	private Action[] actions;
+	private String texturePath;
+	private EEAGraphics graphics;
 	
 	public MenuEntryFactory(EntityManager entitymanager, EEAGraphics graphics){
 		em = entitymanager;
-		g = graphics;
+		this.resourcesManager = graphics.getResourcesManager();
+		this.graphics = graphics;
 	}
 	
 	public void setDimensions(float x, float y, float width, float height){
@@ -38,9 +39,10 @@ public class MenuEntryFactory {
 		distY = height;
 	}
 	
-	public void prepareMenuEntry(String name, Texture texture, Action... action){
+
+	public void prepareMenuEntry(String name, String texturePath, Action... action){
 		this.name = name;
-		this.texture = texture;
+		this.texturePath = texturePath;
 		this.actions = action;
 		
 		startY = startY - distY - space;
@@ -54,7 +56,7 @@ public class MenuEntryFactory {
 	public Entity makeMenuEntry(){
 		
 		Entity imageEntity = new Entity(name);
-		imageEntity.addComponent(new ImageRenderComponent(texture));
+		imageEntity.addComponent(new ImageRenderComponent(texturePath, this.resourcesManager));
 		imageEntity.setBounds(startX, startY, distX, distY);
 		em.addEntity(imageEntity);
 		
@@ -68,7 +70,7 @@ public class MenuEntryFactory {
 	
 	public Entity makeMenuEntryText(){
 		Entity textEntity = new Entity(name + "Text");
-		textEntity.addComponent(new TextRenderComponent(name, g));
+		textEntity.addComponent(new TextRenderComponent(name, graphics));
 		textEntity.setBounds(startX + 10, startY, distX - 20, distY);
 		em.addEntity(textEntity);
 		

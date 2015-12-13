@@ -11,12 +11,11 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 	
 	private static final String ID = "MovementDoesNotCollideEvent";
 	
-	private float speed;
 	EEAMovement move;
 	
 	public MovementDoesNotCollideEvent(float currentSpeed, EEAMovement move) {
 		super(ID);
-	    speed = currentSpeed;
+	    //speed = currentSpeed;
 	    //addAction(move);
 	    this.move = move;
 	}

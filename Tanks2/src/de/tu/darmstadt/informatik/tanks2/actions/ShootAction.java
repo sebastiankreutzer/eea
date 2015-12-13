@@ -2,6 +2,7 @@ package de.tu.darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ShootFactory;
@@ -12,9 +13,11 @@ import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 public class ShootAction extends EEAAction {
 
 	private int strength;
-
-	public ShootAction() {
+	private IResourcesManager resourcesManager;
+	
+	public ShootAction(IResourcesManager resourcesManager){
 		this.strength = 0;
+		this.resourcesManager = resourcesManager;
 	}
 
 	@Override
@@ -26,6 +29,7 @@ public class ShootAction extends EEAAction {
 
 		float rotation = getActor().getRotation();
 		Vector2 pos = new Vector2(getActor().getX(), getActor().getY());
+		
 		Vector2 size = new Vector2(getActor().getWidth()
 				* getActor().getScaleX(), getActor().getHeight()
 				* getActor().getScaleY());
@@ -36,10 +40,14 @@ public class ShootAction extends EEAAction {
 		pos.y += 2f * size.y / 2.0f
 				* java.lang.Math.cos(java.lang.Math.toRadians(rotation)) + 10;
 
-		Entity simpleShoot = new ShootFactory(strength, getEntity().getID(),
-				rotation, getActor().getScaleX() * 0.5f, pos.x, pos.y, true)
-				.createEntity();
-
+		Entity simpleShoot = new ShootFactory(strength,
+				getEntity().getID(),
+				rotation,
+				getActor().getScaleX() * 0.5f,
+				pos.x,
+				pos.y,
+				true, resourcesManager).createEntity();
+		
 		getEntity().getManager().addEntity(simpleShoot);
 
 		if (getEntity().getID().equals("\"PlayerOne\"")) {

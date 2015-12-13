@@ -1,9 +1,9 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.RemoveEventAction;
@@ -17,6 +17,8 @@ import de.tu.darmstadt.informatik.tanks2.actions.ChangeLifeAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
 
+
+
 public class PickupFactory {
 	
 	private final PickUpType type;
@@ -25,14 +27,16 @@ public class PickupFactory {
 	private final float scaling;
 	private final Vector2 position;
 	private final boolean debug;
+	private IResourcesManager resourcesManager;
 
-	public PickupFactory(PickUpType type, int strength, float rotation, float scaling, float x, float y, boolean debug){
+	public PickupFactory(PickUpType type, int strength, float rotation, float scaling, float x, float y, boolean debug, IResourcesManager resourcesManager){
 		this.type = type;
 		this.strength = strength;
 		this.rotation = rotation;
 		this.scaling = scaling;
 		this.position = new Vector2(x,y);
 		this.debug = debug;
+		this.resourcesManager = resourcesManager;
 	}
 	
 	public Entity createEntity() {
@@ -65,12 +69,12 @@ public class PickupFactory {
 		
 		switch (type) {
 		case AMMUNITION:
-			pickup.addComponent(new ImageRenderComponent(new Texture("healthpack.png")));
+			pickup.addComponent(new ImageRenderComponent("healthpack.png", resourcesManager));
 			mainEvent.addAction(new ChangeLifeAction(strength));
 			break;
 			
 		case HEALTH:
-			pickup.addComponent(new ImageRenderComponent(new Texture("munipack.png")));
+			pickup.addComponent(new ImageRenderComponent("munipack.png", resourcesManager));
 			mainEvent.addAction(new ChangeAmmoAction(strength));
 			break;
 

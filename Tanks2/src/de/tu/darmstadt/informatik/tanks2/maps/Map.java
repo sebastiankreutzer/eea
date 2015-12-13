@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import de.tu.darmstadt.informatik.eea.EEAGraphics;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
@@ -62,12 +64,12 @@ public class Map implements IMap {
 		}
 	}
 	
-	public void parse(String map, boolean debug) throws SemanticException, SyntaxException {
+	public void parse(String map, IResourcesManager resourcesManager, boolean debug) throws SemanticException, SyntaxException {
 		clear();
 		source = map;
 		SourceFile sc = new SourceFile(source);
 		Scanner lexer = new Scanner(sc);
-		Parser parser = new Parser(lexer, new ErrorReporter());
+		Parser parser = new Parser(lexer, new ErrorReporter(), resourcesManager);
 		parser.setDebug(debug);
 		try {
 			new Checker(parser.parseMap()).check();

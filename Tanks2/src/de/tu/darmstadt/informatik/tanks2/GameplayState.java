@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import com.badlogic.gdx.Input;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -36,9 +37,13 @@ public class GameplayState extends EEAGameState {
 	private TextRenderComponent player1text, ammo1Text, mine1Text, life1Text;
 	private TextRenderComponent player2text, ammo2Text, mine2Text, life2Text;
 
+	private IResourcesManager resourcesManager;
+
 	public GameplayState(EEAGame game) {
 		super(game);
-		this.map = Map.getInstance();
+		IResourcesManager _resourcesManager = game.graphics.getResourcesManager();
+		this.resourcesManager = _resourcesManager;
+		map = Map.getInstance();
 	}
 	
 	@Override
@@ -124,7 +129,7 @@ public class GameplayState extends EEAGameState {
 		em.setDebug(true);
 		// Map parsen
 		try {
-			map.parse(map.getSource(), true);
+			map.parse(map.getSource(), resourcesManager, true);
 		} catch (SyntaxException e) {
 			e.printStackTrace();
 			JFrame frame = new JFrame("");
@@ -305,7 +310,7 @@ public class GameplayState extends EEAGameState {
 			entity.addComponent(event);
 
 			event = new RandomEvent(0.25);
-			event.addAction(new SpawnPickupAction());
+			event.addAction(new SpawnPickupAction(resourcesManager));
 			entity.addComponent(event);
 		}
 

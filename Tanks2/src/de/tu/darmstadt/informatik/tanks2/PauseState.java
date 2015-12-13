@@ -33,7 +33,7 @@ public class PauseState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente // TODO Load image from AssetManager
+		background.addComponent(new ImageRenderComponent("menu.png",game.graphics.getResourcesManager())); // Bildkomponente // TODO Load image from AssetManager
 		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
 		em.addEntity(background);
 		
@@ -45,7 +45,7 @@ public class PauseState extends EEAGameState {
 		MenuEntryFactory mef = new MenuEntryFactory(em, game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 		
-		mef.prepareMenuEntry("Zurück zum pausierten Spiel", new Texture("entry.png"), new ChangeStateAction(game, LaunchTanks.gameState){
+		mef.prepareMenuEntry("Zurück zum pausierten Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {
 			@Override
 			public boolean act(float delta) {
 				super.act(delta);
@@ -55,7 +55,7 @@ public class PauseState extends EEAGameState {
 		});
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Spielstand speichern", new Texture("entry.png"), new EEAAction() {
+		mef.prepareMenuEntry("Spielstand speichern", "entry.png", new EEAAction() {
 			
 			@Override
 			public boolean act(float delta) {
@@ -87,7 +87,7 @@ public class PauseState extends EEAGameState {
 		});
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Zurück zum Hauptmenü", new Texture("entry.png"), new ChangeStateAction(game, LaunchTanks.mainMenu));
+		mef.prepareMenuEntry("Zurück zum Hauptmenü", "entry.png", new ChangeStateAction(game, LaunchTanks.mainMenu));
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
 	}

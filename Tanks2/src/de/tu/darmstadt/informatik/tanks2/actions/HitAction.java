@@ -19,7 +19,7 @@ public class HitAction extends EEAAction {
 		if (ILife.class.isInstance(getTarget())) {
 			ILife l = (ILife) getTarget();
 			l.changeLife(-strength);
-
+			
 			Entity explosion = ExplosionFactory.createExplosion(getTarget()
 					.getX(), getTarget().getY(), 0.01f, getTarget().getWidth()
 					* getTarget().getScaleX(), getTarget().getHeight()
