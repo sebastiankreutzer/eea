@@ -5,4 +5,5 @@ import com.badlogic.gdx.graphics.Texture;
 public interface IResourcesManager {
 	public Texture getTexture(String path);
 	public void loadTextureAsync(String path);
+	public void update();
 }
