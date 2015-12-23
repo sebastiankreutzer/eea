@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.AddComponentsAction;
+import de.tu.darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu.darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.eea.entity.ImageRenderComponent;
@@ -19,39 +20,37 @@ public class MineFactory {
 	
 	private final Vector2 pos;
 	private final boolean debug;
-	private final int streangth;
+	private final int strength;
 	private final float scaling;
 	private IResourcesManager resourcesManager;
 	
 	
-	public MineFactory(Vector2 pos, float scaling,int streangth,boolean debug, IResourcesManager resourcesManager){
+	public MineFactory(Vector2 pos, float scaling,int strength,boolean debug, IResourcesManager resourcesManager){
 		this.pos = pos;
 		this.scaling = scaling;
-		this.streangth = streangth;
+		this.strength = strength;
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
 	}
 	
 	public Entity createEntity() {
-		Entity mine = new Mine("Mine"+Math.random(), streangth);
+		Entity mine = new Mine("Mine"+Math.random(), strength);
 		mine.setScale(scaling);
 		mine.setPosition(pos.x, pos.y);
 
 		mine.addComponent(new ImageRenderComponent("mine.png", resourcesManager));
 		
-		//Event mainEvent = new TimeEvent(15000, false);
-		//mainEvent.addAction(new DestroyEntityAction());
-		//mine.addComponent(mainEvent);
+		// If something collides with the mine, deal damage and destroy the mine.
+		EEAEvent collisionEvent = new CollisionEvent();
+		collisionEvent.addAction(new HitAction(strength));
+		collisionEvent.addAction(new DestroyEntityAction());
 		
-		EEAEvent mainEvent = new TimeEvent(2000, false);
+		// The mine should be armed with a delay.
+		TimeEvent timeEvent = new TimeEvent(2.5f, false);
+		timeEvent.addAction(new AddComponentsAction(mine, collisionEvent));
+		timeEvent.addAction(new RemoveEventAction(timeEvent));
 		
-		EEAEvent secondaryEvent = new CollisionEvent();
-		secondaryEvent.addAction(new HitAction(streangth));
-		
-		mainEvent.addAction(new AddComponentsAction(mine, secondaryEvent));
-		mainEvent.addAction(new RemoveEventAction(mainEvent));
-		
-		mine.addComponent(mainEvent);
+		mine.addComponent(timeEvent);
 		
 		return mine;
 	}

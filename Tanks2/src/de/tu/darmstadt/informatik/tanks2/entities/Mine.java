@@ -7,16 +7,16 @@ public class Mine extends Entity implements IStrength {
 	
 	private int strength;
 
-	public Mine(String id, int streangth) {
+	public Mine(String id, int strength) {
 		super(id);
-		this.strength = streangth;
+		this.strength = strength;
 	}
 	
 	public String toString(){
 		StringBuilder sb = new StringBuilder("Mine ");
 		sb.append(strength);
 		sb.append(" ");
-		sb.append((int)(this.getScaleX()*100));
+		sb.append((int)(this.getScaleX()));
 		sb.append(" ");
 		sb.append((int)this.getX());
 		sb.append(" ");
