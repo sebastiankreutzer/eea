@@ -51,24 +51,25 @@ public class PickupFactory {
 		mainEvent.addAction(new RemoveEventAction(mainEvent));
 		pickup.addComponent(mainEvent);
 
-		mainEvent = new CollisionEvent();
+		EEAEvent collisionEvent = new CollisionEvent();
 
 		switch (type) {
 		case AMMUNITION:
 			pickup.addComponent(new ImageRenderComponent("healthpack.png", resourcesManager));
-			mainEvent.addAction(new ChangeLifeAction(strength));
+			collisionEvent.addAction(new ChangeLifeAction(strength));
 			break;
 
 		case HEALTH:
 			pickup.addComponent(new ImageRenderComponent("munipack.png", resourcesManager));
-			mainEvent.addAction(new ChangeAmmoAction(strength));
+			collisionEvent.addAction(new ChangeAmmoAction(strength));
 			break;
 
 		default:
 			break;
 		}
+		collisionEvent.addAction(new DestroyEntityAction());
 
-		pickup.addComponent(mainEvent);
+		pickup.addComponent(collisionEvent);
 
 		return pickup;
 	}
