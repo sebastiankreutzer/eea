@@ -13,9 +13,8 @@ public class ChangeLifeAction extends EEAAction {
 	
 	@Override
 	public boolean act(float delta) {
-		if(ILife.class.isInstance(getActor())){
-			ILife l = (ILife) getActor();
-			l.changeLife(strength);
+		if(getTarget() instanceof ILife){
+			((ILife) getTarget()).changeLife(strength);
 		}
 		return true;
 	}
