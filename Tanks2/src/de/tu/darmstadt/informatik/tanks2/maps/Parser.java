@@ -47,6 +47,7 @@ public class Parser implements IParser {
 	  private boolean debug;
 	  private IResourcesManager resourcesManager;
 	  private PickupFactory pickUpFactory;
+	  private MineFactory mineFactory;
 	
 	  public Parser(Scanner lexer, ErrorReporter reporter, IResourcesManager resourcesManager) {
 	    lexicalAnalyser = lexer;
@@ -55,6 +56,7 @@ public class Parser implements IParser {
 	    debug = false;
 	    this.resourcesManager = resourcesManager;
 	    pickUpFactory = new PickupFactory(debug, resourcesManager);
+	    mineFactory = new MineFactory(debug, resourcesManager);
 	  }
 	  
 	  public void setDebug(boolean debug){
@@ -119,7 +121,7 @@ public class Parser implements IParser {
 		int x = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
-		map.addEntity(new MineFactory(new Vector2(x, y), scale, strength, debug, resourcesManager).createEntity());
+		map.addEntity(mineFactory.createEntity(x, y, scale, strength));
 		return map;
 	}
 	protected Map parseScattershoot(Map map) throws SyntaxException {
