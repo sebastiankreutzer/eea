@@ -5,6 +5,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
@@ -38,6 +39,8 @@ public class GameplayState extends EEAGameState {
 	private TextRenderComponent player2text, ammo2Text, mine2Text, life2Text;
 
 	private IResourcesManager resourcesManager;
+
+	private TextRenderComponent fpsText;
 
 	public GameplayState(EEAGame game) {
 		super(game);
@@ -94,6 +97,12 @@ public class GameplayState extends EEAGameState {
 		life2Text = new TextRenderComponent("", game.graphics);
 		life2Label.addComponent(life2Text);
 		em.addEntity(life2Label);
+		
+		Entity fpsLabel = new Entity("FPSLabel");
+		fpsLabel.setPosition(320, 20);
+		fpsText = new TextRenderComponent("", game.graphics);
+		fpsLabel.addComponent(fpsText);
+		em.addEntity(fpsLabel);
 	}
 
 	@Override
@@ -115,6 +124,8 @@ public class GameplayState extends EEAGameState {
 		} else {
 			player1text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
 		}
+		
+		fpsText.setText("FPS" + game.getFramerate());
 	}
 
 	@Override
