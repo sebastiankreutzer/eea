@@ -121,7 +121,7 @@ public class GameplayState extends EEAGameState {
 
 	@Override
 	protected void update(float delta) {
-		em.update(delta);
+		
 	}
 
 	@Override
