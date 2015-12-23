@@ -46,29 +46,6 @@ public class GameplayState extends EEAGameState {
 		map = Map.getInstance();
 	}
 	
-	@Override
-	public void render(float delta) {
-		super.render(delta);
-		
-		Tank tank = ((Tank)em.getEntity(Tanks.player1));
-		if(tank != null) {
-			ammo1Text.setText("Übrige Schüsse: "+tank.getActualShootAmmo()+"/"+tank.getMaxShootAmmo());
-			mine1Text.setText("Übrige Minen: "+tank.getActualMinesAmmo()+"/"+tank.getMaxMinesAmmo());
-			life1Text.setText("Leben: "+tank.getActualLife()+"/"+tank.getMaxLife());
-		}
-		if (GameplayLog.getInstance().isMultiplayer()) {
-			Tank tank2 = ((Tank) em.getEntity(Tanks.player2));
-			if (tank2 != null) {
-				player2text.setText("Spieler 2");
-				ammo2Text.setText("Übrige Schüsse: "+tank2.getActualShootAmmo()+"/"+tank2.getMaxShootAmmo());
-				mine2Text.setText("Übrige Minen: "+tank2.getActualMinesAmmo()+"/"+tank2.getMaxMinesAmmo());
-				life2Text.setText("Leben: "+tank2.getActualLife()+"/"+tank2.getMaxLife());
-			}
-		} else {
-			player1text.setText("Vergangene Zeit: "+GameplayLog.getInstance().timer.get()/1000+" s");
-		}
-	}
-	
 	private void createUI(){
 		Entity player1Label = new Entity("Player1Text");
 		player1Label.setPosition(10, 20);
@@ -121,7 +98,23 @@ public class GameplayState extends EEAGameState {
 
 	@Override
 	protected void update(float delta) {
-		
+		Tank tank = ((Tank)em.getEntity(Tanks.player1));
+		if(tank != null) {
+			ammo1Text.setText("Übrige Schüsse: "+tank.getActualShootAmmo()+"/"+tank.getMaxShootAmmo());
+			mine1Text.setText("Übrige Minen: "+tank.getActualMinesAmmo()+"/"+tank.getMaxMinesAmmo());
+			life1Text.setText("Leben: "+tank.getActualLife()+"/"+tank.getMaxLife());
+		}
+		if (GameplayLog.getInstance().isMultiplayer()) {
+			Tank tank2 = ((Tank) em.getEntity(Tanks.player2));
+			if (tank2 != null) {
+				player2text.setText("Spieler 2");
+				ammo2Text.setText("Übrige Schüsse: "+tank2.getActualShootAmmo()+"/"+tank2.getMaxShootAmmo());
+				mine2Text.setText("Übrige Minen: "+tank2.getActualMinesAmmo()+"/"+tank2.getMaxMinesAmmo());
+				life2Text.setText("Leben: "+tank2.getActualLife()+"/"+tank2.getMaxLife());
+			}
+		} else {
+			player1text.setText("Vergangene Zeit: "+GameplayLog.getInstance().timer.get()/1000+" s");
+		}
 	}
 
 	@Override
