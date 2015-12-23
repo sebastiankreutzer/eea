@@ -49,6 +49,10 @@ public class EntityManager {
 		return null;
 	}
 	
+	public List<Entity> getAllEntities() {
+		return entities;
+	}
+	
 	public boolean hasEntity(String prefix) {
 		Iterator<Entity> it = entities.iterator();
 		while(it.hasNext()) {
