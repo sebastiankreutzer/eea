@@ -1,7 +1,8 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 
 /**
  * This class provides an action that triggers the play back of a Music file. A Music file is a
@@ -18,30 +19,30 @@ public class MusicAction extends EEAAudioAction {
 	
 	/**
 	 * Creates a new MusicAction, used for playing long, looping audio files.
-	 * @param path The path to the file.
+	 * @param file The path to the file.
 	 */
-	public MusicAction(String path) {
-		this(path, 1, 1);
+	public MusicAction(String file, IResourcesManager resourcesManager) {
+		this(file, 1, 1, resourcesManager);
 	}
 
 	/**
 	 * Creates a new MusicAction, used for playing long, looping audio files.
-	 * @param path The path to the file.
+	 * @param file The path to the file.
 	 * @param volume The volume between 0 and 1 (full).
 	 */
-	public MusicAction(String path, float volume) {
-		this(path, volume, 1);
+	public MusicAction(String file, float volume, IResourcesManager resourcesManager) {
+		this(file, volume, 1, resourcesManager);
 	}
 
 	/**
 	 * Creates a new MusicAction, used for playing long, looping audio files.
-	 * @param path The path to the file.
+	 * @param file The path to the file.
 	 * @param volume The volume between 0 and 1 (full).
 	 * @param pan The pan between -1 (left) and 1 (right), default 0 (center).
 	 */
-	public MusicAction(String path, float volume, float pan) {
+	public MusicAction(String file, float volume, float pan, IResourcesManager resourcesManager) {
 		super(volume, pan);
-		music = Gdx.audio.newMusic(Gdx.files.internal(path));
+		music = resourcesManager.getMusic(file);
 		music.setPan(pan, volume);
 	}
 

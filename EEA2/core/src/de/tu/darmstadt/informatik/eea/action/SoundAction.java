@@ -1,7 +1,8 @@
 package de.tu.darmstadt.informatik.eea.action;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 
 /**
  * This class provides an action that triggers the play back of a Sound file. A Sound file is a
@@ -16,13 +17,14 @@ public class SoundAction extends EEAAudioAction {
 	protected String path;
 	protected long audioID;
 	protected float pitch;
+	protected Sound sound;
 	
 	/**
 	 * Creates a new SoundAction, used for short and small audio files (< 1 MB) and no loop playback.
 	 * @param file The path to the sound file.
 	 */
-	public SoundAction(String file) {
-		this(file, 1);
+	public SoundAction(String file, IResourcesManager resourcesManager) {
+		this(file, 1, resourcesManager);
 	}
 	
 	/**
@@ -30,8 +32,8 @@ public class SoundAction extends EEAAudioAction {
 	 * @param file The path to the sound file.
 	 * @param volume The volume between 0 and 1 (full).
 	 */
-	public SoundAction(String file, float volume){
-		this(file, volume, 1, 1);
+	public SoundAction(String file, float volume, IResourcesManager resourcesManager){
+		this(file, volume, 1, 1, resourcesManager);
 	}
 	
 	/**
@@ -41,10 +43,11 @@ public class SoundAction extends EEAAudioAction {
 	 * @param pitch The pitch between 0.5 (slow) and 2 (fast), default 1.
 	 * @param pan The pan between -1 (left) and 1 (right), default 0 (center).
 	 */
-	public SoundAction(String file, float volume, float pitch, float pan) {
+	public SoundAction(String file, float volume, float pitch, float pan, IResourcesManager resourcesManager) {
 		super(volume, pan);
 		this.path = file;
 		this.pitch = Math.min(2f, Math.max(0.5f, pitch));
+		sound = resourcesManager.getSound(file);
 	}
 
 	/**
@@ -53,8 +56,7 @@ public class SoundAction extends EEAAudioAction {
 	 */
 	@Override
 	public boolean act(float delta) {
-		Sound s = Gdx.audio.newSound(Gdx.files.internal(path));
-		audioID = s.play(volume, pitch, pan);
+		audioID = sound.play(volume, pitch, pan);
 		
 		if(audioID == -1) return false;
 		return true;
