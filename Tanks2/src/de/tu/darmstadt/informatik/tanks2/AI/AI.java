@@ -2,10 +2,11 @@ package de.tu.darmstadt.informatik.tanks2.AI;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import de.tu.darmstadt.informatik.eea.action.EEAAction;
+import de.tu.darmstadt.informatik.eea.action.EEAMovement;
 import de.tu.darmstadt.informatik.eea.action.RotateAction;
 import de.tu.darmstadt.informatik.eea.entity.EEAComponent;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
+import de.tu.darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
 import de.tu.darmstadt.informatik.tanks2.entities.Tank;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IArtificialIntelligence;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
@@ -17,12 +18,16 @@ public abstract class AI extends EEAComponent implements IArtificialIntelligence
 	
 	protected String nameTarget;
 	protected Entity target;
+	
+	private MovementDoesNotCollideEvent event;
 
 	protected float speed = 0, strength = 0;
 
 	public AI(String componentID, String target) {
 		super(componentID);
 		this.nameTarget = target;
+
+		event = new MovementDoesNotCollideEvent(null);
 	}
 	
 	@Override
@@ -30,22 +35,26 @@ public abstract class AI extends EEAComponent implements IArtificialIntelligence
 		super.setOwnerEntity(owningEntity);
 		if(owner instanceof ISpeed) speed = ((ISpeed) owner).getSpeed();
 		if(owner instanceof IStrength) strength = ((IStrength) owner).getStrength();
+		owner.addComponent(event);
 	}
 
 	@Override
-	public void update(float delta) {
-		Action a = getNextAction();
-		a.setActor(owner);
-		a.act(delta);
+	public boolean update(float delta) {
+		if(target != null || findTarget()) {
+			event.setMovement(calculateNextMove());
+		}
+		return true;
 	}
 	
 	@Override
-	public Action getNextAction() {
+	public Action getNextAction(float delta) {
 		if(target == null && !findTarget()) return null;
+		MovementDoesNotCollideEvent e = new MovementDoesNotCollideEvent(calculateNextMove());
+		if(e.eventTriggered(delta));
 		return calculateNextMove();
 	}
 	
-	protected abstract EEAAction calculateNextMove();
+	protected abstract EEAMovement calculateNextMove();
 	
 	protected boolean findTarget(){
 		target = owner.getManager().getEntity(Tanks.player1);

@@ -4,13 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.EEAAction;
+import de.tu.darmstadt.informatik.eea.action.EEAMovement;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.factories.ShootFactory;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IStrength;
 import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 
-public class ShootAction extends EEAAction {
+public class ShootAction extends EEAMovement {
 
 	private int strength;
 	private IResourcesManager resourcesManager;
@@ -54,6 +55,11 @@ public class ShootAction extends EEAAction {
 			GameplayLog.getInstance().incrementNumberOfShots(1);
 		}
 		return true;
+	}
+
+	@Override
+	public Vector2 getNextPosition(float delta) {
+		return new Vector2(getActor().getX(), getActor().getY());
 	}
 
 	// @Override
