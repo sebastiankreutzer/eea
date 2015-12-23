@@ -98,22 +98,22 @@ public class TankFactory {
 			
 			
 	    	// tank moves forward
-	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.UP), new MovementDoesNotCollideEvent(speed, forwardMoveAction));
+	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.UP), new MovementDoesNotCollideEvent(forwardMoveAction));
 	    	mainEvents.addAction(forwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank moves backward
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.DOWN), new MovementDoesNotCollideEvent(speed, backwardMoveAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.DOWN), new MovementDoesNotCollideEvent(backwardMoveAction));
 	    	mainEvents.addAction(backwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates left
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.LEFT), new MovementDoesNotCollideEvent(speed, leftRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.LEFT), new MovementDoesNotCollideEvent(leftRotateAction));
 	    	mainEvents.addAction(leftRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates right
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.RIGHT), new MovementDoesNotCollideEvent(speed, rightRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.RIGHT), new MovementDoesNotCollideEvent(rightRotateAction));
 	    	mainEvents.addAction(rightRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
@@ -154,22 +154,22 @@ public class TankFactory {
 			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
 			
 	    	// tank moves forward
-	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.W), new MovementDoesNotCollideEvent(speed * 10, forwardMoveAction));
+	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.W), new MovementDoesNotCollideEvent(forwardMoveAction));
 	    	mainEvents.addAction(forwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank moves backward
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.S), new MovementDoesNotCollideEvent(speed * 10, backwardMoveAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.S), new MovementDoesNotCollideEvent(backwardMoveAction));
 	    	mainEvents.addAction(backwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates left
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.A), new MovementDoesNotCollideEvent(speed * 10, leftRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.A), new MovementDoesNotCollideEvent(leftRotateAction));
 	    	mainEvents.addAction(leftRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates right
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.D), new MovementDoesNotCollideEvent(speed * 10, rightRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.D), new MovementDoesNotCollideEvent(rightRotateAction));
 	    	mainEvents.addAction(rightRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	

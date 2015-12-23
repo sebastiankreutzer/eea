@@ -46,6 +46,7 @@ public class Parser implements IParser {
 	  private SourcePosition previousTokenPosition;
 	  private boolean debug;
 	  private IResourcesManager resourcesManager;
+	  private PickupFactory pickUpFactory;
 	
 	  public Parser(Scanner lexer, ErrorReporter reporter, IResourcesManager resourcesManager) {
 	    lexicalAnalyser = lexer;
@@ -53,6 +54,7 @@ public class Parser implements IParser {
 	    previousTokenPosition = new SourcePosition();
 	    debug = false;
 	    this.resourcesManager = resourcesManager;
+	    pickUpFactory = new PickupFactory(debug, resourcesManager);
 	  }
 	  
 	  public void setDebug(boolean debug){
@@ -154,7 +156,7 @@ public class Parser implements IParser {
 		
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		
-		map.addEntity(new PickupFactory(type, streangth, rotation, scaling, x, y, debug, resourcesManager).createEntity());
+		map.addEntity(pickUpFactory.createEntity(type, streangth, x, y, scaling));
 		
 		
 		return map;

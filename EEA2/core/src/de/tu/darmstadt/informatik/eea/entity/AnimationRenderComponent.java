@@ -42,12 +42,12 @@ public class AnimationRenderComponent extends RenderComponent {
 	}
 
 	@Override
-	public void update(float delta) {
-		super.update(delta);
+	public boolean update(float delta) {
 		elapsedTime += delta;
 		if (removeWhenFinished && animation.isAnimationFinished(elapsedTime)) {
 			getOwnerEntity().addAction(new DestroyEntityAction());
 		}
+		return super.update(delta);
 	}
 
 	@Override

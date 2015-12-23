@@ -3,56 +3,57 @@ package de.tu.darmstadt.informatik.tanks2.entities;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IStrength;
 
-public class Pickup extends Entity implements IStrength{
-	
-	public static enum PickUpType {HEALTH, AMMUNITION};
-	
-	private int streangth;
+public class Pickup extends Entity implements IStrength {
+
+	public static enum PickUpType {
+		HEALTH, AMMUNITION
+	};
+
+	private int strength;
 
 	public Pickup(PickUpType type) {
 		super(typeToString(type));
-		streangth = 0;
+		strength = 0;
 	}
 
-	
-	public String toString(){
+	public String toString() {
 		StringBuilder sb = new StringBuilder("Pickup ");
 		sb.append(this.getID());
 		sb.append(" ");
-		sb.append(streangth);
+		sb.append(strength);
 		sb.append(" ");
-		sb.append((int)this.getRotation());
+		sb.append((int) this.getRotation());
 		sb.append(" ");
-		sb.append((int)(this.getScaleX() * 100));
+		sb.append((int) (this.getScaleX() * 100));
 		sb.append(" ");
-		sb.append((int)this.getX());
+		sb.append((int) this.getX());
 		sb.append(" ");
-		sb.append((int)this.getY());
+		sb.append((int) this.getY());
 		return sb.toString();
 	}
 
 	@Override
-	public void changeStreangth(int value) {
-		this.streangth += value;
-		
+	public void changeStrength(int value) {
+		this.strength += value;
+
 	}
 
 	@Override
 	public int getStrength() {
-		return this.streangth;
+		return this.strength;
 	}
 
 	@Override
-	public void setStrength(int streangth) {
-		this.streangth = streangth;
-		
+	public void setStrength(int strength) {
+		this.strength = strength;
+
 	}
-	
-	public static String typeToString(PickUpType type){
+
+	public static String typeToString(PickUpType type) {
 		switch (type) {
 		case AMMUNITION:
 			return "Ammunition PickUp";
-			
+
 		case HEALTH:
 			return "Health PickUp";
 

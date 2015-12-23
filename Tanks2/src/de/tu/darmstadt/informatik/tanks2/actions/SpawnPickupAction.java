@@ -7,36 +7,25 @@ import de.tu.darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
 import de.tu.darmstadt.informatik.tanks2.factories.PickupFactory;
 
 public class SpawnPickupAction extends EEAAction {
-	
+
 	private PickUpType type;
-	private IResourcesManager resourcesManager;
-	
+	private PickupFactory factory;
+
 	public SpawnPickupAction(IResourcesManager resourcesManager) {
-		this.resourcesManager = resourcesManager;
-	}
-	
-	@Override
-	public boolean act(float delta) {
-		if(Math.random() > 0.5)	type = PickUpType.AMMUNITION;
-		else type = PickUpType.HEALTH;
-		
-		Entity pickup = new PickupFactory(type, 100, 0, 0.3f, (float)Math.random()*800, (float)Math.random()*600, true, resourcesManager).createEntity();
-		getEntity().getManager().addEntity(pickup);
-		
-		return true;
+		factory = new PickupFactory(false, resourcesManager);
 	}
 
-//	@Override
-//	public void update(GameContainer gc, StateBasedGame sb, int delta,
-//			Component event) {
-//		String type = Tanks.healthpack;
-//		
-//		if(Math.random() > 0.5){
-//			type = Tanks.ammopack;
-//		}
-//		
-//		StateBasedEntityManager.getInstance().addEntity(Tanks.GAMEPLAYSTATE, new PickupFactory(type, 100, 0, 0.3f, (float)Math.random()*800, (float)Math.random()*600, Tanks.debug).createEntity());
-//
-//	}
+	@Override
+	public boolean act(float delta) {
+		if (Math.random() > 0.5)
+			type = PickUpType.AMMUNITION;
+		else
+			type = PickUpType.HEALTH;
+
+		Entity pickup = factory.createEntity(type, 100, (float) Math.random() * 800, (float) Math.random() * 600, 0.3f);
+		getEntity().getManager().addEntity(pickup);
+
+		return true;
+	}
 
 }

@@ -9,8 +9,8 @@ public abstract class RenderComponent extends EEAComponent{
 	}
 
 	@Override
-	public void update(float delta) {
-		
+	public boolean update(float delta) {
+		return true;
 	}
 	
 	public abstract void render(Batch batch);
