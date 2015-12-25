@@ -31,7 +31,7 @@ public class PauseState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png",game.getResourcesManager())); // Bildkomponente // TODO Load image from AssetManager
+		background.addComponent(new ImageRenderComponent("menu.png",game.getResourcesManager())); // Bildkomponente
 		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
 		em.addEntity(background);
 		
