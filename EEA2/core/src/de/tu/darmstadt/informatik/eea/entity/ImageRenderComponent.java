@@ -19,12 +19,12 @@ public class ImageRenderComponent extends RenderComponent {
 		this.resourcesManager = resourcesManager;
 		this.texturePath = texturePath;
 		resourcesManager.loadTextureAsync(texturePath);
-		tex = resourcesManager.getTexture(texturePath);
+		//tex = resourcesManager.getTexture(texturePath);
 	}
 
 	@Override
 	public void render(Batch batch) {
-		//Texture tex = resourcesManager.getTexture(this.texturePath);
+		Texture tex = resourcesManager.getTexture(this.texturePath);
 		batch.draw(tex, owner.getX(), owner.getY(), owner.getOriginX(), owner.getOriginY(), 
 				owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), 
 				owner.getRotation(), 0, 0, tex.getWidth(), tex.getHeight(), false, false);
@@ -33,7 +33,7 @@ public class ImageRenderComponent extends RenderComponent {
 	@Override
 	public void setOwnerEntity(Entity owningEntity) {
 		super.setOwnerEntity(owningEntity);
-		//Texture tex = resourcesManager.getTexture(this.texturePath);
+		Texture tex = resourcesManager.getTexture(this.texturePath);
 		owner.setSize(tex.getWidth(), tex.getHeight());
 	}
 }
