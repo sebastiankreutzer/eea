@@ -22,6 +22,17 @@ public abstract class EEAGame extends Game {
 	private final List<EEAGameState> states = new ArrayList<EEAGameState>();
 	private IResourcesManager resourcesManager;
 	private final Viewport viewport;
+	private final boolean debug;
+	
+	/**
+	 * Creates a new game with a given width and height.
+	 * @param width The width of the viewport.
+	 * @param height The height of the viewport.
+	 */
+	public EEAGame(float width, float height, boolean debug) {
+		this.viewport = new FitViewport(width, height);
+		this.debug = debug;
+	}
 	
 	/**
 	 * Creates a new game with a given width and height.
@@ -29,14 +40,14 @@ public abstract class EEAGame extends Game {
 	 * @param height The height of the viewport.
 	 */
 	public EEAGame(float width, float height) {
-		this.viewport = new FitViewport(width, height);
+		this(width, height, false);
 	}
 	
 	/**
 	 * Creates a new game with the default width and height.
 	 */
 	public EEAGame() {
-		this(800, 600);
+		this(800, 600, false);
 	}
 	
 	/**
@@ -108,6 +119,10 @@ public abstract class EEAGame extends Game {
 	
 	public float getAspectRatio() {
 		return viewport.getScreenWidth() / viewport.getScreenHeight();
+	}
+	
+	public final boolean isDebug(){
+		return debug;
 	}
 	
 }
