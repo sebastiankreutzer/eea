@@ -7,6 +7,7 @@ import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -29,7 +30,7 @@ public class Entity extends Actor {
 
 	private final String id;
 
-	private List<EEAComponent> components = new ArrayList<EEAComponent>();
+	private CopyOnWriteArrayList<EEAComponent> components = new CopyOnWriteArrayList<EEAComponent>();
 	private Iterator<EEAComponent> iterator;
 	private RenderComponent renderComponent;
 
@@ -113,7 +114,7 @@ public class Entity extends Actor {
 		super.act(delta);
 		iterator = components.iterator();
 		while (iterator.hasNext()) {
-			iterator.next().update(delta);
+			if(!iterator.next().update(delta)) break;
 		}
 	}
 
@@ -154,11 +155,11 @@ public class Entity extends Actor {
 
 	@Override
 	public boolean remove() {
-		iterator = components.iterator();
-		while (iterator.hasNext()) {
-			iterator.next().onRemoveComponent();
-			iterator.remove();
+		for(EEAComponent component : components) {
+			component.onRemoveComponent();
+			components.remove(component);
 		}
+		
 		components.clear();
 		manager.removeEntity(this);
 		return super.remove();

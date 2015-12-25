@@ -15,53 +15,42 @@ import de.tu.darmstadt.informatik.tanks2.actions.SpawnShootAction;
 import de.tu.darmstadt.informatik.tanks2.entities.ScatterShoot;
 
 public class ScatterShootFactory extends ShootFactory {
-	
-	protected final long time;
-	private IResourcesManager resourcesManager;
-	
-	public ScatterShootFactory(long time, int strength, String owner, float rotation, 
-			float scale, float x, float y, boolean debug, IResourcesManager resourcesManager) {
-		super(strength, owner, rotation, scale, x, y, debug, resourcesManager);
-		this.time = time;
-		this.resourcesManager = resourcesManager;
+
+	public ScatterShootFactory(boolean debug, IResourcesManager resourcesManager) {
+		super(debug, resourcesManager);
 	}
-	
-	@Override
-	public Entity createEntity(){
-		
+
+	public Entity createEntity(float x, float y, String owner, int strength, float time, float rotation, float scale) {
+
 		Entity scatterShoot = new ScatterShoot(owner, strength, time);
-		
-		scatterShoot.setPosition(position.x, position.y);
+
+		scatterShoot.setPosition(x, y);
 		scatterShoot.setRotation(rotation);
 		scatterShoot.setScale(scale);
-		
+
 		scatterShoot.addComponent(new ImageRenderComponent("shoot.png", resourcesManager));
-		
-		
+
 		EEAEvent mainEvent = new TimeEvent(time, false);
 		mainEvent.addAction(new DestroyEntityAction());
-		mainEvent.addAction(new SpawnShootAction((rotation-90 +360) %360 ,strength/5,resourcesManager));
-		mainEvent.addAction(new SpawnShootAction((rotation-45 +360) %360, strength/5,resourcesManager));
-		mainEvent.addAction(new SpawnShootAction(rotation, strength/5,resourcesManager));
-		mainEvent.addAction(new SpawnShootAction((rotation+45+360) %360, strength/5,resourcesManager));
-		mainEvent.addAction(new SpawnShootAction((rotation+90+360) %360, strength/5,resourcesManager));
+//		mainEvent.addAction(new SpawnShootAction((rotation - 90 + 360) % 360, strength / 5, resourcesManager));
+//		mainEvent.addAction(new SpawnShootAction((rotation - 45 + 360) % 360, strength / 5, resourcesManager));
+//		mainEvent.addAction(new SpawnShootAction(rotation, strength / 5, resourcesManager));
+//		mainEvent.addAction(new SpawnShootAction((rotation + 45 + 360) % 360, strength / 5, resourcesManager));
+//		mainEvent.addAction(new SpawnShootAction((rotation + 90 + 360) % 360, strength / 5, resourcesManager));
 		scatterShoot.addComponent(mainEvent);
-		
+
 		mainEvent = new EntityOutOfScreenEvent();
 		mainEvent.addAction(new DestroyEntityAction());
 		scatterShoot.addComponent(mainEvent);
-		
-		
+
 		mainEvent = new CollisionEvent();
 		mainEvent.addAction(new HitAction(strength));
 		scatterShoot.addComponent(mainEvent);
-		
+
 		mainEvent = new LoopEvent();
 		mainEvent.addAction(new MoveRelativeAction(30f, 0f));
 		scatterShoot.addComponent(mainEvent);
-		
-		
-		
+
 		return scatterShoot;
 	}
 

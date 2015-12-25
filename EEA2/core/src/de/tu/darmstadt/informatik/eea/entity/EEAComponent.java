@@ -49,8 +49,9 @@ public abstract class EEAComponent {
 
 	/**
 	 * The update method is called every render cycle and represents the behavior of this component.
+	 * @return TODO
 	 */
-	public abstract void update(float delta);
+	public abstract boolean update(float delta);
 
 	/**
 	 * This method is a hook that is called when the component is added to an @link{de.tu.darmstadt.informatik.eea.entity.Entity},

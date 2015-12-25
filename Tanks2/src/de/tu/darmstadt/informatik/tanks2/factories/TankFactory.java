@@ -30,54 +30,26 @@ import de.tu.darmstadt.informatik.tanks2.misc.Options.Difficulty;
 import temp.removeASAP.Tanks;
 
 public class TankFactory {
-	
-	private final String name;
-	private final int life;
-	private final int maxLife;
-	private final int shoots;
-	private final int shootsMax;
-	private final int mines;
-	private final int minesMax;
-	private final int strength;
-	private final float speed;
-	private final int rotation;
-	private final float scaling;
-	private final Vector2 position;
 	private final String difficulty;
 	private final boolean debug;
 	private IResourcesManager resourcesManager;
 	
 	
-	public TankFactory(String name, int maxLife, int life, 
-			int shootsMax, int shoots,int minesMax, int mines, 
-			int streangth,float speed, int rotation, float scaling, int x, int y,String difficulty ,boolean debug, IResourcesManager resourcesManager){
-		this.name = name;
-		this.maxLife = maxLife;
-		this.life = life;
-		this.shootsMax = shootsMax;
-		this.shoots = shoots;
-		this.minesMax = minesMax;
-		this.mines = mines;
-		this.strength = streangth;
-		// TODO Debug
-		this.speed = speed *10;
-		this.rotation = rotation;
-		this.scaling = scaling;
-		this.position = new Vector2(x,y);
+	public TankFactory(String difficulty ,boolean debug, IResourcesManager resourcesManager){
+
 		this.difficulty = difficulty;
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
 	}
 	
-	public Entity createEntity(){
+	public Entity createEntity(float x, float y, String name, int maxLife, int life, 
+			int shootsMax, int shoots,int minesMax, int mines, 
+			int strength,float speed, float rotation, float scale){
 		
-		Tank tank = new Tank(name);
+		Tank tank = new Tank(name, x, y, rotation, scale);
 		tank.setPassable(false);
 		
 		tank.setSpeed(speed);
-		tank.setRotation(rotation);
-		tank.setPosition(position.x, position.y);
-		tank.setScale(scaling);
 		tank.setMaxLife(maxLife);
 		tank.setLife(life);
 		tank.setShootMaxAmmo(shootsMax);
@@ -90,30 +62,29 @@ public class TankFactory {
 		if(name.equals(Tanks.player1)){
 			tank.addComponent(new ImageRenderComponent("tankPlayer.png", resourcesManager));
 			
-			// TODO Remove debug values
-			RotateAction rightRotateAction = new RotateAction(-speed*2);
-			RotateAction leftRotateAction = new RotateAction(speed*2);
+			RotateAction rightRotateAction = new RotateAction(-speed);
+			RotateAction leftRotateAction = new RotateAction(speed);
 			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
 			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
 			
 			
 	    	// tank moves forward
-	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.UP), new MovementDoesNotCollideEvent(speed, forwardMoveAction));
+	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.UP), new MovementDoesNotCollideEvent(forwardMoveAction));
 	    	mainEvents.addAction(forwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank moves backward
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.DOWN), new MovementDoesNotCollideEvent(speed, backwardMoveAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.DOWN), new MovementDoesNotCollideEvent(backwardMoveAction));
 	    	mainEvents.addAction(backwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates left
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.LEFT), new MovementDoesNotCollideEvent(speed, leftRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.LEFT), new MovementDoesNotCollideEvent(leftRotateAction));
 	    	mainEvents.addAction(leftRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates right
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.RIGHT), new MovementDoesNotCollideEvent(speed, rightRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.RIGHT), new MovementDoesNotCollideEvent(rightRotateAction));
 	    	mainEvents.addAction(rightRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
@@ -131,7 +102,7 @@ public class TankFactory {
 	    	
 	    	//Tank ScatterShoot
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.L), new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ScatterShootAction(500,resourcesManager));
+	    	mainEvents.addAction(new ScatterShootAction(1.5f,resourcesManager));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
@@ -154,22 +125,22 @@ public class TankFactory {
 			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
 			
 	    	// tank moves forward
-	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.W), new MovementDoesNotCollideEvent(speed * 10, forwardMoveAction));
+	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.W), new MovementDoesNotCollideEvent(forwardMoveAction));
 	    	mainEvents.addAction(forwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank moves backward
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.S), new MovementDoesNotCollideEvent(speed * 10, backwardMoveAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.S), new MovementDoesNotCollideEvent(backwardMoveAction));
 	    	mainEvents.addAction(backwardMoveAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates left
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.A), new MovementDoesNotCollideEvent(speed * 10, leftRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.A), new MovementDoesNotCollideEvent(leftRotateAction));
 	    	mainEvents.addAction(leftRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank rotates right
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.D), new MovementDoesNotCollideEvent(speed * 10, rightRotateAction));
+	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.D), new MovementDoesNotCollideEvent(rightRotateAction));
 	    	mainEvents.addAction(rightRotateAction);
 	    	tank.addComponent(mainEvents);
 	    	

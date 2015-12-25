@@ -14,7 +14,7 @@ public class EntityDestroyedEvent extends EEAEvent {
 	@Override
 	public boolean eventTriggered(float delta) {
 		// TODO I dont event know what this does. Should I set it to null explicitly?
-		//if(entity == null) return true;
+		if(owner == null) return true;
 		return false;
 	}
 

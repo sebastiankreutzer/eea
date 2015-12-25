@@ -12,12 +12,14 @@ public class ImageRenderComponent extends RenderComponent {
 	// TODO Better to keep the reference to Texture instead of a string to avoid searching for this
 	// texture every scaling event
 	private String texturePath;
+	private Texture tex;
 	
 	public ImageRenderComponent(String texturePath, IResourcesManager resourcesManager) {
 		super(ID);
 		this.resourcesManager = resourcesManager;
 		this.texturePath = texturePath;
 		resourcesManager.loadTextureAsync(texturePath);
+		//tex = resourcesManager.getTexture(texturePath);
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package de.tu.darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
@@ -17,73 +16,61 @@ import de.tu.darmstadt.informatik.tanks2.actions.ChangeLifeAction;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup;
 import de.tu.darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
 
-
-
 public class PickupFactory {
-	
-	private final PickUpType type;
-	private final int strength;
-	private final float rotation;
-	private final float scaling;
-	private final Vector2 position;
+
 	private final boolean debug;
 	private IResourcesManager resourcesManager;
 
-	public PickupFactory(PickUpType type, int strength, float rotation, float scaling, float x, float y, boolean debug, IResourcesManager resourcesManager){
-		this.type = type;
-		this.strength = strength;
-		this.rotation = rotation;
-		this.scaling = scaling;
-		this.position = new Vector2(x,y);
+	public PickupFactory(boolean debug, IResourcesManager resourcesManager) {
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
 	}
-	
-	public Entity createEntity() {
+
+	public Entity createEntity(PickUpType type, int strength, float x, float y, float scale) {
 		Pickup pickup = new Pickup(type);
 		pickup.setStrength(strength);
-		pickup.setScale(scaling);
-		pickup.setPosition(position.x, position.y);
-		pickup.setRotation(rotation);
-		
-		EEAEvent mainEvent = new TimeEvent(8000, false);
+		pickup.setScale(scale);
+		pickup.setPosition(x, y);
+
+		EEAEvent mainEvent = new TimeEvent(8, false);
 		mainEvent.addAction(new DestroyEntityAction());
 		pickup.addComponent(mainEvent);
-		
-		mainEvent = new TimeEvent(5000, false);
-		EEAEvent secondaryEvent = new TimeEvent(100, true);
+
+		mainEvent = new TimeEvent(5, false);
+		EEAEvent secondaryEvent = new TimeEvent(0.1f, true);
 		secondaryEvent.addAction(new Action() {
-			
+
 			@Override
 			public boolean act(float delta) {
 				getActor().setVisible(!getActor().isVisible());
-				return false;
+				return true;
 			}
 		});
-		
+
 		mainEvent.addAction(new AddComponentsAction(pickup, secondaryEvent));
 		mainEvent.addAction(new RemoveEventAction(mainEvent));
 		pickup.addComponent(mainEvent);
-		
-		mainEvent = new CollisionEvent();
-		
+
+		EEAEvent collisionEvent = new CollisionEvent();
+
 		switch (type) {
-		case AMMUNITION:
-			pickup.addComponent(new ImageRenderComponent("healthpack.png", resourcesManager));
-			mainEvent.addAction(new ChangeLifeAction(strength));
-			break;
-			
 		case HEALTH:
+			pickup.addComponent(new ImageRenderComponent("healthpack.png", resourcesManager));
+			collisionEvent.addAction(new ChangeLifeAction(strength));
+			break;
+
+		case AMMUNITION:
 			pickup.addComponent(new ImageRenderComponent("munipack.png", resourcesManager));
-			mainEvent.addAction(new ChangeAmmoAction(strength));
+			collisionEvent.addAction(new ChangeAmmoAction(strength));
 			break;
 
 		default:
 			break;
 		}
-		
-		pickup.addComponent(mainEvent);
-		
+		collisionEvent.addAction(new DestroyEntityAction());
+
+		pickup.addComponent(collisionEvent);
+
 		return pickup;
 	}
 

@@ -7,10 +7,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class EEAGraphics {
 	
-	private BitmapFont font = new BitmapFont();
+	private BitmapFont font;
 	private ShapeRenderer render;
 	
 	public EEAGraphics() {
+		font = new BitmapFont();
 	}
 	
 	public void drawString(Batch batch, String string, float x, float y){

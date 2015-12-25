@@ -2,7 +2,7 @@ package de.tu.darmstadt.informatik.tanks2.AI;
 
 import com.badlogic.gdx.math.Vector2;
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
-import de.tu.darmstadt.informatik.eea.action.EEAAction;
+import de.tu.darmstadt.informatik.eea.action.EEAMovement;
 import de.tu.darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu.darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu.darmstadt.informatik.tanks2.interfaces.IShootAmmo;
@@ -17,7 +17,7 @@ public class TankAI extends AI {
 		this.resourceManager = resourcesManager;
 	}
 	
-	protected EEAAction calculateNextMove(){
+	protected EEAMovement calculateNextMove(){
 		float deltaRotation = calculateDeltaRotation();
 		
 		if (Math.abs(deltaRotation - 180) <= 175) return determineRotateAction(deltaRotation);

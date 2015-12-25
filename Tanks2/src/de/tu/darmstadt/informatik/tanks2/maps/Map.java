@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import de.tu.darmstadt.informatik.eea.EEAGraphics;
 import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
+import de.tu.darmstadt.informatik.eea.states.EntityManager;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu.darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu.darmstadt.informatik.tanks2.highscore.HighscoreList;
@@ -19,38 +20,38 @@ import de.tu.darmstadt.informatik.tanks2.misc.Scanner;
 import de.tu.darmstadt.informatik.tanks2.misc.SourceFile;
 
 public class Map implements IMap {
-	
+
 	private String source;
 	private static Map map = new Map();
 	private List<Entity> entities;
-	
+
 	private Map() {
 		entities = new CopyOnWriteArrayList<Entity>();
 		// Default map
 		source = "maps/map00";
 	}
-	
+
 	public void addEntity(Entity Entity) {
 		entities.add(Entity);
 	}
-	
-	public void removeEntity(Entity Entity){
+
+	public void removeEntity(Entity Entity) {
 		entities.remove(Entity);
 	}
-	
+
 	@Override
 	public List<Entity> getEntities() {
 		return entities;
 	}
-	
+
 	public static Map getInstance() {
 		return map;
 	}
-	
+
 	public void load(String map) {
 		source = map;
 	}
-	
+
 	public boolean save(String destination) {
 		try {
 			File file = new File(destination);
@@ -63,8 +64,9 @@ public class Map implements IMap {
 			return false;
 		}
 	}
-	
-	public void parse(String map, IResourcesManager resourcesManager, boolean debug) throws SemanticException, SyntaxException {
+
+	public void parse(String map, IResourcesManager resourcesManager, boolean debug)
+			throws SemanticException, SyntaxException {
 		clear();
 		source = map;
 		SourceFile sc = new SourceFile(source);
@@ -75,45 +77,42 @@ public class Map implements IMap {
 			new Checker(parser.parseMap()).check();
 			// Load highscore file of map if exist
 			String mapName = GameplayLog.getInstance().getMapName();
-	    	HighscoreList.getInstance().load(mapName);
+			HighscoreList.getInstance().load(mapName);
 		} catch (SemanticException e) {
-			// TODO Enable exception after clarified why scaling does not work
-			//resetToDefault();
-			//throw e;
+			resetToDefault();
+			throw e;
 		} catch (SyntaxException e) {
 			resetToDefault();
 			throw e;
 		}
 	}
-	
-	public String toString() {
-		
-		return "not implemented";
-		
-//		List<Entity> entities;
-//		
-//		StateBasedEntityManager EntityManager = StateBasedEntityManager.getInstance();
-//		if(EntityManager.getEntitiesByState(Tanks.GAMEPLAYSTATE) == null) {
-//			entities = this.entities;
-//		}
-//		else  entities = EntityManager.getEntitiesByState(Tanks.GAMEPLAYSTATE);
-//		
-//		if (entities.isEmpty()) return null;
-//		StringBuffer stringBuffer = new StringBuffer();
-//		stringBuffer.append(GameplayLog.getInstance().toString());
-//		stringBuffer.append("\n");
-//		
-//		for(Entity Entity : entities){
-//			if(Entity.toString().startsWith("Tank") || Entity.toString().startsWith("Wall") || Entity.toString().startsWith("Shot")  || Entity.toString().startsWith("Explosion")
-//					|| Entity.toString().startsWith("Border") || Entity.toString().startsWith("Mine") || Entity.toString().startsWith("Tower") || Entity.toString().startsWith("Pickup")
-//					|| Entity.toString().startsWith("Scattershot")){
-//			stringBuffer.append(Entity.toString());
-//			stringBuffer.append("\n");
-//			}
-//		}
-//		return stringBuffer.toString();
+
+	public String toString(EntityManager entityManager) {
+
+		List<Entity> entities = entityManager.getAllEntities();
+
+		if (entities.isEmpty())
+			entities = this.entities;
+		if (entities.isEmpty())
+			return null;
+
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append(GameplayLog.getInstance().toString());
+		stringBuffer.append("\n");
+
+		for (Entity Entity : entities) {
+			if (Entity.toString().startsWith("Tank") || Entity.toString().startsWith("Wall")
+					|| Entity.toString().startsWith("Shot") || Entity.toString().startsWith("Explosion")
+					|| Entity.toString().startsWith("Border") || Entity.toString().startsWith("Mine")
+					|| Entity.toString().startsWith("Tower") || Entity.toString().startsWith("Pickup")
+					|| Entity.toString().startsWith("Scattershot")) {
+				stringBuffer.append(Entity.toString());
+				stringBuffer.append("\n");
+			}
+		}
+		return stringBuffer.toString();
 	}
-	
+
 	/**
 	 * Clears all map entities.
 	 */
@@ -121,14 +120,13 @@ public class Map implements IMap {
 		entities = new CopyOnWriteArrayList<Entity>();
 		GameplayLog.getInstance().setMultiplayer(false);
 	}
-	
+
 	public void resetToDefault() {
 		clear();
 		source = "maps/map00";
 	}
-	
+
 	public String getSource() {
 		return this.source;
 	}
 }
-

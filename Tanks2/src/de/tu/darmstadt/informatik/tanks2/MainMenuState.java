@@ -32,7 +32,7 @@ public class MainMenuState extends EEAGameState {
 		
 		if(Options.getInstance().isSoundEnabled()) {
 			EEAEvent soundEvent = new LoopEvent();
-			MusicAction backgroundSound = new MusicAction("theme.ogg", 1); // TODO Load music from AssetManager
+			MusicAction backgroundSound = new MusicAction("theme.ogg", 1, game.getResourcesManager());
 			soundEvent.addAction(backgroundSound);
 			background.addComponent(soundEvent);
 		}

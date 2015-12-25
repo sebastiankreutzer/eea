@@ -29,7 +29,7 @@ public class Shoot extends Entity implements IStrength {
 	}
 
 	@Override
-	public void changeStreangth(int value) {
+	public void changeStrength(int value) {
 		strength += value;
 		if(strength < 0) strength = 0;
 	}

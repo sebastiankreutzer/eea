@@ -4,9 +4,9 @@ package de.tu.darmstadt.informatik.tanks2.entities;
 
 public class ScatterShoot extends Shoot{
 	
-	protected long time;
+	protected float time;
 
-	public ScatterShoot(String id, int strength, long time) {
+	public ScatterShoot(String id, int strength, float time) {
 		super(id, strength);
 		this.time = time;
 	}
@@ -21,7 +21,7 @@ public class ScatterShoot extends Shoot{
 		
 	}
 
-	public long getTime() {
+	public float getTime() {
 		return this.time;
 	}
 }
