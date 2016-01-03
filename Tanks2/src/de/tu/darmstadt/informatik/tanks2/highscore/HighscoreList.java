@@ -94,7 +94,7 @@ public class HighscoreList {
 	public void save() {
 		
 		if (currentMap != null && !currentMap.isEmpty()) {
-			String fileName = "highscores/" + currentMap + ".hsc";
+			String fileName = "maps/" + currentMap + ".hsc";
 			try {
 				FileOutputStream file = new FileOutputStream(fileName);
 				ObjectOutputStream oos = new ObjectOutputStream(file);
