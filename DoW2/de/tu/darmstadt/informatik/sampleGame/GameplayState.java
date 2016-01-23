@@ -2,8 +2,6 @@ package de.tu.darmstadt.informatik.sampleGame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
@@ -19,7 +17,6 @@ import de.tu.darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu.darmstadt.informatik.eea.event.LoopEvent;
 import de.tu.darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu.darmstadt.informatik.eea.states.EEAGameState;
-import de.tu.darmstadt.informatik.sampleGame.LaunchGame;
 
 public class GameplayState extends EEAGameState {
 
