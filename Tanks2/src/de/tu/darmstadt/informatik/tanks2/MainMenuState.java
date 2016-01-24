@@ -1,7 +1,13 @@
 package de.tu.darmstadt.informatik.tanks2;
 
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+
 import de.tu.darmstadt.informatik.eea.EEAGame;
 import de.tu.darmstadt.informatik.eea.action.ChangeStateAction;
+import de.tu.darmstadt.informatik.eea.action.EEAAction;
 import de.tu.darmstadt.informatik.eea.action.MusicAction;
 import de.tu.darmstadt.informatik.eea.action.QuitAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -11,6 +17,7 @@ import de.tu.darmstadt.informatik.eea.event.EEAEvent;
 import de.tu.darmstadt.informatik.eea.event.LoopEvent;
 import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 import de.tu.darmstadt.informatik.tanks2.factories.MenuEntryFactory;
+import de.tu.darmstadt.informatik.tanks2.maps.Map;
 import de.tu.darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu.darmstadt.informatik.tanks2.misc.Options;
 
@@ -59,10 +66,40 @@ public class MainMenuState extends EEAGameState {
 		});
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Spielstand laden", "entry.png", new QuitAction());
+		mef.prepareMenuEntry("Spielstand laden", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {
+			
+			@Override
+			public boolean act(float delta) {
+				JFileChooser fc = new JFileChooser("saves/");
+				fc.setFileFilter( new FileFilter() {
+					@Override public boolean accept( File f ) {
+						return f.isDirectory() || f.getName().toLowerCase().endsWith( ".tanks" );
+					}
+					@Override public String getDescription() {
+						return "Tanks-Spielstaende";
+					}
+				});
+				int state = fc.showOpenDialog( null );
+			    
+			    if( state == JFileChooser.APPROVE_OPTION ) {
+			    	File file = fc.getSelectedFile();
+			    	Map.getInstance().load(file.getPath());
+			    	super.act(delta);
+			    	// TODO Verify init
+//			    	sb.enterState(Tanks.GAMEPLAYSTATE);
+//					try {
+//						sb.init(gc);
+//					} catch (SlickException e) {
+//						e.printStackTrace();
+//					}
+			    }
+			    
+			    return true;
+			}
+		});
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Highscore", "entry.png", new QuitAction());
+		mef.prepareMenuEntry("Highscore", "entry.png", new ChangeStateAction(game, LaunchTanks.highScoreState));
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
 		mef.prepareMenuEntry("Einstellungen", "entry.png", new ChangeStateAction(game, LaunchTanks.options));

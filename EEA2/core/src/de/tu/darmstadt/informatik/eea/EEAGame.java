@@ -68,7 +68,7 @@ public abstract class EEAGame extends Game {
 	
 	@Override
 	public void create(){
-		graphics = new EEAGraphics();
+		graphics = new EEAGraphics(viewport);
 		resourcesManager = new ResourcesManager();
 		initStates();
 		startGame();

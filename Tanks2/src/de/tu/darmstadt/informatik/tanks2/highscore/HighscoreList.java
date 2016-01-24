@@ -121,7 +121,7 @@ public class HighscoreList {
 		}
 		
 		currentMap = mapName;
-		File f = new File("highscores/" + mapName + ".hsc");
+		File f = new File("maps/" + mapName + ".hsc");
 		
 		// Check if file exists to avoid exceptions
 		if (f.exists()) {

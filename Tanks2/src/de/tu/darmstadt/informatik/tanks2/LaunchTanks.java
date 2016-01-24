@@ -9,6 +9,7 @@ public class LaunchTanks extends EEAGame {
 	public static GameplayState gameState;
 	public static OptionsState options;
 	public static EEAGameState pauseState;
+	public static HighscoreState highScoreState;
 
 	@Override
 	protected void initStates() {
@@ -16,6 +17,7 @@ public class LaunchTanks extends EEAGame {
 		gameState = new GameplayState(this);
 		options = new OptionsState(this);
 		pauseState = new PauseState(this);
+		highScoreState = new HighscoreState(this);
 	}
 
 	@Override

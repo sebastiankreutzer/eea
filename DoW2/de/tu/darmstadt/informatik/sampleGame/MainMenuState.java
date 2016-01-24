@@ -1,11 +1,9 @@
 package de.tu.darmstadt.informatik.sampleGame;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu.darmstadt.informatik.eea.EEAGame;
+import de.tu.darmstadt.informatik.eea.IResourcesManager;
 import de.tu.darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu.darmstadt.informatik.eea.action.QuitAction;
 import de.tu.darmstadt.informatik.eea.entity.Entity;
@@ -18,8 +16,11 @@ import de.tu.darmstadt.informatik.eea.states.EEAGameState;
 
 public class MainMenuState extends EEAGameState {
 
-	public MainMenuState(EEAGame game) {
+	private IResourcesManager resourcesManager;
+
+	public MainMenuState(EEAGame game, IResourcesManager resourcesManager) {
 		super(game);
+		this.resourcesManager = resourcesManager;
 		//init();
 	}
 	
@@ -30,7 +31,7 @@ public class MainMenuState extends EEAGameState {
 	public void init() {
 		
 		Entity background = new Entity("menu");
-    	background.addComponent(new ImageRenderComponent(new Texture("menu.png"))); // Bildkomponente
+    	background.addComponent(new ImageRenderComponent("menu.png", resourcesManager)); // Bildkomponente
     	em.addEntity(background);
     	
     	/* Neues Spiel starten-Entitaet */
@@ -38,7 +39,7 @@ public class MainMenuState extends EEAGameState {
     	new_Game_Entity.setPosition(100, 300);
     	new_Game_Entity.setScale(0.5f);
     	new_Game_Entity.setDebug(true);
-    	new_Game_Entity.addComponent(new ImageRenderComponent(new Texture("entry.png")));
+    	new_Game_Entity.addComponent(new ImageRenderComponent("entry.png", resourcesManager));
     	
     	// Erstelle das Ausloese-Event und die zugehoerige Action
     	ANDEvent mainEvents = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
@@ -59,7 +60,7 @@ public class MainMenuState extends EEAGameState {
     	quit_Entity.setPosition(100, 100);
     	quit_Entity.setScale(0.5f);
     	quit_Entity.setDebug(true);
-    	quit_Entity.addComponent(new ImageRenderComponent(new Texture("entry.png")));
+    	quit_Entity.addComponent(new ImageRenderComponent("entry.png", resourcesManager));
     	
     	// Erstelle das Ausloese-Event und die zugehoerige Action
     	ANDEvent mainEvents_q = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
