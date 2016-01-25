@@ -2,11 +2,11 @@ package de.tu_darmstadt.informatik.dow2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.MoveAction;
@@ -20,9 +20,11 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class GameplayState extends EEAGameState {
 
-	public GameplayState(EEAGame game) {
+	private IResourcesManager resourcesManager;
+
+	public GameplayState(EEAGame game, IResourcesManager resourcesManager) {
 		super(game);
-		
+		this.resourcesManager = resourcesManager;
 	}
 	
 	public void show(){
@@ -35,7 +37,7 @@ public class GameplayState extends EEAGameState {
     	
     	// Hintergrund laden
     	final Entity background = new Entity("background");
-    	background.addComponent(new ImageRenderComponent(new Texture("background.png"))); // Bildkomponente
+    	background.addComponent(new ImageRenderComponent("background.png", resourcesManager)); // Bildkomponente
     	    	
     	// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
     	em.addEntity(background);
@@ -62,7 +64,7 @@ public class GameplayState extends EEAGameState {
 				background.stageToLocalCoordinates(v);
 				drop.setPosition(v.x, v.y);
 				
-				drop.addComponent(new ImageRenderComponent(new Texture("drop.png")));
+				drop.addComponent(new ImageRenderComponent("drop.png", resourcesManager));
 				
 				// Wassertropfen faellt nach unten
 				LoopEvent loop = new LoopEvent();

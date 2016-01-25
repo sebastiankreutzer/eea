@@ -1,6 +1,8 @@
 package de.tu_darmstadt.informatik.tanks2;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -96,7 +98,7 @@ public class GameplayState extends EEAGameState {
 		life2Text = new TextRenderComponent("", game.graphics);
 		life2Label.addComponent(life2Text);
 		em.addEntity(life2Label);
-		
+
 		Entity fpsLabel = new Entity("FPSLabel");
 		fpsLabel.setPosition(320, 20);
 		fpsText = new TextRenderComponent("", game.graphics);
@@ -123,7 +125,7 @@ public class GameplayState extends EEAGameState {
 		} else {
 			player1text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
 		}
-		
+
 		fpsText.setText("FPS" + game.getFramerate());
 	}
 
@@ -158,10 +160,11 @@ public class GameplayState extends EEAGameState {
 		Entity entity = new Entity("Dummy");
 
 		// Wird der Panzer des Spielers zerstoert, ...
-		EEAEvent event = new EntityDestroyedEvent(Tanks.player1);
+		Entity player1 = em.getEntity(Tanks.player1);
+		EEAEvent playerDestroyedEvent = new EntityDestroyedEvent(player1);
 
 		// ... dann stoppe den Timer, ...
-		event.addAction(new EEAAction() {
+		playerDestroyedEvent.addAction(new EEAAction() {
 
 			@Override
 			public boolean act(float delta) {
@@ -172,7 +175,7 @@ public class GameplayState extends EEAGameState {
 		});
 
 		// ... .oeffne MessageDialog "Sie haben verloren." ...
-		event.addAction(new EEAAction() {
+		playerDestroyedEvent.addAction(new EEAAction() {
 			@Override
 			public boolean act(float delta) {
 				JFrame frame = new JFrame("");
@@ -196,16 +199,23 @@ public class GameplayState extends EEAGameState {
 			}
 		});
 		// ... und wechsle ins Hauptmenue
-		event.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, true));
-		entity.addComponent(event);
+		playerDestroyedEvent.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, true));
+		entity.addComponent(playerDestroyedEvent);
+		
+		List<EEAEvent> enemies = new ArrayList<EEAEvent>();
+		for(Entity e : em.getAllEntities()) {
+			if(e instanceof Tank && e.getID() != Tanks.player1){
+				enemies.add(new EntityDestroyedEvent(e));
+			}
+		}
 
 		// Wird ein gegnerischer Panzer zerstoert, ...
-		event = new ANDEvent(new EntityDestroyedEvent(Tanks.opponentTank), new EntityDestroyedEvent(Tanks.player2));
+		EEAEvent enemyDestroyedEvent = new ANDEvent(enemies.toArray(new EEAEvent[0]));
 		// ... dann ueberpruefe, ob alle Tanks zerstoert wurden.
 		// Wenn ja, dann oeffne MessageDialog "Sie haben gewonnen" und wechsle
 		// ins Hauptmenue,
 		// ansonsten bleibe im laufenden Spiel
-		event.addAction(new EEAAction() {
+		enemyDestroyedEvent.addAction(new EEAAction() {
 
 			@Override
 			public boolean act(float delta) {
@@ -255,10 +265,10 @@ public class GameplayState extends EEAGameState {
 			}
 
 		});
-		entity.addComponent(event);
+		entity.addComponent(enemyDestroyedEvent);
 
 		// Wird die Taste 'p' gedrueckt, ...
-		event = new KeyPressedEvent(Input.Keys.P);
+		EEAEvent event = new KeyPressedEvent(Input.Keys.P);
 		// ... dann wird das Spiel "eingefroren"
 		event.addAction(new EEAAction() {
 			@Override

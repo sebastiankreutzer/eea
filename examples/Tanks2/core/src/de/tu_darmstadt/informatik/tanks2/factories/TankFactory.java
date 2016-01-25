@@ -1,6 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
@@ -106,7 +107,7 @@ public class TankFactory {
 	    	tank.addComponent(mainEvents);
 	    	
 	    	
-	    	mainEvents = new TimeEvent(5000, true);
+	    	mainEvents = new TimeEvent(5, true);
 	    	mainEvents.addAction(new ChangeMineAmmoAction(1));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
@@ -162,7 +163,7 @@ public class TankFactory {
 	    	tank.addComponent(mainEvents);
 	    	
 	    	
-	    	mainEvents = new TimeEvent(5000, true);
+	    	mainEvents = new TimeEvent(5, true);
 	    	mainEvents.addAction(new ChangeMineAmmoAction(1));
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
@@ -174,7 +175,7 @@ public class TankFactory {
 			else componentAI = new TankAI(Tanks.player1, resourcesManager);
 			tank.addComponent(componentAI);
 			
-			EEAEvent mainEvents = new TimeEvent(10, true);
+			EEAEvent mainEvents = new TimeEvent(5, true);
 	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
 	    	tank.addComponent(mainEvents);
 		}
