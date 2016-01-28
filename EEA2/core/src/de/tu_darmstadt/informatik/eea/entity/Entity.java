@@ -159,7 +159,7 @@ public class Entity extends Actor {
 			component.onRemoveComponent();
 			components.remove(component);
 		}
-		
+		clear();
 		components.clear();
 		manager.removeEntity(this);
 		return super.remove();

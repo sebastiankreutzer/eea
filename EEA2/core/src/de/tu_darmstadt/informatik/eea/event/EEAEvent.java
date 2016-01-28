@@ -88,7 +88,7 @@ public abstract class EEAEvent extends EEAComponent {
 	 * Checks whether the events actions should be triggered.
 	 * 
 	 * @param delta
-	 *            The elapsed time in seconds. //TODO verify
+	 *            The elapsed time in seconds.
 	 * @return true if the specific conditions of the event are met, otherwise
 	 *         false.
 	 */
