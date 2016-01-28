@@ -1,8 +1,7 @@
 package de.tu_darmstadt.informatik.eea;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.io.InputStream;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -16,8 +15,8 @@ public class ResourcesManager implements IResourcesManager {
 		assetManager = new AssetManager();
 	}
 	
-	public static File loadFile(String path) {
-		return Gdx.files.internal(path).file();
+	public InputStream readFile(String path) {
+		return Gdx.files.internal(path).read();
 	}
 
 	@Override

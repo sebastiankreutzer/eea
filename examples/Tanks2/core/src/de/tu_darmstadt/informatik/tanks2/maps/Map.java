@@ -69,7 +69,7 @@ public class Map implements IMap {
 			throws SemanticException, SyntaxException {
 		clear();
 		source = map;
-		SourceFile sc = new SourceFile(source);
+		SourceFile sc = new SourceFile(source, resourcesManager);
 		Scanner lexer = new Scanner(sc);
 		Parser parser = new Parser(lexer, new ErrorReporter(), resourcesManager);
 		parser.setDebug(debug);
