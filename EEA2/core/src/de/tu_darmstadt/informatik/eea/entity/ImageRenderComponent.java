@@ -25,7 +25,8 @@ public class ImageRenderComponent extends RenderComponent {
 	@Override
 	public void render(Batch batch) {
 		Texture tex = resourcesManager.getTexture(this.texturePath);
-		batch.draw(tex, owner.getX(), owner.getY(), owner.getOriginX(), owner.getOriginY(), 
+		batch.draw(tex, owner.getX() - (1 - owner.getScaleX()) * owner.getOriginX(),
+				owner.getY() - (1 - owner.getScaleY()) * owner.getOriginY(), owner.getOriginX(), owner.getOriginY(), 
 				owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), 
 				owner.getRotation(), 0, 0, tex.getWidth(), tex.getHeight(), false, false);
 	}

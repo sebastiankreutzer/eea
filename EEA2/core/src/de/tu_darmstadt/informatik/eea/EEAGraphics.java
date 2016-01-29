@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class EEAGraphics {
 	
 	private BitmapFont font;
-	private ShapeRenderer render;
+	public static ShapeRenderer render = new ShapeRenderer();
 	private Batch batch;
 	
 	public EEAGraphics(Viewport viewport) {
