@@ -10,24 +10,29 @@ import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
+import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.MoveAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
+import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
-public class CreateDropAction extends Action {
+public class CreateDropAction extends EEAAction {
 	private Actor background;
 	private IResourcesManager resourcesManager;
 	private EntityManager em;
 	private EEAGame game;
+	private Entity bucket;
 
-	public CreateDropAction(Actor background, IResourcesManager resourcesManager, EntityManager em, EEAGame game) {
+	public CreateDropAction(Actor background, IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket) {
 		this.background = background;
 		this.resourcesManager = resourcesManager;
 		this.em = em;
 		this.game = game;
+		this.bucket = bucket;
 	}
 	
 	@Override
@@ -39,10 +44,27 @@ public class CreateDropAction extends Action {
 		dropPainting(drop);
 		dropMovement(drop);
     	dropDisplayCollision(drop);
+    	dropBucketCollision(drop);
     	
     	em.addEntity(drop);
     	
     	return true;
+	}
+
+	private void dropBucketCollision(Entity drop) {
+		// TODO Auto-generated method stub
+		EEAEvent collisionEvent = new CollisionEvent();
+		
+		collisionEvent.addAction(new Action() {
+			
+			@Override
+			public boolean act(float delta) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		});
+		drop.addComponent(collisionEvent);		
+		// collisionEvent.addAction(new DropBucketCollisionAction(bucket));
 	}
 
 	private void dropPainting(Entity drop) {

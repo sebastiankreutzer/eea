@@ -39,31 +39,40 @@ public class GameplayState extends EEAGameState {
     	em.addEntity(backgroundEntity);
     	
     	gotoMenuIfEsc();
-    	createDrop(backgroundEntity);
-    	createBucket(backgroundEntity);
+    	Entity bucket = createBucket(backgroundEntity);
+    	createDrop(backgroundEntity, bucket);
 	}
 
-	private void createBucket(final Entity backgroundEntity) {
+	private Entity createBucket(final Entity backgroundEntity) {
 		Entity bucket = new Entity("Bucket Entity");
 		
+		// Bild des Buckets
 		bucket.addComponent(new ImageRenderComponent("bucket.png", resourcesManager));
 		
+		// Mausbewegungen verursachen eine Verschiebung
 		MouseMovedEvent mouseMovedEvent = new MouseMovedEvent();
-		mouseMovedEvent.addAction(new MoveBucketAction(backgroundEntity, bucket));
+		mouseMovedEvent.addAction(new MoveBucketAction(backgroundEntity));
 		bucket.addComponent(mouseMovedEvent);
-		bucket.setScale(0.5f);
+		//bucket.setScale(0.5f);
 		em.addEntity(bucket);
+		
+		return bucket;
 	}
 
 	/**
 	 * Bei Mausklick soll Wassertropfen erscheinen
 	 * @param backgroundEntity
+	 * @param bucket 
 	 */
-	private void createDrop(final Entity backgroundEntity) {
+	private void createDrop(final Entity backgroundEntity, Entity bucket) {
     	Entity mouse_Clicked_Listener = new Entity("Mouse_Clicked_Listener");
+    	
+    	// wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
     	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
-     	mouse_Clicked.addAction(new CreateDropAction(backgroundEntity, resourcesManager, em, game));
+     	mouse_Clicked.addAction(new CreateDropAction(backgroundEntity, resourcesManager, em, game, bucket));
     	mouse_Clicked_Listener.addComponent(mouse_Clicked);
+    	
+    	
     	em.addEntity(mouse_Clicked_Listener);
 	}
 
