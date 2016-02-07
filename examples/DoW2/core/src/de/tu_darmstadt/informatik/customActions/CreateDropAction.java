@@ -26,7 +26,7 @@ public class CreateDropAction extends EEAAction {
 	private EntityManager em;
 	private EEAGame game;
 	private Entity bucket;
-
+	
 	public CreateDropAction(Actor background, IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket) {
 		this.background = background;
 		this.resourcesManager = resourcesManager;
@@ -54,19 +54,14 @@ public class CreateDropAction extends EEAAction {
 	private void dropBucketCollision(Entity drop) {
 		// TODO Auto-generated method stub
 		EEAEvent collisionEvent = new CollisionEvent();
-		
-		collisionEvent.addAction(new Action() {
-			
-			@Override
-			public boolean act(float delta) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		});
-		drop.addComponent(collisionEvent);		
-		// collisionEvent.addAction(new DropBucketCollisionAction(bucket));
+		collisionEvent.addAction(new DropBucketCollisionAction(bucket));
+		drop.addComponent(collisionEvent);
 	}
 
+	/**
+	 * Sorgt dafür, dass der Drop gemalt wird
+	 * @param drop
+	 */
 	private void dropPainting(Entity drop) {
 		drop.addComponent(new ImageRenderComponent("drop.png", resourcesManager));
 	}

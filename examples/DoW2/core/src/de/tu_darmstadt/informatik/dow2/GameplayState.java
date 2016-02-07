@@ -46,6 +46,9 @@ public class GameplayState extends EEAGameState {
 	private Entity createBucket(final Entity backgroundEntity) {
 		Entity bucket = new Entity("Bucket Entity");
 		
+		// damit Kollisionen beachtet werden
+		bucket.setPassable(false);
+		
 		// Bild des Buckets
 		bucket.addComponent(new ImageRenderComponent("bucket.png", resourcesManager));
 		
