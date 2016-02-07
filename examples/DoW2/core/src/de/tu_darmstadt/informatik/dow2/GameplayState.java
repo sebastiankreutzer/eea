@@ -1,21 +1,17 @@
 package de.tu_darmstadt.informatik.dow2;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu_darmstadt.informatik.customActions.CreateDropAction;
+import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
-import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
-import de.tu_darmstadt.informatik.eea.action.MoveAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
-import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
+import de.tu_darmstadt.informatik.eea.event.MouseMovedEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class GameplayState extends EEAGameState {
@@ -36,60 +32,51 @@ public class GameplayState extends EEAGameState {
 	public void init() {
     	
     	// Hintergrund laden
-    	final Entity background = new Entity("background");
-    	background.addComponent(new ImageRenderComponent("background.png", resourcesManager)); // Bildkomponente
-    	    	
-    	// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
-    	em.addEntity(background);
+    	final Entity backgroundEntity = new Entity("background");
+    	backgroundEntity.addComponent(new ImageRenderComponent("background.png", resourcesManager)); // Bildkomponente
     	
-    	// Bei Drücken der ESC-Taste zurueck ins Hauptmenue wechseln
+    	// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
+    	em.addEntity(backgroundEntity);
+    	
+    	gotoMenuIfEsc();
+    	createDrop(backgroundEntity);
+    	createBucket(backgroundEntity);
+	}
+
+	private void createBucket(final Entity backgroundEntity) {
+		Entity bucket = new Entity("Bucket Entity");
+		
+		bucket.addComponent(new ImageRenderComponent("bucket.png", resourcesManager));
+		
+		MouseMovedEvent mouseMovedEvent = new MouseMovedEvent();
+		mouseMovedEvent.addAction(new MoveBucketAction(backgroundEntity, bucket));
+		bucket.addComponent(mouseMovedEvent);
+		bucket.setScale(0.5f);
+		em.addEntity(bucket);
+	}
+
+	/**
+	 * Bei Mausklick soll Wassertropfen erscheinen
+	 * @param backgroundEntity
+	 */
+	private void createDrop(final Entity backgroundEntity) {
+    	Entity mouse_Clicked_Listener = new Entity("Mouse_Clicked_Listener");
+    	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
+     	mouse_Clicked.addAction(new CreateDropAction(backgroundEntity, resourcesManager, em, game));
+    	mouse_Clicked_Listener.addComponent(mouse_Clicked);
+    	em.addEntity(mouse_Clicked_Listener);
+	}
+
+	/**
+	 *  Bei Drücken der ESC-Taste zurueck ins Hauptmenue wechseln
+	 */
+	private void gotoMenuIfEsc() {		
     	Entity esc_Listener = new Entity("ESC_Listener");
     	KeyPressedEvent esc_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
     	esc_pressed.addAction(new ChangeStateAction(game, LaunchGame.MainMenuState));
     	esc_Listener.addComponent(esc_pressed);    	
     	em.addEntity(esc_Listener);
-    	
-    	// Bei Mausklick soll Wassertropfen erscheinen
-    	Entity mouse_Clicked_Listener = new Entity("Mouse_Clicked_Listener");
-    	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
-    	
-    	mouse_Clicked.addAction(new Action() {
-			@Override
-			public boolean act(float delta) {
-				// Wassertropfen wird erzeugt
-				Entity drop = new Entity("drop of water");
-				
-				Vector2 v = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-				background.getStage().screenToStageCoordinates(v);
-				background.stageToLocalCoordinates(v);
-				drop.setPosition(v.x, v.y);
-				
-				drop.addComponent(new ImageRenderComponent("drop.png", resourcesManager));
-				
-				// Wassertropfen faellt nach unten
-				LoopEvent loop = new LoopEvent();
-		    	loop.addAction(new MoveAction(0f, -35f));
-		    	drop.addComponent(loop);
-		    	
-		    	// Wenn der Bildschirm verlassen wird, dann ...
-		    	EntityOutOfScreenEvent lse = new EntityOutOfScreenEvent();
-		    	
-		    	// ... zerstoere den Wassertropfen
-		    	lse.addAction(new DestroyEntityAction());
-		    	// ... und wechsle ins Hauptmenue
-		    	lse.addAction(new ChangeStateAction(game, LaunchGame.MainMenuState));
-		    	
-		    	drop.addComponent(lse);
-		    	em.addEntity(drop);
-		    	
-		    	return true;
-			}    		
-    	});
-    	mouse_Clicked_Listener.addComponent(mouse_Clicked);
-    	
-    	em.addEntity(mouse_Clicked_Listener);    	
-    	
-    }
+	}
 
 	@Override
 	protected void update(float delta) {
