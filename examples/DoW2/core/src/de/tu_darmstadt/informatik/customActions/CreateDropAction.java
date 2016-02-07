@@ -2,9 +2,9 @@ package de.tu_darmstadt.informatik.customActions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.dow2.LaunchGame;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
@@ -26,13 +26,15 @@ public class CreateDropAction extends EEAAction {
 	private EntityManager em;
 	private EEAGame game;
 	private Entity bucket;
+	private GameplayState gameplayState;
 	
-	public CreateDropAction(Actor background, IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket) {
+	public CreateDropAction(Actor background, IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState) {
 		this.background = background;
 		this.resourcesManager = resourcesManager;
 		this.em = em;
 		this.game = game;
 		this.bucket = bucket;
+		this.gameplayState = gameplayState;
 	}
 	
 	@Override
@@ -54,7 +56,7 @@ public class CreateDropAction extends EEAAction {
 	private void dropBucketCollision(Entity drop) {
 		// TODO Auto-generated method stub
 		EEAEvent collisionEvent = new CollisionEvent();
-		collisionEvent.addAction(new DropBucketCollisionAction(bucket));
+		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState));
 		drop.addComponent(collisionEvent);
 	}
 
@@ -98,7 +100,7 @@ public class CreateDropAction extends EEAAction {
 	private void dropMovement(Entity drop) {
 		// Wassertropfen faellt nach unten
 		LoopEvent loop = new LoopEvent();
-    	loop.addAction(new MoveAction(0f, -35f));
+    	loop.addAction(new MoveAction(0f, -1000f));
     	drop.addComponent(loop);
 	}  
 }

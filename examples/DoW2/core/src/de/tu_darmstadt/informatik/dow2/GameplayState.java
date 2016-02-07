@@ -9,6 +9,7 @@ import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseMovedEvent;
@@ -17,7 +18,9 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 public class GameplayState extends EEAGameState {
 
 	private IResourcesManager resourcesManager;
-
+	public TextRenderComponent scoreRenderComponent;
+	private int Score;
+	
 	public GameplayState(EEAGame game, IResourcesManager resourcesManager) {
 		super(game);
 		this.resourcesManager = resourcesManager;
@@ -25,8 +28,8 @@ public class GameplayState extends EEAGameState {
 	
 	public void show(){
 		super.show();
-		
 	}
+	
 	
 	@Override
 	public void init() {
@@ -40,9 +43,26 @@ public class GameplayState extends EEAGameState {
     	
     	gotoMenuIfEsc();
     	Entity bucket = createBucket(backgroundEntity);
-    	createDrop(backgroundEntity, bucket);
+    	createDropByClick(backgroundEntity, bucket);
+    	createScore();
 	}
 
+	/**
+	 * Für die Anzeige der aktuell gefangenen Drops
+	 */
+	private void createScore() {
+		Entity score = new Entity("Score");
+    	score.setPosition(100, 100);
+    	scoreRenderComponent = new TextRenderComponent("0 Drops catched", game.graphics);
+    	score.addComponent(scoreRenderComponent);
+    	em.addEntity(score);
+	}
+
+	/**
+	 * Erzeugt den Bucket mit der dazugehörigen Logik
+	 * @param backgroundEntity
+	 * @return
+	 */
 	private Entity createBucket(final Entity backgroundEntity) {
 		Entity bucket = new Entity("Bucket Entity");
 		
@@ -67,14 +87,13 @@ public class GameplayState extends EEAGameState {
 	 * @param backgroundEntity
 	 * @param bucket 
 	 */
-	private void createDrop(final Entity backgroundEntity, Entity bucket) {
+	private void createDropByClick(final Entity backgroundEntity, Entity bucket) {
     	Entity mouse_Clicked_Listener = new Entity("Mouse_Clicked_Listener");
     	
     	// wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
     	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
-     	mouse_Clicked.addAction(new CreateDropAction(backgroundEntity, resourcesManager, em, game, bucket));
-    	mouse_Clicked_Listener.addComponent(mouse_Clicked);
-    	
+     	mouse_Clicked.addAction(new CreateDropAction(backgroundEntity, resourcesManager, em, game, bucket, this));
+    	mouse_Clicked_Listener.addComponent(mouse_Clicked);   	
     	
     	em.addEntity(mouse_Clicked_Listener);
 	}
@@ -93,6 +112,14 @@ public class GameplayState extends EEAGameState {
 	@Override
 	protected void update(float delta) {
 
+	}
+
+	public int getScore() {
+		return Score;
+	}
+
+	public void setScore(int score) {
+		Score = score;
 	}
 
 }
