@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -55,6 +56,7 @@ public class Entity extends Actor {
 	 *            The ID that identifies this entity.
 	 */
 	public Entity(String id) {
+		if(id == null) throw new InvalidParameterException("ID cannot be empty!");
 		this.id = id;
 		isPassable = true;
 		manager = null;
@@ -127,7 +129,7 @@ public class Entity extends Actor {
 	}
 
 	public boolean collides(Entity other) {
-		if (other == null || (id != null && id.equals(other.getID())))
+		if (other == null || id.equals(other.getID()))
 			return false;
 		// Note: Shape does not allow to directly test for intersection of two
 		// rotated rectangles.

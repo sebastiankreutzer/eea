@@ -72,7 +72,7 @@ public class EntityManager {
 		Iterator<Entity> it = entities.iterator();
 		while(it.hasNext()) {
 			Entity other = it.next();
-			if (e.collides(other) && !other.isPassable())
+			if (!other.isPassable() && e.collides(other))
 				return other;
 		}
 		return null;
