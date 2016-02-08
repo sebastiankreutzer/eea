@@ -1,31 +1,32 @@
 package de.tu_darmstadt.informatik.tanks2.misc;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.RWFile;
+
 public class Options {
 	
 	public static enum Difficulty { EASY, NORMAL, HARD }
-
-	private static final String fileName = "options";
-	private static final String folderName = "options";
 	
-	private static Options options = new Options();
+	private final RWFile file;
+	//private final String fileName = "options";
+	//private final String folderName = "options";
 	
 	// Difficulty settings
 	private Difficulty difficulty;
 	// Sound settings
 	private boolean soundEnabled;
 	
-	private Options () {
+	public Options (IResourcesManager resourcesManager) {
 		// Default setting
 		difficulty = Difficulty.EASY;
 		soundEnabled = true;
+		
+		file = resourcesManager.openRWFile("options");
 		
 		// Load saved settings if existent
 		this.load();
@@ -95,21 +96,14 @@ public class Options {
 	 */
 	public void save() {
 		
-		File f = new File(folderName);
-		
-		// Ordner erstellen falls noch nicht vorhanden
-		if(!f.exists()) {
-			f.mkdir();
-		}
-		
+		ObjectOutputStream oos;
 		try {
-			FileOutputStream file = new FileOutputStream(folderName + "/" + fileName);
-			ObjectOutputStream oos = new ObjectOutputStream(file);
+			oos = new ObjectOutputStream(file.write(false));
 			oos.writeObject(difficulty);
 			oos.writeBoolean(soundEnabled);
 			oos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 	
@@ -119,13 +113,10 @@ public class Options {
 	 */
 	public void load() {
 		
-		File f = new File(folderName + "/" + fileName);
-		
 		// Check if file exists to avoid exceptions
-		if (f.exists()) {
+		if (file.exists()) {
 			try {
-				FileInputStream file = new FileInputStream(f);
-				ObjectInputStream ois = new ObjectInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(file.read());
 				this.difficulty = (Difficulty) ois.readObject();
 				this.soundEnabled = (boolean) ois.readBoolean();
 				ois.close();
@@ -138,14 +129,6 @@ public class Options {
 			}
 		}
 
-	}
-	
-	/**
-	 * Returns the single instance of Options 
-	 * @return single instance of Options
-	 */
-	public static Options getInstance() {
-		return options;
 	}
 }
 

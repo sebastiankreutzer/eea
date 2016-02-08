@@ -30,11 +30,13 @@ import de.tu_darmstadt.informatik.tanks2.highscore.Highscore;
 import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
+import de.tu_darmstadt.informatik.tanks2.misc.Options;
 import temp.removeASAP.Tanks;
 
 public class GameplayState extends EEAGameState {
 
 	private Map map;
+	private Options options;
 
 	private TextRenderComponent player1text, ammo1Text, mine1Text, life1Text;
 	private TextRenderComponent player2text, ammo2Text, mine2Text, life2Text;
@@ -43,11 +45,12 @@ public class GameplayState extends EEAGameState {
 
 	private TextRenderComponent fpsText;
 
-	public GameplayState(EEAGame game) {
+	public GameplayState(EEAGame game, Options options) {
 		super(game);
 		IResourcesManager _resourcesManager = game.getResourcesManager();
 		this.resourcesManager = _resourcesManager;
 		map = Map.getInstance();
+		this.options = options;
 	}
 
 	private void createUI() {
@@ -134,7 +137,7 @@ public class GameplayState extends EEAGameState {
 		em.setDebug(true);
 		// Map parsen
 		try {
-			map.parse(map.getSource(), resourcesManager, true);
+			map.parse(map.getSource(), resourcesManager, true, options);
 		} catch (SyntaxException e) {
 			e.printStackTrace();
 			JFrame frame = new JFrame("");
