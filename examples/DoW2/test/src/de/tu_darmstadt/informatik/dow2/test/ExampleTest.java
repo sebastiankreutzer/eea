@@ -12,7 +12,7 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 
 import de.tu_darmstadt.informatik.dow2.LaunchGame;
 
-public class TestTest {
+public class ExampleTest {
 	
 	HeadlessApplication app;
 	LaunchGame game;
