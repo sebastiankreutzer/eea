@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,7 +55,6 @@ public class Entity extends Actor {
 	 *            The ID that identifies this entity.
 	 */
 	public Entity(String id) {
-		if(id == null) throw new InvalidParameterException("ID cannot be empty!");
 		this.id = id;
 		isPassable = true;
 		manager = null;
@@ -129,7 +127,7 @@ public class Entity extends Actor {
 	}
 
 	public boolean collides(Entity other) {
-		if (other == null || id.equals(other.getID()))
+		if (other == null || (id != null && id.equals(other.getID())))
 			return false;
 		// Note: Shape does not allow to directly test for intersection of two
 		// rotated rectangles.
@@ -247,14 +245,14 @@ public class Entity extends Actor {
 	/** Sets the position using the specified {@link Align alignment}. Note this may set the position to non-integer coordinates. */
 	public void setPosition (float x, float y, int alignment) {
 		if ((alignment & right) != 0)
-			x -= this.getWidth();
+			x -= getScaledWidth();
 		else if ((alignment & left) == 0) //
-			x -= this.getWidth() / 2;
+			x -= getScaledWidth() / 2;
 
 		if ((alignment & top) != 0)
-			y -= this.getHeight();
+			y -= getScaledHeight();
 		else if ((alignment & bottom) == 0) //
-			y -= this.getWidth() / 2;
+			y -= getScaledHeight() / 2;
 
 		setPosition(x, y);
 	}
@@ -262,7 +260,7 @@ public class Entity extends Actor {
 	/// Size
 	
 	public void setWidth (float width) {
-		float oldWidth = this.getWidth();
+		float oldWidth = super.getWidth();
 		super.setWidth(width);
 		if (width != oldWidth){
 			this.moveBy((oldWidth - width) * (1 - this.getScaleX())/2, 0);
@@ -283,6 +281,14 @@ public class Entity extends Actor {
 	public void setSize (float width, float height) {
 		this.setWidth(width);
 		this.setHeight(height);
+	}
+	
+	public float getScaledWidth() {
+		return super.getWidth() * this.getScaleX();
+	}
+	
+	public float getScaledHeight() {
+		return super.getHeight() * this.getScaleY();
 	}
 
 }
