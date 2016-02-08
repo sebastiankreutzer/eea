@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -55,7 +56,10 @@ public class Entity extends Actor {
 	 *            The ID that identifies this entity.
 	 */
 	public Entity(String id) {
-		this.id = id;
+		if (id == null)
+			throw new InvalidParameterException("ID cannot be null!");
+		else
+			this.id = id;
 		isPassable = true;
 		manager = null;
 	}
@@ -78,12 +82,12 @@ public class Entity extends Actor {
 		c.setOwnerEntity(this);
 		c.onAddComponent();
 	}
-	
+
 	@Override
 	protected void sizeChanged() {
-		setOriginX(getWidth()/2);
-		setOriginY(getHeight()/2);
-		//setOrigin(Align.center);
+		setOriginX(getWidth() / 2);
+		setOriginY(getHeight() / 2);
+		// setOrigin(Align.center);
 		super.sizeChanged();
 	}
 
@@ -122,12 +126,13 @@ public class Entity extends Actor {
 	public Shape getShape() {
 		Shape shape = new Rectangle.Float(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
 		AffineTransform at = new AffineTransform();
-		at.rotate(Math.toRadians(getRotation()), getOriginX() * getScaleX() + getX(), getOriginY() * getScaleY() + getY());
+		at.rotate(Math.toRadians(getRotation()), getOriginX() * getScaleX() + getX(),
+				getOriginY() * getScaleY() + getY());
 		return at.createTransformedShape(shape);
 	}
 
 	public boolean collides(Entity other) {
-		if (other == null || (id != null && id.equals(other.getID())))
+		if (other == null || id.equals(other.getID()))
 			return false;
 		// Note: Shape does not allow to directly test for intersection of two
 		// rotated rectangles.
@@ -181,19 +186,19 @@ public class Entity extends Actor {
 	public EntityManager getManager() {
 		return manager;
 	}
-	
-	///--------------------------
+
+	/// --------------------------
 	/// Center coordinates fixes
-	
+
 	/// Position
-	
+
 	/** Returns the X position of the actor's left edge. */
-	public float getX () {
+	public float getX() {
 		return super.getX() + (1 - getScaleX()) * getOriginX();
 	}
 
 	/** Returns the X position of the specified {@link Align alignment}. */
-	public float getX (int alignment) {
+	public float getX(int alignment) {
 		float x = this.getX();
 		if ((alignment & right) != 0)
 			x += this.getWidth();
@@ -203,20 +208,20 @@ public class Entity extends Actor {
 	}
 
 	/** Sets the X position of the actor's left edge. */
-	public void setX (float x) {
+	public void setX(float x) {
 		if (this.getX() != x) {
 			super.setX(x - (1 - getScaleX()) * getOriginX());
 			positionChanged();
 		}
 	}
-	
+
 	/** Returns the Y position of the actor's bottom edge. */
-	public float getY () {
+	public float getY() {
 		return super.getY() + (1 - getScaleY()) * getOriginY();
 	}
 
 	/** Returns the Y position of the specified {@link Align alignment}. */
-	public float getY (int alignment) {
+	public float getY(int alignment) {
 		float y = this.getY();
 		if ((alignment & top) != 0)
 			y += this.getHeight();
@@ -226,15 +231,15 @@ public class Entity extends Actor {
 	}
 
 	/** Sets the Y position of the actor's left edge. */
-	public void setY (float y) {
+	public void setY(float y) {
 		if (this.getY() != y) {
 			super.setY(y - (1 - getScaleY()) * getOriginY());
 			positionChanged();
 		}
 	}
-	
+
 	/** Sets the position of the actor's bottom left corner. */
-	public void setPosition (float x, float y) {
+	public void setPosition(float x, float y) {
 		if (this.getX() != x || this.getY() != y) {
 			this.setX(x);
 			this.setY(y);
@@ -242,8 +247,11 @@ public class Entity extends Actor {
 		}
 	}
 
-	/** Sets the position using the specified {@link Align alignment}. Note this may set the position to non-integer coordinates. */
-	public void setPosition (float x, float y, int alignment) {
+	/**
+	 * Sets the position using the specified {@link Align alignment}. Note this
+	 * may set the position to non-integer coordinates.
+	 */
+	public void setPosition(float x, float y, int alignment) {
 		if ((alignment & right) != 0)
 			x -= getScaledWidth();
 		else if ((alignment & left) == 0) //
@@ -256,37 +264,37 @@ public class Entity extends Actor {
 
 		setPosition(x, y);
 	}
-	
+
 	/// Size
-	
-	public void setWidth (float width) {
+
+	public void setWidth(float width) {
 		float oldWidth = super.getWidth();
 		super.setWidth(width);
-		if (width != oldWidth){
-			this.moveBy((oldWidth - width) * (1 - this.getScaleX())/2, 0);
+		if (width != oldWidth) {
+			this.moveBy((oldWidth - width) * (1 - this.getScaleX()) / 2, 0);
 			sizeChanged();
 		}
 	}
 
-	public void setHeight (float height) {
+	public void setHeight(float height) {
 		float oldHeight = this.getHeight();
 		super.setHeight(height);
-		if (height != oldHeight){
-			this.moveBy(0, (oldHeight - height) * (1 - this.getScaleY())/2);
+		if (height != oldHeight) {
+			this.moveBy(0, (oldHeight - height) * (1 - this.getScaleY()) / 2);
 			sizeChanged();
 		}
 	}
-	
+
 	/** Sets the width and height. */
-	public void setSize (float width, float height) {
+	public void setSize(float width, float height) {
 		this.setWidth(width);
 		this.setHeight(height);
 	}
-	
+
 	public float getScaledWidth() {
 		return super.getWidth() * this.getScaleX();
 	}
-	
+
 	public float getScaledHeight() {
 		return super.getHeight() * this.getScaleY();
 	}
