@@ -5,8 +5,6 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.assetsDir = new File("../core/assets");
 
-dist.dependsOn classes
-
 eclipse {
     project {
         name = appName + "-test"
