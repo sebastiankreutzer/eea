@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 
-public class ImageRenderComponent extends RenderComponent {
+public class ImageRenderComponent extends EEARenderComponent {
 	
 	public static final String ID = "ImageRenderComponent";
 	private IResourcesManager resourcesManager;

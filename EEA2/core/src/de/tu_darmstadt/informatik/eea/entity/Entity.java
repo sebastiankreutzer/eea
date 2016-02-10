@@ -31,7 +31,7 @@ import de.tu_darmstadt.informatik.eea.states.EntityManager;
  * specific uses. Multiple
  * {@link de.tu_darmstadt.informatik.eea.entity.EEAComponent} can be used to
  * determine the specific behavior of any entity, a special
- * {@link de.tu_darmstadt.informatik.eea.entity.RenderComponent} determines how
+ * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} determines how
  * the entity should be displayed if necessary. Entities must be added to an
  * {@link de.tu_darmstadt.informatik.eea.states.EntityManager}.
  * 
@@ -44,7 +44,7 @@ public class Entity extends Actor {
 
 	private CopyOnWriteArrayList<EEAComponent> components = new CopyOnWriteArrayList<EEAComponent>();
 	private Iterator<EEAComponent> iterator;
-	private RenderComponent renderComponent;
+	private EEARenderComponent renderComponent;
 	private EEACollisionComponent collisionComponent;
 
 	private EntityManager manager;
@@ -70,7 +70,7 @@ public class Entity extends Actor {
 	/**
 	 * Adds a {@link de.tu_darmstadt.informatik.eea.entity.EEAComponent} to the
 	 * components of this entity. If this component is a
-	 * {@link de.tu_darmstadt.informatik.eea.entity.RenderComponent} the
+	 * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} the
 	 * current, if any, will be replaced.
 	 * 
 	 * @param c
@@ -79,8 +79,8 @@ public class Entity extends Actor {
 	public void addComponent(EEAComponent c) {
 		components.add(c);
 
-		if (c instanceof RenderComponent)
-			this.renderComponent = (RenderComponent) c;
+		if (c instanceof EEARenderComponent)
+			this.renderComponent = (EEARenderComponent) c;
 		
 		if(c instanceof EEACollisionComponent)
 			this.collisionComponent = (EEACollisionComponent) c;
@@ -102,7 +102,7 @@ public class Entity extends Actor {
 	 * from the list of registered components of this
 	 * {@link de.tu.darmstadt.informatik.eea.entity.Entity}. This method does
 	 * not remove the registered
-	 * {@link de.tu.darmstadt.informatik.eea.entity.RenderComponent}.
+	 * {@link de.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}.
 	 * 
 	 * @param c
 	 *            The component to remove from this entity.

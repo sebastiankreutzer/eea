@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import de.tu_darmstadt.informatik.eea.EEAGraphics;
 
-public class TextRenderComponent extends RenderComponent {
+public class TextRenderComponent extends EEARenderComponent {
 	
 	public static final String ID = "TextRenderComponent";
 	
