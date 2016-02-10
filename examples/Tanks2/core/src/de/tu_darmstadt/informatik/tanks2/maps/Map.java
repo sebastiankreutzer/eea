@@ -21,6 +21,8 @@ import de.tu_darmstadt.informatik.tanks2.misc.Scanner;
 import de.tu_darmstadt.informatik.tanks2.misc.SourceFile;
 
 public class Map implements IMap {
+	
+	public final String defaultMap = "maps/map00";
 
 	private String source;
 	private static Map map = new Map();
@@ -29,7 +31,7 @@ public class Map implements IMap {
 	private Map() {
 		entities = new CopyOnWriteArrayList<Entity>();
 		// Default map
-		source = "maps/map00";
+		source = defaultMap;
 	}
 
 	public void addEntity(Entity Entity) {
@@ -124,7 +126,7 @@ public class Map implements IMap {
 
 	public void resetToDefault() {
 		clear();
-		source = "maps/map00";
+		source = defaultMap;
 	}
 
 	public String getSource() {

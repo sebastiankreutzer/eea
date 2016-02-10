@@ -3,6 +3,7 @@ package de.tu_darmstadt.informatik.tanks2.maps;
 import java.util.List;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
+import de.tu_darmstadt.informatik.tanks2.LaunchTanks;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMap;
 import temp.removeASAP.Tanks;
@@ -57,7 +58,7 @@ public class Checker {
 		for(Entity OtherEntity : entities){
 			if( (OtherEntity.getID().startsWith("Wall") || OtherEntity.getID().startsWith(Tanks.opponentTank) || OtherEntity.getID().startsWith(Tanks.player1) 
 					|| OtherEntity.getID().startsWith(Tanks.player2)) 
-					&& entity.collides(OtherEntity)) return true;
+					&& entity.collidesWith(OtherEntity)) return true;
 			
 			//if(entity.colides(OtherEntity)) return true;
 		}

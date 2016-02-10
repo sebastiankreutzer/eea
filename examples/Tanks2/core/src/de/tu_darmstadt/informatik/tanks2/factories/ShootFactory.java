@@ -5,6 +5,8 @@ import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleTriggerComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
@@ -46,6 +48,8 @@ public class ShootFactory {
 		mainEvent = new LoopEvent();
 		mainEvent.addAction(new MoveRelativeAction(25f, 0f));
 		simpleShot.addComponent(mainEvent);
+		
+		simpleShot.addComponent(new RectangleTriggerComponent());
 
 		return simpleShot;
 	}
@@ -79,6 +83,8 @@ public class ShootFactory {
 		mainEvent = new LoopEvent();
 		mainEvent.addAction(new MoveRelativeAction(30f, 0f));
 		scatterShoot.addComponent(mainEvent);
+		
+		scatterShoot.addComponent(new RectangleTriggerComponent());
 
 		return scatterShoot;
 	}

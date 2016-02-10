@@ -1,6 +1,6 @@
 package testEntities;
 
-import de.tu.darmstadt.informatik.eea.entity.Entity;
+import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 public class TestEntity extends Entity{
 

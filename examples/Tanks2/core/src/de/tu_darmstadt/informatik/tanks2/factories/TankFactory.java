@@ -9,6 +9,7 @@ import de.tu_darmstadt.informatik.eea.action.RotateAction;
 import de.tu_darmstadt.informatik.eea.entity.EEAComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyDownEvent;
@@ -47,7 +48,7 @@ public class TankFactory {
 			int strength,float speed, float rotation, float scale){
 		
 		Tank tank = new Tank(name, x, y, rotation, scale);
-		tank.setPassable(false);
+		tank.addComponent(new RectangleCollisionComponent());
 		
 		tank.setSpeed(speed);
 		tank.setMaxLife(maxLife);
