@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -18,13 +20,14 @@ public class EntityManager {
 	private Stage stage;
 
 	/**
-	 * Keeps track of all entities in the stage. 
-	 * This is somewhat redundant but prevents casting of the libGDX {@link Actor}s every time an entity needs to be accessed.
+	 * Keeps track of all entities in the stage. This is somewhat redundant but
+	 * prevents casting of the libGDX {@link Actor}s every time an entity needs
+	 * to be accessed.
 	 */
 	private List<Entity> entities;
 
 	public EntityManager(Viewport viewport) {
-		stage = new Stage(viewport){
+		stage = new Stage(viewport) {
 			@Override
 			public void addActor(Actor actor) {
 				super.addActor(actor);
@@ -48,14 +51,14 @@ public class EntityManager {
 		}
 		return null;
 	}
-	
+
 	public List<Entity> getAllEntities() {
 		return entities;
 	}
-	
+
 	public boolean hasEntity(String prefix) {
 		Iterator<Entity> it = entities.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			Entity e = it.next();
 			if (e.getID().startsWith(prefix))
 				return true;
@@ -70,23 +73,51 @@ public class EntityManager {
 
 	public Entity collides(Entity e) {
 		Iterator<Entity> it = entities.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			Entity other = it.next();
 			if (e.collidesWith(other))
 				return other;
 		}
 		return null;
 	}
-	
+
 	public List<Entity> getAllCollisions(Entity e) {
 		List<Entity> collisions = new ArrayList<Entity>();
 		Iterator<Entity> it = entities.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			Entity other = it.next();
 			if (e.collidesWith(other))
 				collisions.add(other);
 		}
 		return collisions;
+	}
+
+	/**
+	 * Utility function. Converts mouse coordinates from screen to stage space.
+	 * @return The converted vector
+	 */
+	public Vector2 mouseToStageCoordinates() {
+		return toStageCoordinates(new Vector2(Gdx.input.getX(),
+				Gdx.input.getY()));
+	}
+	
+	/**
+	 * Utility function. Converts the given coordinates to stage space.
+	 * @param pos A vector in screen space
+	 * @return The converted vector
+	 */
+	public Vector2 toStageCoordinates(Vector2 pos) {
+		return stage.screenToStageCoordinates(pos);
+	}
+	
+	/**
+	 * Utility function. Converts the given coordinates to stage space.
+	 * @param x 
+	 * @param y
+	 * @return The converted vector
+	 */
+	public Vector2 toStageCoordinates(float x, float y) {
+		return toStageCoordinates(new Vector2(x, y));
 	}
 
 	public void update(float delta) {
@@ -104,7 +135,7 @@ public class EntityManager {
 		stage.clear();
 		entities.clear();
 	}
-	
+
 	public void dispose() {
 		reset();
 		stage.dispose();
