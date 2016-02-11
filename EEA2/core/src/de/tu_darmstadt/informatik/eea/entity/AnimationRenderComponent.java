@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 
-public class AnimationRenderComponent extends RenderComponent {
+public class AnimationRenderComponent extends EEARenderComponent {
 	
 	final static private String ID = "AnimationRenderComponent";
 	

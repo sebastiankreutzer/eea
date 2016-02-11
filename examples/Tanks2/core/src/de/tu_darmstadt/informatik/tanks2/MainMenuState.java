@@ -23,8 +23,11 @@ import de.tu_darmstadt.informatik.tanks2.misc.Options;
 
 public class MainMenuState extends EEAGameState {
 
-	public MainMenuState(EEAGame game) {
+	private Options options;
+
+	public MainMenuState(EEAGame game, Options options) {
 		super(game);
+		this.options = options;
 	}
 
 	@Override
@@ -37,7 +40,7 @@ public class MainMenuState extends EEAGameState {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
 		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager())); // Bildkomponente
 		
-		if(Options.getInstance().isSoundEnabled()) {
+		if(options.isSoundEnabled()) {
 			EEAEvent soundEvent = new LoopEvent();
 			MusicAction backgroundSound = new MusicAction("theme.ogg", 1, game.getResourcesManager());
 			soundEvent.addAction(backgroundSound);
@@ -102,7 +105,7 @@ public class MainMenuState extends EEAGameState {
 		mef.prepareMenuEntry("Highscore", "entry.png", new ChangeStateAction(game, LaunchTanks.highScoreState));
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Einstellungen", "entry.png", new ChangeStateAction(game, LaunchTanks.options));
+		mef.prepareMenuEntry("Einstellungen", "entry.png", new ChangeStateAction(game, LaunchTanks.optionsState));
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
 		mef.prepareMenuEntry("Beenden", "entry.png", new QuitAction());

@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.eea.EEAGraphics;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.EEACollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 /**
@@ -28,7 +31,7 @@ import de.tu_darmstadt.informatik.eea.states.EntityManager;
  * specific uses. Multiple
  * {@link de.tu_darmstadt.informatik.eea.entity.EEAComponent} can be used to
  * determine the specific behavior of any entity, a special
- * {@link de.tu_darmstadt.informatik.eea.entity.RenderComponent} determines how
+ * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} determines how
  * the entity should be displayed if necessary. Entities must be added to an
  * {@link de.tu_darmstadt.informatik.eea.states.EntityManager}.
  * 
@@ -41,12 +44,12 @@ public class Entity extends Actor {
 
 	private CopyOnWriteArrayList<EEAComponent> components = new CopyOnWriteArrayList<EEAComponent>();
 	private Iterator<EEAComponent> iterator;
-	private RenderComponent renderComponent;
+	private EEARenderComponent renderComponent;
+	private EEACollisionComponent collisionComponent;
 
 	private EntityManager manager;
 
 	protected Vector2 center;
-	private boolean isPassable;
 
 	/**
 	 * Creates an entity with the given ID.
@@ -55,15 +58,19 @@ public class Entity extends Actor {
 	 *            The ID that identifies this entity.
 	 */
 	public Entity(String id) {
-		this.id = id;
-		isPassable = true;
+		if (id == null)
+			throw new InvalidParameterException("ID cannot be null!");
+		else
+			this.id = id;
+
+		collisionComponent = new NoCollisionComponent();
 		manager = null;
 	}
 
 	/**
 	 * Adds a {@link de.tu_darmstadt.informatik.eea.entity.EEAComponent} to the
 	 * components of this entity. If this component is a
-	 * {@link de.tu_darmstadt.informatik.eea.entity.RenderComponent} the
+	 * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} the
 	 * current, if any, will be replaced.
 	 * 
 	 * @param c
@@ -72,19 +79,22 @@ public class Entity extends Actor {
 	public void addComponent(EEAComponent c) {
 		components.add(c);
 
-		if (c instanceof RenderComponent)
-			this.renderComponent = (RenderComponent) c;
+		if (c instanceof EEARenderComponent)
+			this.renderComponent = (EEARenderComponent) c;
+		
+		if(c instanceof EEACollisionComponent)
+			this.collisionComponent = (EEACollisionComponent) c;
 
 		c.setOwnerEntity(this);
 		c.onAddComponent();
 	}
-	
+
 	@Override
 	protected void sizeChanged() {
-		setOriginX(getWidth()/2);
-		setOriginY(getHeight()/2);
-		//setOrigin(Align.center);
+		setOriginX(getWidth() / 2);
+		setOriginY(getHeight() / 2);
 		super.sizeChanged();
+		collisionComponent.sizeChanged();
 	}
 
 	/**
@@ -92,7 +102,7 @@ public class Entity extends Actor {
 	 * from the list of registered components of this
 	 * {@link de.tu.darmstadt.informatik.eea.entity.Entity}. This method does
 	 * not remove the registered
-	 * {@link de.tu.darmstadt.informatik.eea.entity.RenderComponent}.
+	 * {@link de.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}.
 	 * 
 	 * @param c
 	 *            The component to remove from this entity.
@@ -113,43 +123,35 @@ public class Entity extends Actor {
 	public void act(float delta) {
 		super.act(delta);
 		iterator = components.iterator();
-		while (iterator.hasNext()) {
-			if (!iterator.next().update(delta))
-				break;
+		while (iterator.hasNext() && iterator.next().update(delta)) {
+			
 		}
 	}
 
 	public Shape getShape() {
 		Shape shape = new Rectangle.Float(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
 		AffineTransform at = new AffineTransform();
-		at.rotate(Math.toRadians(getRotation()), getOriginX() * getScaleX() + getX(), getOriginY() * getScaleY() + getY());
+		at.rotate(Math.toRadians(getRotation()), getOriginX() * getScaleX() + getX(),
+				getOriginY() * getScaleY() + getY());
 		return at.createTransformedShape(shape);
 	}
-
-	public boolean collides(Entity other) {
-		if (other == null || (id != null && id.equals(other.getID())))
+	
+	public Entity collides() {
+		return manager.collides(this);
+	}
+	
+	public boolean collidesWith(Entity other) {
+		if (other == null || id.equals(other.getID()))
 			return false;
-		// Note: Shape does not allow to directly test for intersection of two
-		// rotated rectangles.
-		Area area = new Area(getShape());
-		Area otherArea = new Area(other.getShape());
-		// Set the first area to the intersection of the two shapes and test if
-		// the result is empty.
-		area.intersect(otherArea);
-
-		return !area.isEmpty();
+		return other.collisionComponent.collide(collisionComponent);
 	}
 
 	public String getID() {
 		return id;
 	}
 
-	public void setPassable(boolean passable) {
-		isPassable = passable;
-	}
-
-	public boolean isPassable() {
-		return isPassable;
+	public EEACollisionComponent getCollisionComponent() {
+		return collisionComponent;
 	}
 
 	@Override
@@ -181,60 +183,60 @@ public class Entity extends Actor {
 	public EntityManager getManager() {
 		return manager;
 	}
-	
-	///--------------------------
+
+	/// --------------------------
 	/// Center coordinates fixes
-	
+
 	/// Position
-	
+
 	/** Returns the X position of the actor's left edge. */
-	public float getX () {
+	public float getX() {
 		return super.getX() + (1 - getScaleX()) * getOriginX();
 	}
 
 	/** Returns the X position of the specified {@link Align alignment}. */
-	public float getX (int alignment) {
+	public float getX(int alignment) {
 		float x = this.getX();
 		if ((alignment & right) != 0)
-			x += this.getWidth();
+			x += getScaledWidth();
 		else if ((alignment & left) == 0) //
-			x += this.getWidth() / 2;
+			x += getScaledWidth() / 2;
 		return x;
 	}
 
 	/** Sets the X position of the actor's left edge. */
-	public void setX (float x) {
+	public void setX(float x) {
 		if (this.getX() != x) {
 			super.setX(x - (1 - getScaleX()) * getOriginX());
 			positionChanged();
 		}
 	}
-	
+
 	/** Returns the Y position of the actor's bottom edge. */
-	public float getY () {
+	public float getY() {
 		return super.getY() + (1 - getScaleY()) * getOriginY();
 	}
 
 	/** Returns the Y position of the specified {@link Align alignment}. */
-	public float getY (int alignment) {
+	public float getY(int alignment) {
 		float y = this.getY();
 		if ((alignment & top) != 0)
-			y += this.getHeight();
+			y += getScaledHeight();
 		else if ((alignment & bottom) == 0) //
-			y += this.getHeight() / 2;
+			y += getScaledHeight() / 2;
 		return y;
 	}
 
 	/** Sets the Y position of the actor's left edge. */
-	public void setY (float y) {
+	public void setY(float y) {
 		if (this.getY() != y) {
 			super.setY(y - (1 - getScaleY()) * getOriginY());
 			positionChanged();
 		}
 	}
-	
+
 	/** Sets the position of the actor's bottom left corner. */
-	public void setPosition (float x, float y) {
+	public void setPosition(float x, float y) {
 		if (this.getX() != x || this.getY() != y) {
 			this.setX(x);
 			this.setY(y);
@@ -242,45 +244,106 @@ public class Entity extends Actor {
 		}
 	}
 
-	/** Sets the position using the specified {@link Align alignment}. Note this may set the position to non-integer coordinates. */
-	public void setPosition (float x, float y, int alignment) {
+	/**
+	 * Sets the position using the specified {@link Align alignment}. Note this
+	 * may set the position to non-integer coordinates.
+	 */
+	public void setPosition(float x, float y, int alignment) {
 		if ((alignment & right) != 0)
-			x -= this.getWidth();
+			x -= getScaledWidth();
 		else if ((alignment & left) == 0) //
-			x -= this.getWidth() / 2;
+			x -= getScaledWidth() / 2;
 
 		if ((alignment & top) != 0)
-			y -= this.getHeight();
+			y -= getScaledHeight();
 		else if ((alignment & bottom) == 0) //
-			y -= this.getWidth() / 2;
+			y -= getScaledHeight() / 2;
 
 		setPosition(x, y);
 	}
-	
+
 	/// Size
-	
-	public void setWidth (float width) {
-		float oldWidth = this.getWidth();
-		super.setWidth(width);
-		if (width != oldWidth){
-			this.moveBy((oldWidth - width) * (1 - this.getScaleX())/2, 0);
+
+	public void setWidth(float width) {
+		float oldWidth = super.getWidth();
+		if (width != oldWidth) {
+			super.setWidth(width);
+			this.moveBy((oldWidth - width) * (1 - this.getScaleX()) / 2, 0);
 			sizeChanged();
 		}
 	}
 
-	public void setHeight (float height) {
+	public void setHeight(float height) {
 		float oldHeight = this.getHeight();
-		super.setHeight(height);
-		if (height != oldHeight){
-			this.moveBy(0, (oldHeight - height) * (1 - this.getScaleY())/2);
+		if (height != oldHeight) {
+			super.setHeight(height);
+			this.moveBy(0, (oldHeight - height) * (1 - this.getScaleY()) / 2);
 			sizeChanged();
 		}
 	}
-	
+
 	/** Sets the width and height. */
-	public void setSize (float width, float height) {
+	public void setSize(float width, float height) {
 		this.setWidth(width);
 		this.setHeight(height);
+	}
+	
+	/** Set bounds the x, y, width, and height. */
+	public void setBounds (float x, float y, float width, float height) {
+		if (getX() != x || getY() != y) {
+			setX(x);
+			setY(y);
+			positionChanged();
+		}
+		if (this.getWidth() != width || this.getHeight() != height) {
+			setWidth(width);
+			setHeight(height);
+			sizeChanged();
+		}
+	}
+
+	public float getScaledWidth() {
+		return super.getWidth() * this.getScaleX();
+	}
+
+	public float getScaledHeight() {
+		return super.getHeight() * this.getScaleY();
+	}
+	
+	@Override
+	public void setScaleX(float scaleX) {
+		super.setScaleX(scaleX);
+		collisionComponent.sizeChanged();
+	}
+	
+	@Override
+	public void setScaleY(float scaleY) {
+		super.setScaleY(scaleY);
+		collisionComponent.sizeChanged();
+	}
+	
+	@Override
+	public void setScale(float scaleX, float scaleY) {
+		super.setScale(scaleX, scaleY);
+		collisionComponent.sizeChanged();
+	}
+	
+	@Override
+	public void setScale(float scaleXY) {
+		super.setScale(scaleXY);
+		collisionComponent.sizeChanged();
+	}
+	
+	@Override
+	public void scaleBy(float scale) {
+		super.scaleBy(scale);
+		collisionComponent.sizeChanged();
+	}
+	
+	@Override
+	public void scaleBy(float scaleX, float scaleY) {
+		super.scaleBy(scaleX, scaleY);
+		collisionComponent.sizeChanged();
 	}
 
 }

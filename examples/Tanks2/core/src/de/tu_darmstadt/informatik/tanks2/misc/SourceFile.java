@@ -14,7 +14,7 @@ public class SourceFile {
 
 	public SourceFile(String filename, IResourcesManager resourcesManager) {
 		try {
-			source = resourcesManager.readFile(filename);
+			source = resourcesManager.openROMFile(filename).read();
 			currentLine = 1;
 		} catch (GdxRuntimeException e) {
 			System.out.println("Error loading file " + filename + " : " + e.toString());

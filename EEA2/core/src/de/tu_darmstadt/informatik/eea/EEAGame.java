@@ -20,7 +20,7 @@ public abstract class EEAGame extends Game {
 	public EEAGraphics graphics;
 	
 	private final List<EEAGameState> states = new ArrayList<EEAGameState>();
-	private IResourcesManager resourcesManager;
+	protected IResourcesManager resourcesManager;
 	private final Viewport viewport;
 	private final boolean debug;
 	

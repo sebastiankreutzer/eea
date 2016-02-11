@@ -8,10 +8,9 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 public class LaunchGame extends EEAGame {
 	public static EEAGameState MainMenuState;
 	public static EEAGameState GameplayState;
-	private IResourcesManager resourcesManager;
 	
 	public LaunchGame() {
-		resourcesManager = new ResourcesManager();
+		
 	}
 
 	protected void initStates() {

@@ -53,7 +53,7 @@ public class Parser implements IParser {
 	private TowerFactory towerFactory;
 	private WallFactory wallFactory;
 
-	public Parser(Scanner lexer, ErrorReporter reporter, IResourcesManager resourcesManager) {
+	public Parser(Scanner lexer, ErrorReporter reporter, IResourcesManager resourcesManager, Options options) {
 		lexicalAnalyser = lexer;
 		errorReporter = reporter;
 		previousTokenPosition = new SourcePosition();
@@ -62,7 +62,7 @@ public class Parser implements IParser {
 		pickUpFactory = new PickupFactory(debug, resourcesManager);
 		mineFactory = new MineFactory(debug, resourcesManager);
 		shotFactory = new ShootFactory(debug, resourcesManager);
-		tankFactory = new TankFactory(Options.getInstance().getDifficulty(), debug, resourcesManager);
+		tankFactory = new TankFactory(options.getDifficulty(), debug, resourcesManager);
 		towerFactory = new TowerFactory(debug, resourcesManager);
 		wallFactory = new WallFactory(debug, resourcesManager);
 	}
