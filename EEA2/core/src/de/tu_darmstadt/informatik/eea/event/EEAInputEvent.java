@@ -54,41 +54,32 @@ public abstract class EEAInputEvent extends EEAEvent implements InputProcessor {
 
 	@Override
 	public final boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		int viewSpaceX = convertToViewSpaceX(screenX);
-		int viewSpaceY = convertToViewSpaceY(screenY);
+		int viewSpaceX = CoordinateHelper.convertToViewSpaceX(screenX);
+		int viewSpaceY = CoordinateHelper.convertToViewSpaceY(screenY);
 		return touchDownViewSpace(viewSpaceX, viewSpaceY, pointer, button);
 	}
 
 	
-	private int convertToViewSpaceX(int screenX) {
-		int viewSpaceX = (int) (screenX * owner.getStage().getWidth() / Gdx.graphics.getWidth());
-		return viewSpaceX;
-	}
 	
-	private int convertToViewSpaceY(int screenY) {
-		float stageHeight = owner.getStage().getHeight();
-		int viewSpaceY = (int) (stageHeight - (screenY * stageHeight / Gdx.graphics.getHeight()));
-		return viewSpaceY;
-	}
 
 	@Override
 	public final boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		int viewSpaceX = convertToViewSpaceX(screenX);
-		int viewSpaceY = convertToViewSpaceY(screenY);
+		int viewSpaceX = CoordinateHelper.convertToViewSpaceX(screenX);
+		int viewSpaceY = CoordinateHelper.convertToViewSpaceY(screenY);
 		return touchUpViewSpace(viewSpaceX, viewSpaceY, pointer, button);
 	}
 
 	@Override
 	public final boolean touchDragged(int screenX, int screenY, int pointer) {
-		int viewSpaceX = convertToViewSpaceX(screenX);
-		int viewSpaceY = convertToViewSpaceY(screenY);
+		int viewSpaceX = CoordinateHelper.convertToViewSpaceX(screenX);
+		int viewSpaceY = CoordinateHelper.convertToViewSpaceY(screenY);
 		return touchDraggedViewSpace(viewSpaceX, viewSpaceY, pointer);
 	}
 
 	@Override
 	public final boolean mouseMoved(int screenX, int screenY) {
-		int viewSpaceX = convertToViewSpaceX(screenX);
-		int viewSpaceY = convertToViewSpaceY(screenY);
+		int viewSpaceX = CoordinateHelper.convertToViewSpaceX(screenX);
+		int viewSpaceY = CoordinateHelper.convertToViewSpaceY(screenY);
 		return mouseMovedViewSpace(viewSpaceX, viewSpaceY);
 	}
 

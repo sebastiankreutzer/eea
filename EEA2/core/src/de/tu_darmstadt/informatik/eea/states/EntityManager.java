@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
+import de.tu_darmstadt.informatik.eea.event.CoordinateHelper;
 
 public class EntityManager {
 
@@ -32,6 +33,7 @@ public class EntityManager {
 			}
 		};
 		entities = new ArrayList<Entity>();
+		CoordinateHelper.mainStage = stage;
 	}
 
 	public void addEntity(Entity e) {

@@ -1,7 +1,9 @@
 package de.tu_darmstadt.informatik.customActions;
 
+import com.badlogic.gdx.utils.Align;
+
 import de.tu_darmstadt.informatik.dow2.GameplayState;
-import de.tu_darmstadt.informatik.dow2.LaunchGame;
+import de.tu_darmstadt.informatik.dow2.GameBootstrapper;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
@@ -19,12 +21,12 @@ import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 public class CreateDropAction extends EEAAction {
-	private IResourcesManager resourcesManager;
-	private EntityManager em;
-	private EEAGame game;
-	private Entity bucket;
-	private GameplayState gameplayState;
-	private IMouseStatus mouseMovedEvent;
+	private final IResourcesManager resourcesManager;
+	private final EntityManager em;
+	private final EEAGame game;
+	private final Entity bucket;
+	private final GameplayState gameplayState;
+	private final IMouseStatus mouseMovedEvent;
 	
 	public CreateDropAction(IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
 		this.resourcesManager = resourcesManager;
@@ -40,8 +42,8 @@ public class CreateDropAction extends EEAAction {
 		// Wassertropfen wird erzeugt
 		Entity drop = new Entity("drop of water");
 		
-		positionDrop(drop);
 		dropPainting(drop);
+		positionDrop(drop);
 		dropMovement(drop);
     	dropDisplayCollision(drop);
     	dropBucketCollision(drop);
@@ -78,7 +80,7 @@ public class CreateDropAction extends EEAAction {
 	 * @param drop
 	 */
 	private void positionDrop(Entity drop) {		
-		drop.setPosition( mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY());
+		drop.setPosition( mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY());//, Align.top | Align.center);
 	}
 
 	/**
@@ -89,7 +91,7 @@ public class CreateDropAction extends EEAAction {
 		// Wenn der Bildschirm verlassen wird, dann ...
     	EntityOutOfScreenEvent lse = new EntityOutOfScreenEvent();
     	// ... und wechsle ins Hauptmenue
-    	lse.addAction(new ChangeStateAction(game, LaunchGame.MainMenuState));
+    	lse.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
     	// ... zerstoere den Wassertropfen
     	lse.addAction(new DestroyEntityAction());
     	drop.addComponent(lse);

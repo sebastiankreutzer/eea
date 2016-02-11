@@ -12,8 +12,8 @@ import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
+import de.tu_darmstadt.informatik.eea.event.LoopInputEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
-import de.tu_darmstadt.informatik.eea.event.MouseMovedEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class GameplayState extends EEAGameState {
@@ -22,15 +22,11 @@ public class GameplayState extends EEAGameState {
 	public TextRenderComponent scoreRenderComponent;
 	private int Score;
 	
+	
 	public GameplayState(EEAGame game, IResourcesManager resourcesManager) {
 		super(game);
 		this.resourcesManager = resourcesManager;
 	}
-	
-	public void show(){
-		super.show();
-	}
-	
 	
 	@Override
 	public void init() {
@@ -65,21 +61,19 @@ public class GameplayState extends EEAGameState {
 	 * @return
 	 */
 	private Entity createBucket(final Entity backgroundEntity) {
+		// Ein allgemeines Entity erstellen
 		Entity bucket = new Entity("Bucket Entity");
 		
-		// damit Kollisionen beachtet werden
-		// bucket.setPassable(false);
-		
-		// Bild des Buckets
+		// Bild des Buckets setzen
 		bucket.addComponent(new ImageRenderComponent("bucket.png", resourcesManager));
 		
+		// damit Kollisionen beachtet werden
 		bucket.addComponent(new RectangleCollisionComponent());
 		
 		// Mausbewegungen verursachen eine Verschiebung
-		MouseMovedEvent mouseMovedEvent = new MouseMovedEvent();
-		mouseMovedEvent.addAction(new MoveBucketAction(backgroundEntity));
-		bucket.addComponent(mouseMovedEvent);
-		//bucket.setScale(0.5f);
+		LoopInputEvent loopInputEvent = new LoopInputEvent();
+		loopInputEvent.addAction(new MoveBucketAction(loopInputEvent));
+		bucket.addComponent(loopInputEvent);
 		em.addEntity(bucket);
 		
 		return bucket;
@@ -96,8 +90,7 @@ public class GameplayState extends EEAGameState {
     	// wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
     	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
      	mouse_Clicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouse_Clicked));
-    	mouse_Clicked_Listener.addComponent(mouse_Clicked);   	
-    	
+    	mouse_Clicked_Listener.addComponent(mouse_Clicked);    	
     	em.addEntity(mouse_Clicked_Listener);
 	}
 
@@ -107,14 +100,13 @@ public class GameplayState extends EEAGameState {
 	private void gotoMenuIfEsc() {		
     	Entity esc_Listener = new Entity("ESC_Listener");
     	KeyPressedEvent esc_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
-    	esc_pressed.addAction(new ChangeStateAction(game, LaunchGame.MainMenuState));
+    	esc_pressed.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
     	esc_Listener.addComponent(esc_pressed);    	
     	em.addEntity(esc_Listener);
 	}
 
 	@Override
 	protected void update(float delta) {
-
 	}
 
 	public int getScore() {
