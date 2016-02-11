@@ -20,9 +20,9 @@ public class OptionsState extends EEAGameState {
 	private Options options;
 	private TextRenderComponent difficultyText, soundText;
 
-	public OptionsState(EEAGame game) {
+	public OptionsState(EEAGame game, Options options) {
 		super(game);
-		this.options = Options.getInstance();
+		this.options = options;
 		difficultyText = new TextRenderComponent("", game.graphics);
 		soundText = new TextRenderComponent("", game.graphics);
 	}

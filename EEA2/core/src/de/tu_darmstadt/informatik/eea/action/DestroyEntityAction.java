@@ -5,7 +5,8 @@ public class DestroyEntityAction extends EEAAction {
 
 	@Override
 	public boolean act(float delta) {
-		return !getEntity().remove();
+		getEntity().remove();
+		return false;
 	}
 
 }

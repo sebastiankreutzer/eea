@@ -30,19 +30,11 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 	    
 	    move.act(delta);
 
-	    List<Entity> colliders = owner.getManager().getAllCollisions(owner);
-
-	    boolean collisionOccured = false;
-	    for (Entity c : colliders) {
-	    	if (!c.isPassable()) {
-	    		collisionOccured = true;
-	    		break;
-	    	}
-	    }
+	    Entity other = owner.collides();
 	    
 	    owner.setPosition(oldPosition.x, oldPosition.y);
 	    owner.setRotation(oldRotation);
-	    return !collisionOccured;
+	    return (other == null);
 	}
 
 }

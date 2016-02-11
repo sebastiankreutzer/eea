@@ -8,6 +8,7 @@ import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleTriggerComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
@@ -70,6 +71,8 @@ public class PickupFactory {
 		collisionEvent.addAction(new DestroyEntityAction());
 
 		pickup.addComponent(collisionEvent);
+		
+		pickup.addComponent(new RectangleTriggerComponent());
 
 		return pickup;
 	}

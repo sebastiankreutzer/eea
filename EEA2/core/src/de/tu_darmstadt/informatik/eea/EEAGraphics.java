@@ -4,13 +4,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class EEAGraphics {
 	
 	private BitmapFont font;
-	private ShapeRenderer render;
+	public static ShapeRenderer render = new ShapeRenderer();
+	private Batch batch;
 	
-	public EEAGraphics() {
+	public EEAGraphics(Viewport viewport) {
 		font = new BitmapFont();
 	}
 	

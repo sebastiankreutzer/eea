@@ -20,7 +20,7 @@ public abstract class EEAGame extends Game {
 	public EEAGraphics graphics;
 	
 	private final List<EEAGameState> states = new ArrayList<EEAGameState>();
-	private IResourcesManager resourcesManager;
+	protected IResourcesManager resourcesManager;
 	private final Viewport viewport;
 	private final boolean debug;
 	
@@ -68,7 +68,7 @@ public abstract class EEAGame extends Game {
 	
 	@Override
 	public void create(){
-		graphics = new EEAGraphics();
+		graphics = new EEAGraphics(viewport);
 		resourcesManager = new ResourcesManager();
 		initStates();
 		startGame();

@@ -2,9 +2,9 @@ package de.tu_darmstadt.informatik.eea.entity;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-public abstract class RenderComponent extends EEAComponent{
+public abstract class EEARenderComponent extends EEAComponent{
 
-	public RenderComponent(String componentID) {
+	public EEARenderComponent(String componentID) {
 		super(componentID);
 	}
 
