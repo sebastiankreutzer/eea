@@ -14,7 +14,7 @@ public class MouseMovedEvent extends EEAInputEvent {
 	}
 	
 	@Override
-	public boolean mouseMoved(int mouseX, int mouseY) {
+	public boolean mouseMovedViewSpace(int mouseX, int mouseY) {
 		if(mouseX != this.mouseX && mouseY != this.mouseY){
 			this.mouseX = mouseX;
 			this.mouseY = mouseY;

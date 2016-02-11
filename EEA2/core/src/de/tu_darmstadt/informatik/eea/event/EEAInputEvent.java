@@ -15,7 +15,21 @@ public abstract class EEAInputEvent extends EEAEvent implements InputProcessor {
 		im.addProcessor(this);
 	};
 	
+	public boolean touchDownViewSpace(int screenX, int screenY, int pointer, int button){
+		return false;
+	}
 	
+	public boolean touchUpViewSpace(int screenX, int screenY, int pointer, int button){
+		return false;
+	}
+	
+	public boolean touchDraggedViewSpace(int viewSpaceX, int viewSpaceY, int pointer) {
+		return false;
+	}
+	
+	public boolean mouseMovedViewSpace(int viewSpaceX, int viewSpaceY) {
+		return false;
+	}
 	
 	@Override
 	public void onRemoveComponent() {
@@ -39,23 +53,43 @@ public abstract class EEAInputEvent extends EEAEvent implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
+	public final boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		int viewSpaceX = convertToViewSpaceX(screenX);
+		int viewSpaceY = convertToViewSpaceY(screenY);
+		return touchDownViewSpace(viewSpaceX, viewSpaceY, pointer, button);
+	}
+
+	
+	private int convertToViewSpaceX(int screenX) {
+		int viewSpaceX = (int) (screenX * owner.getStage().getWidth() / Gdx.graphics.getWidth());
+		return viewSpaceX;
+	}
+	
+	private int convertToViewSpaceY(int screenY) {
+		float stageHeight = owner.getStage().getHeight();
+		int viewSpaceY = (int) (stageHeight - (screenY * stageHeight / Gdx.graphics.getHeight()));
+		return viewSpaceY;
 	}
 
 	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
+	public final boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		int viewSpaceX = convertToViewSpaceX(screenX);
+		int viewSpaceY = convertToViewSpaceY(screenY);
+		return touchUpViewSpace(viewSpaceX, viewSpaceY, pointer, button);
 	}
 
 	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
+	public final boolean touchDragged(int screenX, int screenY, int pointer) {
+		int viewSpaceX = convertToViewSpaceX(screenX);
+		int viewSpaceY = convertToViewSpaceY(screenY);
+		return touchDraggedViewSpace(viewSpaceX, viewSpaceY, pointer);
 	}
 
 	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
+	public final boolean mouseMoved(int screenX, int screenY) {
+		int viewSpaceX = convertToViewSpaceX(screenX);
+		int viewSpaceY = convertToViewSpaceY(screenY);
+		return mouseMovedViewSpace(viewSpaceX, viewSpaceY);
 	}
 
 	@Override

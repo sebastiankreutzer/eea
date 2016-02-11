@@ -1,10 +1,6 @@
 package de.tu_darmstadt.informatik.eea.event;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector3;
 
 public class MouseClickedEvent extends EEAInputEvent implements IMouseStatus {
 
@@ -26,23 +22,11 @@ public class MouseClickedEvent extends EEAInputEvent implements IMouseStatus {
 	}
 
 	@Override
-	public boolean touchDown(int mouseX, int mouseY, int pointer, int button) {
-		System.out.println("ScreenSpace ("+mouseX+"|"+mouseY+")");
-		
-		
-		Camera camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());		
-		Vector3 touch = new Vector3(0,0,0);
-		touch.set(mouseX , mouseY, 0);
-		Vector3 world = camera.unproject(touch, -Gdx.graphics.getWidth()/2, -Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
-         
-		System.out.println("WorldSpace ("+world.x+"|"+world.y+")");
-         
-		
+	public boolean touchDownViewSpace(int mouseX, int mouseY, int pointer, int button) {
 		if (this.button == button) {
 			mouseWasDown = true;
-			this.mouseX = (int) world.x;
-			this.mouseY = (int) world.y;
+			this.mouseX = mouseX;
+			this.mouseY = mouseY;
 		}
 		// Returning true would prevent that other events handle this event too.
 		return false;
