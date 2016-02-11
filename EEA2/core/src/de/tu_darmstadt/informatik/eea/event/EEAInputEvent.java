@@ -15,6 +15,8 @@ public abstract class EEAInputEvent extends EEAEvent implements InputProcessor {
 		im.addProcessor(this);
 	};
 	
+	
+	
 	@Override
 	public void onRemoveComponent() {
 		InputMultiplexer im = (InputMultiplexer) Gdx.input.getInputProcessor();

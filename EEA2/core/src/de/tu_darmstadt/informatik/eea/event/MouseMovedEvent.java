@@ -3,8 +3,8 @@ package de.tu_darmstadt.informatik.eea.event;
 public class MouseMovedEvent extends EEAInputEvent {
 	public static final String ID = "KeyPressedEvent";
 	private boolean mouseWasMoved = false;
-	private int screenX;
-	private int screenY;
+	private int mouseX;
+	private int mouseY;
 	
 	/**
 	 * @param key Key from the libGDX @Input.Keys
@@ -14,10 +14,10 @@ public class MouseMovedEvent extends EEAInputEvent {
 	}
 	
 	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		if(screenX != this.screenX && screenY != this.screenY){
-			this.screenX = screenX;
-			this.screenY = screenY;
+	public boolean mouseMoved(int mouseX, int mouseY) {
+		if(mouseX != this.mouseX && mouseY != this.mouseY){
+			this.mouseX = mouseX;
+			this.mouseY = mouseY;
 			mouseWasMoved = true;
 		}
 		return false;

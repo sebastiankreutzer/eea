@@ -1,9 +1,5 @@
 package de.tu_darmstadt.informatik.customActions;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.dow2.LaunchGame;
 import de.tu_darmstadt.informatik.eea.EEAGame;
@@ -18,24 +14,25 @@ import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollision
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
+import de.tu_darmstadt.informatik.eea.event.IMouseStatus;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 public class CreateDropAction extends EEAAction {
-	private Actor background;
 	private IResourcesManager resourcesManager;
 	private EntityManager em;
 	private EEAGame game;
 	private Entity bucket;
 	private GameplayState gameplayState;
+	private IMouseStatus mouseMovedEvent;
 	
-	public CreateDropAction(Actor background, IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState) {
-		this.background = background;
+	public CreateDropAction(IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
 		this.resourcesManager = resourcesManager;
 		this.em = em;
 		this.game = game;
 		this.bucket = bucket;
 		this.gameplayState = gameplayState;
+		this.mouseMovedEvent = mouseMovedEvent;
 	}
 	
 	@Override
@@ -80,11 +77,8 @@ public class CreateDropAction extends EEAAction {
 	 * Wenn ein Drop erzeugt wird, dann muss er positioniert werden.
 	 * @param drop
 	 */
-	private void positionDrop(Entity drop) {
-		Vector2 v = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-		background.getStage().screenToStageCoordinates(v);
-		background.stageToLocalCoordinates(v);
-		drop.setPosition(v.x, v.y);
+	private void positionDrop(Entity drop) {		
+		drop.setPosition( mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY());
 	}
 
 	/**

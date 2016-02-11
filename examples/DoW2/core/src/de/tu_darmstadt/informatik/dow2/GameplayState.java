@@ -95,7 +95,7 @@ public class GameplayState extends EEAGameState {
     	
     	// wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
     	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
-     	mouse_Clicked.addAction(new CreateDropAction(backgroundEntity, resourcesManager, em, game, bucket, this));
+     	mouse_Clicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouse_Clicked));
     	mouse_Clicked_Listener.addComponent(mouse_Clicked);   	
     	
     	em.addEntity(mouse_Clicked_Listener);
