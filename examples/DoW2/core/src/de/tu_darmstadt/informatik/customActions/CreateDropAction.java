@@ -14,6 +14,7 @@ import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.MoveAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
@@ -53,8 +54,15 @@ public class CreateDropAction extends EEAAction {
     	return true;
 	}
 
+	/**
+	 * der Drop soll mit dem Bucket kollidieren
+	 * @param drop
+	 */
 	private void dropBucketCollision(Entity drop) {
-		// TODO Auto-generated method stub
+		// füge dem Drop eine Kollisionskomponente hinzu.
+		// Ohne Kollisionskomponente würde keine Kollision getriggert werden.
+		drop.addComponent(new CircleCollisionComponent());
+		
 		EEAEvent collisionEvent = new CollisionEvent();
 		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState));
 		drop.addComponent(collisionEvent);

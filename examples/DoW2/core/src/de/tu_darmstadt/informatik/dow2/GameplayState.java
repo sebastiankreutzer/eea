@@ -10,6 +10,7 @@ import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseMovedEvent;
@@ -67,10 +68,12 @@ public class GameplayState extends EEAGameState {
 		Entity bucket = new Entity("Bucket Entity");
 		
 		// damit Kollisionen beachtet werden
-		bucket.setPassable(false);
+		// bucket.setPassable(false);
 		
 		// Bild des Buckets
 		bucket.addComponent(new ImageRenderComponent("bucket.png", resourcesManager));
+		
+		bucket.addComponent(new RectangleCollisionComponent());
 		
 		// Mausbewegungen verursachen eine Verschiebung
 		MouseMovedEvent mouseMovedEvent = new MouseMovedEvent();
