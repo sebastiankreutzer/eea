@@ -22,7 +22,7 @@ public class MouseClickedEvent extends EEAInputEvent implements IMouseStatus {
 	}
 
 	@Override
-	public boolean touchDownViewSpace(int mouseX, int mouseY, int pointer, int button) {
+	public boolean touchDown(int mouseX, int mouseY, int pointer, int button) {
 		if (this.button == button) {
 			mouseWasDown = true;
 			this.mouseX = mouseX;
