@@ -1,7 +1,5 @@
 package de.tu_darmstadt.informatik.eea.event;
 
-import java.util.List;
-
 import com.badlogic.gdx.math.Vector2;
 
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;

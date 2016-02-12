@@ -21,7 +21,6 @@ public class MainMenuState extends EEAGameState {
 	public MainMenuState(EEAGame game, IResourcesManager resourcesManager) {
 		super(game);
 		this.resourcesManager = resourcesManager;
-		//init();
 	}
 	
 	public void show(){
@@ -43,7 +42,7 @@ public class MainMenuState extends EEAGameState {
     	
     	// Erstelle das Ausloese-Event und die zugehoerige Action
     	ANDEvent mainEvents = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
-    	Action new_Game_Action = new ChangeStateAction(game, LaunchGame.GameplayState);
+    	Action new_Game_Action = new ChangeStateAction(game, GameBootstrapper.GameplayState);
     	mainEvents.addAction(new_Game_Action);
     	new_Game_Entity.addComponent(mainEvents);
     	

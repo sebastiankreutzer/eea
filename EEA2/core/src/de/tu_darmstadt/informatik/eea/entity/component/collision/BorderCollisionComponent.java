@@ -1,10 +1,9 @@
 package de.tu_darmstadt.informatik.eea.entity.component.collision;
 
-import com.badlogic.gdx.utils.Align;
-
-import de.tu_darmstadt.informatik.eea.entity.Entity;
-
-import static com.badlogic.gdx.utils.Align.*;
+import static com.badlogic.gdx.utils.Align.bottom;
+import static com.badlogic.gdx.utils.Align.left;
+import static com.badlogic.gdx.utils.Align.right;
+import static com.badlogic.gdx.utils.Align.top;
 
 import com.badlogic.gdx.math.Vector2;
 

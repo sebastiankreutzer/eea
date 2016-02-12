@@ -3,8 +3,6 @@ package de.tu_darmstadt.informatik.eea.event;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 
 public class CollisionEvent extends EEAEvent {
 
