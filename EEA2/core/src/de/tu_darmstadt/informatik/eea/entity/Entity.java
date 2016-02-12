@@ -8,20 +8,15 @@ import static com.badlogic.gdx.utils.Align.top;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.eea.EEAGraphics;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.EEACollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;

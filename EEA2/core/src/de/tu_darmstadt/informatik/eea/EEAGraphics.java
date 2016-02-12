@@ -10,8 +10,7 @@ public class EEAGraphics {
 	
 	private BitmapFont font;
 	public static ShapeRenderer render = new ShapeRenderer();
-	private Batch batch;
-	
+		
 	public EEAGraphics(Viewport viewport) {
 		font = new BitmapFont();
 	}

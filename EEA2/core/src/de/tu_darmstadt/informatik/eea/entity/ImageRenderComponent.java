@@ -12,7 +12,6 @@ public class ImageRenderComponent extends EEARenderComponent {
 	// TODO Better to keep the reference to Texture instead of a string to avoid searching for this
 	// texture every scaling event
 	private String texturePath;
-	private Texture tex;
 	
 	public ImageRenderComponent(String texturePath, IResourcesManager resourcesManager) {
 		super(ID);
