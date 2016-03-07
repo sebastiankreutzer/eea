@@ -2,8 +2,8 @@ package de.tu_darmstadt.informatik.customActions;
 
 import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.dow2.GameBootstrapper;
+import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
@@ -80,7 +80,7 @@ public class CreateDropAction extends EEAAction {
 	 * @param drop
 	 */
 	private void positionDrop(Entity drop) {		
-		drop.setPosition( mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY());//, Align.top | Align.center);
+		drop.setPosition(mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY(), Align.top | Align.center);
 	}
 
 	/**

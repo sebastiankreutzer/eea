@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
@@ -30,7 +32,7 @@ public abstract class EEAGame extends Game {
 	 * @param height The height of the viewport.
 	 */
 	public EEAGame(float width, float height, boolean debug) {
-		this.viewport = new FitViewport(width, height);
+		this.viewport = new StretchViewport(width, height);
 		this.debug = debug;
 	}
 	
