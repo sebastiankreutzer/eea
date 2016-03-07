@@ -64,11 +64,11 @@ public class CreateDropAction extends EEAAction {
 		drop.addComponent(new CircleCollisionComponent());
 		
 		EEAEvent collisionEvent = new CollisionEvent();
-		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState));
+		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState, resourcesManager));
 		drop.addComponent(collisionEvent);
 		
-		SoundAction x = new SoundAction("WaterDrop.mp3", resourcesManager);
-		drop.addAction(x);
+		SoundAction createDropSound = new SoundAction("WaterDrop.mp3", resourcesManager);
+		drop.addAction(createDropSound);
 	}
 
 	/**
@@ -96,8 +96,16 @@ public class CreateDropAction extends EEAAction {
     	EntityOutOfScreenEvent lse = new EntityOutOfScreenEvent();
     	// ... und wechsle ins Hauptmenue
     	lse.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
+    	
+    	// spiele einen Sound ab
+    	SoundAction failSoundAction = new SoundAction("bubbles.mp3", resourcesManager);
+    	lse.addAction(failSoundAction);
+    	
     	// ... zerstoere den Wassertropfen
     	lse.addAction(new DestroyEntityAction());
+    	
+    	
+    	
     	drop.addComponent(lse);
 	}
 
