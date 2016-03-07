@@ -44,6 +44,7 @@ public class MusicAction extends EEAAudioAction {
 		super(volume, pan);
 		music = resourcesManager.getMusic(file);
 		music.setPan(pan, volume);
+		music.setLooping(true);
 	}
 
 	/**
