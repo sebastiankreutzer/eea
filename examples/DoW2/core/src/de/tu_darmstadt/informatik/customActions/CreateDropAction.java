@@ -10,6 +10,7 @@ import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.MoveAction;
+import de.tu_darmstadt.informatik.eea.action.SoundAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
@@ -65,6 +66,9 @@ public class CreateDropAction extends EEAAction {
 		EEAEvent collisionEvent = new CollisionEvent();
 		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState));
 		drop.addComponent(collisionEvent);
+		
+		SoundAction x = new SoundAction("WaterDrop.mp3", resourcesManager);
+		drop.addAction(x);
 	}
 
 	/**
