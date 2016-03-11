@@ -1,5 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Input.Keys;
@@ -14,86 +15,153 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.highscore.Highscore;
 import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
 
+/**
+ * Ein GameplayState der zur Darstellung der Highscores der zuletzt geladenen
+ * Map dient.
+ * 
+ * @author jr
+ *
+ */
 public class HighscoreState extends EEAGameState {
 
-	private HighscoreList highscoreList;
-
+	/**
+	 * Erstellt einen neuen HighscoreState.
+	 * 
+	 * @param game
+	 *            Die Instanz des Spiels
+	 */
 	public HighscoreState(EEAGame game) {
 		super(game);
 	}
 
 	@Override
 	protected void update(float delta) {
-		// TODO Auto-generated method stub
-
+		// Dieser GameplayState muss nicht laufend aktualisiert werden, da sich
+		// der Highscore nur zwischen den Partien oder beim Wechsel der Map
+		// aendert.
 	}
 
 	@Override
 	protected void init() {
-		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("highscore_menu.png", game.getResourcesManager())); // Bildkomponente
+		// Erstelle eine Entity fuer das Hintergrundbild
+		Entity background = createBackgroundEntity();
+		// Erstelle eine Entity fuer den EscapeListener
+		Entity escapeListener = createEscapeEntity();
+		// Fuege die Entities dem EntityManager hinzu
 		em.addEntity(background);
-		
-		this.highscoreList = HighscoreList.getInstance();
-		if(!highscoreList.hasHighscoreLoaded()) {
+		em.addEntity(escapeListener);
+
+		// Hole die aktuelle HighscoreList
+		HighscoreList highscoreList = HighscoreList.getInstance();
+
+		// Pruefe ob die HighscoreList geladen wurde
+		if (!highscoreList.hasHighscoreLoaded()) {
+			// Erstelle eine Entity fuer die Fehlermeldung
 			Entity error_Message = new Entity("error_message");
-			error_Message.addComponent(new TextRenderComponent("Fuer diese Map wurden keine gespeicherten Highscores gefunden.", game.graphics));
+			// Fuege der Entity eine TextRenderComponent mit der Fehlermeldung
+			// hinzu
+			error_Message.addComponent(new TextRenderComponent(
+					"Fuer diese Map wurden keine gespeicherten Highscores gefunden.", game.graphics));
+			// Zentriere die Entity und fuege sie dem EntityManager hinzu
 			error_Message.setPosition(200, 300);
 			em.addEntity(error_Message);
 		} else {
+			// Hole die Highscore Eintraege
 			List<Highscore> highscores = highscoreList.getHighscores();
-			if(highscores.isEmpty()) {
-				Entity empty_message = new Entity("empty_message");
-				empty_message.addComponent(new TextRenderComponent("Es hat noch niemand einen Highscore erspielt.", game.graphics));
-				empty_message.setPosition(200, 300);
-				em.addEntity(empty_message);
-			} else {
-				StringBuilder sb;
-				Highscore hsc;
-				for(int i = 0; i < highscores.size(); i++) {
-					sb = new StringBuilder();
-					sb.append(i + 1);
-					sb.append(". ");
-					
-					hsc = highscores.get(i);
-					if(hsc.getPlayerName() != null) {
-						sb.append(hsc.getPlayerName());
-					} else {
-						sb.append("Unbekannt");
-					}
-					
-					sb.append(" - ");
-					sb.append(hsc.getFiredShots());
-					sb.append(" Shots, ");
-					sb.append(hsc.getPassedTime()/1000);
-					sb.append(" Sekunden");
-					
-					Entity highscoreEntity = new Entity("entry"+i);
-					highscoreEntity.addComponent(new TextRenderComponent(sb.toString(), game.graphics));
-					highscoreEntity.setPosition(100, 450 - i * 50);
-					em.addEntity(highscoreEntity);
+			// Erstelle die dazugehoerigen Entities
+			List<Entity> hightscoreEntries = createHighscoreEntries(highscores);
+			// Fuege diese dem EntityManager hinzu
+			em.addEntities(hightscoreEntries);
+		}
+	}
+
+	/**
+	 * Erstellt fuer eine Liste von Highscores eine Liste von Entities, wobei
+	 * jede Entity eine TextRenderComponent mit einer Darstellung eines
+	 * Highscore Eintrags besitzt. Wenn die Liste der Highscores leer ist
+	 * enthaelt die Liste der Entities nur ein Element mit einer entsprechenden
+	 * Meldung als TextRenderComponent.
+	 * 
+	 * @param highscores
+	 *            Die Liste der Highscore Eintraege, kann leer aber nicht null
+	 *            sein
+	 * @return Eine Liste von Entities mit TextRenderComponents, die mindestens
+	 *         ein oder die Anzahl der Highscores viele Elemente enthaelt.
+	 */
+	private List<Entity> createHighscoreEntries(List<Highscore> highscores) {
+		List<Entity> entries = new ArrayList<Entity>();
+		if (highscores.isEmpty()) {
+			Entity empty_message = new Entity("empty_message");
+			empty_message.addComponent(
+					new TextRenderComponent("Es hat noch niemand einen Highscore erspielt.", game.graphics));
+			empty_message.setPosition(200, 300);
+			entries.add(empty_message);
+		} else {
+			StringBuilder sb;
+			Highscore hsc;
+			for (int i = 0; i < highscores.size(); i++) {
+				sb = new StringBuilder();
+				sb.append(i + 1);
+				sb.append(". ");
+
+				hsc = highscores.get(i);
+				if (hsc.getPlayerName() != null) {
+					sb.append(hsc.getPlayerName());
+				} else {
+					sb.append("Unbekannt");
 				}
+
+				sb.append(" - ");
+				sb.append(hsc.getFiredShots());
+				sb.append(" Shots, ");
+				sb.append(hsc.getPassedTime() / 1000);
+				sb.append(" Sekunden");
+
+				Entity highscoreEntity = new Entity("entry" + i);
+				highscoreEntity.addComponent(new TextRenderComponent(sb.toString(), game.graphics));
+				highscoreEntity.setPosition(100, 450 - i * 50);
+				entries.add(highscoreEntity);
 			}
 		}
-		
-		onEscapePressed();
+
+		return entries;
 	}
-	
-	private void onEscapePressed() {
-		// Erzeuge folgendes Event "Escape-Taste gedrueckt"
-		KeyPressedEvent ESC_pressed = new KeyPressedEvent(Keys.ESCAPE);
 
-		// Erzeuge die Action "Gehe ins Hauptmenue" und fuege sie dem 
-		// ESC_pressed Event hinzu
-		ESC_pressed.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu));
+	/**
+	 * Gitb eine Entity die das Hintergrundbild als RenderComponent besitzt
+	 * zurueck.
+	 * 
+	 * @return Eine Entity mit RenderComponent.
+	 */
+	private Entity createBackgroundEntity() {
+		// Instanziert eine Entity fuer das Hintergrundbild
+		Entity backgroundEntity = new Entity("background");
+		// Fuegt dieser Entity eine ImageRenderComponent mit dem Hintergrundbild
+		// hinzu
+		backgroundEntity.addComponent(new ImageRenderComponent("highscore_menu.png", game.getResourcesManager()));
+		return backgroundEntity;
+	}
 
-		// Erstelle eine Hintergrund-Entitaet, die auf das Druecken der 
+	/**
+	 * Gibt eine Entity zurueck, die ein KeyPressedEvent mit der Escape-Taste
+	 * als Trigger besitzt. Dieses Event loest eine ChangeStateAction aus die
+	 * ins Hauptmenue wechselt.
+	 * 
+	 * @return Eine Entity mit KeyPressedEvent.
+	 */
+	private Entity createEscapeEntity() {
+		// Erzeugt ein Event das beim Druecken der Escape Taste triggert
+		KeyPressedEvent escapePressedEvent = new KeyPressedEvent(Keys.ESCAPE);
+
+		// Fuegt dem Event eine ChangeStateAction hinzu die ins Hauptmenue
+		// wechselt
+		escapePressedEvent.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu));
+
+		// Erstelle eine Hintergrund-Entitaet, die auf das Druecken der
 		// "Escape-Taste" lauscht
-		Entity dummy = new Entity("Escape_Listener");
-		dummy.addComponent(ESC_pressed);
-		
-		// Fuege die dummy-Entity dem StateBasedEntityManager hinzu
-		em.addEntity(dummy);
-	}
+		Entity escapeListenerEntity = new Entity("Escape_Listener");
+		escapeListenerEntity.addComponent(escapePressedEvent);
 
+		return escapeListenerEntity;
+	}
 }

@@ -43,6 +43,12 @@ public class EntityManager {
 		stage.addActor(e);
 		e.setManager(this);
 	}
+	
+	public void addEntities(List<Entity> entities) {
+		for (Entity entity : entities) {
+			addEntity(entity);
+		}
+	}
 
 	public Entity getEntity(String name) {
 		Iterator<Entity> it = entities.iterator();
