@@ -35,7 +35,7 @@ public class TankFactory {
 	private final boolean debug;
 	private IResourcesManager resourcesManager;
 	private ShootFactory shotFactory;
-	private ExplosionFactory explosionFactory;
+	private MineFactory mineFactory;
 	
 	
 	public TankFactory(String difficulty , IResourcesManager resourcesManager, ShootFactory shotFactory, MineFactory mineFactory, boolean debug){
@@ -43,6 +43,7 @@ public class TankFactory {
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
 		this.shotFactory = shotFactory;
+		this.mineFactory = mineFactory;
 	}
 	
 	public Entity createEntity(float x, float y, String name, int maxLife, int life, 
@@ -99,7 +100,7 @@ public class TankFactory {
 	    	
 	    	// tank mines
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.M), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction(resourcesManager, explosionFactory, debug));
+	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
@@ -155,7 +156,7 @@ public class TankFactory {
 	    	
 	    	// tank mines
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.F), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction(resourcesManager, explosionFactory, debug));
+	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	

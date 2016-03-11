@@ -15,7 +15,7 @@ public class RectangleTriggerComponent extends EEACollisionComponent {
 		super(ID);
 	}
 
-	public RectangleTriggerComponent(String id) {
+	protected RectangleTriggerComponent(String id) {
 		super(ID);
 	}
 
@@ -50,7 +50,7 @@ public class RectangleTriggerComponent extends EEACollisionComponent {
 	}
 
 	@Override
-	protected boolean collideWithCircle(CircleCollisionComponent other) {
+	protected boolean collideWithCircle(CircleTriggerComponent other) {
 		Vector2 delta = new Vector2();
 		delta.x = other.getCenterX() - getCenterX();
 		delta.y = other.getCenterY() - getCenterY();

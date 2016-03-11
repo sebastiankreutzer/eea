@@ -35,7 +35,7 @@ public class BorderCollisionComponent extends EEACollisionComponent {
 	}
 
 	@Override
-	protected boolean collideWithCircle(CircleCollisionComponent other) {
+	protected boolean collideWithCircle(CircleTriggerComponent other) {
 		switch (border) {
 		case top:
 			return (other.getCenterY() + other.getRadius() > owner.getY());

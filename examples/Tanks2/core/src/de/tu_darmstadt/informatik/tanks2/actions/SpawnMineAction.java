@@ -1,9 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.actions;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.MineFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
 
@@ -12,21 +10,20 @@ public class SpawnMineAction extends EEAAction {
 	private boolean debug;
 	private MineFactory mineFactory;
 
-	public SpawnMineAction(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
+	public SpawnMineAction(MineFactory mineFactory, boolean debug) {
 		this.debug = debug;
-		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
+		this.mineFactory = mineFactory;
 	}
 
 	@Override
 	public boolean act(float delta) {
-		if (getActor() instanceof IStrength) {
-			int strength = ((IStrength) getActor()).getStrength() * 2;
-			Entity entity = mineFactory.createEntity(getActor().getX(), getActor().getY(), getActor().getScaleX() * 2,
-					strength);
+		Entity owner = getEntity();
+		if (owner instanceof IStrength) {
+			int strength = ((IStrength) owner).getStrength() * 2;
+			Entity entity = mineFactory.createEntity(owner.getX(), owner.getY(), owner.getScaleX() * 2, strength);
 
-			getEntity().getManager().addEntity(entity);
+			owner.getManager().addEntity(entity);
 		}
-
 		return true;
 	}
 

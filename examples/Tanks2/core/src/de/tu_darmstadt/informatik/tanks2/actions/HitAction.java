@@ -56,7 +56,7 @@ public class HitAction extends EEAAction {
 		Actor target = this.getTarget();
 
 		// Wenn das Ziel ILife implementiert
-		if (ILife.class.isInstance(target)) {
+		if (target instanceof ILife) {
 			ILife life = (ILife) target;
 			// Reduziere die Lebenspunkte des Ziels
 			life.changeLife(-strength);

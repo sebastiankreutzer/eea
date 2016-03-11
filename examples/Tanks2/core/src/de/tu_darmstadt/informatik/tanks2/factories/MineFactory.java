@@ -5,6 +5,8 @@ import de.tu_darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu_darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleTriggerComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
@@ -61,6 +63,7 @@ public class MineFactory {
 		// Erstelle ein CollisionEvent mit einer HitAction
 		EEAEvent collisionEvent = new CollisionEvent();
 		collisionEvent.addAction(new HitAction(strength, explosionFactory));
+		mine.addComponent(new CircleTriggerComponent());
 
 		// Die Mine soll erst nach einiger Zeit scharf gemacht werden
 		TimeEvent timeEvent = new TimeEvent(2.5f, false);
