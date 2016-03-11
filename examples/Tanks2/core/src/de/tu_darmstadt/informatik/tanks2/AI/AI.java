@@ -16,6 +16,8 @@ import temp.removeASAP.Tanks;
 
 public abstract class AI extends EEAComponent implements IArtificialIntelligence {
 	
+	protected boolean debug;
+	
 	protected String nameTarget;
 	protected Entity target;
 	
@@ -23,9 +25,10 @@ public abstract class AI extends EEAComponent implements IArtificialIntelligence
 
 	protected float speed = 0, strength = 0;
 
-	public AI(String componentID, String target) {
+	public AI(String componentID, String target, boolean debug) {
 		super(componentID);
 		this.nameTarget = target;
+		this.debug = debug;
 
 		event = new MovementDoesNotCollideEvent(null);
 	}

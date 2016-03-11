@@ -19,12 +19,18 @@ import de.tu_darmstadt.informatik.tanks2.entities.Shoot;
 
 public class ShootFactory {
 
-	protected final boolean debug;
 	protected IResourcesManager resourcesManager;
+	protected ExplosionFactory explosionFactory;
+	protected final boolean debug;
+	
+	public ShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory) {
+		this(resourcesManager, explosionFactory, false);
+	} 
 
-	public ShootFactory(boolean debug, IResourcesManager resourcesManager) {
-		this.debug = debug;
+	public ShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
 		this.resourcesManager = resourcesManager;
+		this.explosionFactory = explosionFactory;
+		this.debug = debug;
 	}
 
 	public Entity createShot(float x, float y, String owner, int strength, float rotation, float scale) {
@@ -42,7 +48,7 @@ public class ShootFactory {
 		simpleShot.addComponent(mainEvent);
 
 		mainEvent = new CollisionEvent();
-		mainEvent.addAction(new HitAction(strength));
+		mainEvent.addAction(new HitAction(strength, explosionFactory));
 		simpleShot.addComponent(mainEvent);
 
 		mainEvent = new LoopEvent();
@@ -77,7 +83,7 @@ public class ShootFactory {
 		scatterShoot.addComponent(mainEvent);
 
 		mainEvent = new CollisionEvent();
-		mainEvent.addAction(new HitAction(strength));
+		mainEvent.addAction(new HitAction(strength, explosionFactory));
 		scatterShoot.addComponent(mainEvent);
 
 		mainEvent = new LoopEvent();

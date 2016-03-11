@@ -1,47 +1,79 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.entity.AnimationRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.tanks2.entities.Explosion;
 
+/**
+ * Eine Factory zum erzeugen von Explosionen.
+ * 
+ * @author jr
+ *
+ */
 public class ExplosionFactory {
-	
 
-	public static Entity createExplosion(float x, float y, float speed, float width, float height, boolean debug) {
-		Entity explosion = new Explosion("Explosion"+Math.random(), width, height, speed);
-		explosion.setPosition(x, y);
-		//new TextureRegion(new Texture(""));
-		// TODO set width, height and loop, set debug options
-		AnimationRenderComponent anim = new AnimationRenderComponent(0.9f, new TextureRegion[]{
-				new TextureRegion(new Texture("expl01.png")),
-				new TextureRegion(new Texture("expl02.png")),
-				new TextureRegion(new Texture("expl03.png")),
-				new TextureRegion(new Texture("expl04.png")),
-				new TextureRegion(new Texture("expl05.png")),
-				new TextureRegion(new Texture("expl06.png")),
-				new TextureRegion(new Texture("expl07.png")),
-				new TextureRegion(new Texture("expl08.png")),
-				new TextureRegion(new Texture("expl09.png")),
-				new TextureRegion(new Texture("expl10.png")),
-				new TextureRegion(new Texture("expl11.png")),
-				new TextureRegion(new Texture("expl12.png")),
-				new TextureRegion(new Texture("expl13.png")),
-				new TextureRegion(new Texture("expl14.png")),
-				new TextureRegion(new Texture("expl15.png")),
-				new TextureRegion(new Texture("expl16.png"))
-		});// 0.01f, width, height, false);
-		anim.setPlayMode(PlayMode.NORMAL);
-		anim.setRemoveWhenFinished(true);
-		//ImageRenderComponent anim = new ImageRenderComponent(new Texture("expl02.png"));
-		explosion.addComponent(anim);
-		
+	private static int counter = 0;
+	private boolean debug;
+
+	private final String[] animationFrameNames = { "expl01.png", "expl02.png", "expl03.png", "expl04.png", "expl05.png",
+			"expl06.png", "expl07.png", "expl08.png", "expl09.png", "expl10.png", "expl11.png", "expl12.png",
+			"expl13.png", "expl14.png", "expl15.png", "expl16.png" };
+
+	IResourcesManager resourcesManager;
+	TextureRegion[] animationFrames = null;
+
+	/**
+	 * Erstellt eine Factory die Explosionen erzeugt.
+	 * 
+	 * @param resourcesManager
+	 *            Der ResourcesManager
+	 */
+	public ExplosionFactory(IResourcesManager resourcesManager) {
+		this(resourcesManager, false);
+	}
+
+	/**
+	 * Erstellt eine Factory die Explosionen erzeugt.
+	 * 
+	 * @param resourcesManager
+	 *            Der ResourcesManager
+	 * @param debug
+	 *            Debugmodus an (true) oder aus (false)
+	 */
+	public ExplosionFactory(IResourcesManager resourcesManager, boolean debug) {
+		this.resourcesManager = resourcesManager;
+		this.debug = debug;
+		// Weise den ResourcesManager an die benoetigten Texturen vorzuladen.
+		for (String name : animationFrameNames) {
+			resourcesManager.loadTextureAsync(name);
+		}
+	}
+
+	public Entity createExplosion(float x, float y, float duration, float width, float height, boolean debug) {
+		// Erstelle eine neue Explosion und setze die Parameter
+		Entity explosion = new Entity("Explosion" + (counter++));
+		explosion.setBounds(x, y, width, height);
+
+		// Wenn die Frames der Animation noch nicht initialisiert sind
+		if (animationFrames == null) {
+			// Erstelle ein Array von TextureRegions und fuelle es
+			int frames = animationFrameNames.length;
+			animationFrames = new TextureRegion[frames];
+			for (int i = 0; i < frames; i++) {
+				animationFrames[i] = new TextureRegion(resourcesManager.getTexture(animationFrameNames[i]));
+			}
+		}
+
+		// Erstelle eine AnimationRenderComponent
+		AnimationRenderComponent animation = new AnimationRenderComponent(duration, animationFrames);
+		// Nach dem Ende der Animation soll die Entity entfernt werden
+		animation.setRemoveWhenFinished(true);
+
+		// Fuege die RenderComponent hinzu und gebe die Entity zurueck
+		explosion.addComponent(animation);
 		return explosion;
 	}
-		
 
 }

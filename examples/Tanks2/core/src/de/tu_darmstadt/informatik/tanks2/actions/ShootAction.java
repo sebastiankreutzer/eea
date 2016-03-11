@@ -6,6 +6,7 @@ import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
+import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
@@ -13,39 +14,41 @@ import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 
 public class ShootAction extends EEAMovement {
 
-	private int strength;
 	private ShootFactory shotFactory;
 
-	public ShootAction(IResourcesManager resourcesManager) {
-		this.strength = 0;
-		shotFactory = new ShootFactory(false, resourcesManager);
+	public ShootAction(ShootFactory shotFactory) {
+		this(shotFactory, false);
+	}
+
+	public ShootAction(ShootFactory shotFactory, boolean debug) {
+		this.shotFactory = shotFactory;
 	}
 
 	@Override
 	public boolean act(float delta) {
 		if (IStrength.class.isInstance(getActor())) {
-			this.strength = ((IStrength) getActor()).getStrength();
+			int strength = ((IStrength) getActor()).getStrength();
 			((IShootAmmo) getActor()).changeShootAmmo(-1);
-		}
-		
-		float x = getActor().getX();
-		float y = getActor().getY();
-		
-		String owner = ((Entity) getActor()).getID();
-		
-		float rotation = getActor().getRotation();
-		float scale = getActor().getScaleX();
 
-		// TODO Set to center
-		x -= 2f * scale / 2.0f * java.lang.Math.sin(java.lang.Math.toRadians(rotation)) + 10;
-		y += 2f * scale / 2.0f * java.lang.Math.cos(java.lang.Math.toRadians(rotation)) + 10;
+			float x = getActor().getX();
+			float y = getActor().getY();
 
-		Entity simpleShoot = shotFactory.createShot(x, y, owner, strength, rotation, scale);
+			String owner = ((Entity) getActor()).getID();
 
-		getEntity().getManager().addEntity(simpleShoot);
+			float rotation = getActor().getRotation();
+			float scale = getActor().getScaleX();
 
-		if (getEntity().getID().equals("\"PlayerOne\"")) {
-			GameplayLog.getInstance().incrementNumberOfShots(1);
+			// TODO Set to center
+			x -= 2f * scale / 2.0f * java.lang.Math.sin(java.lang.Math.toRadians(rotation)) + 10;
+			y += 2f * scale / 2.0f * java.lang.Math.cos(java.lang.Math.toRadians(rotation)) + 10;
+
+			Entity simpleShoot = shotFactory.createShot(x, y, owner, strength, rotation, scale);
+
+			getEntity().getManager().addEntity(simpleShoot);
+
+			if (getEntity().getID().equals("\"PlayerOne\"")) {
+				GameplayLog.getInstance().incrementNumberOfShots(1);
+			}
 		}
 		return true;
 	}

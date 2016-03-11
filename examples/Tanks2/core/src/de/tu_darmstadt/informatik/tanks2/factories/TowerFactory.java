@@ -14,10 +14,12 @@ import temp.removeASAP.Tanks;
 public class TowerFactory {
 	private final boolean debug;
 	private IResourcesManager resourcesManager;
+	private ShootFactory shotFactory;
 
-	public TowerFactory(boolean debug, IResourcesManager resourcesManager) {
+	public TowerFactory(IResourcesManager resourcesManager, ShootFactory shotFactory, boolean debug) {
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
+		this.shotFactory = shotFactory;
 
 	}
 
@@ -37,7 +39,7 @@ public class TowerFactory {
 		tower.addComponent(new CircleCollisionComponent());
 
 		tower.addComponent(new ImageRenderComponent("flac.png", resourcesManager));
-		tower.addComponent(new TowerAI(Tanks.player1, resourcesManager));
+		tower.addComponent(new TowerAI(Tanks.player1, shotFactory, debug));
 
 		EEAEvent mainEvent = new TimeEvent(1000, true);
 		mainEvent.addAction(new ChangeShootAmmoAction(1));

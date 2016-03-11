@@ -1,9 +1,5 @@
 package de.tu_darmstadt.informatik.tanks2.maps;
 
-import java.io.ObjectInputStream.GetField;
-
-import com.badlogic.gdx.math.Vector2;
-
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
@@ -45,6 +41,8 @@ public class Parser implements IParser {
 	private SourcePosition previousTokenPosition;
 	private boolean debug;
 	private IResourcesManager resourcesManager;
+
+	private ExplosionFactory explosionFactory;
 	private PickupFactory pickUpFactory;
 	private MineFactory mineFactory;
 	private ScatterShootFactory scatterShotFactory;
@@ -59,11 +57,13 @@ public class Parser implements IParser {
 		previousTokenPosition = new SourcePosition();
 		debug = false;
 		this.resourcesManager = resourcesManager;
+		
+		explosionFactory = new ExplosionFactory(resourcesManager, debug);
 		pickUpFactory = new PickupFactory(debug, resourcesManager);
-		mineFactory = new MineFactory(debug, resourcesManager);
-		shotFactory = new ShootFactory(debug, resourcesManager);
-		tankFactory = new TankFactory(options.getDifficulty(), debug, resourcesManager);
-		towerFactory = new TowerFactory(debug, resourcesManager);
+		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
+		shotFactory = new ShootFactory(resourcesManager, explosionFactory, debug);
+		tankFactory = new TankFactory(options.getDifficulty(), resourcesManager, shotFactory, mineFactory, debug);
+		towerFactory = new TowerFactory(resourcesManager, shotFactory, debug);
 		wallFactory = new WallFactory(debug, resourcesManager);
 	}
 
@@ -255,7 +255,7 @@ public class Parser implements IParser {
 
 		// this.accept(Token.RPAREN);
 
-		map.addEntity(ExplosionFactory.createExplosion(x, y, speed, width, height, debug));
+		map.addEntity(explosionFactory.createExplosion(x, y, speed, width, height, debug));
 		return map;
 	}
 

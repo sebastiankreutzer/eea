@@ -16,8 +16,12 @@ import de.tu_darmstadt.informatik.tanks2.entities.ScatterShoot;
 
 public class ScatterShootFactory extends ShootFactory {
 
-	public ScatterShootFactory(boolean debug, IResourcesManager resourcesManager) {
-		super(debug, resourcesManager);
+	public ScatterShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory) {
+		this(resourcesManager, explosionFactory, false);
+	}
+	
+	public ScatterShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
+		super(resourcesManager, explosionFactory, debug);
 	}
 
 	public Entity createEntity(float x, float y, String owner, int strength, float time, float rotation, float scale) {
@@ -44,7 +48,7 @@ public class ScatterShootFactory extends ShootFactory {
 		scatterShoot.addComponent(mainEvent);
 
 		mainEvent = new CollisionEvent();
-		mainEvent.addAction(new HitAction(strength));
+		mainEvent.addAction(new HitAction(strength, explosionFactory));
 		scatterShoot.addComponent(mainEvent);
 
 		mainEvent = new LoopEvent();

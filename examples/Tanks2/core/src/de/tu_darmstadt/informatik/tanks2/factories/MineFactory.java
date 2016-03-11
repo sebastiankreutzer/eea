@@ -16,10 +16,16 @@ public class MineFactory {
 
 	private final boolean debug;
 	private IResourcesManager resourcesManager;
+	private ExplosionFactory explosionFactory;
 
-	public MineFactory(boolean debug, IResourcesManager resourcesManager) {
-		this.debug = debug;
+	public MineFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory) {
+		this(resourcesManager, explosionFactory, false);
+	}
+
+	public MineFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
 		this.resourcesManager = resourcesManager;
+		this.explosionFactory = explosionFactory;
+		this.debug = debug;
 	}
 
 	public Entity createEntity(float x, float y, float scale, int strength) {
@@ -32,7 +38,7 @@ public class MineFactory {
 		// If something collides with the mine, deal damage and destroy the
 		// mine.
 		EEAEvent collisionEvent = new CollisionEvent();
-		collisionEvent.addAction(new HitAction(strength));
+		collisionEvent.addAction(new HitAction(strength, explosionFactory));
 		collisionEvent.addAction(new DestroyEntityAction());
 
 		// The mine should be armed with a delay.
