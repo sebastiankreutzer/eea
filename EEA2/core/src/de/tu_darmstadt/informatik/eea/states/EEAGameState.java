@@ -100,6 +100,7 @@ public abstract class EEAGameState implements Screen {
 
 	public void reset() {
 		em.reset();
+		initialized = false;
 	}
 
 	/*

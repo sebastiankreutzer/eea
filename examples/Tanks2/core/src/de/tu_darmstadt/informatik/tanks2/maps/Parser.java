@@ -213,7 +213,7 @@ public class Parser implements IParser {
 		float scale = parseFloat();
 
 		map.addEntity(
-				towerFactory.createEntity(x, y, maxLife, life, maxShoots, shoots, streangth, speed, rotation, scale));
+				towerFactory.createTower(x, y, maxLife, life, maxShoots, shoots, streangth, speed, rotation, scale));
 
 		return map;
 	}

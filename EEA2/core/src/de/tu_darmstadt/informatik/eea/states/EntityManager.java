@@ -137,10 +137,14 @@ public class EntityManager {
 	}
 
 	public void reset() {
-		for (Entity e : entities) {
-			e.remove();
-		}
 		stage.clear();
+		while(entities.size() > 0) {
+			entities.get(0).remove();
+		}
+//		while(iterator.hasNext()) {
+//			Entity e = iterator.next();
+//			e.remove();
+//		}
 		entities.clear();
 	}
 

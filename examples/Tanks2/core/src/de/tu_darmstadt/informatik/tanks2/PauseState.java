@@ -85,7 +85,7 @@ public class PauseState extends EEAGameState {
 		});
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Zurück zum Hauptmenü", "entry.png", new ChangeStateAction(game, LaunchTanks.mainMenu));
+		mef.prepareMenuEntry("Zurück zum Hauptmenü", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState), new ChangeStateAction(game, LaunchTanks.mainMenu, true));
 		mef.makeMenuEntry();
 		mef.makeMenuEntryText();
 	}
