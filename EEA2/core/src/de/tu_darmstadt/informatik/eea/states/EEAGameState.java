@@ -56,8 +56,8 @@ public abstract class EEAGameState implements Screen {
 		Gdx.input.setInputProcessor(im);
 		updateBackgroundColor();
 		if (!initialized) {
-			init();
 			initialized = true;
+			init();
 		}
 	}
 

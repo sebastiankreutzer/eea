@@ -39,7 +39,7 @@ public class Tower extends Entity implements ILife, IShootAmmo, IStrength, ISpee
 		sb.append(" ");
 		sb.append(this.streangth);
 		sb.append(" ");
-		sb.append((int)(this.speed*100));
+		sb.append((int) speed);
 		sb.append(" ");
 		sb.append((int)this.getRotation());
 		sb.append(" ");

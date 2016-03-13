@@ -86,7 +86,7 @@ public class MainMenuState extends EEAGameState {
 			    
 			    if( state == JFileChooser.APPROVE_OPTION ) {
 			    	File file = fc.getSelectedFile();
-			    	Map.getInstance().load(file.getPath());
+			    	Map.getInstance().loadMap(file.getPath());
 			    	super.act(delta);
 			    	// TODO Verify init
 //			    	sb.enterState(Tanks.GAMEPLAYSTATE);

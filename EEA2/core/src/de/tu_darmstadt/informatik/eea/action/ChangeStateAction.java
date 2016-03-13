@@ -6,7 +6,7 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 public class ChangeStateAction extends EEAAction {
 	
 	private final EEAGame game;
-	private final EEAGameState newState;
+	protected EEAGameState newState;
 	private boolean resetOldState;
 	
 	public ChangeStateAction(EEAGame game, EEAGameState state){
@@ -28,7 +28,7 @@ public class ChangeStateAction extends EEAAction {
 		
 		game.setScreen(newState);
 		
-		return true;
+		return false;
 	}
 	
 }

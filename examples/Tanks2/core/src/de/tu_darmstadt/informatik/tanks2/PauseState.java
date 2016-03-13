@@ -1,11 +1,9 @@
 package de.tu_darmstadt.informatik.tanks2;
 
-import java.io.File;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -15,79 +13,110 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.factories.MenuEntryFactory;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
-import temp.removeASAP.Tanks;
 
+/**
+ * Ein PauseState dient zum Unterbrechen, Abbrechen oder Speichern eines GamePlayStates.
+ * @author jr
+ *
+ */
 public class PauseState extends EEAGameState {
 
+	/**
+	 * Erzeugt einen neuen PauseState.
+	 * 
+	 * @param game
+	 *            Das EEAGame
+	 */
 	public PauseState(EEAGame game) {
 		super(game);
 	}
 
 	@Override
 	protected void update(float delta) {
-		
+
 	}
 
 	@Override
 	protected void init() {
-		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png",game.getResourcesManager())); // Bildkomponente
-		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
+		// Erzeuge eine Entity und fuege das Hintergrundbild als RenderComponent
+		// hinzu
+		Entity background = new Entity("background");
+		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager()));
 		em.addEntity(background);
-		
-		Entity mainMenuText = new Entity("PauseMenuText");
-		mainMenuText.setPosition(70, 410);
-		mainMenuText.addComponent(new TextRenderComponent("Spiel ist pausiert", game.graphics));
-		em.addEntity(mainMenuText);
-		
+		// Erzeuge eine Entity mit einer TextRenderComponent fuer die
+		// Ueberschrift
+		Entity pauseMenuText = new Entity("PauseMenuText");
+		pauseMenuText.setPosition(70, 410);
+		pauseMenuText.addComponent(new TextRenderComponent("Spiel ist pausiert", game.graphics));
+		em.addEntity(pauseMenuText);
+
+		// Erzeuge und Initialisiere eine MenuEntryFactory
 		MenuEntryFactory mef = new MenuEntryFactory(em, game);
 		mef.setDimensions(55, 390, 380, 60);
-		
-		mef.prepareMenuEntry("Zurück zum pausierten Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {
-			@Override
-			public boolean act(float delta) {
-				super.act(delta);
-				GameplayLog.getInstance().timer.start();
-				return true;
-			}
-		});
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Spielstand speichern", "entry.png", new EEAAction() {
-			
-			@Override
-			public boolean act(float delta) {
-				if(!Tanks.debug) {
-					JFileChooser fc = new JFileChooser("saves/");
-					fc.setFileFilter( new FileFilter() {
-						@Override public boolean accept( File f ) {
-							return f.isDirectory() || f.getName().toLowerCase().endsWith( ".tanks" );
-						}
-						@Override public String getDescription() {
-							return "Tanks-Spielstaende";
-						}
-					});
-					int state = fc.showSaveDialog(null);
 
-					if( state == JFileChooser.APPROVE_OPTION ) {
-						File file = fc.getSelectedFile();
-						if(file.getName().endsWith(".tanks")) Map.getInstance().save(file.getName());
-						else Map.getInstance().save(file.getPath() +".tanks");
-
+		// Erstelle einen Menuepunkt der zum Spiel zurueckfuehrt
+		mef.prepareMenuEntry("Zurück zum pausierten Spiel", "entry.png",
+				new ChangeStateAction(game, LaunchTanks.gameState) {
+					@Override
+					public boolean act(float delta) {
+						// Starte den Timer wieder
+						GameplayLog.getInstance().timer.start();
+						return super.act(delta);
 					}
-				} else {
-					// only for testing
-					File file = new File("saves/autosave.tanks");
-					Map.getInstance().save(file.getPath());
-				}
+				});
+		mef.makeMenuEntry();
+		mef.makeMenuEntryText();
+
+		// Erstelle einen Menuepunkt zum Speichern des Spiels
+		EEAAction saveAction = createSaveCurrentGameplayState();
+		mef.prepareMenuEntry("Spielstand speichern", "entry.png", saveAction);
+		mef.makeMenuEntry();
+		mef.makeMenuEntryText();
+
+		// Erstelle einen Menuepunkt der zum Hauptmenue fuehrt
+		EEAAction backToMainMenu = createReturnToMainMenuAction();
+		mef.prepareMenuEntry("Zurück zum Hauptmenü", "entry.png", backToMainMenu);
+		mef.makeMenuEntry();
+		mef.makeMenuEntryText();
+	}
+
+	/**
+	 * Gibt eine EEAAction zurueck, die in den {@link LaunchTanks#mainMenu}
+	 * GameState wechselt.
+	 * 
+	 * @return Eine angepasste ChangeStateAction.
+	 */
+	private EEAAction createReturnToMainMenuAction() {
+		return new ChangeStateAction(game, LaunchTanks.mainMenu, true) {
+			@Override
+			public boolean act(float delta) {
+				// Setzte auch den GamePlayState zurueck
+				LaunchTanks.gameState.reset();
+				return super.act(delta);
+			}
+		};
+	}
+
+	/**
+	 * Gibt eine EEAAction zurueck, die in den eine Eingabemaske fuer den Namen
+	 * des Spielstands oeffnet und danach die Map speichert.
+	 * 
+	 * @return Eine EEAAction
+	 */
+	private EEAAction createSaveCurrentGameplayState() {
+		return new EEAAction() {
+
+			@Override
+			public boolean act(float delta) {
+				// Frage nach einem Namen fuer den Spielstand und speichere
+				String name = JOptionPane.showInputDialog(new JFrame(""), "Spielstand speichern unter dem Namen:",
+						"Spielstand speichern", 1);
+				Map map = Map.getInstance();
+				IResourcesManager resourcesManager = game.getResourcesManager();
+				map.save(name, LaunchTanks.gameState.getEntities(), resourcesManager);
 				return true;
 			}
-		});
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
-		mef.prepareMenuEntry("Zurück zum Hauptmenü", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState), new ChangeStateAction(game, LaunchTanks.mainMenu, true));
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		};
 	}
 
 }

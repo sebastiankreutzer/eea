@@ -1,5 +1,6 @@
 package de.tu_darmstadt.informatik.eea;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.badlogic.gdx.Gdx;
@@ -22,11 +23,11 @@ public class ROMFile {
 		return handle.exists();
 	}
 
-	public InputStream read() {
+	public InputStream read() throws IOException {
 		try {
 			return handle.read();
 		} catch (GdxRuntimeException e) {
-			throw e;
+			throw new IOException(e.getLocalizedMessage(), e.getCause());
 		}
 	}
 

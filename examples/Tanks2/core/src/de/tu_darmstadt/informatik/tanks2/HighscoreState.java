@@ -14,6 +14,8 @@ import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.highscore.Highscore;
 import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
+import de.tu_darmstadt.informatik.tanks2.maps.Map;
+import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 
 /**
  * Ein GameplayState der zur Darstellung der Highscores der zuletzt geladenen
@@ -52,7 +54,8 @@ public class HighscoreState extends EEAGameState {
 		em.addEntity(escapeListener);
 
 		// Hole die aktuelle HighscoreList
-		HighscoreList highscoreList = HighscoreList.getInstance();
+		String map = GameplayLog.getInstance().getMapName();
+		HighscoreList highscoreList = HighscoreList.load(map, game.getResourcesManager());
 
 		// Pruefe ob die HighscoreList geladen wurde
 		if (!highscoreList.hasHighscoreLoaded()) {

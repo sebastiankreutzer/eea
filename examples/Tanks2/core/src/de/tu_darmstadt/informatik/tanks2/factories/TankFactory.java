@@ -46,7 +46,7 @@ public class TankFactory {
 		this.mineFactory = mineFactory;
 	}
 	
-	public Entity createEntity(float x, float y, String name, int maxLife, int life, 
+	public Tank createTank(float x, float y, String name, int maxLife, int life, 
 			int shootsMax, int shoots,int minesMax, int mines, 
 			int strength,float speed, float rotation, float scale){
 		

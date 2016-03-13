@@ -280,7 +280,7 @@ public class Parser implements IParser {
 		float rotation = parseFloat();
 		float scale = parseFloat();
 
-		map.addEntity(tankFactory.createEntity(x, y, name, maxLife, life, shootsMax, shoots, minesMax, mines, strength,
+		map.addEntity(tankFactory.createTank(x, y, name, maxLife, life, shootsMax, shoots, minesMax, mines, strength,
 				speed, rotation, scale));
 
 		return map;
