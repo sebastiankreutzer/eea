@@ -18,25 +18,9 @@ public class SpawnShootAction extends EEAAction {
 
 	@Override
 	public boolean act(float delta) {
-		Entity simpleShoot = shotFactory.createShot(getActor().getX(), getActor().getY() + rotation, getEntity().getID(),
+		Entity simpleShoot = shotFactory.createShot(getActor().getX(), getActor().getY(), getEntity().getID(),
 				strength, rotation, getActor().getScaleX() / 2);
 		getEntity().getManager().addEntity(simpleShoot);
 		return true;
 	}
-
-	// @Override
-	// public void update(GameContainer gc, StateBasedGame sb, int delta,
-	// Component event) {
-	//
-	//
-	// float scaling = event.getOwnerEntity().getScale();
-	// Vector2f position = new Vector2f(event.getOwnerEntity().getPosition());
-	//
-	//
-	// Entity simpleShoot = new ShootFactory(strength,
-	// event.getOwnerEntity().getID(), rotation, scaling * 0.5f, position.x,
-	// position.y ,Tanks.debug).createEntity();
-	// StateBasedEntityManager.getInstance().addEntity(sb.getCurrentStateID(),simpleShoot);
-	// }
-
 }

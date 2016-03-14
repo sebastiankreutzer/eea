@@ -33,7 +33,7 @@ public class SourceFile {
 		try {
 			source = resourcesManager.openROMFile(path).read();
 			currentLine = 1;
-		} catch (GdxRuntimeException e) {
+		} catch (IOException e) {
 			System.out.println("Error loading file " + path + " : " + e.toString());
 			source = null;
 			currentLine = 0;

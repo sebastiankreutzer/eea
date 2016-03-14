@@ -52,7 +52,7 @@ public class ShootFactory {
 		simpleShot.addComponent(mainEvent);
 
 		mainEvent = new LoopEvent();
-		mainEvent.addAction(new MoveRelativeAction(25f, 0f));
+		mainEvent.addAction(new MoveRelativeAction(75f, 0f));
 		simpleShot.addComponent(mainEvent);
 		
 		simpleShot.addComponent(new RectangleTriggerComponent());
@@ -87,7 +87,7 @@ public class ShootFactory {
 		scatterShoot.addComponent(mainEvent);
 
 		mainEvent = new LoopEvent();
-		mainEvent.addAction(new MoveRelativeAction(30f, 0f));
+		mainEvent.addAction(new MoveRelativeAction(60f, 0f));
 		scatterShoot.addComponent(mainEvent);
 		
 		scatterShoot.addComponent(new RectangleTriggerComponent());

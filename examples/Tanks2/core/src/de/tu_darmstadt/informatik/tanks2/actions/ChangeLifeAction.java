@@ -3,34 +3,32 @@ package de.tu_darmstadt.informatik.tanks2.actions;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.tanks2.interfaces.ILife;
 
+/**
+ * Eine Action welche die Lebenspunkte eines Ziels aendert.
+ * 
+ * @author jr
+ *
+ */
 public class ChangeLifeAction extends EEAAction {
-	
-	private int strength;
-	
-	public ChangeLifeAction(int strength){
-		this.strength = strength;
+
+	private int amount;
+
+	/**
+	 * Erzeugt eine neue ChangeLifeAction welche die Lebenspunkte des Ziels
+	 * veraendert.
+	 * 
+	 * @param amount
+	 *            Die Aenderung der Lebenspunkte.
+	 */
+	public ChangeLifeAction(int amount) {
+		this.amount = amount;
 	}
-	
+
 	@Override
 	public boolean act(float delta) {
-		if(getTarget() instanceof ILife){
-			((ILife) getTarget()).changeLife(strength);
+		if (getTarget() instanceof ILife) {
+			((ILife) getTarget()).changeLife(amount);
 		}
 		return true;
 	}
-	
-//	@Override
-//	public void update(GameContainer gc, StateBasedGame sb, int delta,
-//			Component event) {
-//		if(CollisionEvent.class.isInstance(event)){
-//			CollisionEvent colider = (CollisionEvent) event;
-//			Entity entity = colider.getColidedEntity();
-//			if(ILife.class.isInstance(entity)){
-//				ILife life = (ILife) entity;
-//				life.changeLife(strength);
-//				StateBasedEntityManager.getInstance().removeEntity(sb.getCurrentStateID(), colider.getOwnerEntity());
-//			}
-//		}
-//	}
-
 }

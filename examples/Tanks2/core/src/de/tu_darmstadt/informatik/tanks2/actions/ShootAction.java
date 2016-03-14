@@ -1,56 +1,92 @@
 package de.tu_darmstadt.informatik.tanks2.actions;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
-import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 
+/**
+ * Eine Action welche einen Schuss erzeugt und initialisiert.
+ * 
+ * @author jr
+ *
+ */
 public class ShootAction extends EEAMovement {
 
-	private ShootFactory shotFactory;
+	protected ShootFactory shotFactory;
 
+	/**
+	 * Erzeugt eine neue ShootAction.
+	 * 
+	 * @param shotFactory
+	 *            Die ShotFactory fuer den Schuss.
+	 */
 	public ShootAction(ShootFactory shotFactory) {
 		this(shotFactory, false);
 	}
 
+	/**
+	 * Erzeugt eine neue ShootAction.
+	 * 
+	 * @param shotFactory
+	 *            Die ShotFactory fuer den Schuss.
+	 * @param debug
+	 *            Der Debugmodus
+	 */
 	public ShootAction(ShootFactory shotFactory, boolean debug) {
 		this.shotFactory = shotFactory;
 	}
 
 	@Override
 	public boolean act(float delta) {
-		if (IStrength.class.isInstance(getActor())) {
-			int strength = ((IStrength) getActor()).getStrength();
-			((IShootAmmo) getActor()).changeShootAmmo(-1);
+		Entity owner = getEntity();
+		if (owner instanceof IShootAmmo) {
+			// Reduziere die Munition
+			((IShootAmmo) owner).changeShootAmmo(-1);
+			// Bestimme Schaden, Rotation und Skalierung und erzeuge den Schuss
+			int strength = ((IStrength) owner).getStrength();
+			float rotation = owner.getRotation();
+			float scale = owner.getScaleX();
+			Entity bullet = createShot(owner.getID(), strength, rotation, scale);
+			// Konvertiere die Rotation und kalkuliere Sinus und Cosinus
+			rotation = (float) (Math.PI * rotation / 180);
+			float sin = (float) Math.sin(rotation);
+			float cos = (float) Math.cos(rotation);
+			// Bestimme die Groesse der Positionskorrektur
+			float h = (owner.getScaledHeight() + bullet.getScaledHeight() + 2f) * 0.5f;
+			// Wende die Korrektur an uns setze die neue Position
+			float x = owner.getX(Align.center) - sin * h;
+			float y = owner.getY(Align.center) + cos * h;
+			bullet.setPosition(x, y, Align.center);
 
-			float x = getActor().getX();
-			float y = getActor().getY();
-
-			String owner = ((Entity) getActor()).getID();
-
-			float rotation = getActor().getRotation();
-			float scale = getActor().getScaleX();
-
-			// TODO Set to center
-			x -= 2f * scale / 2.0f * java.lang.Math.sin(java.lang.Math.toRadians(rotation)) + 10;
-			y += 2f * scale / 2.0f * java.lang.Math.cos(java.lang.Math.toRadians(rotation)) + 10;
-
-			Entity simpleShoot = shotFactory.createShot(x, y, owner, strength, rotation, scale);
-
-			getEntity().getManager().addEntity(simpleShoot);
-
-			if (getEntity().getID().equals("\"PlayerOne\"")) {
+			owner.getManager().addEntity(bullet);
+			if (owner.getID().equals("\"PlayerOne\"")) {
 				GameplayLog.getInstance().incrementNumberOfShots(1);
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Erzeugt eine Entity in einer ShotFactory.
+	 * 
+	 * @param name
+	 *            Der Name des Schuetzen
+	 * @param damage
+	 *            Der Schaden
+	 * @param rotation
+	 *            Die Rotation
+	 * @param scale
+	 *            Die Skalierung
+	 * @return
+	 */
+	protected Entity createShot(String name, int damage, float rotation, float scale) {
+		return shotFactory.createShot(0, 0, name, damage, rotation, scale);
 	}
 
 	@Override
