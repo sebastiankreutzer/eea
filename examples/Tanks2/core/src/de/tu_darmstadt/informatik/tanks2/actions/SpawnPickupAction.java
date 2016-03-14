@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.tanks2.actions;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
+import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 import de.tu_darmstadt.informatik.tanks2.factories.PickupFactory;
 
 /**
@@ -15,7 +15,7 @@ import de.tu_darmstadt.informatik.tanks2.factories.PickupFactory;
  */
 public class SpawnPickupAction extends EEAAction {
 
-	private PickUpType type;
+	private PickupType type;
 	private PickupFactory factory;
 
 	/**
@@ -32,9 +32,9 @@ public class SpawnPickupAction extends EEAAction {
 	public boolean act(float delta) {
 		// Waehle den Typ zufaellig aus
 		if (Math.random() > 0.5)
-			type = PickUpType.AMMUNITION;
+			type = PickupType.AMMUNITION;
 		else
-			type = PickUpType.HEALTH;
+			type = PickupType.HEALTH;
 		// Und erzeuge das Pickup an einer zufaelligen Position
 		Entity pickup = factory.createPickup(type, 100, (float) Math.random() * 800, (float) Math.random() * 600, 0.3f);
 		getEntity().getManager().addEntity(pickup);

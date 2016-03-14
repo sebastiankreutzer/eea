@@ -7,7 +7,7 @@ import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
  * Eine Tank AI, die eine Panzer fahren, rotieren und auf ein Ziel schiessen
@@ -55,7 +55,7 @@ public class TankAI extends AI {
 
 		// Wenn Munition vohanden ist schiesse, ansonsten bleibt nur Drehen
 		// uebrig
-		if (((IShootAmmo) owner).hasShootAmmo()) {
+		if (((IAmmunition) owner).hasAmmunition()) {
 			return new ShootAction(shotFactory, debug);
 		} else {
 			return determineRotateAction(deltaRotation);

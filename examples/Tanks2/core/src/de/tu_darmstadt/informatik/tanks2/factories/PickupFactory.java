@@ -15,7 +15,7 @@ import de.tu_darmstadt.informatik.eea.event.TimeEvent;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeAmmoAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeLifeAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup;
-import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
+import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 
 public class PickupFactory {
 
@@ -27,7 +27,7 @@ public class PickupFactory {
 		this.resourcesManager = resourcesManager;
 	}
 
-	public Entity createPickup(PickUpType type, int strength, float x, float y, float scale) {
+	public Entity createPickup(PickupType type, int strength, float x, float y, float scale) {
 		Pickup pickup = new Pickup(type);
 		pickup.setStrength(strength);
 		pickup.setScale(scale);

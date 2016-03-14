@@ -56,8 +56,8 @@ public class TankFactory {
 		tank.setSpeed(speed);
 		tank.setMaxLife(maxLife);
 		tank.setLife(life);
-		tank.setShootMaxAmmo(shootsMax);
-		tank.setShootAtmmo(shoots);
+		tank.setMaxAmmunition(shootsMax);
+		tank.setAmmunition(shoots);
 		tank.setMinesMaxAmmo(minesMax);
 		tank.setMinesAmmo(mines);
 		tank.setStrength(strength);

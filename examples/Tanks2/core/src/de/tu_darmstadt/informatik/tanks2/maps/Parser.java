@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.maps;
 
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
-import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
+import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu_darmstadt.informatik.tanks2.factories.BackgroundFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.BorderFactory;
@@ -153,9 +153,9 @@ public class Parser implements IParser {
 
 	protected Map parsePickup(Map map) throws SyntaxException {
 
-		PickUpType type = PickUpType.AMMUNITION;
-		if (this.accept(Token.IDENTIFIER).getSpelling().equalsIgnoreCase(PickUpType.HEALTH.toString()))
-			type = PickUpType.HEALTH;
+		PickupType type = PickupType.AMMUNITION;
+		if (this.accept(Token.IDENTIFIER).getSpelling().equalsIgnoreCase(PickupType.HEALTH.toString()))
+			type = PickupType.HEALTH;
 
 		int streangth = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 

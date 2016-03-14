@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
  * Eine Action zum Aendern, insbesondere Nachladen, von Munition und Minen.
@@ -17,7 +17,7 @@ public class ChangeAmmoAction extends EEAAction {
 	private int amount;
 
 	/**
-	 * Erzeugt eine neue ChangeAmmoAction welche fuer {@link IShootAmmo}
+	 * Erzeugt eine neue ChangeAmmoAction welche fuer {@link IAmmunition}
 	 * Implementationen die Munition und fuer {@link IMinesAmmo} die Anzahl der
 	 * Minen des Ziels veraendert. Die Minen werden dabei nur um den halben Wert
 	 * veraender.
@@ -32,8 +32,8 @@ public class ChangeAmmoAction extends EEAAction {
 	@Override
 	public boolean act(float delta) {
 		// Aendere die Munition wenn moeglich
-		if (target instanceof IShootAmmo) {
-			((IShootAmmo) target).changeShootAmmo(amount);
+		if (target instanceof IAmmunition) {
+			((IAmmunition) target).changeAmmunition(amount);
 		}
 		// Aendere die Anzahl der Minen wenn moeglich
 		if (target instanceof IMinesAmmo) {

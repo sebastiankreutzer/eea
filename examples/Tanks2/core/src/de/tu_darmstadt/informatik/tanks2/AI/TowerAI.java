@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.tanks2.AI;
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
  * Eine Tower AI, die einen stationaeren Tower rotieren und auf ein Ziel
@@ -43,7 +43,7 @@ public class TowerAI extends AI {
 
 		// Wenn Munition vohanden ist schiesse, ansonsten bleibt nur Drehen
 		// uebrig
-		if (((IShootAmmo) owner).hasShootAmmo()) {
+		if (((IAmmunition) owner).hasAmmunition()) {
 			return new ShootAction(shotFactory, debug);
 		} else {
 			return determineRotateAction(deltaRotation);

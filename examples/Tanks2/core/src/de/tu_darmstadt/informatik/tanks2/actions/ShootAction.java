@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Align;
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 
@@ -45,9 +45,9 @@ public class ShootAction extends EEAMovement {
 	@Override
 	public boolean act(float delta) {
 		Entity owner = getEntity();
-		if (owner instanceof IShootAmmo) {
+		if (owner instanceof IAmmunition) {
 			// Reduziere die Munition
-			((IShootAmmo) owner).changeShootAmmo(-1);
+			((IAmmunition) owner).changeAmmunition(-1);
 			// Bestimme Schaden, Rotation und Skalierung und erzeuge den Schuss
 			int strength = ((IStrength) owner).getStrength();
 			float rotation = owner.getRotation();

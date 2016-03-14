@@ -1,55 +1,40 @@
 package de.tu_darmstadt.informatik.tanks2.entities;
 
-import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.tanks2.interfaces.ILife;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
-import de.tu_darmstadt.informatik.tanks2.interfaces.ISpeed;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
 
-public class Tank extends Entity implements ILife, IStrength, IShootAmmo, IMinesAmmo, ISpeed {
-
-	private int maxLife; // Leben zu Beginn des Spiels
-	private int life; // aktuelles Leben
-
-	private int shootMaxAmmo; // maximal moegliche Anzahl an Schuessen
-	private int shootAmmo; // aktuell verfuegbare Schuesse
+/**
+ * Ein Tank erweitert einen Tower um die Minen Funktionalitaet.
+ * 
+ * @author jr
+ *
+ */
+public class Tank extends Tower implements  IMinesAmmo {
 
 	private int minesMaxAmmo; // maximal moegliche Anzahl an Minen
 	private int minesAmmo; // aktuell verfuegbare Minen
 
-	private int strength; // Schussstaerke
-	private float speed;
-	
-
-	public Tank(String id) {
+	/**
+	 * Erzeugt einen Tank mit allen spezifischen Feldern gleich 0.
+	 * 
+	 * @param id
+	 *            Die ID dieses Tanks
+	 * @param x
+	 *            Die x Position
+	 * @param y
+	 *            Die y Position
+	 * @param rotation
+	 *            Die Rotation
+	 * @param scale
+	 *            Die Skalierung
+	 */
+	public Tank(String id, float x, float y, float rotation, float scale) {
 		super(id);
-		life = 0;
-		maxLife = 0;
-		strength = 0;
-		shootAmmo = 0;
-		shootMaxAmmo = 0;
+		setPosition(x, y);
+		setRotation(rotation);
+		setScale(scale);
+		
 		minesAmmo = 0;
 		minesMaxAmmo = 0;
-		speed = 0;
-	}
-	
-
-	public Tank(String id, float x, float y, float rotation, float scale) {
-		this(id);
-		setPosition(x, y);
-		setScale(scale);
-	}
-
-	public int getActualLife() {
-		return life;
-	}
-
-	public void setLife(int life) {
-		if (life > maxLife)
-			this.life = maxLife;
-		else
-			this.life = life;
 	}
 
 	public String toString() {
@@ -60,9 +45,9 @@ public class Tank extends Entity implements ILife, IStrength, IShootAmmo, IMines
 		sb.append(" ");
 		sb.append(this.life);
 		sb.append(" ");
-		sb.append(this.shootMaxAmmo);
+		sb.append(this.ammunitionCapacity);
 		sb.append(" ");
-		sb.append(this.shootAmmo);
+		sb.append(this.ammunition);
 		sb.append(" ");
 		sb.append(this.minesMaxAmmo);
 		sb.append(" ");
@@ -81,71 +66,22 @@ public class Tank extends Entity implements ILife, IStrength, IShootAmmo, IMines
 		sb.append((int) this.getY());
 
 		return sb.toString();
-
-	}
-
-	@Override
-	public void changeStrength(int value) {
-		strength += value;
-		if (strength < 0)
-			strength = 0;
-
-	}
-
-	@Override
-	public int getStrength() {
-		return strength;
-	}
-
-	@Override
-	public void setStrength(int streangth) {
-		this.strength = streangth;
-	}
-
-	@Override
-	public void changeShootAmmo(int value) {
-		shootAmmo += value;
-		if (shootAmmo < 0)
-			shootAmmo = 0;
-		if (shootAmmo > shootMaxAmmo)
-			shootAmmo = shootMaxAmmo;
-	}
-
-	@Override
-	public void setShootAtmmo(int value) {
-		if (value < 0)
-			shootAmmo = 0;
-		else if (value > shootMaxAmmo)
-			shootAmmo = shootMaxAmmo;
-		else
-			shootAmmo = value;
-
-	}
-
-	@Override
-	public boolean hasShootAmmo() {
-		return shootAmmo > 0;
 	}
 
 	@Override
 	public void changeMinesAmmo(int value) {
-		minesAmmo += value;
-		if (minesAmmo < 0)
-			minesAmmo = 0;
-		if (minesAmmo > minesMaxAmmo)
-			minesAmmo = minesMaxAmmo;
-
+		setMinesAmmo(minesAmmo + value);
 	}
 
 	@Override
 	public void setMinesAmmo(int value) {
-		if (value < 0)
+		if (value < 0) {
 			minesAmmo = 0;
-		else if (value > minesMaxAmmo)
+		} else if (value > minesMaxAmmo) {
 			minesAmmo = minesMaxAmmo;
-		else
+		} else {
 			minesAmmo = value;
-
+		}
 	}
 
 	@Override
@@ -160,47 +96,6 @@ public class Tank extends Entity implements ILife, IStrength, IShootAmmo, IMines
 	}
 
 	@Override
-	public void setShootMaxAmmo(int value) {
-		this.shootMaxAmmo = value;
-	}
-
-	@Override
-	public void setMaxLife(int value) {
-		this.maxLife = value;
-
-	}
-
-	@Override
-	public void changeLife(int life) {
-		this.life += life;
-		if (this.life < 0)
-			this.life = 0;
-		else if (this.life > maxLife)
-			this.life = maxLife;
-
-	}
-
-	@Override
-	public boolean hasLifeLeft() {
-		return life > 0;
-	}
-
-	@Override
-	public int getMaxLife() {
-		return maxLife;
-	}
-
-	@Override
-	public int getMaxShootAmmo() {
-		return shootMaxAmmo;
-	}
-
-	@Override
-	public int getActualShootAmmo() {
-		return shootAmmo;
-	}
-
-	@Override
 	public int getActualMinesAmmo() {
 		return minesAmmo;
 	}
@@ -208,17 +103,6 @@ public class Tank extends Entity implements ILife, IStrength, IShootAmmo, IMines
 	@Override
 	public int getMaxMinesAmmo() {
 		return minesMaxAmmo;
-	}
-
-	@Override
-	public void setSpeed(float speed) {
-		this.speed = speed;
-
-	}
-
-	@Override
-	public float getSpeed() {
-		return this.speed;
 	}
 
 }

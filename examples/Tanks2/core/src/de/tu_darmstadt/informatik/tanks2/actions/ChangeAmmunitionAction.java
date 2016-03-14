@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.actions;
 
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
  * Ein Action zum Aendern den Munition eines IShootAmmo Objektes.
@@ -27,8 +27,8 @@ public class ChangeAmmunitionAction extends EEAAction {
 	@Override
 	public boolean act(float delta) {
 		// Aendere die Munition wenn moeglich
-		if (target instanceof IShootAmmo) {
-			((IShootAmmo) target).changeShootAmmo(amount);
+		if (target instanceof IAmmunition) {
+			((IAmmunition) target).changeAmmunition(amount);
 		}
 
 		return true;

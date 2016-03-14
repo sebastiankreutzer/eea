@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
  * Ein Action zum Aendern der Anzahl der Minen eines IMineAmmo Objektes.

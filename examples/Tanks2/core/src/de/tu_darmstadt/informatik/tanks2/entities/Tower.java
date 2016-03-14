@@ -2,67 +2,93 @@ package de.tu_darmstadt.informatik.tanks2.entities;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.interfaces.ILife;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 import de.tu_darmstadt.informatik.tanks2.interfaces.ISpeed;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
 
-public class Tower extends Entity implements ILife, IShootAmmo, IStrength, ISpeed {
-	
-	private int maxLife;
-	private int life;
-	
-	private int MaxShoots;
-	private int shoots;
-	
-	private int streangth;
-	private float speed;
+/**
+ * Ein Tower erweitert eine Entity um Funktionalitaeten wie Lebenspunkte,
+ * Munition und andere Attribute.
+ * 
+ * @author jr
+ *
+ */
+public class Tower extends Entity implements ILife, IAmmunition, IStrength, ISpeed {
 
+	protected int maxLife;
+	protected int life;
+
+	protected int ammunitionCapacity;
+	protected int ammunition;
+
+	protected int strength;
+	protected float speed;
+
+	/**
+	 * Erzeugt einen Tower mit allen spezifischen Feldern gleich 0.
+	 * 
+	 * @param id
+	 *            Die ID dieses Towers
+	 */
 	public Tower(String id) {
 		super(id);
 		maxLife = 0;
 		life = 0;
-		MaxShoots = 0;
-		shoots = 0;
-		streangth = 0;
+		ammunitionCapacity = 0;
+		ammunition = 0;
+		strength = 0;
 		speed = 0;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		StringBuilder sb = new StringBuilder("Tower ");
 		sb.append(this.maxLife);
 		sb.append(" ");
 		sb.append(this.life);
 		sb.append(" ");
-		sb.append(this.MaxShoots);
+		sb.append(this.ammunitionCapacity);
 		sb.append(" ");
-		sb.append(this.shoots);
+		sb.append(this.ammunition);
 		sb.append(" ");
-		sb.append(this.streangth);
+		sb.append(this.strength);
 		sb.append(" ");
 		sb.append((int) speed);
 		sb.append(" ");
-		sb.append((int)this.getRotation());
+		sb.append((int) this.getRotation());
 		sb.append(" ");
-		sb.append((int)(this.getScaleX() * 100));
+		sb.append((int) (this.getScaleX() * 100));
 		sb.append(" ");
-		sb.append((int)this.getX());
+		sb.append((int) this.getX());
 		sb.append(" ");
-		sb.append((int)this.getY());
+		sb.append((int) this.getY());
 		return sb.toString();
 	}
 
 	@Override
 	public void setMaxLife(int value) {
 		this.maxLife = value;
-		
 	}
 
 	@Override
-	public void changeLife(int life) {
-		this.life += life;
-		if(this.life < 0) this.life = 0;
-		else if(this.life > maxLife) this.life = maxLife;
-		
+	public int getMaxLife() {
+		return maxLife;
+	}
+
+	@Override
+	public void setLife(int value) {
+		// Beschraenke den Wert auf 0 bis maximale Lebenspunkte
+		if (value < 0) {
+			life = 0;
+		} else if (value > maxLife) {
+			life = maxLife;
+		} else {
+			life = value;
+		}
+	}
+
+	@Override
+	public void changeLife(int value) {
+		setLife(life + value);
 	}
 
 	@Override
@@ -76,74 +102,63 @@ public class Tower extends Entity implements ILife, IShootAmmo, IStrength, ISpee
 	}
 
 	@Override
-	public int getMaxLife() {
-		return maxLife;
+	public void setMaxAmmunition(int value) {
+		ammunitionCapacity = value;
 	}
 
 	@Override
-	public void setShootMaxAmmo(int value) {
-		MaxShoots = value;
+	public int getMaxAmmunition() {
+		return ammunitionCapacity;
 	}
 
 	@Override
-	public void changeShootAmmo(int value) {
-		shoots += value;
-		if(shoots < 0) shoots = 0;
-		else if (shoots > MaxShoots) shoots = MaxShoots;
-		
+	public void setAmmunition(int value) {
+		if (value < 0) {
+			ammunition = 0;
+		} else if (value > ammunitionCapacity) {
+			ammunition = ammunitionCapacity;
+		} else {
+			ammunition = value;
+		}
 	}
 
 	@Override
-	public void setShootAtmmo(int value) {
-		if(value > MaxShoots)  shoots = MaxShoots;
-		else shoots = value;
-		
+	public void changeAmmunition(int value) {
+		setAmmunition(ammunition + value);
 	}
 
 	@Override
-	public boolean hasShootAmmo() {
-		return shoots > 0;
+	public int getAmmunition() {
+		return ammunition;
 	}
 
 	@Override
-	public int getMaxShootAmmo() {
-		return MaxShoots;
+	public boolean hasAmmunition() {
+		return ammunition > 0;
 	}
 
 	@Override
-	public int getActualShootAmmo() {
-		return shoots;
+	public void setStrength(int strength) {
+		this.strength = strength;
 	}
 
 	@Override
 	public void changeStrength(int value) {
-		streangth += value;
-		if(streangth < 0) streangth = 0;
-		
+		strength += value;
+		if (strength < 0) {
+			strength = 0;
+		}
 	}
 
 	@Override
 	public int getStrength() {
-		return streangth;
-	}
-
-	@Override
-	public void setStrength(int streangth) {
-		this.streangth = streangth;
-		
-	}
-
-	@Override
-	public void setLife(int value) {
-		if(value > maxLife) this.life = maxLife;
-		else this.life = value;
-		
+		return strength;
 	}
 
 	@Override
 	public void setSpeed(float speed) {
 		this.speed = speed;
-		
+
 	}
 
 	@Override

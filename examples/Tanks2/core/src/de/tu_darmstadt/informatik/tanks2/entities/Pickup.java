@@ -3,16 +3,38 @@ package de.tu_darmstadt.informatik.tanks2.entities;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
 
+/**
+ * Eine spezielle Entity die entweder die Lebenspunkte oder Munition aendert.
+ * 
+ * @author jr
+ *
+ */
 public class Pickup extends Entity implements IStrength {
 
-	public static enum PickUpType {
-		HEALTH, AMMUNITION
+	public static enum PickupType {
+		HEALTH("Health PickUp"), AMMUNITION("Ammunition PickUp");
+
+		private String pickupname;
+
+		PickupType(String name) {
+			pickupname = name;
+		}
+
+		public String toString() {
+			return pickupname;
+		}
 	};
 
 	private int strength;
 
-	public Pickup(PickUpType type) {
-		super(typeToString(type));
+	/**
+	 * Erzeugt eine neue Pickup Entity.
+	 * 
+	 * @param type
+	 *            Der {@link PickupType} der neuen Entity.
+	 */
+	public Pickup(PickupType type) {
+		super(type.toString());
 		strength = 0;
 	}
 
@@ -48,18 +70,4 @@ public class Pickup extends Entity implements IStrength {
 		this.strength = strength;
 
 	}
-
-	public static String typeToString(PickUpType type) {
-		switch (type) {
-		case AMMUNITION:
-			return "Ammunition PickUp";
-
-		case HEALTH:
-			return "Health PickUp";
-
-		default:
-			return "Unknown PickUp";
-		}
-	}
-
 }

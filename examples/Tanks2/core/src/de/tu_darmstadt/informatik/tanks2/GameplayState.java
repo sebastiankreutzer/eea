@@ -126,7 +126,7 @@ public class GameplayState extends EEAGameState {
 		// Stelle die Informationen fuer Spieler1 dar
 		Tank tank = ((Tank) em.getEntity(Tanks.player1));
 		if (tank != null) {
-			ammo1Text.setText("Übrige Schüsse: " + tank.getActualShootAmmo() + "/" + tank.getMaxShootAmmo());
+			ammo1Text.setText("Übrige Schüsse: " + tank.getAmmunition() + "/" + tank.getMaxAmmunition());
 			mine1Text.setText("Übrige Minen: " + tank.getActualMinesAmmo() + "/" + tank.getMaxMinesAmmo());
 			life1Text.setText("Leben: " + tank.getActualLife() + "/" + tank.getMaxLife());
 		}
@@ -137,7 +137,7 @@ public class GameplayState extends EEAGameState {
 			Tank tank2 = ((Tank) em.getEntity(Tanks.player2));
 			if (tank2 != null) {
 				player2Text.setText("Spieler 2");
-				ammo2Text.setText("Übrige Schüsse: " + tank2.getActualShootAmmo() + "/" + tank2.getMaxShootAmmo());
+				ammo2Text.setText("Übrige Schüsse: " + tank2.getAmmunition() + "/" + tank2.getMaxAmmunition());
 				mine2Text.setText("Übrige Minen: " + tank2.getActualMinesAmmo() + "/" + tank2.getMaxMinesAmmo());
 				life2Text.setText("Leben: " + tank2.getActualLife() + "/" + tank2.getMaxLife());
 			}
