@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
@@ -16,6 +17,8 @@ import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.EEARenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent.Border;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
@@ -196,6 +199,27 @@ public class GameplayState extends EEAGameState {
 
 		// Hinzufuegen der Spiellogik Entity
 		em.addEntity(createGameLogic());
+		
+		Entity leftBorder = new Entity("LeftBorder");
+		leftBorder.addComponent(new BorderCollisionComponent(Border.LEFT));
+		leftBorder.setPosition(0, 0);
+		em.addEntity(leftBorder);
+		
+		Entity rightBorder = new Entity("RightBorder");
+		rightBorder.addComponent(new BorderCollisionComponent(Border.RIGHT));
+		rightBorder.setPosition(game.getViewport().getCamera().viewportWidth, 0);
+		em.addEntity(rightBorder);
+		
+		Entity bottomBorder = new Entity("BottomBorder");
+		bottomBorder.addComponent(new BorderCollisionComponent(Border.BOTTOM));
+		bottomBorder.setPosition(0, 0);
+		em.addEntity(bottomBorder);
+		
+		Entity topBorder = new Entity("TopBorder");
+		topBorder.addComponent(new BorderCollisionComponent(Border.TOP));
+		topBorder.setPosition(0, game.getViewport().getWorldHeight());
+		em.addEntity(topBorder);
+		
 		createUI();
 	}
 

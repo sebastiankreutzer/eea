@@ -53,7 +53,7 @@ public class HighscoreState extends EEAGameState {
 		em.addEntity(background);
 		em.addEntity(escapeListener);
 
-		// Hole die aktuelle HighscoreList
+		// Lade die aktuelle HighscoreList
 		String map = Map.getInstance().getName();
 		HighscoreList highscoreList = HighscoreList.load(map, game.getResourcesManager());
 
