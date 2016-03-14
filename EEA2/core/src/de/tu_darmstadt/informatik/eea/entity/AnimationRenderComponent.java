@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 
 public class AnimationRenderComponent extends EEARenderComponent {
@@ -17,8 +18,9 @@ public class AnimationRenderComponent extends EEARenderComponent {
     private float elapsedTime = 0;
     private boolean removeWhenFinished;
 	
-	public AnimationRenderComponent(float duration, String file) {
+	public AnimationRenderComponent(float duration, String file, IResourcesManager resourcesManager) {
 		super(ID);
+		textureAtlas = resourcesManager.getTextureAtlas(file);
 		textureAtlas = new TextureAtlas(Gdx.files.internal("data/spritesheet.atlas"));
         animation = new Animation(duration / textureAtlas.getTextures().size, textureAtlas.getRegions());
 	}

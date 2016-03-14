@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class ResourcesManager implements IResourcesManager {
 	private AssetManager assetManager = new AssetManager();
@@ -24,10 +25,7 @@ public class ResourcesManager implements IResourcesManager {
 
 	@Override
 	public Texture getTexture(String path) {
-		if (!finishLoadingAsset(path, Texture.class)) {
-			// TODO The texture has not been found, return a debug texture?
-		}
-		return assetManager.get(path, Texture.class);
+		return getAsset(path, Texture.class);
 	}
 
 	public Sound getSound(String path) {
@@ -83,5 +81,15 @@ public class ResourcesManager implements IResourcesManager {
 			return true;
 		// The asset does not exist //TODO Exception here?
 		return false;
+	}
+
+	@Override
+	public TextureAtlas getTextureAtlas(String path) {
+		return getAsset(path, TextureAtlas.class);
+	}
+
+	@Override
+	public void loadTextureAtlasAsynch(String path) {
+		assetManager.load(path, TextureAtlas.class);
 	}
 }
