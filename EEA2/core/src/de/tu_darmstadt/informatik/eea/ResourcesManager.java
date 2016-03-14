@@ -1,6 +1,7 @@
 package de.tu_darmstadt.informatik.eea;
 
 import java.io.FileNotFoundException;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -41,7 +42,7 @@ public class ResourcesManager implements IResourcesManager {
 	private <T> T getAsset(String path, Class<T> type) {
 		if (!finishLoadingAsset(path, type)) {
 			// TODO Throw exception, so they can handle it?
-			new FileNotFoundException(path);
+			return null;
 		}
 		return assetManager.get(path, type);
 	}
