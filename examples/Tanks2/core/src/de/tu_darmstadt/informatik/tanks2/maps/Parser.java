@@ -131,7 +131,7 @@ public class Parser implements IParser {
 		int x = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 
-		map.addEntity(mineFactory.createEntity(x, y, scale, strength));
+		map.addEntity(mineFactory.createMine(x, y, scale, strength));
 		return map;
 	}
 
@@ -163,7 +163,7 @@ public class Parser implements IParser {
 		float x = parseFloat();
 		float y = parseFloat();
 
-		map.addEntity(pickUpFactory.createEntity(type, streangth, x, y, scaling));
+		map.addEntity(pickUpFactory.createPickup(type, streangth, x, y, scaling));
 
 		return map;
 	}

@@ -27,7 +27,7 @@ public class PickupFactory {
 		this.resourcesManager = resourcesManager;
 	}
 
-	public Entity createEntity(PickUpType type, int strength, float x, float y, float scale) {
+	public Entity createPickup(PickUpType type, int strength, float x, float y, float scale) {
 		Pickup pickup = new Pickup(type);
 		pickup.setStrength(strength);
 		pickup.setScale(scale);

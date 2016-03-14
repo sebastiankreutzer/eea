@@ -51,7 +51,7 @@ public class MineFactory {
 		this.debug = debug;
 	}
 
-	public Entity createEntity(float x, float y, float scale, int strength) {
+	public Entity createMine(float x, float y, float scale, int strength) {
 		// Erzeuge einen neue Entity und setze Skalierung und Position
 		Entity mine = new Entity("Mine" + Math.random());
 		mine.setScale(scale);
