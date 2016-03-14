@@ -4,12 +4,29 @@ import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
 
+/**
+ * Erzeugt eine neue Schuss Entity an der Stelle der agierenden Entity.
+ * 
+ * @author jr
+ *
+ */
 public class SpawnShootAction extends EEAAction {
 
 	private int strength;
 	private float rotation;
 	private ShootFactory shotFactory;
 
+	/**
+	 * Erzeugt eine neue SpawnShootAction
+	 * 
+	 * @param rotation
+	 *            Die Rotation der von der von dieser Entity erzeugten Schuss
+	 *            Entity
+	 * @param strength
+	 *            Die Staerke der von der von dieser Entity erzeugten Schuss
+	 *            Entity
+	 * @param shotFactory
+	 */
 	public SpawnShootAction(float rotation, int strength, ShootFactory shotFactory) {
 		this.strength = strength;
 		this.rotation = rotation;
@@ -18,25 +35,10 @@ public class SpawnShootAction extends EEAAction {
 
 	@Override
 	public boolean act(float delta) {
-		Entity simpleShoot = shotFactory.createShot(getActor().getX(), getActor().getY() + rotation, getEntity().getID(),
-				strength, rotation, getActor().getScaleX() / 2);
-		getEntity().getManager().addEntity(simpleShoot);
+		Entity owner = getEntity();
+		Entity simpleShoot = shotFactory.createShot(owner.getX(), owner.getY(), owner.getID(), strength, rotation,
+				owner.getScaleX() / 2);
+		owner.getManager().addEntity(simpleShoot);
 		return true;
 	}
-
-	// @Override
-	// public void update(GameContainer gc, StateBasedGame sb, int delta,
-	// Component event) {
-	//
-	//
-	// float scaling = event.getOwnerEntity().getScale();
-	// Vector2f position = new Vector2f(event.getOwnerEntity().getPosition());
-	//
-	//
-	// Entity simpleShoot = new ShootFactory(strength,
-	// event.getOwnerEntity().getID(), rotation, scaling * 0.5f, position.x,
-	// position.y ,Tanks.debug).createEntity();
-	// StateBasedEntityManager.getInstance().addEntity(sb.getCurrentStateID(),simpleShoot);
-	// }
-
 }

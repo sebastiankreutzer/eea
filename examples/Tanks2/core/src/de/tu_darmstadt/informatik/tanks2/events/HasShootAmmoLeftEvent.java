@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.events;
 
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IShootAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 public class HasShootAmmoLeftEvent extends EEAEvent {
 
@@ -11,8 +11,8 @@ public class HasShootAmmoLeftEvent extends EEAEvent {
 	
 	@Override
 	public boolean eventTriggered(float delta) {
-		if(IShootAmmo.class.isInstance(owner)){
-			return ((IShootAmmo)owner).hasShootAmmo();
+		if(IAmmunition.class.isInstance(owner)){
+			return ((IAmmunition)owner).hasAmmunition();
 		}
 		return false; 
 	}

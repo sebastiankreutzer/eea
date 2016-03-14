@@ -19,12 +19,18 @@ import de.tu_darmstadt.informatik.tanks2.entities.Shoot;
 
 public class ShootFactory {
 
-	protected final boolean debug;
 	protected IResourcesManager resourcesManager;
+	protected ExplosionFactory explosionFactory;
+	protected final boolean debug;
+	
+	public ShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory) {
+		this(resourcesManager, explosionFactory, false);
+	} 
 
-	public ShootFactory(boolean debug, IResourcesManager resourcesManager) {
-		this.debug = debug;
+	public ShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
 		this.resourcesManager = resourcesManager;
+		this.explosionFactory = explosionFactory;
+		this.debug = debug;
 	}
 
 	public Entity createShot(float x, float y, String owner, int strength, float rotation, float scale) {
@@ -42,11 +48,11 @@ public class ShootFactory {
 		simpleShot.addComponent(mainEvent);
 
 		mainEvent = new CollisionEvent();
-		mainEvent.addAction(new HitAction(strength));
+		mainEvent.addAction(new HitAction(strength, explosionFactory));
 		simpleShot.addComponent(mainEvent);
 
 		mainEvent = new LoopEvent();
-		mainEvent.addAction(new MoveRelativeAction(25f, 0f));
+		mainEvent.addAction(new MoveRelativeAction(75f, 0f));
 		simpleShot.addComponent(mainEvent);
 		
 		simpleShot.addComponent(new RectangleTriggerComponent());
@@ -54,8 +60,8 @@ public class ShootFactory {
 		return simpleShot;
 	}
 	
-	public Entity createScatterShot(float x, float y, String owner, int strength, float rotation, float scale, float time) {
-		Entity scatterShoot = new ScatterShoot(owner, strength, time);
+	public Entity createScatterShot(float x, float y, String owner, int damage, float rotation, float scale, float time) {
+		Entity scatterShoot = new ScatterShoot(owner, damage, time);
 
 		scatterShoot.setPosition(x, y);
 		scatterShoot.setRotation(rotation);
@@ -64,11 +70,11 @@ public class ShootFactory {
 		scatterShoot.addComponent(new ImageRenderComponent("shoot.png", resourcesManager));
 
 		EEAEvent mainEvent = new TimeEvent(time, false);
-		mainEvent.addAction(new SpawnShootAction((rotation - 90 + 360) % 360, strength / 5, this));
-		mainEvent.addAction(new SpawnShootAction((rotation - 45 + 360) % 360, strength / 5, this));
-		mainEvent.addAction(new SpawnShootAction(rotation, strength / 5, this));
-		mainEvent.addAction(new SpawnShootAction((rotation + 45 + 360) % 360, strength / 5, this));
-		mainEvent.addAction(new SpawnShootAction((rotation + 90 + 360) % 360, strength / 5, this));
+		mainEvent.addAction(new SpawnShootAction(rotation - 90, damage / 5, this));
+		mainEvent.addAction(new SpawnShootAction(rotation - 45, damage / 5, this));
+		mainEvent.addAction(new SpawnShootAction(rotation, damage / 5, this));
+		mainEvent.addAction(new SpawnShootAction(rotation + 45, damage / 5, this));
+		mainEvent.addAction(new SpawnShootAction(rotation + 90, damage / 5, this));
 		mainEvent.addAction(new DestroyEntityAction());
 		scatterShoot.addComponent(mainEvent);
 
@@ -77,11 +83,11 @@ public class ShootFactory {
 		scatterShoot.addComponent(mainEvent);
 
 		mainEvent = new CollisionEvent();
-		mainEvent.addAction(new HitAction(strength));
+		mainEvent.addAction(new HitAction(damage, explosionFactory));
 		scatterShoot.addComponent(mainEvent);
 
 		mainEvent = new LoopEvent();
-		mainEvent.addAction(new MoveRelativeAction(30f, 0f));
+		mainEvent.addAction(new MoveRelativeAction(60f, 0f));
 		scatterShoot.addComponent(mainEvent);
 		
 		scatterShoot.addComponent(new RectangleTriggerComponent());

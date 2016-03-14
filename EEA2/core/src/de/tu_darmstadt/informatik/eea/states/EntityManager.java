@@ -43,6 +43,12 @@ public class EntityManager {
 		stage.addActor(e);
 		e.setManager(this);
 	}
+	
+	public void addEntities(List<Entity> entities) {
+		for (Entity entity : entities) {
+			addEntity(entity);
+		}
+	}
 
 	public Entity getEntity(String name) {
 		Iterator<Entity> it = entities.iterator();
@@ -131,10 +137,14 @@ public class EntityManager {
 	}
 
 	public void reset() {
-		for (Entity e : entities) {
-			e.remove();
-		}
 		stage.clear();
+		while(entities.size() > 0) {
+			entities.get(0).remove();
+		}
+//		while(iterator.hasNext()) {
+//			Entity e = iterator.next();
+//			e.remove();
+//		}
 		entities.clear();
 	}
 

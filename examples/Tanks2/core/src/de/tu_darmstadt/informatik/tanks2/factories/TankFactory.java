@@ -19,7 +19,7 @@ import de.tu_darmstadt.informatik.eea.event.TimeEvent;
 import de.tu_darmstadt.informatik.tanks2.AI.TankAI;
 import de.tu_darmstadt.informatik.tanks2.AI.TowerAI;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeMineAmmoAction;
-import de.tu_darmstadt.informatik.tanks2.actions.ChangeShootAmmoAction;
+import de.tu_darmstadt.informatik.tanks2.actions.ChangeAmmunitionAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ScatterShootAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnMineAction;
@@ -34,16 +34,19 @@ public class TankFactory {
 	private final String difficulty;
 	private final boolean debug;
 	private IResourcesManager resourcesManager;
+	private ShootFactory shotFactory;
+	private MineFactory mineFactory;
 	
 	
-	public TankFactory(String difficulty ,boolean debug, IResourcesManager resourcesManager){
-
+	public TankFactory(String difficulty , IResourcesManager resourcesManager, ShootFactory shotFactory, MineFactory mineFactory, boolean debug){
 		this.difficulty = difficulty;
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
+		this.shotFactory = shotFactory;
+		this.mineFactory = mineFactory;
 	}
 	
-	public Entity createEntity(float x, float y, String name, int maxLife, int life, 
+	public Tank createTank(float x, float y, String name, int maxLife, int life, 
 			int shootsMax, int shoots,int minesMax, int mines, 
 			int strength,float speed, float rotation, float scale){
 		
@@ -53,8 +56,8 @@ public class TankFactory {
 		tank.setSpeed(speed);
 		tank.setMaxLife(maxLife);
 		tank.setLife(life);
-		tank.setShootMaxAmmo(shootsMax);
-		tank.setShootAtmmo(shoots);
+		tank.setMaxAmmunition(shootsMax);
+		tank.setAmmunition(shoots);
 		tank.setMinesMaxAmmo(minesMax);
 		tank.setMinesAmmo(mines);
 		tank.setStrength(strength);
@@ -91,26 +94,26 @@ public class TankFactory {
 	    	
 	    	// tank shoots
 	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.K)) , new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ShootAction(resourcesManager));
-	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
+	    	mainEvents.addAction(new ShootAction(shotFactory, debug));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank mines
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.M), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction(resourcesManager));
+	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	//Tank ScatterShoot
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.L), new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ScatterShootAction(1.5f,resourcesManager));
-	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
+	    	mainEvents.addAction(new ScatterShootAction(1.5f, shotFactory, debug));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	
 	    	mainEvents = new TimeEvent(5, true);
 	    	mainEvents.addAction(new ChangeMineAmmoAction(1));
-	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(1));
 	    	tank.addComponent(mainEvents);
 	    	
 		} else if(name.equals(Tanks.player2)){
@@ -147,37 +150,37 @@ public class TankFactory {
 	    	
 	    	// tank shoots
 	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.G)) , new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ShootAction(resourcesManager));
-	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
+	    	mainEvents.addAction(new ShootAction(shotFactory, debug));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank mines
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.F), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction(resourcesManager));
+	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	//Tank ScatterShoot
 	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.H), new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ScatterShootAction(500,resourcesManager));
-	    	mainEvents.addAction(new ChangeShootAmmoAction(-1));
+	    	mainEvents.addAction(new ScatterShootAction(500, shotFactory, debug));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	
 	    	mainEvents = new TimeEvent(5, true);
 	    	mainEvents.addAction(new ChangeMineAmmoAction(1));
-	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(1));
 	    	tank.addComponent(mainEvents);
 		} else {
 			tank.addComponent(new ImageRenderComponent("tankOppenent.png", resourcesManager));
 			
 			EEAComponent componentAI;
-			if(this.difficulty.equals(Difficulty.EASY.toString())) componentAI = new TowerAI(Tanks.player1, resourcesManager);
-			else componentAI = new TankAI(Tanks.player1, resourcesManager);
+			if(this.difficulty.equals(Difficulty.EASY.toString())) componentAI = new TowerAI(Tanks.player1, shotFactory, debug);
+			else componentAI = new TankAI(Tanks.player1, shotFactory, debug);
 			tank.addComponent(componentAI);
 			
 			EEAEvent mainEvents = new TimeEvent(5, true);
-	    	mainEvents.addAction(new ChangeShootAmmoAction(1));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(1));
 	    	tank.addComponent(mainEvents);
 		}
 		return tank;

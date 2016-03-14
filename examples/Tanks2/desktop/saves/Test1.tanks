@@ -1,0 +1,7 @@
+Map "sandTexture.jpg" "map00" "map01" 0 6138 0
+Entity
+Entity
+Entity
+Entity
+Tower 30 30 1 1 10 20 119 10 400 400
+Wall 30 30 0 10 250 25

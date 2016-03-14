@@ -19,7 +19,7 @@ public class NoCollisionComponent extends EEACollisionComponent {
 	}
 
 	@Override
-	protected boolean collideWithCircle(CircleCollisionComponent other) {
+	protected boolean collideWithCircle(CircleTriggerComponent other) {
 		return false;
 	}
 

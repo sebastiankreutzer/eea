@@ -27,7 +27,7 @@ public abstract class EEACollisionComponent extends EEAComponent {
 
 	protected abstract boolean collideWithBorder(BorderCollisionComponent other);
 
-	protected abstract boolean collideWithCircle(CircleCollisionComponent other);
+	protected abstract boolean collideWithCircle(CircleTriggerComponent other);
 	
 	protected abstract boolean collideWithRectangle(RectangleTriggerComponent other);
 

@@ -2,14 +2,15 @@ package de.tu_darmstadt.informatik.customActions;
 
 import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.dow2.GameBootstrapper;
+import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.MoveAction;
+import de.tu_darmstadt.informatik.eea.action.SoundAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
@@ -63,8 +64,11 @@ public class CreateDropAction extends EEAAction {
 		drop.addComponent(new CircleCollisionComponent());
 		
 		EEAEvent collisionEvent = new CollisionEvent();
-		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState));
+		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState, resourcesManager));
 		drop.addComponent(collisionEvent);
+		
+		SoundAction createDropSound = new SoundAction("WaterDrop.mp3", resourcesManager);
+		drop.addAction(createDropSound);
 	}
 
 	/**
@@ -80,7 +84,7 @@ public class CreateDropAction extends EEAAction {
 	 * @param drop
 	 */
 	private void positionDrop(Entity drop) {		
-		drop.setPosition( mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY());//, Align.top | Align.center);
+		drop.setPosition(mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY(), Align.top | Align.center);
 	}
 
 	/**
@@ -92,8 +96,16 @@ public class CreateDropAction extends EEAAction {
     	EntityOutOfScreenEvent lse = new EntityOutOfScreenEvent();
     	// ... und wechsle ins Hauptmenue
     	lse.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
+    	
+    	// spiele einen Sound ab
+    	SoundAction failSoundAction = new SoundAction("bubbles.mp3", resourcesManager);
+    	lse.addAction(failSoundAction);
+    	
     	// ... zerstoere den Wassertropfen
     	lse.addAction(new DestroyEntityAction());
+    	
+    	
+    	
     	drop.addComponent(lse);
 	}
 

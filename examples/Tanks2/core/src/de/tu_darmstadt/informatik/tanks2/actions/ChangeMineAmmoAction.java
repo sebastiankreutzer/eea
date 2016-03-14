@@ -1,34 +1,39 @@
 package de.tu_darmstadt.informatik.tanks2.actions;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
+/**
+ * Ein Action zum Aendern der Anzahl der Minen eines IMineAmmo Objektes.
+ * 
+ * @author jr
+ *
+ */
 public class ChangeMineAmmoAction extends EEAAction {
-	
-	private int value;
 
-	public ChangeMineAmmoAction(int value){
-		this.value = value;
+	private int amount;
+
+	/**
+	 * Erzeugt eine neue ChangeAmmoAction welche die Anzahl der Minen des Ziels
+	 * veraendert.
+	 * 
+	 * @param amount
+	 *            Die Aenderung der Anzahl der Minen
+	 */
+	public ChangeMineAmmoAction(int amount) {
+		this.amount = amount;
 	}
-	
+
 	@Override
 	public boolean act(float delta) {
-		if(IMinesAmmo.class.isInstance(getTarget())){
-			IMinesAmmo m = (IMinesAmmo) getTarget();
-			m.changeMinesAmmo(value);
+		// Aendere die Anzahl der Minen wenn moeglich
+		if (target instanceof IMinesAmmo) {
+			((IMinesAmmo) target).changeMinesAmmo(amount / 2);
 		}
+
 		return true;
 	}
-
-//	@Override
-//	public void update(GameContainer gc, StateBasedGame sb, int delta,
-//			Component event) {
-//		Entity entity = event.getOwnerEntity();
-//		if(IMinesAmmo.class.isInstance(entity)){
-//			IMinesAmmo  ammo = (IMinesAmmo) entity;
-//			ammo.changeMinesAmmo(value);
-//		}
-//
-//	}
-
 }

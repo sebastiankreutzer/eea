@@ -13,11 +13,13 @@ import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
+import de.tu_darmstadt.informatik.eea.entity.EEARenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
+import de.tu_darmstadt.informatik.eea.event.OREvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnPickupAction;
@@ -33,18 +35,31 @@ import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options;
 import temp.removeASAP.Tanks;
 
+/**
+ * Im GameplayState findet das eigentliche Spielgeschehen statt.
+ * 
+ * @author jr
+ *
+ */
 public class GameplayState extends EEAGameState {
 
 	private Map map;
 	private Options options;
 
-	private TextRenderComponent player1text, ammo1Text, mine1Text, life1Text;
-	private TextRenderComponent player2text, ammo2Text, mine2Text, life2Text;
+	private TextRenderComponent player1Text, ammo1Text, mine1Text, life1Text;
+	private TextRenderComponent player2Text, ammo2Text, mine2Text, life2Text;
+	private TextRenderComponent fpsText;
 
 	private IResourcesManager resourcesManager;
 
-	private TextRenderComponent fpsText;
-
+	/**
+	 * Erzeugt einen neuen GameplayState fuer das EEAGame
+	 * 
+	 * @param game
+	 *            Das EEAGame
+	 * @param options
+	 *            Die Options
+	 */
 	public GameplayState(EEAGame game, Options options) {
 		super(game);
 		IResourcesManager _resourcesManager = game.getResourcesManager();
@@ -53,80 +68,81 @@ public class GameplayState extends EEAGameState {
 		this.options = options;
 	}
 
+	/**
+	 * Initialisiert die TextRenderComponents und erzeugt Entities um diese
+	 * darzustellen.
+	 */
 	private void createUI() {
-		Entity player1Label = new Entity("Player1Text");
-		player1Label.setPosition(10, 20);
-		player1text = new TextRenderComponent("Spieler 1", game.graphics);
-		player1Label.addComponent(player1text);
-		em.addEntity(player1Label);
+		player1Text = new TextRenderComponent("Spieler 1", game.graphics);
+		createLabel("Player1Text", 10, 20, player1Text);
 
-		Entity ammo1Label = new Entity("Player1Ammo");
-		ammo1Label.setPosition(10, 40);
 		ammo1Text = new TextRenderComponent("", game.graphics);
-		ammo1Label.addComponent(ammo1Text);
-		em.addEntity(ammo1Label);
+		createLabel("Player1Ammo", 10, 40, ammo1Text);
 
-		Entity mines1Label = new Entity("Player1Mines");
-		mines1Label.setPosition(10, 60);
 		mine1Text = new TextRenderComponent("", game.graphics);
-		mines1Label.addComponent(mine1Text);
-		em.addEntity(mines1Label);
+		createLabel("Player1Mines", 10, 60, mine1Text);
 
-		Entity life1Label = new Entity("Player1Life");
-		life1Label.setPosition(10, 80);
 		life1Text = new TextRenderComponent("", game.graphics);
-		life1Label.addComponent(life1Text);
-		em.addEntity(life1Label);
+		createLabel("Player1Life", 10, 80, life1Text);
 
-		Entity player2Label = new Entity("");
-		player2Label.setPosition(510, 20);
-		player2text = new TextRenderComponent("", game.graphics);
-		player2Label.addComponent(player2text);
-		em.addEntity(player2Label);
+		player2Text = new TextRenderComponent("", game.graphics);
+		createLabel("Player2Text", 510, 20, player2Text);
 
-		Entity ammo2Label = new Entity("Player2Ammo");
-		ammo2Label.setPosition(510, 40);
 		ammo2Text = new TextRenderComponent("", game.graphics);
-		ammo2Label.addComponent(ammo2Text);
-		em.addEntity(ammo2Label);
+		createLabel("Player2Ammo", 510, 40, ammo2Text);
 
-		Entity mines2Label = new Entity("Player2Mines");
-		mines2Label.setPosition(510, 60);
 		mine2Text = new TextRenderComponent("", game.graphics);
-		mines2Label.addComponent(mine2Text);
-		em.addEntity(mines2Label);
+		createLabel("Player2Mines", 510, 60, mine2Text);
 
-		Entity life2Label = new Entity("Player2Life");
-		life2Label.setPosition(510, 80);
 		life2Text = new TextRenderComponent("", game.graphics);
-		life2Label.addComponent(life2Text);
-		em.addEntity(life2Label);
+		createLabel("Player2Life", 510, 80, life2Text);
 
-		Entity fpsLabel = new Entity("FPSLabel");
-		fpsLabel.setPosition(320, 20);
 		fpsText = new TextRenderComponent("", game.graphics);
-		fpsLabel.addComponent(fpsText);
+		createLabel("FPSLabel", 320, 20, fpsText);
+	}
+
+	/**
+	 * Erstelle eine Entity and der definierten Position mit einer
+	 * TextRenderComponent und fuegt sie dem EntityManager hinzu.
+	 * 
+	 * @param name
+	 *            Der Name der Entity
+	 * @param x
+	 *            Die x Position
+	 * @param y
+	 *            Die y Position
+	 * @param textRenderComponent
+	 *            Die TextRenderComponent
+	 */
+	private void createLabel(String name, int x, int y, TextRenderComponent textRenderComponent) {
+		Entity fpsLabel = new Entity(name);
+		fpsLabel.setPosition(x, y);
+		fpsLabel.addComponent(textRenderComponent);
 		em.addEntity(fpsLabel);
 	}
 
 	@Override
 	protected void update(float delta) {
+		// Stelle die Informationen fuer Spieler1 dar
 		Tank tank = ((Tank) em.getEntity(Tanks.player1));
 		if (tank != null) {
-			ammo1Text.setText("Übrige Schüsse: " + tank.getActualShootAmmo() + "/" + tank.getMaxShootAmmo());
+			ammo1Text.setText("Übrige Schüsse: " + tank.getAmmunition() + "/" + tank.getMaxAmmunition());
 			mine1Text.setText("Übrige Minen: " + tank.getActualMinesAmmo() + "/" + tank.getMaxMinesAmmo());
 			life1Text.setText("Leben: " + tank.getActualLife() + "/" + tank.getMaxLife());
 		}
+		// Stelle im Mehrspielermodus die Informationen fuer Spieler2 dar, zeige
+		// ansonsten die Zeit an
 		if (GameplayLog.getInstance().isMultiplayer()) {
+			player1Text.setText("Spieler 1");
 			Tank tank2 = ((Tank) em.getEntity(Tanks.player2));
 			if (tank2 != null) {
-				player2text.setText("Spieler 2");
-				ammo2Text.setText("Übrige Schüsse: " + tank2.getActualShootAmmo() + "/" + tank2.getMaxShootAmmo());
+				player2Text.setText("Spieler 2");
+				ammo2Text.setText("Übrige Schüsse: " + tank2.getAmmunition() + "/" + tank2.getMaxAmmunition());
 				mine2Text.setText("Übrige Minen: " + tank2.getActualMinesAmmo() + "/" + tank2.getMaxMinesAmmo());
 				life2Text.setText("Leben: " + tank2.getActualLife() + "/" + tank2.getMaxLife());
 			}
 		} else {
-			player1text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
+			player1Text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
 		}
 
 		fpsText.setText("FPS" + game.getFramerate());
@@ -135,219 +151,171 @@ public class GameplayState extends EEAGameState {
 	@Override
 	protected void init() {
 		em.setDebug(true);
-		// Map parsen
+		// Parse die Map. Bei Fehlern wird eine entsprechende Fehlermeldung
+		// erzeugt und ins Hauptmenue gewechselt.
 		try {
-			map.parse(map.getSource(), resourcesManager, true, options);
-		} catch (SyntaxException e) {
+			map.parse(resourcesManager, options, Tanks.debug);
+			// Alle Entities der Map dem EntityManager uebergeben
+			Iterator<Entity> it = map.getEntities().iterator();
+			while (it.hasNext()) {
+				em.addEntity(it.next());
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			JFrame frame = new JFrame("");
-			JOptionPane.showMessageDialog(frame, "Die Map konnte nicht geparst werden", "Syntax Fehler",
-					JOptionPane.ERROR_MESSAGE);
+			String message, title;
+			if (e instanceof SyntaxException) {
+				message = "Die Map konnte nicht geparst werden";
+				title = "Syntax Fehler";
+			} else if (e instanceof SemanticException) {
+				message = "Die Map konnte nicht geladen werden. Sie ist semantisch inkorrekt.";
+				title = "Semantischer Fehler";
+			} else {
+				message = e.getLocalizedMessage();
+				title = e.getClass().getSimpleName();
+			}
+			JOptionPane.showMessageDialog(frame, message, title, JOptionPane.ERROR_MESSAGE);
+			reset();
 			game.setScreen(LaunchTanks.mainMenu);
 			return;
-		} catch (SemanticException e) {
-			e.printStackTrace();
-			JFrame frame = new JFrame("");
-			JOptionPane.showMessageDialog(frame, "Die Map konnte nicht geladen werden. Sie ist semantisch inkorrekt.",
-					"Semantischer Fehler", JOptionPane.ERROR_MESSAGE);
-			game.setScreen(LaunchTanks.mainMenu);
-			return;
 		}
 
-		// Alle Mapentities dem Entitiymanager uebergeben
-		Iterator<Entity> it = map.getEntities().iterator();
-		while (it.hasNext()) {
-			em.addEntity(it.next());
-		}
-
-		Entity entity = new Entity("Dummy");
-
-		// Wird der Panzer des Spielers zerstoert, ...
-		Entity player1 = em.getEntity(Tanks.player1);
-		EEAEvent playerDestroyedEvent = new EntityDestroyedEvent(player1);
-
-		// ... dann stoppe den Timer, ...
-		playerDestroyedEvent.addAction(new EEAAction() {
-
-			@Override
-			public boolean act(float delta) {
-				GameplayLog.getInstance().timer.stop();
-				return true;
-			}
-
-		});
-
-		// ... .oeffne MessageDialog "Sie haben verloren." ...
-		playerDestroyedEvent.addAction(new EEAAction() {
-			@Override
-			public boolean act(float delta) {
-				JFrame frame = new JFrame("");
-
-				if (!GameplayLog.getInstance().isMultiplayer() && !Tanks.debug) {
-					Highscore h = new Highscore("", GameplayLog.getInstance().getNumberOfShots(),
-							GameplayLog.getInstance().timer.get());
-					if (!HighscoreList.getInstance().isNewHighscore(h)) {
-						JOptionPane.showMessageDialog(frame, "Sie haben verloren.", "Schade.", 1);
-					} else {
-						String name = JOptionPane.showInputDialog(frame, "Bitte nennen Sie Ihren Namen:",
-								"Verloren, aber neuer Highscore", 1);
-						h = new Highscore(name, GameplayLog.getInstance().getNumberOfShots(),
-								GameplayLog.getInstance().timer.get());
-						HighscoreList.getInstance().addHighscore(h);
-					}
-				} else {
-					JOptionPane.showMessageDialog(frame, "Spieler 2 hat gewonnen!", "Spieler 2 gewinnt!", 1);
-				}
-				return true;
-			}
-		});
-		// ... und wechsle ins Hauptmenue
-		playerDestroyedEvent.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, true));
-		entity.addComponent(playerDestroyedEvent);
-		
-		List<EEAEvent> enemies = new ArrayList<EEAEvent>();
-		for(Entity e : em.getAllEntities()) {
-			if(e instanceof Tank && e.getID() != Tanks.player1){
-				enemies.add(new EntityDestroyedEvent(e));
-			}
-		}
-
-		// Wird ein gegnerischer Panzer zerstoert, ...
-		EEAEvent enemyDestroyedEvent = new ANDEvent(enemies.toArray(new EEAEvent[0]));
-		// ... dann ueberpruefe, ob alle Tanks zerstoert wurden.
-		// Wenn ja, dann oeffne MessageDialog "Sie haben gewonnen" und wechsle
-		// ins Hauptmenue,
-		// ansonsten bleibe im laufenden Spiel
-		enemyDestroyedEvent.addAction(new EEAAction() {
-
-			@Override
-			public boolean act(float delta) {
-				GameplayLog.getInstance().timer.stop();
-				// TODO Pause something, probably the simulation aka our
-				// entityManager/Stage.
-				// gc.pause();
-
-				// DialogFenster
-				JFrame frame = new JFrame("");
-
-				if (!GameplayLog.getInstance().isMultiplayer() && !Tanks.debug) {
-					Highscore h = new Highscore("", GameplayLog.getInstance().getNumberOfShots(),
-							GameplayLog.getInstance().timer.get());
-					if (!HighscoreList.getInstance().isNewHighscore(h)) {
-						JOptionPane.showMessageDialog(frame, "Sie haben gewonnen.", "Herzlichen Glückwunsch.", 1);
-					} else {
-						String name = JOptionPane.showInputDialog(frame, "Bitte nennen Sie Ihren Namen:",
-								"Gewonnen und neuer Highscore", 1);
-						h = new Highscore(name, GameplayLog.getInstance().getNumberOfShots(),
-								GameplayLog.getInstance().timer.get());
-						HighscoreList.getInstance().addHighscore(h);
-					}
-				} else {
-					JOptionPane.showMessageDialog(frame, "Spieler 1 hat gewonnen!", "Spieler 1 gewinnt!", 1);
-				}
-
-				em.reset();
-
-				String nextMap = GameplayLog.getInstance().getNextMap().substring(1,
-						GameplayLog.getInstance().getNextMap().length() - 1);
-				if (nextMap.equals(Tanks.finish)) {
-					map.resetToDefault();
-					game.setScreen(LaunchTanks.mainMenu);
-
-					// TODO Find out what this method does and whether we need
-					// it.
-					// gc.reinit();
-				} else {
-					map.load(nextMap);
-					// TODO Find out what this method does and whether we need
-					// it.
-					// sb.init(gc);
-				}
-
-				return true;
-			}
-
-		});
-		entity.addComponent(enemyDestroyedEvent);
-
-		// Wird die Taste 'p' gedrueckt, ...
-		EEAEvent event = new KeyPressedEvent(Input.Keys.P);
-		// ... dann wird das Spiel "eingefroren"
-		event.addAction(new EEAAction() {
-			@Override
-			public boolean act(float delta) {
-				// TODO Find out what instance to pause, probably this screen
-				// if(gc.isPaused()){
-				// gc.resume();
-				// GameplayLog.getInstance().timer.start();
-				// } else {
-				// gc.pause();
-				// GameplayLog.getInstance().timer.stop();
-				// }
-				return true;
-			}
-		});
-		entity.addComponent(event);
-
-		// Wird die Escape-Taste gedrueckt, ...
+		// Wird die Escape-Taste gedrueckt, wechsel in den PauseState
+		Entity escapeListener = new Entity("EscapeListener");
 		EEAEvent escapePressedEvent = new KeyPressedEvent(Input.Keys.ESCAPE);
-		// ... dann wechsle ins OnPauseMenu ...
 		escapePressedEvent.addAction(new ChangeStateAction(game, LaunchTanks.pauseState) {
 			@Override
 			public boolean act(float delta) {
-				super.act(delta);
 				// ... und stoppe den Timer
 				GameplayLog.getInstance().timer.stop();
-				return true;
+				return super.act(delta);
 			}
 		});
-		entity.addComponent(escapePressedEvent);
+		escapeListener.addComponent(escapePressedEvent);
+		em.addEntity(escapeListener);
 
-		long timeLimit = GameplayLog.getInstance().getTimeLimit();
-		if (timeLimit > 0) {
-			event = new TimeEvent(timeLimit - GameplayLog.getInstance().timer.get(), false);
-			event.addAction(new EEAAction() {
+		// Hinzufuegen der Spiellogik Entity
+		em.addEntity(createGameLogic());
+		createUI();
+	}
 
-				@Override
-				public boolean act(float delta) {
+	/**
+	 * Erzeugt eine Entity mit welche die Sieg- und Niederlagebedingungen
+	 * ueberpruefen und mit Actions die das Ergebnis darstellen und den Wechsel
+	 * in den naechsten GameState einleiten.
+	 * 
+	 * @return Eine Entity mit Events und Actions.
+	 */
+	private Entity createGameLogic() {
+		// Erzeuge eine Entity, welche die Events und Actions der Spiellogik
+		// enthaelt
+		Entity entity = new Entity("GameLogicEntity");
 
-					JFrame frame = new JFrame("");
-					Highscore h = new Highscore("", GameplayLog.getInstance().getNumberOfShots(),
-							GameplayLog.getInstance().timer.get());
-
-					// Wenn kein Multiplayer-Spiel und kein Debug, dann zeige
-					// Dialog
-					if (!GameplayLog.getInstance().isMultiplayer() && !Tanks.debug) {
-
-						// Wenn ein neuer Highscore aufgestellt wurde, dann Name
-						// abfragen, sonst Schade
-						if (!HighscoreList.getInstance().isNewHighscore(h)) {
-							JOptionPane.showMessageDialog(frame, "Sie haben verloren.", "Schade.", 1);
-						} else {
-							String name = JOptionPane.showInputDialog(frame, "Bitte nennen Sie Ihren Namen:",
-									"Verloren, aber neuer Highscore", 1);
-							h = new Highscore(name, GameplayLog.getInstance().getNumberOfShots(),
-									GameplayLog.getInstance().timer.get());
-							HighscoreList.getInstance().addHighscore(h);
-						}
-					}
-					return true;
-				}
-
-			});
-
-			event.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu));
-			entity.addComponent(event);
+		// Erzeuge ein Event welches ausloest wenn alle Tanks ausser Spieler1
+		// zerstoert sind
+		List<EEAEvent> enemyDestroyedEvents = new ArrayList<EEAEvent>();
+		for (Entity e : em.getAllEntities()) {
+			if (e instanceof Tank && !e.getID().equals(Tanks.player1)) {
+				enemyDestroyedEvents.add(new EntityDestroyedEvent(e));
+			}
 		}
-		event = new RandomEvent(1, 4);
+		EEAEvent allEnemiesDestroyed = new ANDEvent(enemyDestroyedEvents.toArray(new EEAEvent[0]));
+		// Zeige an das Spieler1 gewonnen hat und bestimme den naechsten
+		// GameState
+		allEnemiesDestroyed.addAction(createDisplayResultAction(true));
+		allEnemiesDestroyed.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, true) {
+			@Override
+			public boolean act(float delta) {
+				GameplayLog gameplayLog = GameplayLog.getInstance();
+				String nextMap = gameplayLog.getNextMap().substring(1, gameplayLog.getNextMap().length() - 1);
+				if (nextMap.equals(Tanks.finish)) {
+					map.resetToDefault();
+				} else {
+					map.loadMap(nextMap);
+					newState = LaunchTanks.gameState;
+				}
+				return super.act(delta);
+			}
+		});
+		entity.addComponent(allEnemiesDestroyed);
+
+		// Erzeuge ein Event das ausloest wenn Spieler1 zerstoert wurde oder
+		// falls das Zeitlimit, sofern vorhanden, abgelaufen ist.
+		long timeLimit = GameplayLog.getInstance().getTimeLimit();
+		Entity player1 = em.getEntity(Tanks.player1);
+		EEAEvent defeatEvent = new EntityDestroyedEvent(player1);
+		if (timeLimit > 0) {
+			EEAEvent event = new TimeEvent(timeLimit - GameplayLog.getInstance().timer.get(), false);
+			defeatEvent = new OREvent(event, new EntityDestroyedEvent(player1));
+		}
+		// Zeige an das Spieler1 verloren hat und gehe danach ins Hauptmenue
+		// zurueck
+		defeatEvent.addAction(createDisplayResultAction(false));
+		defeatEvent.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, true));
+		entity.addComponent(defeatEvent);
+
+		// Hin und wieder werden zufaellig PickUp Objekte erzeugt
+		EEAEvent event = new RandomEvent(1, 4);
 		event.addAction(new SpawnPickupAction(resourcesManager));
 		entity.addComponent(event);
 
-		// Hinzufuegen der dummy-Entity
-		em.addEntity(entity);
-
-		createUI();
-
+		return entity;
 	}
 
+	/**
+	 * Erzeugt eine spezielle Action, welche den Timer stoppt, ein JFrame
+	 * oeffnet und das Spielergebnis darstellt und gegebenenfalls die Erzeugung
+	 * eines neuen Highscoreeintrags bewirkt.
+	 * 
+	 * @param playerOneWon
+	 *            Ob Spieler1 gewonnen hat
+	 * @return Eine EEAAction die ein JFrame erzeugt
+	 */
+	private EEAAction createDisplayResultAction(final boolean playerOneWon) {
+		return new EEAAction() {
+			// Waehle die Texte in Abhaengigkeit des Spielergebnisses
+			String winner = playerOneWon ? "Spieler 1" : "Spieler 2";
+			String result = playerOneWon ? "gewonnen" : "verloren";
+			String misc = playerOneWon ? "Sehr gut." : "Schade.";
+			String highscore = playerOneWon ? "Gewonnen und" : "Verloren, aber";
+
+			@Override
+			public boolean act(float delta) {
+				GameplayLog gameplayLog = GameplayLog.getInstance();
+				gameplayLog.timer.stop();
+				int shots = gameplayLog.getNumberOfShots();
+				long time = gameplayLog.timer.get();
+
+				JFrame frame = new JFrame("");
+
+				// Im Mehrspielermodus soll der Name des Gewinners angezeigt
+				// werden
+				if (gameplayLog.isMultiplayer()) {
+					JOptionPane.showMessageDialog(frame, winner + " hat gewonnen!", winner + " gewinnt!", 1);
+				} else {
+					// ansonsten muss ueberprueft werden ob ein Highscore
+					// vorliegt, falls ja muss der Name abgefragt werden
+					HighscoreList highscoreList = HighscoreList.load(map.getName(), resourcesManager);
+					if (highscoreList.isNewHighscore(new Highscore("", shots, time)) && !Tanks.debug) {
+						String name = JOptionPane.showInputDialog(frame, "Bitte nennen Sie Ihren Namen:",
+								highscore + " neuer Highscore", 1);
+						highscoreList.addHighscore(new Highscore(name, shots, time));
+					} else {
+						JOptionPane.showMessageDialog(frame, "Sie haben " + result + ".", misc, 1);
+					}
+				}
+				return true;
+			}
+		};
+	}
+
+	/**
+	 * Gibt eine Liste aller Entities zurueck, die von dem EntityManager dieses
+	 * GameplayStates verwaltet werden.
+	 * 
+	 * @return Eine Liste von Entities
+	 */
+	public List<Entity> getEntities() {
+		return em.getAllEntities();
+	}
 }

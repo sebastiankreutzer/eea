@@ -7,6 +7,7 @@ import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
+import de.tu_darmstadt.informatik.eea.action.MusicAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
@@ -30,7 +31,11 @@ public class GameplayState extends EEAGameState {
 	
 	@Override
 	public void init() {
-    	
+    	final Entity backgroundMusicEntity = new Entity("backgroundMusic");
+    	final MusicAction musicAction = new MusicAction("BabblingBrook.mp3", resourcesManager);
+    	backgroundMusicEntity.addAction(musicAction);
+    	em.addEntity(backgroundMusicEntity);
+		
     	// Hintergrund laden
     	final Entity backgroundEntity = new Entity("background");
     	backgroundEntity.addComponent(new ImageRenderComponent("background.png", resourcesManager)); // Bildkomponente
@@ -90,7 +95,7 @@ public class GameplayState extends EEAGameState {
     	// wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
     	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
      	mouse_Clicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouse_Clicked));
-    	mouse_Clicked_Listener.addComponent(mouse_Clicked);    	
+    	mouse_Clicked_Listener.addComponent(mouse_Clicked);
     	em.addEntity(mouse_Clicked_Listener);
 	}
 

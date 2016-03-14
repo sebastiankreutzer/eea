@@ -1,9 +1,18 @@
 package de.tu_darmstadt.informatik.tanks2.misc;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
 
+/**
+ * Ein SourceFile oeffnet einen InputStream der dann Zeichen fuer Zeichen
+ * eingelesen werden kann.
+ * 
+ * @author jr
+ *
+ */
 public class SourceFile {
 
 	public static final char EOL = '\n';
@@ -12,23 +21,38 @@ public class SourceFile {
 	private java.io.InputStream source;
 	private int currentLine;
 
-	public SourceFile(String filename, IResourcesManager resourcesManager) {
+	/**
+	 * Erzeuge einen neuen SourceFile.
+	 * 
+	 * @param path
+	 *            Der Dateipfad
+	 * @param resourcesManager
+	 *            Der ResourcesManager
+	 */
+	public SourceFile(String path, IResourcesManager resourcesManager) {
 		try {
-			source = resourcesManager.openROMFile(filename).read();
+			source = resourcesManager.openROMFile(path).read();
 			currentLine = 1;
-		} catch (GdxRuntimeException e) {
-			System.out.println("Error loading file " + filename + " : " + e.toString());
+		} catch (IOException e) {
+			System.out.println("Error loading file " + path + " : " + e.toString());
 			source = null;
 			currentLine = 0;
 		}
 	}
 
+	/**
+	 * Gibt das naechste Zeichen dieses SourceFile zurueck.
+	 * 
+	 * @return Das naechste Zeichen, {@link SourceFile#EOL} bei Zeilenende oder
+	 *         {@link SourceFile#EOT} bei Dateiende.
+	 */
 	char getSource() {
 		try {
 			int c = source.read();
 
 			if (c == -1) {
 				c = EOT;
+				source.close();
 			} else if (c == EOL) {
 				currentLine++;
 			}
@@ -38,6 +62,11 @@ public class SourceFile {
 		}
 	}
 
+	/**
+	 * Gibt die Anzahl der abgearbeiteten Zeilen an.
+	 * 
+	 * @return Die Nummer der aktuelle Zeile.
+	 */
 	public int getCurrentLine() {
 		return currentLine;
 	}

@@ -11,7 +11,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
 
@@ -56,8 +55,8 @@ public abstract class EEAGameState implements Screen {
 		Gdx.input.setInputProcessor(im);
 		updateBackgroundColor();
 		if (!initialized) {
-			init();
 			initialized = true;
+			init();
 		}
 	}
 
@@ -100,6 +99,7 @@ public abstract class EEAGameState implements Screen {
 
 	public void reset() {
 		em.reset();
+		initialized = false;
 	}
 
 	/*

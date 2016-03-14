@@ -1,11 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.maps;
 
-import java.io.ObjectInputStream.GetField;
-
-import com.badlogic.gdx.math.Vector2;
-
 import de.tu_darmstadt.informatik.eea.IResourcesManager;
-import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickUpType;
+import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu_darmstadt.informatik.tanks2.factories.BackgroundFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.BorderFactory;
@@ -45,6 +41,8 @@ public class Parser implements IParser {
 	private SourcePosition previousTokenPosition;
 	private boolean debug;
 	private IResourcesManager resourcesManager;
+
+	private ExplosionFactory explosionFactory;
 	private PickupFactory pickUpFactory;
 	private MineFactory mineFactory;
 	private ScatterShootFactory scatterShotFactory;
@@ -59,11 +57,13 @@ public class Parser implements IParser {
 		previousTokenPosition = new SourcePosition();
 		debug = false;
 		this.resourcesManager = resourcesManager;
+		
+		explosionFactory = new ExplosionFactory(resourcesManager, debug);
 		pickUpFactory = new PickupFactory(debug, resourcesManager);
-		mineFactory = new MineFactory(debug, resourcesManager);
-		shotFactory = new ShootFactory(debug, resourcesManager);
-		tankFactory = new TankFactory(options.getDifficulty(), debug, resourcesManager);
-		towerFactory = new TowerFactory(debug, resourcesManager);
+		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
+		shotFactory = new ShootFactory(resourcesManager, explosionFactory, debug);
+		tankFactory = new TankFactory(options.getDifficulty(), resourcesManager, shotFactory, mineFactory, debug);
+		towerFactory = new TowerFactory(resourcesManager, shotFactory, debug);
 		wallFactory = new WallFactory(debug, resourcesManager);
 	}
 
@@ -131,7 +131,7 @@ public class Parser implements IParser {
 		int x = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 
-		map.addEntity(mineFactory.createEntity(x, y, scale, strength));
+		map.addEntity(mineFactory.createMine(x, y, scale, strength));
 		return map;
 	}
 
@@ -153,9 +153,9 @@ public class Parser implements IParser {
 
 	protected Map parsePickup(Map map) throws SyntaxException {
 
-		PickUpType type = PickUpType.AMMUNITION;
-		if (this.accept(Token.IDENTIFIER).getSpelling().equalsIgnoreCase(PickUpType.HEALTH.toString()))
-			type = PickUpType.HEALTH;
+		PickupType type = PickupType.AMMUNITION;
+		if (this.accept(Token.IDENTIFIER).getSpelling().equalsIgnoreCase(PickupType.HEALTH.toString()))
+			type = PickupType.HEALTH;
 
 		int streangth = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 
@@ -163,7 +163,7 @@ public class Parser implements IParser {
 		float x = parseFloat();
 		float y = parseFloat();
 
-		map.addEntity(pickUpFactory.createEntity(type, streangth, x, y, scaling));
+		map.addEntity(pickUpFactory.createPickup(type, streangth, x, y, scaling));
 
 		return map;
 	}
@@ -213,7 +213,7 @@ public class Parser implements IParser {
 		float scale = parseFloat();
 
 		map.addEntity(
-				towerFactory.createEntity(x, y, maxLife, life, maxShoots, shoots, streangth, speed, rotation, scale));
+				towerFactory.createTower(x, y, maxLife, life, maxShoots, shoots, streangth, speed, rotation, scale));
 
 		return map;
 	}
@@ -255,7 +255,7 @@ public class Parser implements IParser {
 
 		// this.accept(Token.RPAREN);
 
-		map.addEntity(ExplosionFactory.createExplosion(x, y, speed, width, height, debug));
+		map.addEntity(explosionFactory.createExplosion(x, y, speed, width, height, debug));
 		return map;
 	}
 
@@ -280,7 +280,7 @@ public class Parser implements IParser {
 		float rotation = parseFloat();
 		float scale = parseFloat();
 
-		map.addEntity(tankFactory.createEntity(x, y, name, maxLife, life, shootsMax, shoots, minesMax, mines, strength,
+		map.addEntity(tankFactory.createTank(x, y, name, maxLife, life, shootsMax, shoots, minesMax, mines, strength,
 				speed, rotation, scale));
 
 		return map;
