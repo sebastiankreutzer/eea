@@ -156,6 +156,7 @@ public class HighscoreList {
 		// Erzeuge eine neue, leere HighscoreList wenn der String null ist oder
 		// oder dem Ende entspricht
 		if (map == null || map.equals(Tanks.finish)) {
+			System.out.println("No highscore file for " + map);
 			return new HighscoreList(resourcesManager, Tanks.finish);
 		}
 		// Oeffne einen RWFile und pruefe ob er existiert
