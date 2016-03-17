@@ -21,13 +21,13 @@ import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollision
 import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent.Border;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
+import de.tu_darmstadt.informatik.eea.event.EntityDestroyedEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.OREvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnPickupAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Tank;
-import de.tu_darmstadt.informatik.tanks2.events.EntityDestroyedEvent;
 import de.tu_darmstadt.informatik.tanks2.events.RandomEvent;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
@@ -279,7 +279,7 @@ public class GameplayState extends EEAGameState {
 		entity.addComponent(defeatEvent);
 
 		// Hin und wieder werden zufaellig PickUp Objekte erzeugt
-		EEAEvent event = new RandomEvent(1, 4);
+		EEAEvent event = new RandomEvent(1, 4, true);
 		event.addAction(new SpawnPickupAction(resourcesManager));
 		entity.addComponent(event);
 

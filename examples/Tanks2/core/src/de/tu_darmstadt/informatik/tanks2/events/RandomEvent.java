@@ -4,46 +4,68 @@ import java.util.Random;
 
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 
+/**
+ * Ein Zufallsevent das nach Ablauf einer zufaelligen Zeit ausloest. Diese liegt
+ * zwischen der Mindest- und Maximalzeit.
+ * 
+ * @author jr
+ *
+ */
 public class RandomEvent extends EEAEvent {
-	
+
 	public static final String ID = "RandomEvent";
 	private static final Random random = new Random();
-	
-	private double chance;
-	private float min, max, current;
+
+	protected float minTime, maxTime, remaining;
+	protected boolean repeat;
 
 	/**
-	 * @param chance The chance in percent
+	 * @param minTime
+	 *            Mindest Zeit die bis zum ausloesen des Events vergehen muss in
+	 *            ms
+	 * @param maxTime
+	 *            Hoechst Zeit die bis zum Ausloesen des Events vergehen muss in
+	 *            ms
 	 */
-	public RandomEvent(double chance) {
-		super(ID);
-		this.chance = chance/100;
-		Random random = new Random();
-	}
-	
 	/**
-	 * @param minTime Mindest Zeit die bis zum ausloesen des Events vergehen muss in ms
-	 * @param maxTime Hoechst Zeit die bis zum Ausloesen des Events vergehen muss in ms
+	 * Erzeugt eine neues RandomEvent, zufaellig zwischen der Mindest- und
+	 * Maximalzeit ausloest.
+	 * 
+	 * @param minTime
+	 *            Die Mindestzeit
+	 * @param maxTime
+	 *            Die Maximalzeit
+	 * @param repeat
+	 *            Ob das Event einmalig ausloesen soll.
 	 */
-	public RandomEvent(float minTime, float maxTime) {
+	public RandomEvent(float minTime, float maxTime, boolean repeat) {
 		super(ID);
-		min = minTime;
-		max = maxTime;
+		this.minTime = minTime;
+		this.maxTime = maxTime;
+		this.repeat = repeat;
 		init();
 	}
 
+	/**
+	 * Initialisiert die Zeit bis zum naechsten Ausloesen.
+	 */
 	private void init() {
-		current = min + (max - min) * random.nextFloat();
+		remaining = minTime + (maxTime - minTime) * random.nextFloat();
 	}
-	
+
 	@Override
 	public boolean eventTriggered(float delta) {
-		current -= delta;
-		if(current < 0) {
-			init();
+		// Loese das Event aus, wenn die Zeit abgelaufen ist
+		remaining -= delta;
+		if (remaining < 0) {
+			// Setze den Zaehler gegebenefalls zurueck
+			if (repeat) {
+				init();
+			}
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 }

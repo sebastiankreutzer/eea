@@ -24,8 +24,8 @@ import de.tu_darmstadt.informatik.tanks2.actions.ScatterShootAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnMineAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Tank;
-import de.tu_darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
-import de.tu_darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
+import de.tu_darmstadt.informatik.tanks2.events.HasMinesLeftEvent;
+import de.tu_darmstadt.informatik.tanks2.events.HasAmmunitionLeftEvent;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options.Difficulty;
 import temp.removeASAP.Tanks;
@@ -93,21 +93,21 @@ public class TankFactory {
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank shoots
-	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.K)) , new HasShootAmmoLeftEvent());
+	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.K)) , new HasAmmunitionLeftEvent(tank));
 	    	mainEvents.addAction(new ShootAction(shotFactory, debug));
 	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank mines
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.M), new HasMinesAmmoLeftEvent());
+	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.M), new HasMinesLeftEvent(tank));
 	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	//Tank ScatterShoot
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.L), new HasShootAmmoLeftEvent());
+	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.L), new HasAmmunitionLeftEvent(tank));
 	    	mainEvents.addAction(new ScatterShootAction(1.5f, shotFactory, debug));
-	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
+	    	mainEvents.addAction(new ChangeAmmunitionAction(-2));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	
@@ -149,19 +149,19 @@ public class TankFactory {
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank shoots
-	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.G)) , new HasShootAmmoLeftEvent());
+	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.G)) , new HasAmmunitionLeftEvent(tank));
 	    	mainEvents.addAction(new ShootAction(shotFactory, debug));
 	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	// tank mines
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.F), new HasMinesAmmoLeftEvent());
+	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.F), new HasMinesLeftEvent(tank));
 	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
 	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
 	    	tank.addComponent(mainEvents);
 	    	
 	    	//Tank ScatterShoot
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.H), new HasShootAmmoLeftEvent());
+	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.H), new HasAmmunitionLeftEvent(tank));
 	    	mainEvents.addAction(new ScatterShootAction(500, shotFactory, debug));
 	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
 	    	tank.addComponent(mainEvents);
