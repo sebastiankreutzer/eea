@@ -131,7 +131,7 @@ public class GameplayState extends EEAGameState {
 		if (tank != null) {
 			ammo1Text.setText("Übrige Schüsse: " + tank.getAmmunition() + "/" + tank.getMaxAmmunition());
 			mine1Text.setText("Übrige Minen: " + tank.getActualMinesAmmo() + "/" + tank.getMaxMinesAmmo());
-			life1Text.setText("Leben: " + tank.getActualLife() + "/" + tank.getMaxLife());
+			life1Text.setText("Leben: " + tank.getLife() + "/" + tank.getMaxLife());
 		}
 		// Stelle im Mehrspielermodus die Informationen fuer Spieler2 dar, zeige
 		// ansonsten die Zeit an
@@ -142,7 +142,7 @@ public class GameplayState extends EEAGameState {
 				player2Text.setText("Spieler 2");
 				ammo2Text.setText("Übrige Schüsse: " + tank2.getAmmunition() + "/" + tank2.getMaxAmmunition());
 				mine2Text.setText("Übrige Minen: " + tank2.getActualMinesAmmo() + "/" + tank2.getMaxMinesAmmo());
-				life2Text.setText("Leben: " + tank2.getActualLife() + "/" + tank2.getMaxLife());
+				life2Text.setText("Leben: " + tank2.getLife() + "/" + tank2.getMaxLife());
 			}
 		} else {
 			player1Text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
