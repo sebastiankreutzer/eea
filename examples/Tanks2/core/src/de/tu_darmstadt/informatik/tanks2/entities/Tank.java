@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.entities;
 
-import de.tu_darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IMines;
 
 /**
  * Ein Tank erweitert einen Tower um die Minen Funktionalitaet.
@@ -8,7 +8,7 @@ import de.tu_darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
  * @author jr
  *
  */
-public class Tank extends Tower implements  IMinesAmmo {
+public class Tank extends Tower implements  IMines {
 
 	private int minesMaxAmmo; // maximal moegliche Anzahl an Minen
 	private int minesAmmo; // aktuell verfuegbare Minen
@@ -90,7 +90,7 @@ public class Tank extends Tower implements  IMinesAmmo {
 	}
 
 	@Override
-	public void setMinesMaxAmmo(int value) {
+	public void setMaxMines(int value) {
 		this.minesMaxAmmo = value;
 
 	}
@@ -101,7 +101,7 @@ public class Tank extends Tower implements  IMinesAmmo {
 	}
 
 	@Override
-	public int getMaxMinesAmmo() {
+	public int getMaxMines() {
 		return minesMaxAmmo;
 	}
 

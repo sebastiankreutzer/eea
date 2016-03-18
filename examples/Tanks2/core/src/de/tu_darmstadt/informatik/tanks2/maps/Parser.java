@@ -13,7 +13,6 @@ import de.tu_darmstadt.informatik.tanks2.factories.TankFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.TowerFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.WallFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMap;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IParser;
 import de.tu_darmstadt.informatik.tanks2.misc.ErrorReporter;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options;
@@ -21,7 +20,7 @@ import de.tu_darmstadt.informatik.tanks2.misc.Scanner;
 import de.tu_darmstadt.informatik.tanks2.misc.SourcePosition;
 import de.tu_darmstadt.informatik.tanks2.misc.Token;
 
-public class Parser implements IParser {
+public class Parser {
 
 	/*
 	 * 0,90,180,270: Startposition mit 270 links, 0 oben, 90 rechts, 180 unten

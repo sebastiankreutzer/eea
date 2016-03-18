@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.tanks2.actions;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
-import de.tu_darmstadt.informatik.tanks2.interfaces.IMinesAmmo;
+import de.tu_darmstadt.informatik.tanks2.interfaces.IMines;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
@@ -30,8 +30,8 @@ public class ChangeMineAmmoAction extends EEAAction {
 	@Override
 	public boolean act(float delta) {
 		// Aendere die Anzahl der Minen wenn moeglich
-		if (target instanceof IMinesAmmo) {
-			((IMinesAmmo) target).changeMinesAmmo(amount / 2);
+		if (target instanceof IMines) {
+			((IMines) target).changeMinesAmmo(amount / 2);
 		}
 
 		return true;
