@@ -3,6 +3,7 @@ package de.tu_darmstadt.informatik.tanks2;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -54,7 +55,7 @@ public class OptionsState extends EEAGameState {
 		mainMenuText.addComponent(new TextRenderComponent("Einstellungen", game.graphics));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(game.getResourcesManager(), game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory(EEA.getResourceManager(), game.graphics);
 		mef.setDimensions(55, 330, 380, 60);
 		
     	// Ton einschalten/ausschalten

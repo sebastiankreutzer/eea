@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Input.Keys;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -15,7 +16,6 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.highscore.Highscore;
 import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;
-import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 
 /**
  * Ein GameplayState der zur Darstellung der Highscores der zuletzt geladenen
@@ -55,7 +55,7 @@ public class HighscoreState extends EEAGameState {
 
 		// Lade die aktuelle HighscoreList
 		String map = Map.getInstance().getName();
-		HighscoreList highscoreList = HighscoreList.load(map, game.getResourcesManager());
+		HighscoreList highscoreList = HighscoreList.load(map, EEA.getResourceManager());
 
 		// Pruefe ob die HighscoreList geladen wurde
 		if (!highscoreList.hasHighscoreLoaded()) {

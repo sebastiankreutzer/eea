@@ -2,6 +2,8 @@ package de.tu_darmstadt.informatik.tanks2;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
@@ -51,7 +53,7 @@ public class PauseState extends EEAGameState {
 		em.addEntity(pauseMenuText);
 
 		// Erzeuge und Initialisiere eine MenuEntryFactory
-		MenuEntryFactory mef = new MenuEntryFactory(game.getResourcesManager(), game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory(EEA.getResourceManager(), game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 
 		// Erstelle einen Menuepunkt der zum Spiel zurueckfuehrt
@@ -112,7 +114,7 @@ public class PauseState extends EEAGameState {
 				String name = JOptionPane.showInputDialog(new JFrame(""), "Spielstand speichern unter dem Namen:",
 						"Spielstand speichern", 1);
 				Map map = Map.getInstance();
-				IResourceManager resourcesManager = game.getResourcesManager();
+				IResourceManager resourcesManager = EEA.getResourceManager();
 				map.save(name, LaunchTanks.gameState.getEntities(), resourcesManager);
 				return true;
 			}

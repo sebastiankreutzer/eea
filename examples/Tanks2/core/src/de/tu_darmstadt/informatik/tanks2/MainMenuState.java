@@ -5,9 +5,9 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
-import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.MusicAction;
 import de.tu_darmstadt.informatik.eea.action.QuitAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -42,7 +42,7 @@ public class MainMenuState extends EEAGameState {
 		
 		if(options.isSoundEnabled()) {
 			EEAEvent soundEvent = new LoopEvent();
-			MusicAction backgroundSound = new MusicAction("theme.ogg", 1, game.getResourcesManager());
+			MusicAction backgroundSound = new MusicAction("theme.ogg", 1);
 			soundEvent.addAction(backgroundSound);
 			background.addComponent(soundEvent);
 		}
@@ -55,7 +55,7 @@ public class MainMenuState extends EEAGameState {
 		mainMenuText.addComponent(new TextRenderComponent("Hauptmenü", game.graphics));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(game.getResourcesManager(), game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory(EEA.getResourceManager(), game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 		
 		mef.prepareMenuEntry("Neues Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState){

@@ -8,16 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.utils.Align;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
-import de.tu_darmstadt.informatik.eea.entity.EEARenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent.Border;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
@@ -66,7 +64,7 @@ public class GameplayState extends EEAGameState {
 	 */
 	public GameplayState(EEAGame game, Options options) {
 		super(game);
-		IResourceManager _resourcesManager = game.getResourcesManager();
+		IResourceManager _resourcesManager = EEA.getResourceManager();
 		this.resourcesManager = _resourcesManager;
 		map = Map.getInstance();
 		this.options = options;
@@ -149,7 +147,7 @@ public class GameplayState extends EEAGameState {
 			player1Text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
 		}
 
-		fpsText.setText("FPS" + game.getFramerate());
+		fpsText.setText("FPS" + EEA.getGraphics().getFramerate());
 	}
 
 	@Override
@@ -202,8 +200,8 @@ public class GameplayState extends EEAGameState {
 		em.addEntity(createGameLogic());
 
 		// Erzeuge die Spielfeldbegrenzun mit der Factory
-		BorderFactory borderFactory = new BorderFactory(game.getViewport().getWorldWidth(),
-				game.getViewport().getWorldHeight());
+		BorderFactory borderFactory = new BorderFactory(EEA.getGraphics().getWorldWidth(),
+				EEA.getGraphics().getWorldHeight());
 		em.addEntity(borderFactory.createBorder(Border.LEFT));
 		em.addEntity(borderFactory.createBorder(Border.RIGHT));
 		em.addEntity(borderFactory.createBorder(Border.BOTTOM));
