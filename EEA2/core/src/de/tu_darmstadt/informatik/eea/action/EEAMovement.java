@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Align;
 
 public abstract class EEAMovement extends EEAAction {
 	
-	private Vector2 pos = new Vector2();;
+	private Vector2 pos = new Vector2();
 	protected int alignment;
 	
 	public EEAMovement(int alignment) {

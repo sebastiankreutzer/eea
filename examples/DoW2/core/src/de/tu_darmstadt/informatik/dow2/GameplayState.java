@@ -27,6 +27,8 @@ public class GameplayState extends EEAGameState {
 	public GameplayState(EEAGame game, IResourcesManager resourcesManager) {
 		super(game);
 		this.resourcesManager = resourcesManager;
+		resourcesManager.loadTextureAsync("drop.png");
+		resourcesManager.loadSoundAsync("WaterDrop.mp3");
 	}
 	
 	@Override

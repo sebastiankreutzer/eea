@@ -72,6 +72,7 @@ public class MainMenuState extends EEAGameState {
     	quit_Text_Entity.setPosition(120, 280);
     	quit_Text_Entity.addComponent(new TextRenderComponent("Beenden", game.graphics));
     	em.addEntity(quit_Text_Entity);
+    	
 	}
 
 	@Override

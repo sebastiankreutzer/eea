@@ -89,7 +89,7 @@ public class CreateDropAction extends EEAAction {
 	private void positionDrop(Entity drop) {
 		Random random = new Random();
 		float x = random.nextInt((int) game.getViewport().getWorldWidth());
-		float y = mouseMovedEvent.getMouseY();
+		float y = game.getViewport().getWorldHeight();
 		// Alternative:
 		// x = mouseMovedEvent.getMouseX();
 		drop.setPosition(x, y, Align.top | Align.center);
