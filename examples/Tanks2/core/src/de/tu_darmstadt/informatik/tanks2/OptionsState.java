@@ -37,7 +37,7 @@ public class OptionsState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager())); // Bildkomponente
+		background.addComponent(new ImageRenderComponent("menu.png")); // Bildkomponente
 		
 		// Erzeuge folgendes Event "Escape-Taste gedrueckt"
 		EEAEvent ESC_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);

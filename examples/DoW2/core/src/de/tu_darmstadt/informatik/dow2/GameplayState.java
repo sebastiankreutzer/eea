@@ -40,7 +40,7 @@ public class GameplayState extends EEAGameState {
 		
     	// Hintergrund laden
     	final Entity backgroundEntity = new Entity("background");
-    	backgroundEntity.addComponent(new ImageRenderComponent("background.png", resourcesManager)); // Bildkomponente
+    	backgroundEntity.addComponent(new ImageRenderComponent("background.png")); // Bildkomponente
     	
     	// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
     	em.addEntity(backgroundEntity);
@@ -72,7 +72,7 @@ public class GameplayState extends EEAGameState {
 		Entity bucket = new Entity("Bucket Entity");
 		
 		// Bild des Buckets setzen
-		bucket.addComponent(new ImageRenderComponent("bucket.png", resourcesManager));
+		bucket.addComponent(new ImageRenderComponent("bucket.png"));
 		
 		// damit Kollisionen beachtet werden
 		bucket.addComponent(new RectangleCollisionComponent());

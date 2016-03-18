@@ -186,7 +186,7 @@ public class Parser implements IParser {
 		// Add background
 		Entity background = new Entity("background");
 		String file = backgroundName.substring(1, backgroundName.length() - 1);
-		background.addComponent(new ImageRenderComponent(file, resourcesManager));
+		background.addComponent(new ImageRenderComponent(file));
 		map.addEntity(background);
 
 		return map;

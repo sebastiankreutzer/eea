@@ -30,13 +30,13 @@ public class MainMenuState extends EEAGameState {
 	public void init() {
 		
 		Entity background = new Entity("menu");
-    	background.addComponent(new ImageRenderComponent("menu.png", resourcesManager)); // Bildkomponente
+    	background.addComponent(new ImageRenderComponent("menu.png")); // Bildkomponente
     	em.addEntity(background);
     	
     	/* Neues Spiel starten-Enty */
     	Entity new_Game_Entity = new Entity("Neues Spiel starten");
     	new_Game_Entity.setPosition(60, 350);
-    	new_Game_Entity.addComponent(new ImageRenderComponent("entry.png", resourcesManager));
+    	new_Game_Entity.addComponent(new ImageRenderComponent("entry.png"));
     	new_Game_Entity.setSize(330, 100);
     	
     	// Erstelle das Auslöse-Event und die zugehörige Action
@@ -56,7 +56,7 @@ public class MainMenuState extends EEAGameState {
     	/* Beenden-Entity */
     	Entity quit_Entity = new Entity("Beenden");
     	quit_Entity.setPosition(60, 230);
-    	quit_Entity.addComponent(new ImageRenderComponent("entry.png", resourcesManager));
+    	quit_Entity.addComponent(new ImageRenderComponent("entry.png"));
     	quit_Entity.setSize(330, 100);
     	
     	// Erstelle das Auslöse-Event und die zugehörige Action

@@ -141,7 +141,7 @@ public class HighscoreState extends EEAGameState {
 		Entity backgroundEntity = new Entity("background");
 		// Fuegt dieser Entity eine ImageRenderComponent mit dem Hintergrundbild
 		// hinzu
-		backgroundEntity.addComponent(new ImageRenderComponent("highscore_menu.png", game.getResourcesManager()));
+		backgroundEntity.addComponent(new ImageRenderComponent("highscore_menu.png"));
 		return backgroundEntity;
 	}
 

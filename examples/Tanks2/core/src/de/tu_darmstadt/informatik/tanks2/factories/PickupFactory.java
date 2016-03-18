@@ -91,12 +91,12 @@ public class PickupFactory {
 		EEAEvent collisionEvent = new CollisionEvent();
 		switch (type) {
 		case HEALTH:
-			pickup.addComponent(new ImageRenderComponent("healthpack.png", resourcesManager));
+			pickup.addComponent(new ImageRenderComponent("healthpack.png"));
 			collisionEvent.addAction(new ChangeLifeAction(strength));
 			break;
 
 		case AMMUNITION:
-			pickup.addComponent(new ImageRenderComponent("munipack.png", resourcesManager));
+			pickup.addComponent(new ImageRenderComponent("munipack.png"));
 			collisionEvent.addAction(new ChangeAmmoAction(strength));
 			break;
 

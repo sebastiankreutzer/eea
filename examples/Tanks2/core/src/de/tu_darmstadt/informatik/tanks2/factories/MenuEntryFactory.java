@@ -96,7 +96,7 @@ public class MenuEntryFactory {
 		// Erzeuge die Entity, fuege das Bild hinzu und setze Position und
 		// Groesse
 		Entity imageEntity = new Entity(name);
-		imageEntity.addComponent(new ImageRenderComponent(texturePath, resourcesManager));
+		imageEntity.addComponent(new ImageRenderComponent(texturePath));
 		imageEntity.setBounds(startX, startY, distX, distY);
 		// Beim anklicken des Entrags sollen die Actions ausgefuehrt werden
 		ANDEvent event = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());

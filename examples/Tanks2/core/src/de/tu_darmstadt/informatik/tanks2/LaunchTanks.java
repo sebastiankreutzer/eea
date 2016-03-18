@@ -14,7 +14,7 @@ public class LaunchTanks extends EEAGame {
 
 	@Override
 	protected void initStates() {
-		Options options = new Options(resourcesManager);
+		Options options = new Options(resourceManager);
 		
 		mainMenu = new MainMenuState(this, options);
 		gameState = new GameplayState(this, options);

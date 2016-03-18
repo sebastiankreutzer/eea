@@ -25,7 +25,7 @@ public class WallFactory {
 		wall.setScale(scale);
 		wall.addComponent(new RectangleCollisionComponent());
 		
-		wall.addComponent(new ImageRenderComponent("thematrixer-net_stahlwand.jpg", resourcesManager));
+		wall.addComponent(new ImageRenderComponent("thematrixer-net_stahlwand.jpg"));
 		
 		return wall;
 	}

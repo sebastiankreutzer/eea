@@ -86,7 +86,7 @@ public class TowerFactory {
 		// Der Turm ist rund, waehle eine entsprechende CollisionComponent
 		tower.addComponent(new CircleCollisionComponent());
 		// Setze die RenderComponent
-		tower.addComponent(new ImageRenderComponent("flac.png", resourcesManager));
+		tower.addComponent(new ImageRenderComponent("flac.png"));
 		// Der Turm wird von der KI gesteuert
 		tower.addComponent(new TowerAI(Tanks.player1, shotFactory, debug));
 

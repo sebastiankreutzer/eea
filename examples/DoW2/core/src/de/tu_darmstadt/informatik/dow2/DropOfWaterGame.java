@@ -14,9 +14,9 @@ public class DropOfWaterGame extends EEAGame {
 	 * Diese Methode wird zu Beginn des Programmes aufgerufen
 	 */
 	protected void initStates() {
-		MainMenuState = new MainMenuState(this, resourcesManager);
+		MainMenuState = new MainMenuState(this, resourceManager);
 		MainMenuState.setBackgroundColor(0, 255, 255);
-		GameplayState = new GameplayState(this, resourcesManager);
+		GameplayState = new GameplayState(this, resourceManager);
 		GameplayState.setBackgroundColor(255, 0, 255);
 	}
 

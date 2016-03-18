@@ -41,7 +41,7 @@ public class PauseState extends EEAGameState {
 		// Erzeuge eine Entity und fuege das Hintergrundbild als RenderComponent
 		// hinzu
 		Entity background = new Entity("background");
-		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager()));
+		background.addComponent(new ImageRenderComponent("menu.png"));
 		em.addEntity(background);
 		// Erzeuge eine Entity mit einer TextRenderComponent fuer die
 		// Ueberschrift

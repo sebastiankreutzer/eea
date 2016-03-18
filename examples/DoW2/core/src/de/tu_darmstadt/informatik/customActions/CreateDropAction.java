@@ -79,7 +79,7 @@ public class CreateDropAction extends EEAAction {
 	 * @param drop
 	 */
 	private void dropPainting(Entity drop) {
-		drop.addComponent(new ImageRenderComponent("drop.png", resourcesManager));
+		drop.addComponent(new ImageRenderComponent("drop.png"));
 	}
 
 	/**

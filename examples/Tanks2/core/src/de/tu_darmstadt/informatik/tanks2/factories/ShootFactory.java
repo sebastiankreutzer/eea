@@ -89,7 +89,7 @@ public class ShootFactory {
 		shot.setPosition(x, y);
 		shot.setRotation(rotation);
 		shot.setScale(scale);
-		shot.addComponent(new ImageRenderComponent("shoot.png", resourcesManager));
+		shot.addComponent(new ImageRenderComponent("shoot.png"));
 		shot.addComponent(new RectangleTriggerComponent());
 
 		// Der Schuss soll beim Verlassen des Bildschirms zerstoert werden.

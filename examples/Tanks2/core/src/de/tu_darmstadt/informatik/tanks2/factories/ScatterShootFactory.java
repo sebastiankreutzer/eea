@@ -32,7 +32,7 @@ public class ScatterShootFactory extends ShootFactory {
 		scatterShoot.setRotation(rotation);
 		scatterShoot.setScale(scale);
 
-		scatterShoot.addComponent(new ImageRenderComponent("shoot.png", resourcesManager));
+		scatterShoot.addComponent(new ImageRenderComponent("shoot.png"));
 
 		EEAEvent mainEvent = new TimeEvent(time, false);
 		mainEvent.addAction(new DestroyEntityAction());

@@ -20,7 +20,7 @@ public abstract class EEAGame extends Game {
 	public EEAGraphics graphics;
 	
 	private final List<EEAGameState> states = new ArrayList<EEAGameState>();
-	protected IResourceManager resourcesManager;
+	protected IResourceManager resourceManager;
 	private final Viewport viewport;
 	private final boolean debug;
 	
@@ -68,8 +68,8 @@ public abstract class EEAGame extends Game {
 	
 	@Override
 	public void create(){
-		EEAGraphics graphics = new EEAGraphics(viewport);
-		IResourceManager resourceManager = new ResourceManager();
+		graphics = new EEAGraphics(viewport);
+		resourceManager = new ResourceManager();
 		EEA.getInstance().setGraphics(graphics);
 		EEA.getInstance().setResourceManager(resourceManager);
 		initStates();
@@ -79,7 +79,7 @@ public abstract class EEAGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-		resourcesManager.update();
+		resourceManager.update();
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public abstract class EEAGame extends Game {
 	}
 	
 	public IResourceManager getResourcesManager(){
-		return this.resourcesManager;
+		return this.resourceManager;
 	}
 	
 	/**

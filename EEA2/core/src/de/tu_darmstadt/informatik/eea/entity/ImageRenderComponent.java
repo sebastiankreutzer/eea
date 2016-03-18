@@ -3,23 +3,19 @@ package de.tu_darmstadt.informatik.eea.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 
 public class ImageRenderComponent extends EEARenderComponent {
 	
 	public static final String ID = "ImageRenderComponent";
-	private IResourceManager resourcesManager;
-	// TODO Better to keep the reference to Texture instead of a string to avoid searching for this
-	// texture every scaling event
 	private String texturePath;
 	private Texture texture;
 	
-	public ImageRenderComponent(String texturePath, IResourceManager resourcesManager) {
+	public ImageRenderComponent(String texturePath) {
 		super(ID);
-		this.resourcesManager = resourcesManager;
 		this.texturePath = texturePath;
-		resourcesManager.loadTextureAsync(texturePath);
-		texture = resourcesManager.getTexture(texturePath);
+		texture = EEA.getResourceManager().getTexture(texturePath);
 	}
 
 	@Override

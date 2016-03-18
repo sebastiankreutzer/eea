@@ -107,7 +107,7 @@ public class TankFactory {
 		// Wenn der Tank von Spieler1 gesteuert werden soll
 		if (name.equals(Tanks.player1)) {
 			// Setzte das Bild fuer Spieler1
-			tank.addComponent(new ImageRenderComponent("tankPlayer.png", resourcesManager));
+			tank.addComponent(new ImageRenderComponent("tankPlayer.png"));
 
 			// initialisiere die Steuerung
 			initPlayerControls(speed, tank, Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT,
@@ -118,14 +118,14 @@ public class TankFactory {
 			GameplayLog.getInstance().setMultiplayer(true);
 
 			// Setzte das Bild fuer Spieler2
-			tank.addComponent(new ImageRenderComponent("tankPlayer2.png", resourcesManager));
+			tank.addComponent(new ImageRenderComponent("tankPlayer2.png"));
 
 			// initialisiere die Steuerung
 			initPlayerControls(speed, tank, Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.G,
 					Input.Keys.F, Input.Keys.H);
 		} else {
 			// Ansonsten ist der Tank ein Gegner
-			tank.addComponent(new ImageRenderComponent("tankOppenent.png", resourcesManager));
+			tank.addComponent(new ImageRenderComponent("tankOppenent.png"));
 
 			// Waehle die AI je nach Schwierigkeitsgrad
 			EEAComponent componentAI;

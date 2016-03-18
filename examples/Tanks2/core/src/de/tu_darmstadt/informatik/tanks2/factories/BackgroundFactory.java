@@ -16,7 +16,7 @@ public class BackgroundFactory {
 	
 	public Entity createEntity() {
 		Entity background = new Entity("background");
-		background.addComponent(new ImageRenderComponent(file, resourcesManager));
+		background.addComponent(new ImageRenderComponent(file));
 		return background;
 	}
 
