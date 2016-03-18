@@ -90,6 +90,8 @@ public class CreateDropAction extends EEAAction {
 		Random random = new Random();
 		float x = random.nextInt((int) game.getViewport().getWorldWidth());
 		float y = mouseMovedEvent.getMouseY();
+		// Alternative:
+		// x = mouseMovedEvent.getMouseX();
 		drop.setPosition(x, y, Align.top | Align.center);
 	}
 
@@ -104,17 +106,17 @@ public class CreateDropAction extends EEAAction {
     	SoundAction failSoundAction = new SoundAction("bubbles.mp3", resourcesManager);
     	lse.addAction(failSoundAction);
     	
-    	// ... und wechsle ins Hauptmenue
+    	// ... wechsle ins Hauptmenü
     	lse.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState, true));
     	
-    	// ... zerstoere den Wassertropfen
+    	// ... und zerstöre den Wassertropfen
     	lse.addAction(new DestroyEntityAction());
     	
     	drop.addComponent(lse);
 	}
 
 	/**
-	 * der Tropfen soll nach unten fallen
+	 * Der Tropfen soll nach unten fallen
 	 * @param drop
 	 */
 	private void dropMovement(Entity drop) {

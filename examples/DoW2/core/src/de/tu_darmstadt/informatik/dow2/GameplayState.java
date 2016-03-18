@@ -43,7 +43,7 @@ public class GameplayState extends EEAGameState {
     	// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
     	em.addEntity(backgroundEntity);
     	
-    	gotoMenuIfEsc();
+    	createEscapeAction();
     	Entity bucket = createBucket(backgroundEntity);
     	createDropByClick(backgroundEntity, bucket);
     	createScore();
@@ -90,24 +90,24 @@ public class GameplayState extends EEAGameState {
 	 * @param bucket 
 	 */
 	private void createDropByClick(final Entity backgroundEntity, Entity bucket) {
-    	Entity mouse_Clicked_Listener = new Entity("Mouse_Clicked_Listener");
+    	Entity mouseClickedListener = new Entity("Mouse_Clicked_Listener");
     	
-    	// wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
-    	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
-     	mouse_Clicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouse_Clicked));
-    	mouse_Clicked_Listener.addComponent(mouse_Clicked);
-    	em.addEntity(mouse_Clicked_Listener);
+    	// Wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
+    	MouseClickedEvent mouseClicked = new MouseClickedEvent();
+     	mouseClicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouseClicked));
+    	mouseClickedListener.addComponent(mouseClicked);
+    	em.addEntity(mouseClickedListener);
 	}
 
 	/**
 	 *  Bei Drücken der ESC-Taste zurueck ins Hauptmenue wechseln
 	 */
-	private void gotoMenuIfEsc() {		
-    	Entity esc_Listener = new Entity("ESC_Listener");
-    	KeyPressedEvent esc_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
-    	esc_pressed.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
-    	esc_Listener.addComponent(esc_pressed);    	
-    	em.addEntity(esc_Listener);
+	private void createEscapeAction() {		
+    	Entity escListener = new Entity("ESC_Listener");
+    	KeyPressedEvent escPressed = new KeyPressedEvent(Input.Keys.ESCAPE);
+    	escPressed.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
+    	escListener.addComponent(escPressed);    	
+    	em.addEntity(escListener);
 	}
 
 	@Override

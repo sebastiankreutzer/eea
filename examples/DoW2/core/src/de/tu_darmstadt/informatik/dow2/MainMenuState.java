@@ -33,21 +33,19 @@ public class MainMenuState extends EEAGameState {
     	background.addComponent(new ImageRenderComponent("menu.png", resourcesManager)); // Bildkomponente
     	em.addEntity(background);
     	
-    	/* Neues Spiel starten-Entitaet */
+    	/* Neues Spiel starten-Enty */
     	Entity new_Game_Entity = new Entity("Neues Spiel starten");
     	new_Game_Entity.setPosition(60, 350);
-    	//new_Game_Entity.setScale(0.5f);
-//    	new_Game_Entity.setDebug(true);
     	new_Game_Entity.addComponent(new ImageRenderComponent("entry.png", resourcesManager));
     	new_Game_Entity.setSize(330, 100);
     	
-    	// Erstelle das Ausloese-Event und die zugehoerige Action
+    	// Erstelle das Auslöse-Event und die zugehörige Action
     	ANDEvent mainEvents = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
     	Action new_Game_Action = new ChangeStateAction(game, GameBootstrapper.GameplayState);
     	mainEvents.addAction(new_Game_Action);
     	new_Game_Entity.addComponent(mainEvents);
     	
-    	// Fuege die Entity zum StateBasedEntityManager hinzu
+    	// Füge die Entity zum StateBasedEntityManager hinzu
     	em.addEntity(new_Game_Entity);
     	
     	Entity new_Game_Text_Entity = new Entity("NeuesSpielText");
@@ -55,15 +53,13 @@ public class MainMenuState extends EEAGameState {
     	new_Game_Text_Entity.addComponent(new TextRenderComponent("Neues Spiel", game.graphics));
     	em.addEntity(new_Game_Text_Entity);
     	
-    	/* Beenden-Entitaet */
+    	/* Beenden-Entity */
     	Entity quit_Entity = new Entity("Beenden");
     	quit_Entity.setPosition(60, 230);
-//    	quit_Entity.setScale(0.5f);
-//    	quit_Entity.setDebug(true);
     	quit_Entity.addComponent(new ImageRenderComponent("entry.png", resourcesManager));
     	quit_Entity.setSize(330, 100);
     	
-    	// Erstelle das Ausloese-Event und die zugehoerige Action
+    	// Erstelle das Auslöse-Event und die zugehörige Action
     	ANDEvent mainEvents_q = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
     	Action quit_Action = new QuitAction();
     	mainEvents_q.addAction(quit_Action);
