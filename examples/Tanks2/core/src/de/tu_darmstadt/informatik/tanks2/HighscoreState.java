@@ -53,8 +53,8 @@ public class HighscoreState extends EEAGameState {
 		em.addEntity(background);
 		em.addEntity(escapeListener);
 
-		// Hole die aktuelle HighscoreList
-		String map = GameplayLog.getInstance().getMapName();
+		// Lade die aktuelle HighscoreList
+		String map = Map.getInstance().getName();
 		HighscoreList highscoreList = HighscoreList.load(map, game.getResourcesManager());
 
 		// Pruefe ob die HighscoreList geladen wurde
@@ -141,7 +141,7 @@ public class HighscoreState extends EEAGameState {
 		Entity backgroundEntity = new Entity("background");
 		// Fuegt dieser Entity eine ImageRenderComponent mit dem Hintergrundbild
 		// hinzu
-		backgroundEntity.addComponent(new ImageRenderComponent("highscore_menu.png", game.getResourcesManager()));
+		backgroundEntity.addComponent(new ImageRenderComponent("highscore_menu.png"));
 		return backgroundEntity;
 	}
 
@@ -153,12 +153,12 @@ public class HighscoreState extends EEAGameState {
 	 * @return Eine Entity mit KeyPressedEvent.
 	 */
 	private Entity createEscapeEntity() {
-		// Erzeugt ein Event das beim Druecken der Escape Taste triggert
+		// Erzeuge ein Event das beim Druecken der Escape Taste triggert
 		KeyPressedEvent escapePressedEvent = new KeyPressedEvent(Keys.ESCAPE);
 
-		// Fuegt dem Event eine ChangeStateAction hinzu die ins Hauptmenue
-		// wechselt
-		escapePressedEvent.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu));
+		// Fuege eine ChangeStateAction hinzu die ins Hauptmenue wechselt, setze
+		// den Gamestate zurueck damit speater ein neuer Highscore geladen wird
+		escapePressedEvent.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, true));
 
 		// Erstelle eine Hintergrund-Entitaet, die auf das Druecken der
 		// "Escape-Taste" lauscht

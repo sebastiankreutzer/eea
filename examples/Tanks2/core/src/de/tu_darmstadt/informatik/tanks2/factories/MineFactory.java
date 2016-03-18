@@ -58,7 +58,7 @@ public class MineFactory {
 		mine.setPosition(x, y);
 
 		// Fuege die RenderComponent hinzu
-		mine.addComponent(new ImageRenderComponent("mine.png", resourcesManager));
+		mine.addComponent(new ImageRenderComponent("mine.png"));
 
 		// Erstelle ein CollisionEvent mit einer HitAction
 		EEAEvent collisionEvent = new CollisionEvent();

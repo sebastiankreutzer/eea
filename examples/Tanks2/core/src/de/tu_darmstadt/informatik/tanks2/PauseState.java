@@ -41,7 +41,7 @@ public class PauseState extends EEAGameState {
 		// Erzeuge eine Entity und fuege das Hintergrundbild als RenderComponent
 		// hinzu
 		Entity background = new Entity("background");
-		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager()));
+		background.addComponent(new ImageRenderComponent("menu.png"));
 		em.addEntity(background);
 		// Erzeuge eine Entity mit einer TextRenderComponent fuer die
 		// Ueberschrift
@@ -51,7 +51,7 @@ public class PauseState extends EEAGameState {
 		em.addEntity(pauseMenuText);
 
 		// Erzeuge und Initialisiere eine MenuEntryFactory
-		MenuEntryFactory mef = new MenuEntryFactory(em, game);
+		MenuEntryFactory mef = new MenuEntryFactory(game.getResourcesManager(), game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 
 		// Erstelle einen Menuepunkt der zum Spiel zurueckfuehrt
@@ -64,20 +64,20 @@ public class PauseState extends EEAGameState {
 						return super.act(delta);
 					}
 				});
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
 
 		// Erstelle einen Menuepunkt zum Speichern des Spiels
 		EEAAction saveAction = createSaveCurrentGameplayState();
 		mef.prepareMenuEntry("Spielstand speichern", "entry.png", saveAction);
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
 
 		// Erstelle einen Menuepunkt der zum Hauptmenue fuehrt
 		EEAAction backToMainMenu = createReturnToMainMenuAction();
 		mef.prepareMenuEntry("Zurück zum Hauptmenü", "entry.png", backToMainMenu);
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
 	}
 
 	/**

@@ -9,9 +9,9 @@ import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.EEACollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent.Border;
 import testEntities.TestEntity;
 
 public class CollisionTest {
@@ -36,19 +36,19 @@ public class CollisionTest {
 		circle2.setBounds(100, 100, 100, 100);
 		
 		testBorderLeft = new TestEntity("LeftBorderTest");
-		testBorderLeft.addComponent(new BorderCollisionComponent(Align.left));
+		testBorderLeft.addComponent(new BorderCollisionComponent(Border.LEFT));
 		testBorderLeft.setPosition(0,0);
 		
 		testBorderRight = new TestEntity("RightBorderTest");
-		testBorderRight.addComponent(new BorderCollisionComponent(Align.right));
+		testBorderRight.addComponent(new BorderCollisionComponent(Border.RIGHT));
 		testBorderRight.setPosition(0,0);
 		
 		testBorderTop = new TestEntity("TopBorderTest");
-		testBorderTop.addComponent(new BorderCollisionComponent(Align.top));
+		testBorderTop.addComponent(new BorderCollisionComponent(Border.TOP));
 		testBorderTop.setPosition(0,0);
 		
 		testBorderBottom = new TestEntity("BottomBorderTest");
-		testBorderBottom.addComponent(new BorderCollisionComponent(Align.bottom));
+		testBorderBottom.addComponent(new BorderCollisionComponent(Border.BOTTOM));
 		testBorderBottom.setPosition(0,0);
 		
 		rectangle1 = new TestEntity("RectangleTest1");

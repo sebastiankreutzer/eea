@@ -24,35 +24,77 @@ import de.tu_darmstadt.informatik.tanks2.actions.ScatterShootAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnMineAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Tank;
-import de.tu_darmstadt.informatik.tanks2.events.HasMinesAmmoLeftEvent;
-import de.tu_darmstadt.informatik.tanks2.events.HasShootAmmoLeftEvent;
+import de.tu_darmstadt.informatik.tanks2.events.HasMinesLeftEvent;
+import de.tu_darmstadt.informatik.tanks2.events.RandomEvent;
+import de.tu_darmstadt.informatik.tanks2.events.HasAmmunitionLeftEvent;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options.Difficulty;
 import temp.removeASAP.Tanks;
 
+/**
+ * Eine Factory zum erzeugen von Tanks, die entweder vom einem Spieler oder von einer AI gesteurt werden.
+ * @author jr
+ *
+ */
 public class TankFactory {
 	private final String difficulty;
 	private final boolean debug;
 	private IResourceManager resourcesManager;
 	private ShootFactory shotFactory;
 	private MineFactory mineFactory;
-	
-	
-	public TankFactory(String difficulty , IResourceManager resourcesManager, ShootFactory shotFactory, MineFactory mineFactory, boolean debug){
+
+	/**
+	 * Erzeugt eine neue TankFactory.
+	 * 
+	 * @param difficulty
+	 *            Der Schwierigkeitsgrad der AI Tanks.
+	 * @param resourcesManager
+	 *            Der ResourcesManager fuer die Bilder
+	 * @param shotFactory
+	 *            Die ShotFactory fuer die Schuesse
+	 * @param mineFactory
+	 *            Die MineFactory fuer die Mines
+	 * @param debug
+	 *            Der Debugmodus
+	 */
+	public TankFactory(String difficulty, IResourceManager resourcesManager, ShootFactory shotFactory,
+			MineFactory mineFactory, boolean debug) {
 		this.difficulty = difficulty;
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
 		this.shotFactory = shotFactory;
 		this.mineFactory = mineFactory;
 	}
-	
-	public Tank createTank(float x, float y, String name, int maxLife, int life, 
-			int shootsMax, int shoots,int minesMax, int mines, 
-			int strength,float speed, float rotation, float scale){
-		
+
+	/**
+	 * Erzeugt einen neuen Tank.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param name
+	 *            Die ID des Tanks, falls gleich {@link Tanks#player1} oder
+	 *            {@link Tanks#player2} ist der Tank spielergesteuert, ansonsten
+	 *            von einer AI
+	 * @param maxLife
+	 * @param life
+	 * @param shootsMax
+	 * @param shoots
+	 * @param minesMax
+	 * @param mines
+	 * @param strength
+	 * @param speed
+	 * @param rotation
+	 * @param scale
+	 * @return Einen Tank der entweder von einem Spieler oder einer KI gesteuert
+	 *         wird.
+	 */
+	public Tank createTank(float x, float y, String name, int maxLife, int life, int shootsMax, int shoots,
+			int minesMax, int mines, int strength, float speed, float rotation, float scale) {
+
+		// Erzeugt einen neuen Tank und setzt die Parameter
 		Tank tank = new Tank(name, x, y, rotation, scale);
 		tank.addComponent(new RectangleCollisionComponent());
-		
+
 		tank.setSpeed(speed);
 		tank.setMaxLife(maxLife);
 		tank.setLife(life);
@@ -61,129 +103,98 @@ public class TankFactory {
 		tank.setMinesMaxAmmo(minesMax);
 		tank.setMinesAmmo(mines);
 		tank.setStrength(strength);
-		
 
-		if(name.equals(Tanks.player1)){
-			tank.addComponent(new ImageRenderComponent("tankPlayer.png", resourcesManager));
-			
-			RotateAction rightRotateAction = new RotateAction(-speed);
-			RotateAction leftRotateAction = new RotateAction(speed);
-			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
-			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
-			
-			
-	    	// tank moves forward
-	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.UP), new MovementDoesNotCollideEvent(forwardMoveAction));
-	    	mainEvents.addAction(forwardMoveAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank moves backward
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.DOWN), new MovementDoesNotCollideEvent(backwardMoveAction));
-	    	mainEvents.addAction(backwardMoveAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank rotates left
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.LEFT), new MovementDoesNotCollideEvent(leftRotateAction));
-	    	mainEvents.addAction(leftRotateAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank rotates right
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.RIGHT), new MovementDoesNotCollideEvent(rightRotateAction));
-	    	mainEvents.addAction(rightRotateAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank shoots
-	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.K)) , new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ShootAction(shotFactory, debug));
-	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank mines
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.M), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
-	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
-	    	tank.addComponent(mainEvents);
-	    	
-	    	//Tank ScatterShoot
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.L), new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ScatterShootAction(1.5f, shotFactory, debug));
-	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
-	    	tank.addComponent(mainEvents);
-	    	
-	    	
-	    	mainEvents = new TimeEvent(5, true);
-	    	mainEvents.addAction(new ChangeMineAmmoAction(1));
-	    	mainEvents.addAction(new ChangeAmmunitionAction(1));
-	    	tank.addComponent(mainEvents);
-	    	
-		} else if(name.equals(Tanks.player2)){
-			
+		// Wenn der Tank von Spieler1 gesteuert werden soll
+		if (name.equals(Tanks.player1)) {
+			// Setzte das Bild fuer Spieler1
+			tank.addComponent(new ImageRenderComponent("tankPlayer.png"));
+
+			// initialisiere die Steuerung
+			initPlayerControls(speed, tank, Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT,
+					Input.Keys.K, Input.Keys.M, Input.Keys.L);
+
+		} else if (name.equals(Tanks.player2)) {
 			// Mehrspielermodus
 			GameplayLog.getInstance().setMultiplayer(true);
-			
-			tank.addComponent(new ImageRenderComponent("tankPlayer2.png", resourcesManager));
-			
-			RotateAction rightRotateAction = new RotateAction(-speed);
-			RotateAction leftRotateAction = new RotateAction(speed);
-			MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
-			MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
-			
-	    	// tank moves forward
-	    	EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.W), new MovementDoesNotCollideEvent(forwardMoveAction));
-	    	mainEvents.addAction(forwardMoveAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank moves backward
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.S), new MovementDoesNotCollideEvent(backwardMoveAction));
-	    	mainEvents.addAction(backwardMoveAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank rotates left
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.A), new MovementDoesNotCollideEvent(leftRotateAction));
-	    	mainEvents.addAction(leftRotateAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank rotates right
-	    	mainEvents = new ANDEvent(new KeyDownEvent(Input.Keys.D), new MovementDoesNotCollideEvent(rightRotateAction));
-	    	mainEvents.addAction(rightRotateAction);
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank shoots
-	    	mainEvents = new ANDEvent((new KeyPressedEvent(Input.Keys.G)) , new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ShootAction(shotFactory, debug));
-	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
-	    	tank.addComponent(mainEvents);
-	    	
-	    	// tank mines
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.F), new HasMinesAmmoLeftEvent());
-	    	mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
-	    	mainEvents.addAction(new ChangeMineAmmoAction(-1));
-	    	tank.addComponent(mainEvents);
-	    	
-	    	//Tank ScatterShoot
-	    	mainEvents = new ANDEvent(new KeyPressedEvent(Input.Keys.H), new HasShootAmmoLeftEvent());
-	    	mainEvents.addAction(new ScatterShootAction(500, shotFactory, debug));
-	    	mainEvents.addAction(new ChangeAmmunitionAction(-1));
-	    	tank.addComponent(mainEvents);
-	    	
-	    	
-	    	mainEvents = new TimeEvent(5, true);
-	    	mainEvents.addAction(new ChangeMineAmmoAction(1));
-	    	mainEvents.addAction(new ChangeAmmunitionAction(1));
-	    	tank.addComponent(mainEvents);
+
+			// Setzte das Bild fuer Spieler2
+			tank.addComponent(new ImageRenderComponent("tankPlayer2.png"));
+
+			// initialisiere die Steuerung
+			initPlayerControls(speed, tank, Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.G,
+					Input.Keys.F, Input.Keys.H);
 		} else {
-			tank.addComponent(new ImageRenderComponent("tankOppenent.png", resourcesManager));
-			
+			// Ansonsten ist der Tank ein Gegner
+			tank.addComponent(new ImageRenderComponent("tankOppenent.png"));
+
+			// Waehle die AI je nach Schwierigkeitsgrad
 			EEAComponent componentAI;
-			if(this.difficulty.equals(Difficulty.EASY.toString())) componentAI = new TowerAI(Tanks.player1, shotFactory, debug);
-			else componentAI = new TankAI(Tanks.player1, shotFactory, debug);
+			if (this.difficulty.equals(Difficulty.EASY.toString()))
+				componentAI = new TowerAI(Tanks.player1, shotFactory, debug);
+			else
+				componentAI = new TankAI(Tanks.player1, shotFactory, debug);
 			tank.addComponent(componentAI);
-			
-			EEAEvent mainEvents = new TimeEvent(5, true);
-	    	mainEvents.addAction(new ChangeAmmunitionAction(1));
-	    	tank.addComponent(mainEvents);
+
+			// Die Munition des Tanks soll automatisch alle 4 bis 6 Sekunden
+			// nachgeladen werden.
+			EEAEvent reloadEvent = new RandomEvent(4f, 6f, true);
+			reloadEvent.addAction(new ChangeAmmunitionAction(1));
+			tank.addComponent(reloadEvent);
 		}
+
 		return tank;
+	}
+
+	private void initPlayerControls(float speed, Tank tank, int up, int down, int left, int right, int shoot, int mine,
+			int scattershot) {
+		// Die Actions zum Steuern des Tanks
+		RotateAction rightRotateAction = new RotateAction(-speed);
+		RotateAction leftRotateAction = new RotateAction(speed);
+		MoveRelativeAction forwardMoveAction = new MoveRelativeAction(speed, 0);
+		MoveRelativeAction backwardMoveAction = new MoveRelativeAction(-speed, 0);
+
+		// Forwaertsbewegung
+		EEAEvent mainEvents = new ANDEvent(new KeyDownEvent(up), new MovementDoesNotCollideEvent(forwardMoveAction));
+		mainEvents.addAction(forwardMoveAction);
+		tank.addComponent(mainEvents);
+
+		// Rueckwertsbewegung
+		mainEvents = new ANDEvent(new KeyDownEvent(down), new MovementDoesNotCollideEvent(backwardMoveAction));
+		mainEvents.addAction(backwardMoveAction);
+		tank.addComponent(mainEvents);
+
+		// Drehen links
+		mainEvents = new ANDEvent(new KeyDownEvent(left), new MovementDoesNotCollideEvent(leftRotateAction));
+		mainEvents.addAction(leftRotateAction);
+		tank.addComponent(mainEvents);
+
+		// Drehen rechts
+		mainEvents = new ANDEvent(new KeyDownEvent(right), new MovementDoesNotCollideEvent(rightRotateAction));
+		mainEvents.addAction(rightRotateAction);
+		tank.addComponent(mainEvents);
+
+		// Schiessen
+		mainEvents = new ANDEvent((new KeyPressedEvent(shoot)), new HasAmmunitionLeftEvent(tank));
+		mainEvents.addAction(new ShootAction(shotFactory, debug));
+		tank.addComponent(mainEvents);
+
+		// Mine legen
+		mainEvents = new ANDEvent(new KeyPressedEvent(mine), new HasMinesLeftEvent(tank));
+		mainEvents.addAction(new SpawnMineAction(mineFactory, debug));
+		mainEvents.addAction(new ChangeMineAmmoAction(-1));
+		tank.addComponent(mainEvents);
+
+		// ScatterShoot, verbraucht eine extra Munition
+		mainEvents = new ANDEvent(new KeyPressedEvent(scattershot), new HasAmmunitionLeftEvent(tank));
+		mainEvents.addAction(new ScatterShootAction(1.5f, shotFactory, debug));
+		mainEvents.addAction(new ChangeAmmunitionAction(-1));
+		tank.addComponent(mainEvents);
+
+		// Lade regelmaessig nach
+		mainEvents = new TimeEvent(8, true);
+		mainEvents.addAction(new ChangeMineAmmoAction(1));
+		mainEvents.addAction(new ChangeAmmunitionAction(2));
+		tank.addComponent(mainEvents);
 	}
 
 }

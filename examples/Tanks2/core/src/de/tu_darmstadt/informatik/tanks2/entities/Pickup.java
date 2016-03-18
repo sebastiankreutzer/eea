@@ -11,6 +11,11 @@ import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
  */
 public class Pickup extends Entity implements IStrength {
 
+	/**
+	 * Bestimmt den Type eines Pickups.
+	 * @author jr
+	 *
+	 */
 	public static enum PickupType {
 		HEALTH("Health PickUp"), AMMUNITION("Ammunition PickUp");
 

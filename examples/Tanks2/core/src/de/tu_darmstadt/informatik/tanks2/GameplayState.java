@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
@@ -16,18 +17,21 @@ import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.EEARenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent.Border;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
+import de.tu_darmstadt.informatik.eea.event.EntityDestroyedEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.OREvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnPickupAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Tank;
-import de.tu_darmstadt.informatik.tanks2.events.EntityDestroyedEvent;
 import de.tu_darmstadt.informatik.tanks2.events.RandomEvent;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
+import de.tu_darmstadt.informatik.tanks2.factories.BorderFactory;
 import de.tu_darmstadt.informatik.tanks2.highscore.Highscore;
 import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;
@@ -128,7 +132,7 @@ public class GameplayState extends EEAGameState {
 		if (tank != null) {
 			ammo1Text.setText("Übrige Schüsse: " + tank.getAmmunition() + "/" + tank.getMaxAmmunition());
 			mine1Text.setText("Übrige Minen: " + tank.getActualMinesAmmo() + "/" + tank.getMaxMinesAmmo());
-			life1Text.setText("Leben: " + tank.getActualLife() + "/" + tank.getMaxLife());
+			life1Text.setText("Leben: " + tank.getLife() + "/" + tank.getMaxLife());
 		}
 		// Stelle im Mehrspielermodus die Informationen fuer Spieler2 dar, zeige
 		// ansonsten die Zeit an
@@ -139,7 +143,7 @@ public class GameplayState extends EEAGameState {
 				player2Text.setText("Spieler 2");
 				ammo2Text.setText("Übrige Schüsse: " + tank2.getAmmunition() + "/" + tank2.getMaxAmmunition());
 				mine2Text.setText("Übrige Minen: " + tank2.getActualMinesAmmo() + "/" + tank2.getMaxMinesAmmo());
-				life2Text.setText("Leben: " + tank2.getActualLife() + "/" + tank2.getMaxLife());
+				life2Text.setText("Leben: " + tank2.getLife() + "/" + tank2.getMaxLife());
 			}
 		} else {
 			player1Text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
@@ -196,6 +200,15 @@ public class GameplayState extends EEAGameState {
 
 		// Hinzufuegen der Spiellogik Entity
 		em.addEntity(createGameLogic());
+
+		// Erzeuge die Spielfeldbegrenzun mit der Factory
+		BorderFactory borderFactory = new BorderFactory(game.getViewport().getWorldWidth(),
+				game.getViewport().getWorldHeight());
+		em.addEntity(borderFactory.createBorder(Border.LEFT));
+		em.addEntity(borderFactory.createBorder(Border.RIGHT));
+		em.addEntity(borderFactory.createBorder(Border.BOTTOM));
+		em.addEntity(borderFactory.createBorder(Border.TOP));
+
 		createUI();
 	}
 
@@ -255,7 +268,7 @@ public class GameplayState extends EEAGameState {
 		entity.addComponent(defeatEvent);
 
 		// Hin und wieder werden zufaellig PickUp Objekte erzeugt
-		EEAEvent event = new RandomEvent(1, 4);
+		EEAEvent event = new RandomEvent(1, 4, true);
 		event.addAction(new SpawnPickupAction(resourcesManager));
 		entity.addComponent(event);
 

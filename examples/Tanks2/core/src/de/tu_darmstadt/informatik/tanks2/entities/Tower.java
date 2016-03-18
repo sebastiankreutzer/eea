@@ -92,7 +92,7 @@ public class Tower extends Entity implements ILife, IAmmunition, IStrength, ISpe
 	}
 
 	@Override
-	public int getActualLife() {
+	public int getLife() {
 		return life;
 	}
 

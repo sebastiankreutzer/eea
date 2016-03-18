@@ -38,7 +38,7 @@ public class MainMenuState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager())); // Bildkomponente
+		background.addComponent(new ImageRenderComponent("menu.png")); // Bildkomponente
 		
 		if(options.isSoundEnabled()) {
 			EEAEvent soundEvent = new LoopEvent();
@@ -55,7 +55,7 @@ public class MainMenuState extends EEAGameState {
 		mainMenuText.addComponent(new TextRenderComponent("Hauptmenü", game.graphics));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(em, game);
+		MenuEntryFactory mef = new MenuEntryFactory(game.getResourcesManager(), game.graphics);
 		mef.setDimensions(55, 390, 380, 60);
 		
 		mef.prepareMenuEntry("Neues Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState){
@@ -67,8 +67,9 @@ public class MainMenuState extends EEAGameState {
 				return true;
 			}
 		});
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
+		
 		mef.prepareMenuEntry("Spielstand laden", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {
 			
 			@Override
@@ -100,17 +101,20 @@ public class MainMenuState extends EEAGameState {
 			    return true;
 			}
 		});
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
+		
 		mef.prepareMenuEntry("Highscore", "entry.png", new ChangeStateAction(game, LaunchTanks.highScoreState));
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
+		
 		mef.prepareMenuEntry("Einstellungen", "entry.png", new ChangeStateAction(game, LaunchTanks.optionsState));
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
+		
 		mef.prepareMenuEntry("Beenden", "entry.png", new QuitAction());
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText();
+		em.addEntity(mef.makeMenuEntry());
+		em.addEntity(mef.makeMenuEntryText());
 	}
 
 }

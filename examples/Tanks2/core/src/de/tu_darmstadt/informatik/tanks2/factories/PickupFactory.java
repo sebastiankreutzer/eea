@@ -17,29 +17,61 @@ import de.tu_darmstadt.informatik.tanks2.actions.ChangeLifeAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 
+/**
+ * Eine Factroy zum erzeugen von Pickup Entities.
+ * 
+ * @author jr
+ *
+ */
 public class PickupFactory {
 
 	private final boolean debug;
 	private IResourceManager resourcesManager;
 
-	public PickupFactory(boolean debug, IResourceManager resourcesManager) {
-		this.debug = debug;
+	/**
+	 * Erzeugt eine neue PickupFactory
+	 * 
+	 * @param resourcesManager
+	 *            Der ResourcesManager fuer die Bilder
+	 * @param debug
+	 *            Der Debugmodus
+	 */
+	public PickupFactory(IResourceManager resourcesManager, boolean debug) {
 		this.resourcesManager = resourcesManager;
+		this.debug = debug;
 	}
 
-	public Entity createPickup(PickupType type, int strength, float x, float y, float scale) {
+	/**
+	 * Erstellt eine neues Pickup.
+	 * 
+	 * @param type
+	 *            Der {@link PickupType} des Pickups
+	 * @param strength
+	 *            Die Staerke des Pickups
+	 * @param x
+	 *            Die x Position
+	 * @param y
+	 *            Die y Position
+	 * @param scale
+	 *            Die Skalierung
+	 * @return Ein Pickup, das bei Kontakt Lebenspunkte oder Munition auffuelt.
+	 */
+	public Pickup createPickup(PickupType type, int strength, float x, float y, float scale) {
+		// Erzeuge ein neues Pickup mit den gegebenen Parametern
 		Pickup pickup = new Pickup(type);
 		pickup.setStrength(strength);
 		pickup.setScale(scale);
 		pickup.setPosition(x, y);
+		pickup.addComponent(new RectangleTriggerComponent());
 
-		EEAEvent mainEvent = new TimeEvent(8, false);
-		mainEvent.addAction(new DestroyEntityAction());
-		pickup.addComponent(mainEvent);
+		// Nach 8 Sekunden soll das Pickup verschwinden
+		TimeEvent disappearEvent = new TimeEvent(8, false);
+		disappearEvent.addAction(new DestroyEntityAction());
+		pickup.addComponent(disappearEvent);
 
-		mainEvent = new TimeEvent(5, false);
-		EEAEvent secondaryEvent = new TimeEvent(0.1f, true);
-		secondaryEvent.addAction(new Action() {
+		// Erzeuge ein Event mit Action welche das Pickup blinken laesst
+		EEAEvent blinkEvent = new TimeEvent(0.1f, true);
+		blinkEvent.addAction(new Action() {
 
 			@Override
 			public boolean act(float delta) {
@@ -48,20 +80,23 @@ public class PickupFactory {
 			}
 		});
 
-		mainEvent.addAction(new AddComponentsAction(pickup, secondaryEvent));
-		mainEvent.addAction(new RemoveEventAction(mainEvent));
-		pickup.addComponent(mainEvent);
+		// Nach 5 Sekunden soll das Pickup anfange zu blinken
+		TimeEvent enableBlinking = new TimeEvent(5, false);
+		enableBlinking.addAction(new AddComponentsAction(pickup, blinkEvent));
+		enableBlinking.addAction(new RemoveEventAction(enableBlinking));
+		pickup.addComponent(enableBlinking);
 
+		// Bei einer Kollision soll je nach PickupType die Munition oder
+		// Lebenspunkte aufgefuellt werden.
 		EEAEvent collisionEvent = new CollisionEvent();
-
 		switch (type) {
 		case HEALTH:
-			pickup.addComponent(new ImageRenderComponent("healthpack.png", resourcesManager));
+			pickup.addComponent(new ImageRenderComponent("healthpack.png"));
 			collisionEvent.addAction(new ChangeLifeAction(strength));
 			break;
 
 		case AMMUNITION:
-			pickup.addComponent(new ImageRenderComponent("munipack.png", resourcesManager));
+			pickup.addComponent(new ImageRenderComponent("munipack.png"));
 			collisionEvent.addAction(new ChangeAmmoAction(strength));
 			break;
 
@@ -69,10 +104,7 @@ public class PickupFactory {
 			break;
 		}
 		collisionEvent.addAction(new DestroyEntityAction());
-
 		pickup.addComponent(collisionEvent);
-		
-		pickup.addComponent(new RectangleTriggerComponent());
 
 		return pickup;
 	}

@@ -1,14 +1,13 @@
 package de.tu_darmstadt.informatik.tanks2.maps;
 
 import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.entity.Entity;
+import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
-import de.tu_darmstadt.informatik.tanks2.factories.BackgroundFactory;
-import de.tu_darmstadt.informatik.tanks2.factories.BorderFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.MineFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.PickupFactory;
-import de.tu_darmstadt.informatik.tanks2.factories.ScatterShootFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.TankFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.TowerFactory;
@@ -45,7 +44,6 @@ public class Parser implements IParser {
 	private ExplosionFactory explosionFactory;
 	private PickupFactory pickUpFactory;
 	private MineFactory mineFactory;
-	private ScatterShootFactory scatterShotFactory;
 	private ShootFactory shotFactory;
 	private TankFactory tankFactory;
 	private TowerFactory towerFactory;
@@ -59,12 +57,12 @@ public class Parser implements IParser {
 		this.resourcesManager = resourcesManager;
 		
 		explosionFactory = new ExplosionFactory(resourcesManager, debug);
-		pickUpFactory = new PickupFactory(debug, resourcesManager);
+		pickUpFactory = new PickupFactory(resourcesManager, debug);
 		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
 		shotFactory = new ShootFactory(resourcesManager, explosionFactory, debug);
 		tankFactory = new TankFactory(options.getDifficulty(), resourcesManager, shotFactory, mineFactory, debug);
-		towerFactory = new TowerFactory(resourcesManager, shotFactory, debug);
-		wallFactory = new WallFactory(debug, resourcesManager);
+		towerFactory = new TowerFactory(shotFactory, debug);
+		wallFactory = new WallFactory(debug);
 	}
 
 	public void setDebug(boolean debug) {
@@ -95,10 +93,6 @@ public class Parser implements IParser {
 			case Token.Explosion:
 				this.acceptIt();
 				map = parseExplosion(map);
-				break;
-			case Token.Border:
-				this.acceptIt();
-				map = parseBorder(map);
 				break;
 			case Token.Tower:
 				this.acceptIt();
@@ -172,9 +166,9 @@ public class Parser implements IParser {
 
 		this.accept(Token.Map);
 
-		String backGround = this.accept(Token.IDENTIFIER).getSpelling();
+		String backgroundName = this.accept(Token.IDENTIFIER).getSpelling();
 		String mapName = this.accept(Token.IDENTIFIER).getSpelling();
-		String nextMap = this.accept(Token.IDENTIFIER).getSpelling();
+		String nextMapName = this.accept(Token.IDENTIFIER).getSpelling();
 
 		long timeLimit = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 
@@ -182,15 +176,18 @@ public class Parser implements IParser {
 
 		int shots = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 
-		GameplayLog.getInstance().setBackground(backGround);
+		GameplayLog.getInstance().setBackground(backgroundName);
 		GameplayLog.getInstance().setMapName(mapName.substring(1, mapName.length() - 1));
-		GameplayLog.getInstance().setNextMap(nextMap);
+		GameplayLog.getInstance().setNextMap(nextMapName);
 		GameplayLog.getInstance().setTimeLimit(timeLimit);
 		GameplayLog.getInstance().timer.set(time);
 		GameplayLog.getInstance().setNumberOfShots(shots);
 
-		map.addEntity(new BackgroundFactory(backGround.substring(1, backGround.length() - 1), resourcesManager)
-				.createEntity());
+		// Add background
+		Entity background = new Entity("background");
+		String file = backgroundName.substring(1, backgroundName.length() - 1);
+		background.addComponent(new ImageRenderComponent(file));
+		map.addEntity(background);
 
 		return map;
 	}
@@ -214,21 +211,6 @@ public class Parser implements IParser {
 
 		map.addEntity(
 				towerFactory.createTower(x, y, maxLife, life, maxShoots, shoots, streangth, speed, rotation, scale));
-
-		return map;
-	}
-
-	protected Map parseBorder(Map map) throws SyntaxException {
-
-		int x = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		int width = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		int height = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		map.addEntity(new BorderFactory(x, y, width, height).createEntity());
 
 		return map;
 	}
@@ -307,7 +289,7 @@ public class Parser implements IParser {
 		float rotation = parseFloat();
 		float scaling = parseFloat();
 
-		map.addEntity(wallFactory.createEntity(x, y, maxLife, life, rotation, scaling));
+		map.addEntity(wallFactory.createWall(x, y, maxLife, life, rotation, scaling));
 
 		return map;
 	}

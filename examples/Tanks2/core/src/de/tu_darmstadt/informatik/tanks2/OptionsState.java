@@ -37,7 +37,7 @@ public class OptionsState extends EEAGameState {
 	@Override
 	protected void init() {
 		Entity background = new Entity("background");	// Entitaet fuer Hintergrunde
-		background.addComponent(new ImageRenderComponent("menu.png", game.getResourcesManager())); // Bildkomponente
+		background.addComponent(new ImageRenderComponent("menu.png")); // Bildkomponente
 		
 		// Erzeuge folgendes Event "Escape-Taste gedrueckt"
 		EEAEvent ESC_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
@@ -54,7 +54,7 @@ public class OptionsState extends EEAGameState {
 		mainMenuText.addComponent(new TextRenderComponent("Einstellungen", game.graphics));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(em, game);
+		MenuEntryFactory mef = new MenuEntryFactory(game.getResourcesManager(), game.graphics);
 		mef.setDimensions(55, 330, 380, 60);
 		
     	// Ton einschalten/ausschalten
@@ -68,8 +68,10 @@ public class OptionsState extends EEAGameState {
 			}    		
     	};
 		mef.prepareMenuEntry("Ton", "entry.png", toggleSound);
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText().addComponent(soundText);
+		em.addEntity(mef.makeMenuEntry());
+		Entity soundTextEntity = mef.makeMenuEntryText();
+		soundTextEntity.addComponent(soundText);
+		em.addEntity(soundTextEntity);
 		
 		Action difficulty = new Action() {
 			@Override
@@ -85,8 +87,10 @@ public class OptionsState extends EEAGameState {
 			}
 		};
 		mef.prepareMenuEntry("Schwierigkeit","entry.png", difficulty);
-		mef.makeMenuEntry();
-		mef.makeMenuEntryText().addComponent(difficultyText);
+		em.addEntity(mef.makeMenuEntry());
+		Entity textEntity = mef.makeMenuEntryText();
+		textEntity.addComponent(difficultyText);
+		em.addEntity(textEntity);
 	}
 
 }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 
 public abstract class EEAGameState implements Screen {
@@ -30,7 +31,7 @@ public abstract class EEAGameState implements Screen {
 		this.game = game;
 
 		game.addState(this);
-		em = new EntityManager(EEA.getViewport());
+		em = new EntityManager(EEA.getGraphics().getViewport());
 		im = new InputMultiplexer();
 	}
 
