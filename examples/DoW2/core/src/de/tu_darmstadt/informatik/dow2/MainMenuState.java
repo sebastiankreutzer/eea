@@ -41,7 +41,7 @@ public class MainMenuState extends EEAGameState {
     	
     	// Erstelle das Auslöse-Event und die zugehörige Action
     	ANDEvent mainEvents = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
-    	Action new_Game_Action = new ChangeStateAction(game, GameBootstrapper.GameplayState);
+    	Action new_Game_Action = new ChangeStateAction(game, DropOfWaterGame.GameplayState);
     	mainEvents.addAction(new_Game_Action);
     	new_Game_Entity.addComponent(mainEvents);
     	

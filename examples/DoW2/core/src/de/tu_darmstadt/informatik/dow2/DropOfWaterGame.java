@@ -3,11 +3,11 @@ package de.tu_darmstadt.informatik.dow2;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
-public class GameBootstrapper extends EEAGame {
+public class DropOfWaterGame extends EEAGame {
 	public static EEAGameState MainMenuState;
 	public static EEAGameState GameplayState;
 	
-	public GameBootstrapper() {		
+	public DropOfWaterGame() {		
 	}
 
 	/**

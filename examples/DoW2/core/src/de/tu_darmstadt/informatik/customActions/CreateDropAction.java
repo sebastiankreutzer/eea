@@ -5,7 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.dow2.GameBootstrapper;
+import de.tu_darmstadt.informatik.dow2.DropOfWaterGame;
 import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
@@ -107,7 +107,7 @@ public class CreateDropAction extends EEAAction {
     	lse.addAction(failSoundAction);
     	
     	// ... wechsle ins Hauptmenü
-    	lse.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState, true));
+    	lse.addAction(new ChangeStateAction(game, DropOfWaterGame.MainMenuState, true));
     	
     	// ... und zerstöre den Wassertropfen
     	lse.addAction(new DestroyEntityAction());

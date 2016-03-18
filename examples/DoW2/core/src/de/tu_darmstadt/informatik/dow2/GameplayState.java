@@ -107,7 +107,7 @@ public class GameplayState extends EEAGameState {
 	private void createEscapeAction() {		
     	Entity escListener = new Entity("ESC_Listener");
     	KeyPressedEvent escPressed = new KeyPressedEvent(Input.Keys.ESCAPE);
-    	escPressed.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
+    	escPressed.addAction(new ChangeStateAction(game, DropOfWaterGame.MainMenuState));
     	escListener.addComponent(escPressed);    	
     	em.addEntity(escListener);
 	}
