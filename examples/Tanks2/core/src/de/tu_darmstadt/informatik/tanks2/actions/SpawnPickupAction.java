@@ -25,7 +25,7 @@ public class SpawnPickupAction extends EEAAction {
 	 *            Der ResourcesManager
 	 */
 	public SpawnPickupAction(IResourcesManager resourcesManager) {
-		factory = new PickupFactory(false, resourcesManager);
+		factory = new PickupFactory(resourcesManager, false);
 	}
 
 	@Override

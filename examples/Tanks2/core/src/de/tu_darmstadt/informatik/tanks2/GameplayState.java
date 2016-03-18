@@ -31,6 +31,7 @@ import de.tu_darmstadt.informatik.tanks2.entities.Tank;
 import de.tu_darmstadt.informatik.tanks2.events.RandomEvent;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
+import de.tu_darmstadt.informatik.tanks2.factories.BorderFactory;
 import de.tu_darmstadt.informatik.tanks2.highscore.Highscore;
 import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;
@@ -199,27 +200,15 @@ public class GameplayState extends EEAGameState {
 
 		// Hinzufuegen der Spiellogik Entity
 		em.addEntity(createGameLogic());
-		
-		Entity leftBorder = new Entity("LeftBorder");
-		leftBorder.addComponent(new BorderCollisionComponent(Border.LEFT));
-		leftBorder.setPosition(0, 0);
-		em.addEntity(leftBorder);
-		
-		Entity rightBorder = new Entity("RightBorder");
-		rightBorder.addComponent(new BorderCollisionComponent(Border.RIGHT));
-		rightBorder.setPosition(game.getViewport().getCamera().viewportWidth, 0);
-		em.addEntity(rightBorder);
-		
-		Entity bottomBorder = new Entity("BottomBorder");
-		bottomBorder.addComponent(new BorderCollisionComponent(Border.BOTTOM));
-		bottomBorder.setPosition(0, 0);
-		em.addEntity(bottomBorder);
-		
-		Entity topBorder = new Entity("TopBorder");
-		topBorder.addComponent(new BorderCollisionComponent(Border.TOP));
-		topBorder.setPosition(0, game.getViewport().getWorldHeight());
-		em.addEntity(topBorder);
-		
+
+		// Erzeuge die Spielfeldbegrenzun mit der Factory
+		BorderFactory borderFactory = new BorderFactory(game.getViewport().getWorldWidth(),
+				game.getViewport().getWorldHeight());
+		em.addEntity(borderFactory.createBorder(Border.LEFT));
+		em.addEntity(borderFactory.createBorder(Border.RIGHT));
+		em.addEntity(borderFactory.createBorder(Border.BOTTOM));
+		em.addEntity(borderFactory.createBorder(Border.TOP));
+
 		createUI();
 	}
 

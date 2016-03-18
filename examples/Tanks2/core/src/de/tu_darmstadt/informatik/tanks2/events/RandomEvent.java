@@ -18,6 +18,7 @@ public class RandomEvent extends EEAEvent {
 
 	protected float minTime, maxTime, remaining;
 	protected boolean repeat;
+	private boolean triggered = false;
 
 	/**
 	 * @param minTime
@@ -36,7 +37,7 @@ public class RandomEvent extends EEAEvent {
 	 * @param maxTime
 	 *            Die Maximalzeit
 	 * @param repeat
-	 *            Ob das Event einmalig ausloesen soll.
+	 *            Ob das Event wiederholt ausloesen soll.
 	 */
 	public RandomEvent(float minTime, float maxTime, boolean repeat) {
 		super(ID);
@@ -55,17 +56,20 @@ public class RandomEvent extends EEAEvent {
 
 	@Override
 	public boolean eventTriggered(float delta) {
+		if(triggered) {
+			return false;
+		}
 		// Loese das Event aus, wenn die Zeit abgelaufen ist
 		remaining -= delta;
 		if (remaining < 0) {
 			// Setze den Zaehler gegebenefalls zurueck
 			if (repeat) {
 				init();
+			} else {
+				triggered = true;
 			}
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
-
 }

@@ -11,7 +11,6 @@ public class Token {
 								CHARLITERAL = 1,
 								IDENTIFIER = 2,
 								
-								Border = 3,
 								Explosion = 4,
 								Map = 5,
 								Mine = 6,
@@ -109,7 +108,7 @@ public class Token {
 		    return tokenTable[kind];
 		  }
 	
-	  private final static int	firstReservedWord = Token.Border,
+	  private final static int	firstReservedWord = Token.Explosion,
 				lastReservedWord  = Token.Wall;
 	  
 	  public String toString() {

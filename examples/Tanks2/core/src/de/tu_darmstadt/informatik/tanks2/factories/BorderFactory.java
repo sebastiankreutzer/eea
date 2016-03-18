@@ -1,32 +1,51 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.utils.Align;
-
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent;
 
+/**
+ * Eine Factory zum Erzeugen der Spielfeldgrenzen.
+ * @author jr
+ *
+ */
 public class BorderFactory {
 	
-	private float x, y, width, height;
+	private float width, height;
 	
-	
-	public BorderFactory(float x, float y, float width, float height){
-		this.x = x;
-		this.y = y;
+	/**
+	 * Erzeugt eine Factory fuer die Begrenzungen eines Spielfeldes.
+	 * @param width Die Breite des Spielfeldes
+	 * @param height Die Hoehe des Spielfeldes
+	 */
+	public BorderFactory(float width, float height){
 		this.width = width;
 		this.height = height;
 	}
 	
-	public Entity createEntity() {
+	/**
+	 * Erzeugt eine Entity mit einer BorderCollisionComponent fuer eine gegebene Richtung. Die Entity wird korekt positioniert.
+	 * @param border Die Richtung der Begrenzung
+	 * @return Eine Entity mir BorderCollisionComponent
+	 */
+	public Entity createBorder(BorderCollisionComponent.Border border) {
+		// Erzeuge eine Entity und fuege die BorderCollisionComponent hinzu
+		Entity entity = new Entity("Border"+border.toString());
+		entity.addComponent(new BorderCollisionComponent(border));
+		// Setzte die korrekte Position je nach Richtung
+		switch (border) {
+		case RIGHT:
+			entity.setPosition(width, 0);
+			break;
+		case TOP:
+			entity.setPosition(0, height);
+			break;
+		default:
+			entity.setPosition(0, 0);
+			break;
+		}
+		entity.setVisible(false);
 		
-		Entity border = new Entity("Border"+Math.random());
-		border.setPosition(x, y);
-		border.setSize(width, height);
-		border.setVisible(false);
-		// TODO Fix parsing?
-		// border.addComponent(new BorderCollisionComponent(Align.bottom));
-		
-		return border;
+		return entity;
 	}
 	
 }
