@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.EEAGraphics;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
@@ -23,7 +23,7 @@ import de.tu_darmstadt.informatik.eea.states.EntityManager;
  */
 public class MenuEntryFactory {
 
-	protected final IResourcesManager resourcesManager;
+	protected final IResourceManager resourcesManager;
 	protected final EEAGraphics graphics;
 
 	private float startX = 0f, startY = 0f;
@@ -43,7 +43,7 @@ public class MenuEntryFactory {
 	 * @param graphics
 	 *            Die Graphics Instanz fuer die Texte
 	 */
-	public MenuEntryFactory(IResourcesManager resourcesManager, EEAGraphics graphics) {
+	public MenuEntryFactory(IResourceManager resourcesManager, EEAGraphics graphics) {
 		this.resourcesManager = resourcesManager;
 		this.graphics = graphics;
 	}

@@ -1,11 +1,14 @@
 package de.tu_darmstadt.informatik.customActions;
 
+import java.util.Random;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.dow2.GameBootstrapper;
 import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
@@ -22,14 +25,14 @@ import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 public class CreateDropAction extends EEAAction {
-	private final IResourcesManager resourcesManager;
+	private final IResourceManager resourcesManager;
 	private final EntityManager em;
 	private final EEAGame game;
 	private final Entity bucket;
 	private final GameplayState gameplayState;
 	private final IMouseStatus mouseMovedEvent;
 	
-	public CreateDropAction(IResourcesManager resourcesManager, EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
+	public CreateDropAction(IResourceManager resourcesManager, EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
 		this.resourcesManager = resourcesManager;
 		this.em = em;
 		this.game = game;
@@ -83,8 +86,13 @@ public class CreateDropAction extends EEAAction {
 	 * Wenn ein Drop erzeugt wird, dann muss er positioniert werden.
 	 * @param drop
 	 */
-	private void positionDrop(Entity drop) {		
-		drop.setPosition(mouseMovedEvent.getMouseX(), mouseMovedEvent.getMouseY(), Align.top | Align.center);
+	private void positionDrop(Entity drop) {
+		Random random = new Random();
+		float x = random.nextInt((int) game.getViewport().getWorldWidth());
+		float y = game.getViewport().getWorldHeight();
+		// Alternative:
+		// x = mouseMovedEvent.getMouseX();
+		drop.setPosition(x, y, Align.top | Align.center);
 	}
 
 	/**
@@ -94,23 +102,21 @@ public class CreateDropAction extends EEAAction {
 	private void dropDisplayCollision(Entity drop) {
 		// Wenn der Bildschirm verlassen wird, dann ...
     	EntityOutOfScreenEvent lse = new EntityOutOfScreenEvent();
-    	// ... und wechsle ins Hauptmenue
-    	lse.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
-    	
     	// spiele einen Sound ab
     	SoundAction failSoundAction = new SoundAction("bubbles.mp3", resourcesManager);
     	lse.addAction(failSoundAction);
     	
-    	// ... zerstoere den Wassertropfen
+    	// ... wechsle ins Hauptmenü
+    	lse.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState, true));
+    	
+    	// ... und zerstöre den Wassertropfen
     	lse.addAction(new DestroyEntityAction());
-    	
-    	
     	
     	drop.addComponent(lse);
 	}
 
 	/**
-	 * der Tropfen soll nach unten fallen
+	 * Der Tropfen soll nach unten fallen
 	 * @param drop
 	 */
 	private void dropMovement(Entity drop) {

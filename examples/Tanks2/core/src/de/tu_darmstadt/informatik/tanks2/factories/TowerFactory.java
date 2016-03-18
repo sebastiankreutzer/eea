@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
@@ -23,7 +23,7 @@ public class TowerFactory {
 	private static int counter = 0;
 
 	private final boolean debug;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	private ShootFactory shotFactory;
 
 	/**
@@ -36,7 +36,7 @@ public class TowerFactory {
 	 * @param debug
 	 *            Der DebugModus
 	 */
-	public TowerFactory(IResourcesManager resourcesManager, ShootFactory shotFactory, boolean debug) {
+	public TowerFactory(IResourceManager resourcesManager, ShootFactory shotFactory, boolean debug) {
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
 		this.shotFactory = shotFactory;

@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
@@ -9,9 +9,9 @@ import de.tu_darmstadt.informatik.tanks2.entities.Wall;
 public class WallFactory {
 	
 	private final boolean debug;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	
-	public WallFactory(boolean debug, IResourcesManager resourcesManager) {
+	public WallFactory(boolean debug, IResourceManager resourcesManager) {
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;
 	}

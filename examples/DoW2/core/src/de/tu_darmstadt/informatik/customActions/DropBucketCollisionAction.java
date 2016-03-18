@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.customActions;
 
 import de.tu_darmstadt.informatik.dow2.GameplayState;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.SoundAction;
@@ -11,9 +11,9 @@ public class DropBucketCollisionAction extends EEAAction{
 
 	private Entity bucket;
 	private GameplayState gameplayState;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 
-	public DropBucketCollisionAction(Entity bucket, GameplayState gameplayState, IResourcesManager resourcesManager) {
+	public DropBucketCollisionAction(Entity bucket, GameplayState gameplayState, IResourceManager resourcesManager) {
 		this.bucket = bucket;
 		this.gameplayState = gameplayState;
 		this.resourcesManager = resourcesManager;

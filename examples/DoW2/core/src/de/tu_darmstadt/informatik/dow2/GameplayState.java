@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import de.tu_darmstadt.informatik.customActions.CreateDropAction;
 import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.MusicAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -19,14 +19,16 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class GameplayState extends EEAGameState {
 
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	public TextRenderComponent scoreRenderComponent;
 	private int Score;
 	
 	
-	public GameplayState(EEAGame game, IResourcesManager resourcesManager) {
+	public GameplayState(EEAGame game, IResourceManager resourcesManager) {
 		super(game);
 		this.resourcesManager = resourcesManager;
+		resourcesManager.loadTextureAsync("drop.png");
+		resourcesManager.loadSoundAsync("WaterDrop.mp3");
 	}
 	
 	@Override
@@ -43,7 +45,7 @@ public class GameplayState extends EEAGameState {
     	// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
     	em.addEntity(backgroundEntity);
     	
-    	gotoMenuIfEsc();
+    	createEscapeAction();
     	Entity bucket = createBucket(backgroundEntity);
     	createDropByClick(backgroundEntity, bucket);
     	createScore();
@@ -54,7 +56,7 @@ public class GameplayState extends EEAGameState {
 	 */
 	private void createScore() {
 		Entity score = new Entity("Score");
-    	score.setPosition(100, 100);
+    	score.setPosition(10, 20);
     	scoreRenderComponent = new TextRenderComponent("0 Drops catched", game.graphics);
     	score.addComponent(scoreRenderComponent);
     	em.addEntity(score);
@@ -90,24 +92,24 @@ public class GameplayState extends EEAGameState {
 	 * @param bucket 
 	 */
 	private void createDropByClick(final Entity backgroundEntity, Entity bucket) {
-    	Entity mouse_Clicked_Listener = new Entity("Mouse_Clicked_Listener");
+    	Entity mouseClickedListener = new Entity("Mouse_Clicked_Listener");
     	
-    	// wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
-    	MouseClickedEvent mouse_Clicked = new MouseClickedEvent();
-     	mouse_Clicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouse_Clicked));
-    	mouse_Clicked_Listener.addComponent(mouse_Clicked);
-    	em.addEntity(mouse_Clicked_Listener);
+    	// Wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
+    	MouseClickedEvent mouseClicked = new MouseClickedEvent();
+     	mouseClicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouseClicked));
+    	mouseClickedListener.addComponent(mouseClicked);
+    	em.addEntity(mouseClickedListener);
 	}
 
 	/**
 	 *  Bei Drücken der ESC-Taste zurueck ins Hauptmenue wechseln
 	 */
-	private void gotoMenuIfEsc() {		
-    	Entity esc_Listener = new Entity("ESC_Listener");
-    	KeyPressedEvent esc_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
-    	esc_pressed.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
-    	esc_Listener.addComponent(esc_pressed);    	
-    	em.addEntity(esc_Listener);
+	private void createEscapeAction() {		
+    	Entity escListener = new Entity("ESC_Listener");
+    	KeyPressedEvent escPressed = new KeyPressedEvent(Input.Keys.ESCAPE);
+    	escPressed.addAction(new ChangeStateAction(game, GameBootstrapper.MainMenuState));
+    	escListener.addComponent(escPressed);    	
+    	em.addEntity(escListener);
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.tanks2;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -112,7 +112,7 @@ public class PauseState extends EEAGameState {
 				String name = JOptionPane.showInputDialog(new JFrame(""), "Spielstand speichern unter dem Namen:",
 						"Spielstand speichern", 1);
 				Map map = Map.getInstance();
-				IResourcesManager resourcesManager = game.getResourcesManager();
+				IResourceManager resourcesManager = game.getResourcesManager();
 				map.save(name, LaunchTanks.gameState.getEntities(), resourcesManager);
 				return true;
 			}

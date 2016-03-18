@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.maps;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
@@ -39,7 +39,7 @@ public class Parser implements IParser {
 	private Token currentToken;
 	private SourcePosition previousTokenPosition;
 	private boolean debug;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 
 	private ExplosionFactory explosionFactory;
 	private PickupFactory pickUpFactory;
@@ -49,7 +49,7 @@ public class Parser implements IParser {
 	private TowerFactory towerFactory;
 	private WallFactory wallFactory;
 
-	public Parser(Scanner lexer, ErrorReporter reporter, IResourcesManager resourcesManager, Options options) {
+	public Parser(Scanner lexer, ErrorReporter reporter, IResourceManager resourcesManager, Options options) {
 		lexicalAnalyser = lexer;
 		errorReporter = reporter;
 		previousTokenPosition = new SourcePosition();

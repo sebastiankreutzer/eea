@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.eea.action;
 
 import com.badlogic.gdx.audio.Sound;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 
 /**
  * This class provides an action that triggers the play back of a Sound file. A Sound file is a
@@ -23,7 +23,7 @@ public class SoundAction extends EEAAudioAction {
 	 * Creates a new SoundAction, used for short and small audio files (< 1 MB) and no loop playback.
 	 * @param file The path to the sound file.
 	 */
-	public SoundAction(String file, IResourcesManager resourcesManager) {
+	public SoundAction(String file, IResourceManager resourcesManager) {
 		this(file, 1, resourcesManager);
 	}
 	
@@ -32,7 +32,7 @@ public class SoundAction extends EEAAudioAction {
 	 * @param file The path to the sound file.
 	 * @param volume The volume between 0 and 1 (full).
 	 */
-	public SoundAction(String file, float volume, IResourcesManager resourcesManager){
+	public SoundAction(String file, float volume, IResourceManager resourcesManager){
 		this(file, volume, 1, 1, resourcesManager);
 	}
 	
@@ -43,7 +43,7 @@ public class SoundAction extends EEAAudioAction {
 	 * @param pitch The pitch between 0.5 (slow) and 2 (fast), default 1.
 	 * @param pan The pan between -1 (left) and 1 (right), default 0 (center).
 	 */
-	public SoundAction(String file, float volume, float pitch, float pan, IResourcesManager resourcesManager) {
+	public SoundAction(String file, float volume, float pitch, float pan, IResourceManager resourcesManager) {
 		super(volume, pan);
 		this.path = file;
 		this.pitch = Math.min(2f, Math.max(0.5f, pitch));

@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.RemoveEventAction;
@@ -26,7 +26,7 @@ import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 public class PickupFactory {
 
 	private final boolean debug;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 
 	/**
 	 * Erzeugt eine neue PickupFactory
@@ -36,7 +36,7 @@ public class PickupFactory {
 	 * @param debug
 	 *            Der Debugmodus
 	 */
-	public PickupFactory(IResourcesManager resourcesManager, boolean debug) {
+	public PickupFactory(IResourceManager resourcesManager, boolean debug) {
 		this.resourcesManager = resourcesManager;
 		this.debug = debug;
 	}

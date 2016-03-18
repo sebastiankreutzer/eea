@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-public interface IResourcesManager {
+public interface IResourceManager {
 	public ROMFile openROMFile(String path);
 	public RWFile openRWFile(String path);
 	
