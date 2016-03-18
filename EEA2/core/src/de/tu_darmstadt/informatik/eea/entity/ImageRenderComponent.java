@@ -30,6 +30,10 @@ public class ImageRenderComponent extends EEARenderComponent {
 				owner.getRotation(), 0, 0, tex.getWidth(), tex.getHeight(), false, false);
 	}
 	
+	/**
+	 * Sets the owner entity and adjusts its size.
+	 * @param owningEntity The entity this component was added to
+	 */
 	@Override
 	public void setOwnerEntity(Entity owningEntity) {
 		super.setOwnerEntity(owningEntity);
