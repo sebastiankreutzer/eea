@@ -116,4 +116,12 @@ public class EEAGraphics {
 		return viewport.getScreenWidth() / viewport.getScreenHeight();
 	}
 	
+	public float getWorldWidth() {
+		return viewport.getWorldWidth();
+	}
+	
+	public float getWorldHeight() {
+		return viewport.getWorldHeight();
+	}
+	
 }

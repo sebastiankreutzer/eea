@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.dow2.DropOfWaterGame;
 import de.tu_darmstadt.informatik.dow2.GameplayState;
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
@@ -25,15 +26,13 @@ import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 public class CreateDropAction extends EEAAction {
-	private final IResourceManager resourcesManager;
 	private final EntityManager em;
 	private final EEAGame game;
 	private final Entity bucket;
 	private final GameplayState gameplayState;
 	private final IMouseStatus mouseMovedEvent;
 	
-	public CreateDropAction(IResourceManager resourcesManager, EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
-		this.resourcesManager = resourcesManager;
+	public CreateDropAction(EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
 		this.em = em;
 		this.game = game;
 		this.bucket = bucket;
@@ -67,10 +66,10 @@ public class CreateDropAction extends EEAAction {
 		drop.addComponent(new CircleCollisionComponent());
 		
 		EEAEvent collisionEvent = new CollisionEvent();
-		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState, resourcesManager));
+		collisionEvent.addAction(new DropBucketCollisionAction(bucket, gameplayState));
 		drop.addComponent(collisionEvent);
 		
-		SoundAction createDropSound = new SoundAction("WaterDrop.mp3", resourcesManager);
+		SoundAction createDropSound = new SoundAction("WaterDrop.mp3");
 		drop.addAction(createDropSound);
 	}
 
@@ -88,8 +87,8 @@ public class CreateDropAction extends EEAAction {
 	 */
 	private void positionDrop(Entity drop) {
 		Random random = new Random();
-		float x = random.nextInt((int) game.getViewport().getWorldWidth());
-		float y = game.getViewport().getWorldHeight();
+		float x = random.nextInt((int) EEA.getGraphics().getWorldWidth());
+		float y = EEA.getGraphics().getWorldHeight();
 		// Alternative:
 		// x = mouseMovedEvent.getMouseX();
 		drop.setPosition(x, y, Align.top | Align.center);
@@ -103,7 +102,7 @@ public class CreateDropAction extends EEAAction {
 		// Wenn der Bildschirm verlassen wird, dann ...
     	EntityOutOfScreenEvent lse = new EntityOutOfScreenEvent();
     	// spiele einen Sound ab
-    	SoundAction failSoundAction = new SoundAction("bubbles.mp3", resourcesManager);
+    	SoundAction failSoundAction = new SoundAction("bubbles.mp3");
     	lse.addAction(failSoundAction);
     	
     	// ... wechsle ins Hauptmenü

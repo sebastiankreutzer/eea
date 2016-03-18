@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.eea.action;
 
 import com.badlogic.gdx.audio.Music;
 
-import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.EEA;
 
 /**
  * This class provides an action that triggers the play back of a Music file. A Music file is a
@@ -21,8 +21,8 @@ public class MusicAction extends EEAAudioAction {
 	 * Creates a new MusicAction, used for playing long, looping audio files.
 	 * @param file The path to the file.
 	 */
-	public MusicAction(String file, IResourceManager resourcesManager) {
-		this(file, 1, 1, resourcesManager);
+	public MusicAction(String file) {
+		this(file, 1, 1);
 	}
 
 	/**
@@ -30,8 +30,8 @@ public class MusicAction extends EEAAudioAction {
 	 * @param file The path to the file.
 	 * @param volume The volume between 0 and 1 (full).
 	 */
-	public MusicAction(String file, float volume, IResourceManager resourcesManager) {
-		this(file, volume, 1, resourcesManager);
+	public MusicAction(String file, float volume) {
+		this(file, volume, 1);
 	}
 
 	/**
@@ -40,9 +40,9 @@ public class MusicAction extends EEAAudioAction {
 	 * @param volume The volume between 0 and 1 (full).
 	 * @param pan The pan between -1 (left) and 1 (right), default 0 (center).
 	 */
-	public MusicAction(String file, float volume, float pan, IResourceManager resourcesManager) {
+	public MusicAction(String file, float volume, float pan) {
 		super(volume, pan);
-		music = resourcesManager.getMusic(file);
+		music = EEA.getResourceManager().getMusic(file);
 		music.setPan(pan, volume);
 		music.setLooping(true);
 	}

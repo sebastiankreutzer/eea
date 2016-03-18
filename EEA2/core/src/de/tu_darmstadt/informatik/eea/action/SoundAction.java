@@ -2,6 +2,7 @@ package de.tu_darmstadt.informatik.eea.action;
 
 import com.badlogic.gdx.audio.Sound;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 
 /**
@@ -23,8 +24,8 @@ public class SoundAction extends EEAAudioAction {
 	 * Creates a new SoundAction, used for short and small audio files (< 1 MB) and no loop playback.
 	 * @param file The path to the sound file.
 	 */
-	public SoundAction(String file, IResourceManager resourcesManager) {
-		this(file, 1, resourcesManager);
+	public SoundAction(String file) {
+		this(file, 1);
 	}
 	
 	/**
@@ -32,8 +33,8 @@ public class SoundAction extends EEAAudioAction {
 	 * @param file The path to the sound file.
 	 * @param volume The volume between 0 and 1 (full).
 	 */
-	public SoundAction(String file, float volume, IResourceManager resourcesManager){
-		this(file, volume, 1, 1, resourcesManager);
+	public SoundAction(String file, float volume){
+		this(file, volume, 1, 1);
 	}
 	
 	/**
@@ -43,11 +44,11 @@ public class SoundAction extends EEAAudioAction {
 	 * @param pitch The pitch between 0.5 (slow) and 2 (fast), default 1.
 	 * @param pan The pan between -1 (left) and 1 (right), default 0 (center).
 	 */
-	public SoundAction(String file, float volume, float pitch, float pan, IResourceManager resourcesManager) {
+	public SoundAction(String file, float volume, float pitch, float pan) {
 		super(volume, pan);
 		this.path = file;
 		this.pitch = Math.min(2f, Math.max(0.5f, pitch));
-		sound = resourcesManager.getSound(file);
+		sound = EEA.getResourceManager().getSound(file);
 	}
 
 	/**

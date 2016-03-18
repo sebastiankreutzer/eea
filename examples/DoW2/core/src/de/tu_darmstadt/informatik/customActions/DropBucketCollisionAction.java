@@ -11,18 +11,16 @@ public class DropBucketCollisionAction extends EEAAction{
 
 	private Entity bucket;
 	private GameplayState gameplayState;
-	private IResourceManager resourcesManager;
 
-	public DropBucketCollisionAction(Entity bucket, GameplayState gameplayState, IResourceManager resourcesManager) {
+	public DropBucketCollisionAction(Entity bucket, GameplayState gameplayState) {
 		this.bucket = bucket;
 		this.gameplayState = gameplayState;
-		this.resourcesManager = resourcesManager;
 	}
 
 	@Override
 	public boolean act(float delta) {
 		if ( getTarget() == bucket ){
-			SoundAction fetchDropSound = new SoundAction("SlimeSplash.mp3", resourcesManager);
+			SoundAction fetchDropSound = new SoundAction("SlimeSplash.mp3");
 			getEntity().addAction(fetchDropSound);
 			getEntity().addAction(new DestroyEntityAction());
 			gameplayState.setScore(gameplayState.getScore() + 1);

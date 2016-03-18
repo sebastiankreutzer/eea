@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 
 import de.tu_darmstadt.informatik.customActions.CreateDropAction;
 import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
@@ -19,22 +20,21 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class GameplayState extends EEAGameState {
 
-	private IResourceManager resourcesManager;
 	public TextRenderComponent scoreRenderComponent;
-	private int Score;
+	private int score;
 	
 	
 	public GameplayState(EEAGame game) {
 		super(game);
-		this.resourcesManager = resourcesManager;
-		resourcesManager.loadTextureAsync("drop.png");
-		resourcesManager.loadSoundAsync("WaterDrop.mp3");
+		IResourceManager rm = EEA.getResourceManager();
+		rm.loadTextureAsync("drop.png");
+		rm.loadSoundAsync("WaterDrop.mp3");
 	}
 	
 	@Override
 	public void init() {
     	final Entity backgroundMusicEntity = new Entity("backgroundMusic");
-    	final MusicAction musicAction = new MusicAction("BabblingBrook.mp3", resourcesManager);
+    	final MusicAction musicAction = new MusicAction("BabblingBrook.mp3");
     	backgroundMusicEntity.addAction(musicAction);
     	em.addEntity(backgroundMusicEntity);
 		
@@ -96,7 +96,7 @@ public class GameplayState extends EEAGameState {
     	
     	// Wenn man mit der Maus klickt, dann sollen neue Tropfen erzeugt werden
     	MouseClickedEvent mouseClicked = new MouseClickedEvent();
-     	mouseClicked.addAction(new CreateDropAction(resourcesManager, em, game, bucket, this, mouseClicked));
+     	mouseClicked.addAction(new CreateDropAction(em, game, bucket, this, mouseClicked));
     	mouseClickedListener.addComponent(mouseClicked);
     	em.addEntity(mouseClickedListener);
 	}
@@ -117,11 +117,17 @@ public class GameplayState extends EEAGameState {
 	}
 
 	public int getScore() {
-		return Score;
+		return score;
 	}
 
 	public void setScore(int score) {
-		Score = score;
+		this.score = score;
+	}
+	
+	@Override
+	public void reset() {
+		super.reset();
+		score = 0;
 	}
 
 }

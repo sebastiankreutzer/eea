@@ -16,11 +16,9 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class MainMenuState extends EEAGameState {
 
-	private IResourceManager resourcesManager;
 
-	public MainMenuState(EEAGame game, IResourceManager resourcesManager) {
+	public MainMenuState(EEAGame game) {
 		super(game);
-		this.resourcesManager = resourcesManager;
 	}
 	
 	public void show(){
