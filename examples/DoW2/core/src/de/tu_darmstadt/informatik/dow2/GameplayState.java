@@ -54,7 +54,7 @@ public class GameplayState extends EEAGameState {
 	 */
 	private void createScore() {
 		Entity score = new Entity("Score");
-    	score.setPosition(100, 100);
+    	score.setPosition(10, 20);
     	scoreRenderComponent = new TextRenderComponent("0 Drops catched", game.graphics);
     	score.addComponent(scoreRenderComponent);
     	em.addEntity(score);
