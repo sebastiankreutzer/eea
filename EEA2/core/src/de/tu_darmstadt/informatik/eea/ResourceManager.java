@@ -7,10 +7,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
-public class ResourcesManager implements IResourcesManager {
+public class ResourceManager implements IResourceManager {
 	private AssetManager assetManager = new AssetManager();
 
-	public ResourcesManager() {
+	public ResourceManager() {
 		assetManager = new AssetManager();
 	}
 

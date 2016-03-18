@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.RWFile;
 
 public class Options {
@@ -21,7 +21,7 @@ public class Options {
 	// Sound settings
 	private boolean soundEnabled;
 	
-	public Options (IResourcesManager resourcesManager) {
+	public Options (IResourceManager resourcesManager) {
 		// Default setting
 		difficulty = Difficulty.EASY;
 		soundEnabled = true;

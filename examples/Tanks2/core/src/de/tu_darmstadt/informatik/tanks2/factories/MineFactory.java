@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu_darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -20,7 +20,7 @@ import de.tu_darmstadt.informatik.tanks2.actions.HitAction;
 public class MineFactory {
 
 	private final boolean debug;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	private ExplosionFactory explosionFactory;
 	
 	/**
@@ -31,7 +31,7 @@ public class MineFactory {
 	 * @param explosionFactory
 	 *            Die ExplosionFactory
 	 */
-	public MineFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory) {
+	public MineFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory) {
 		this(resourcesManager, explosionFactory, false);
 	}
 
@@ -45,7 +45,7 @@ public class MineFactory {
 	 * @param debug
 	 *            Der Zustand des Debugmodus
 	 */
-	public MineFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
+	public MineFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
 		this.resourcesManager = resourcesManager;
 		this.explosionFactory = explosionFactory;
 		this.debug = debug;

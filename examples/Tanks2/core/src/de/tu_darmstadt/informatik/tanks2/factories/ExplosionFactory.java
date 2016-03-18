@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.AnimationRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
@@ -21,7 +21,7 @@ public class ExplosionFactory {
 			"expl06.png", "expl07.png", "expl08.png", "expl09.png", "expl10.png", "expl11.png", "expl12.png",
 			"expl13.png", "expl14.png", "expl15.png", "expl16.png" };
 
-	IResourcesManager resourcesManager;
+	IResourceManager resourcesManager;
 	TextureRegion[] animationFrames = null;
 
 	/**
@@ -30,7 +30,7 @@ public class ExplosionFactory {
 	 * @param resourcesManager
 	 *            Der ResourcesManager
 	 */
-	public ExplosionFactory(IResourcesManager resourcesManager) {
+	public ExplosionFactory(IResourceManager resourcesManager) {
 		this(resourcesManager, false);
 	}
 
@@ -42,7 +42,7 @@ public class ExplosionFactory {
 	 * @param debug
 	 *            Debugmodus an (true) oder aus (false)
 	 */
-	public ExplosionFactory(IResourcesManager resourcesManager, boolean debug) {
+	public ExplosionFactory(IResourceManager resourcesManager, boolean debug) {
 		this.resourcesManager = resourcesManager;
 		this.debug = debug;
 		// Weise den ResourcesManager an die benoetigten Texturen vorzuladen.

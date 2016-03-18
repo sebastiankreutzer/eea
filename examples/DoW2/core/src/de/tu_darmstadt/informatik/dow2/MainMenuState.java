@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.dow2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.QuitAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -16,9 +16,9 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class MainMenuState extends EEAGameState {
 
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 
-	public MainMenuState(EEAGame game, IResourcesManager resourcesManager) {
+	public MainMenuState(EEAGame game, IResourceManager resourcesManager) {
 		super(game);
 		this.resourcesManager = resourcesManager;
 	}

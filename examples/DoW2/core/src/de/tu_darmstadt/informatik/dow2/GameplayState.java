@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import de.tu_darmstadt.informatik.customActions.CreateDropAction;
 import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.MusicAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -19,12 +19,12 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class GameplayState extends EEAGameState {
 
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	public TextRenderComponent scoreRenderComponent;
 	private int Score;
 	
 	
-	public GameplayState(EEAGame game, IResourcesManager resourcesManager) {
+	public GameplayState(EEAGame game, IResourceManager resourcesManager) {
 		super(game);
 		this.resourcesManager = resourcesManager;
 		resourcesManager.loadTextureAsync("drop.png");

@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.RWFile;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SemanticException;
@@ -66,7 +66,7 @@ public class Map implements IMap {
 
 	/**
 	 * Bereitet das Laden einer neuen Map vor. Beim naechsten Aufruf von
-	 * {@link Map#parse(IResourcesManager, boolean, Options)} wird dann die
+	 * {@link Map#parse(IResourceManager, boolean, Options)} wird dann die
 	 * angegebene Map geparst.
 	 * 
 	 * @param map
@@ -79,7 +79,7 @@ public class Map implements IMap {
 
 	/**
 	 * Bereitet das Laden einer gespeicherten Map vor. Beim naechsten Aufruf von
-	 * {@link Map#parse(IResourcesManager, boolean, Options)} wird dann die
+	 * {@link Map#parse(IResourceManager, boolean, Options)} wird dann die
 	 * angegebene Map geparst.
 	 * 
 	 * @param savegame
@@ -103,7 +103,7 @@ public class Map implements IMap {
 	 * @return true falls beim Speichern keine Probleme auftraten, andernfalls
 	 *         false
 	 */
-	public boolean save(String savegameName, List<Entity> entities, IResourcesManager resourcesManager) {
+	public boolean save(String savegameName, List<Entity> entities, IResourceManager resourcesManager) {
 		try {
 			// Oeffne einen RWFile und schreibe die in einen String formatierten
 			// Entities
@@ -133,7 +133,7 @@ public class Map implements IMap {
 	 * @throws SyntaxException
 	 *             Wenn die Map syntaktische Fehler aufweist
 	 */
-	public void parse(IResourcesManager resourcesManager, Options options, boolean debug)
+	public void parse(IResourceManager resourcesManager, Options options, boolean debug)
 			throws SemanticException, SyntaxException {
 		// Leere die Liste der zuvor geladenen Entities
 		clear();

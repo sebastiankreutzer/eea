@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.RWFile;
 import temp.removeASAP.Tanks;
 
@@ -25,7 +25,7 @@ public class HighscoreList {
 	private final static String highscoreFolder = "highscores/";
 	private final static String extension = ".hsc";
 
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	private List<Highscore> highscores;
 	private String map;
 	private boolean loaded;
@@ -38,7 +38,7 @@ public class HighscoreList {
 	 * @param map
 	 *            Der Name der Map
 	 */
-	private HighscoreList(IResourcesManager resourcesManager, String map) {
+	private HighscoreList(IResourceManager resourcesManager, String map) {
 		this.resourcesManager = resourcesManager;
 		highscores = new ArrayList<Highscore>();
 		this.map = map;
@@ -55,7 +55,7 @@ public class HighscoreList {
 	 * @param highscores
 	 *            Die Liste der bisherigen Highscore
 	 */
-	private HighscoreList(IResourcesManager resourcesManager, String map, List<Highscore> highscores) {
+	private HighscoreList(IResourceManager resourcesManager, String map, List<Highscore> highscores) {
 		this.resourcesManager = resourcesManager;
 		this.highscores = highscores;
 		this.map = map;
@@ -152,7 +152,7 @@ public class HighscoreList {
 	 * @return Eine HighscoreList
 	 */
 	@SuppressWarnings("unchecked")
-	public static HighscoreList load(String map, IResourcesManager resourcesManager) {
+	public static HighscoreList load(String map, IResourceManager resourcesManager) {
 		// Erzeuge eine neue, leere HighscoreList wenn der String null ist oder
 		// oder dem Ende entspricht
 		if (map == null || map.equals(Tanks.finish)) {

@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -19,15 +19,15 @@ import de.tu_darmstadt.informatik.tanks2.entities.Shoot;
 
 public class ShootFactory {
 
-	protected IResourcesManager resourcesManager;
+	protected IResourceManager resourcesManager;
 	protected ExplosionFactory explosionFactory;
 	protected final boolean debug;
 	
-	public ShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory) {
+	public ShootFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory) {
 		this(resourcesManager, explosionFactory, false);
 	} 
 
-	public ShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
+	public ShootFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
 		this.resourcesManager = resourcesManager;
 		this.explosionFactory = explosionFactory;
 		this.debug = debug;

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import com.badlogic.gdx.Input;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.EEARenderComponent;
@@ -50,7 +50,7 @@ public class GameplayState extends EEAGameState {
 	private TextRenderComponent player2Text, ammo2Text, mine2Text, life2Text;
 	private TextRenderComponent fpsText;
 
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 
 	/**
 	 * Erzeugt einen neuen GameplayState fuer das EEAGame
@@ -62,7 +62,7 @@ public class GameplayState extends EEAGameState {
 	 */
 	public GameplayState(EEAGame game, Options options) {
 		super(game);
-		IResourcesManager _resourcesManager = game.getResourcesManager();
+		IResourceManager _resourcesManager = game.getResourcesManager();
 		this.resourcesManager = _resourcesManager;
 		map = Map.getInstance();
 		this.options = options;

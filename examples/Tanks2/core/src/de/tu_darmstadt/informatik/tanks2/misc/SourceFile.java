@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 
 /**
  * Ein SourceFile oeffnet einen InputStream der dann Zeichen fuer Zeichen
@@ -29,7 +29,7 @@ public class SourceFile {
 	 * @param resourcesManager
 	 *            Der ResourcesManager
 	 */
-	public SourceFile(String path, IResourcesManager resourcesManager) {
+	public SourceFile(String path, IResourceManager resourcesManager) {
 		try {
 			source = resourcesManager.openROMFile(path).read();
 			currentLine = 1;

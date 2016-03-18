@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -16,11 +16,11 @@ import de.tu_darmstadt.informatik.tanks2.entities.ScatterShoot;
 
 public class ScatterShootFactory extends ShootFactory {
 
-	public ScatterShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory) {
+	public ScatterShootFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory) {
 		this(resourcesManager, explosionFactory, false);
 	}
 	
-	public ScatterShootFactory(IResourcesManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
+	public ScatterShootFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
 		super(resourcesManager, explosionFactory, debug);
 	}
 

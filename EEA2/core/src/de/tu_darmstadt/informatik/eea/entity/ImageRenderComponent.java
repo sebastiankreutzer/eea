@@ -3,31 +3,31 @@ package de.tu_darmstadt.informatik.eea.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 
 public class ImageRenderComponent extends EEARenderComponent {
 	
 	public static final String ID = "ImageRenderComponent";
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	// TODO Better to keep the reference to Texture instead of a string to avoid searching for this
 	// texture every scaling event
 	private String texturePath;
+	private Texture texture;
 	
-	public ImageRenderComponent(String texturePath, IResourcesManager resourcesManager) {
+	public ImageRenderComponent(String texturePath, IResourceManager resourcesManager) {
 		super(ID);
 		this.resourcesManager = resourcesManager;
 		this.texturePath = texturePath;
 		resourcesManager.loadTextureAsync(texturePath);
-		//tex = resourcesManager.getTexture(texturePath);
+		texture = resourcesManager.getTexture(texturePath);
 	}
 
 	@Override
 	public void render(Batch batch) {
-		Texture tex = resourcesManager.getTexture(this.texturePath);
-		batch.draw(tex, owner.getX() - (1 - owner.getScaleX()) * owner.getOriginX(),
+		batch.draw(texture, owner.getX() - (1 - owner.getScaleX()) * owner.getOriginX(),
 				owner.getY() - (1 - owner.getScaleY()) * owner.getOriginY(), owner.getOriginX(), owner.getOriginY(), 
 				owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), 
-				owner.getRotation(), 0, 0, tex.getWidth(), tex.getHeight(), false, false);
+				owner.getRotation(), 0, 0, texture.getWidth(), texture.getHeight(), false, false);
 	}
 	
 	/**
@@ -37,7 +37,6 @@ public class ImageRenderComponent extends EEARenderComponent {
 	@Override
 	public void setOwnerEntity(Entity owningEntity) {
 		super.setOwnerEntity(owningEntity);
-		Texture tex = resourcesManager.getTexture(this.texturePath);
-		owner.setSize(tex.getWidth(), tex.getHeight());
+		owner.setSize(texture.getWidth(), texture.getHeight());
 	}
 }

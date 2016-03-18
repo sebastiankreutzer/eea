@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.actions;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
@@ -24,7 +24,7 @@ public class SpawnPickupAction extends EEAAction {
 	 * @param resourcesManager
 	 *            Der ResourcesManager
 	 */
-	public SpawnPickupAction(IResourcesManager resourcesManager) {
+	public SpawnPickupAction(IResourceManager resourcesManager) {
 		factory = new PickupFactory(false, resourcesManager);
 	}
 

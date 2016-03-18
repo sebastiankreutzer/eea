@@ -1,15 +1,15 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 
 public class BackgroundFactory {
 	
 	private final String file;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	
-	public BackgroundFactory(String file, IResourcesManager resourcesManager){
+	public BackgroundFactory(String file, IResourceManager resourcesManager){
 		this.file = file;
 		this.resourcesManager = resourcesManager;
 	}

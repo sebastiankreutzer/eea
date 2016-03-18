@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.tanks2.factories;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.action.RotateAction;
 import de.tu_darmstadt.informatik.eea.entity.EEAComponent;
@@ -33,12 +33,12 @@ import temp.removeASAP.Tanks;
 public class TankFactory {
 	private final String difficulty;
 	private final boolean debug;
-	private IResourcesManager resourcesManager;
+	private IResourceManager resourcesManager;
 	private ShootFactory shotFactory;
 	private MineFactory mineFactory;
 	
 	
-	public TankFactory(String difficulty , IResourcesManager resourcesManager, ShootFactory shotFactory, MineFactory mineFactory, boolean debug){
+	public TankFactory(String difficulty , IResourceManager resourcesManager, ShootFactory shotFactory, MineFactory mineFactory, boolean debug){
 		this.difficulty = difficulty;
 		this.debug = debug;
 		this.resourcesManager = resourcesManager;

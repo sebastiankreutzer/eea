@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.AI;
 
 import com.badlogic.gdx.math.Vector2;
-import de.tu_darmstadt.informatik.eea.IResourcesManager;
+import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
