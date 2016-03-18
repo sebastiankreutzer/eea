@@ -100,33 +100,7 @@ public class EntityManager {
 		return collisions;
 	}
 
-	/**
-	 * Utility function. Converts mouse coordinates from screen to stage space.
-	 * @return The converted vector
-	 */
-	public Vector2 mouseToStageCoordinates() {
-		return toStageCoordinates(new Vector2(Gdx.input.getX(),
-				Gdx.input.getY()));
-	}
-	
-	/**
-	 * Utility function. Converts the given coordinates to stage space.
-	 * @param pos A vector in screen space
-	 * @return The converted vector
-	 */
-	public Vector2 toStageCoordinates(Vector2 pos) {
-		return stage.screenToStageCoordinates(pos);
-	}
-	
-	/**
-	 * Utility function. Converts the given coordinates to stage space.
-	 * @param x 
-	 * @param y
-	 * @return The converted vector
-	 */
-	public Vector2 toStageCoordinates(float x, float y) {
-		return toStageCoordinates(new Vector2(x, y));
-	}
+
 
 	public void update(float delta) {
 		stage.act(delta);

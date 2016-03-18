@@ -24,7 +24,7 @@ public class GameplayState extends EEAGameState {
 	private int Score;
 	
 	
-	public GameplayState(EEAGame game, IResourceManager resourcesManager) {
+	public GameplayState(EEAGame game) {
 		super(game);
 		this.resourcesManager = resourcesManager;
 		resourcesManager.loadTextureAsync("drop.png");

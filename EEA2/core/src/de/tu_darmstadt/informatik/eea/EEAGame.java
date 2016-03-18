@@ -103,25 +103,6 @@ public abstract class EEAGame extends Game {
 		super.dispose();
 	}
 	
-	public Viewport getViewport() {
-		return viewport;
-	}
-	
-	public IResourceManager getResourcesManager(){
-		return this.resourcesManager;
-	}
-	
-	/**
-	 * Returns the frames per second (FPS) of this game.
-	 * @return FPS
-	 */
-	public int getFramerate() {
-		return Gdx.graphics.getFramesPerSecond();
-	}
-	
-	public float getAspectRatio() {
-		return viewport.getScreenWidth() / viewport.getScreenHeight();
-	}
 	
 	public final boolean isDebug(){
 		return debug;
