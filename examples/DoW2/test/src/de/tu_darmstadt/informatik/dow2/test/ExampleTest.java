@@ -1,28 +1,27 @@
 package de.tu_darmstadt.informatik.dow2.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 
-import de.tu_darmstadt.informatik.dow2.LaunchGame;
+import de.tu_darmstadt.informatik.dow2.DropOfWaterGame;
 
 public class ExampleTest {
 	
 	HeadlessApplication app;
-	LaunchGame game;
+	DropOfWaterGame game;
 	
 
 	@Before
 	public void setUp() throws Exception {
 		HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
 		config.renderInterval = 1.0f/60.0f;
-		game = new LaunchGame();
+		game = new DropOfWaterGame();
 		app = new HeadlessApplication(game, config);
 		
 	}
