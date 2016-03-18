@@ -23,22 +23,18 @@ public class TowerFactory {
 	private static int counter = 0;
 
 	private final boolean debug;
-	private IResourceManager resourcesManager;
 	private ShootFactory shotFactory;
 
 	/**
 	 * Erzeugt eine TowerFactory.
 	 * 
-	 * @param resourcesManager
-	 *            Der ResourcesManager
 	 * @param shotFactory
 	 *            Die ShootFactory
 	 * @param debug
 	 *            Der DebugModus
 	 */
-	public TowerFactory(IResourceManager resourcesManager, ShootFactory shotFactory, boolean debug) {
+	public TowerFactory(ShootFactory shotFactory, boolean debug) {
 		this.debug = debug;
-		this.resourcesManager = resourcesManager;
 		this.shotFactory = shotFactory;
 
 	}

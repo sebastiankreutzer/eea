@@ -61,8 +61,8 @@ public class Parser implements IParser {
 		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
 		shotFactory = new ShootFactory(resourcesManager, explosionFactory, debug);
 		tankFactory = new TankFactory(options.getDifficulty(), resourcesManager, shotFactory, mineFactory, debug);
-		towerFactory = new TowerFactory(resourcesManager, shotFactory, debug);
-		wallFactory = new WallFactory(debug, resourcesManager);
+		towerFactory = new TowerFactory(shotFactory, debug);
+		wallFactory = new WallFactory(debug);
 	}
 
 	public void setDebug(boolean debug) {
@@ -289,7 +289,7 @@ public class Parser implements IParser {
 		float rotation = parseFloat();
 		float scaling = parseFloat();
 
-		map.addEntity(wallFactory.createEntity(x, y, maxLife, life, rotation, scaling));
+		map.addEntity(wallFactory.createWall(x, y, maxLife, life, rotation, scaling));
 
 		return map;
 	}

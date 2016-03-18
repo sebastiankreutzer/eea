@@ -2,30 +2,33 @@ package de.tu_darmstadt.informatik.tanks2.highscore;
 
 import java.util.Comparator;
 
-public class HighscoreComparator implements Comparator<Highscore>{
+/**
+ * Ein Comparator zum Vergleichen von Highscores.
+ * 
+ * @author jr
+ *
+ */
+public class HighscoreComparator implements Comparator<Highscore> {
 
 	@Override
 	public int compare(Highscore h1, Highscore h2) {
-		
-		// Same amount of shots fired
+
+		// Vergleiche Zeit, wenn gleiche Anzahl an Schuessen
 		if (h1.getFiredShots() == h2.getFiredShots()) {
-			// Highscore 1 needed more time
-			if(h1.getPassedTime() > h2.getPassedTime()) {
+			// Highscore1 oder Highscore2 benoetigte mehr Zeit
+			if (h1.getPassedTime() > h2.getPassedTime()) {
 				return 1;
-			}
-			// Highscore 2 needed more time
-			else if (h1.getPassedTime() < h2.getPassedTime()) {
+			} else if (h1.getPassedTime() < h2.getPassedTime()) {
 				return -1;
 			}
-			// Both needed equal time
-			else return h1.getPlayerName().compareTo(h2.getPlayerName());
+			// Beide benoetigten gleich viel Zeit
+			else
+				return h1.getPlayerName().compareTo(h2.getPlayerName());
 		}
-		// Highscore 1 fired more shots
+		// Highscore1 oder Highscore2 hat mehr geschossen
 		else if (h1.getFiredShots() > h2.getFiredShots()) {
 			return 1;
-		}
-		// Highscore 2 fired more shots
-		else {
+		} else {
 			return -1;
 		}
 	}

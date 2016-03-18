@@ -8,45 +8,51 @@ public class Highscore implements Serializable {
 	String playerName;
 	int firedShots;
 	float passedTime;
-	
+
 	/**
-	 * Creates a new Highscore with the passed values
-	 * @param playerName name of the player that scored the highscore
-	 * @param firedShots shots fired by the player
-	 * @param passedTime total time until gameover
+	 * Erzeugt einen neuen Highscore
+	 * 
+	 * @param playerName
+	 *            Der Spielername
+	 * @param firedShots
+	 *            Anzahl der abgefeuerten Schuesse dieses Spielers
+	 * @param passedTime
+	 *            Die vergangene Spieldauer
 	 */
 	public Highscore(String playerName, int firedShots, float passedTime) {
-		
+
 		if (playerName == null || playerName.isEmpty()) {
 			this.playerName = "Unknown";
-		}
-		else {
+		} else {
 			this.playerName = playerName;
 		}
-		
+
 		this.firedShots = firedShots;
 		this.passedTime = passedTime;
 	}
-	
+
 	/**
-	 * Returns the name of the player of the Highscore
-	 * @return name of the player
+	 * Gibt den Namen des Spielers zu diesem Highscore zurueck
+	 * 
+	 * @return Der Name des Spielers
 	 */
 	public String getPlayerName() {
 		return playerName;
 	}
-	
+
 	/**
 	 * Returns the amount of shots fired
+	 * 
 	 * @return amount of shots fired
 	 */
 	public int getFiredShots() {
 		return firedShots;
 	}
-	
+
 	/**
-	 * Returns the time of the Highscore 
-	 * @return time until gameover
+	 * Gibt die Spieldauer dieses Highscores zurueck
+	 * 
+	 * @return Die Spieldauer
 	 */
 	public float getPassedTime() {
 		return passedTime;
