@@ -2,7 +2,6 @@ package de.tu_darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.EEAGraphics;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -11,7 +10,6 @@ import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseEnteredEvent;
-import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 /**
  * Eine Factory zun Erzeugen von Menueeintraegen. Ein Menueeintrag besteht aus

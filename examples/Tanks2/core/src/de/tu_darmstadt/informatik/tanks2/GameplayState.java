@@ -35,7 +35,6 @@ import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options;
-import temp.removeASAP.Tanks;
 
 /**
  * Im GameplayState findet das eigentliche Spielgeschehen statt.
@@ -46,7 +45,6 @@ import temp.removeASAP.Tanks;
 public class GameplayState extends EEAGameState {
 
 	private Map map;
-	private Options options;
 
 	private TextRenderComponent player1Text, ammo1Text, mine1Text, life1Text;
 	private TextRenderComponent player2Text, ammo2Text, mine2Text, life2Text;
@@ -67,7 +65,6 @@ public class GameplayState extends EEAGameState {
 		IResourceManager _resourcesManager = EEA.getResourceManager();
 		this.resourcesManager = _resourcesManager;
 		map = Map.getInstance();
-		this.options = options;
 	}
 
 	/**
@@ -126,7 +123,7 @@ public class GameplayState extends EEAGameState {
 	@Override
 	protected void update(float delta) {
 		// Stelle die Informationen fuer Spieler1 dar
-		Tank tank = ((Tank) em.getEntity(Tanks.player1));
+		Tank tank = ((Tank) em.getEntity(LaunchTanks.player1));
 		if (tank != null) {
 			ammo1Text.setText("Übrige Schüsse: " + tank.getAmmunition() + "/" + tank.getMaxAmmunition());
 			mine1Text.setText("Übrige Minen: " + tank.getActualMinesAmmo() + "/" + tank.getMaxMines());
@@ -136,7 +133,7 @@ public class GameplayState extends EEAGameState {
 		// ansonsten die Zeit an
 		if (GameplayLog.getInstance().isMultiplayer()) {
 			player1Text.setText("Spieler 1");
-			Tank tank2 = ((Tank) em.getEntity(Tanks.player2));
+			Tank tank2 = ((Tank) em.getEntity(LaunchTanks.player2));
 			if (tank2 != null) {
 				player2Text.setText("Spieler 2");
 				ammo2Text.setText("Übrige Schüsse: " + tank2.getAmmunition() + "/" + tank2.getMaxAmmunition());
@@ -156,7 +153,7 @@ public class GameplayState extends EEAGameState {
 		// Parse die Map. Bei Fehlern wird eine entsprechende Fehlermeldung
 		// erzeugt und ins Hauptmenue gewechselt.
 		try {
-			map.parse(resourcesManager, options, Tanks.debug);
+			map.parse(resourcesManager, LaunchTanks.debug);
 			// Alle Entities der Map dem EntityManager uebergeben
 			Iterator<Entity> it = map.getEntities().iterator();
 			while (it.hasNext()) {
@@ -226,7 +223,7 @@ public class GameplayState extends EEAGameState {
 		// zerstoert sind
 		List<EEAEvent> enemyDestroyedEvents = new ArrayList<EEAEvent>();
 		for (Entity e : em.getAllEntities()) {
-			if (e instanceof Tank && !e.getID().equals(Tanks.player1)) {
+			if (e instanceof Tank && !e.getID().equals(LaunchTanks.player1)) {
 				enemyDestroyedEvents.add(new EntityDestroyedEvent(e));
 			}
 		}
@@ -239,7 +236,7 @@ public class GameplayState extends EEAGameState {
 			public boolean act(float delta) {
 				GameplayLog gameplayLog = GameplayLog.getInstance();
 				String nextMap = gameplayLog.getNextMap().substring(1, gameplayLog.getNextMap().length() - 1);
-				if (nextMap.equals(Tanks.finish)) {
+				if (nextMap.equals(LaunchTanks.finish)) {
 					map.resetToDefault();
 				} else {
 					map.loadMap(nextMap);
@@ -253,7 +250,7 @@ public class GameplayState extends EEAGameState {
 		// Erzeuge ein Event das ausloest wenn Spieler1 zerstoert wurde oder
 		// falls das Zeitlimit, sofern vorhanden, abgelaufen ist.
 		long timeLimit = GameplayLog.getInstance().getTimeLimit();
-		Entity player1 = em.getEntity(Tanks.player1);
+		Entity player1 = em.getEntity(LaunchTanks.player1);
 		EEAEvent defeatEvent = new EntityDestroyedEvent(player1);
 		if (timeLimit > 0) {
 			EEAEvent event = new TimeEvent(timeLimit - GameplayLog.getInstance().timer.get(), false);
@@ -307,7 +304,7 @@ public class GameplayState extends EEAGameState {
 					// ansonsten muss ueberprueft werden ob ein Highscore
 					// vorliegt, falls ja muss der Name abgefragt werden
 					HighscoreList highscoreList = HighscoreList.load(map.getName(), resourcesManager);
-					if (highscoreList.isNewHighscore(new Highscore("", shots, time)) && !Tanks.debug) {
+					if (highscoreList.isNewHighscore(new Highscore("", shots, time)) && !LaunchTanks.debug) {
 						String name = JOptionPane.showInputDialog(frame, "Bitte nennen Sie Ihren Namen:",
 								highscore + " neuer Highscore", 1);
 						highscoreList.addHighscore(new Highscore(name, shots, time));

@@ -3,7 +3,6 @@ package de.tu_darmstadt.informatik.dow2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.QuitAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;

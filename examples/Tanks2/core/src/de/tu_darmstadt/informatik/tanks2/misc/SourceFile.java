@@ -1,8 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.misc;
 
 import java.io.IOException;
-
-import com.badlogic.gdx.utils.GdxRuntimeException;
+import java.io.InputStream;
 
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 
@@ -18,7 +17,7 @@ public class SourceFile {
 	public static final char EOL = '\n';
 	public static final char EOT = '\u0000';
 
-	private java.io.InputStream source;
+	private InputStream source;
 	private int currentLine;
 
 	/**

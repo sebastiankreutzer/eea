@@ -11,7 +11,7 @@ import java.util.List;
 
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.RWFile;
-import temp.removeASAP.Tanks;
+import de.tu_darmstadt.informatik.tanks2.LaunchTanks;
 
 /**
  * Eine HighscoreList enthaelt eine Liste der zehn besten Highscores einer
@@ -155,9 +155,9 @@ public class HighscoreList {
 	public static HighscoreList load(String map, IResourceManager resourcesManager) {
 		// Erzeuge eine neue, leere HighscoreList wenn der String null ist oder
 		// oder dem Ende entspricht
-		if (map == null || map.equals(Tanks.finish)) {
+		if (map == null || map.equals(LaunchTanks.finish)) {
 			System.out.println("No highscore file for " + map);
-			return new HighscoreList(resourcesManager, Tanks.finish);
+			return new HighscoreList(resourcesManager, LaunchTanks.finish);
 		}
 		// Oeffne einen RWFile und pruefe ob er existiert
 		RWFile file = resourcesManager.openRWFile(highscoreFolder + map + extension);

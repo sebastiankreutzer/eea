@@ -1,15 +1,14 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
+import de.tu_darmstadt.informatik.tanks2.LaunchTanks;
 import de.tu_darmstadt.informatik.tanks2.AI.TowerAI;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeAmmunitionAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Tower;
-import temp.removeASAP.Tanks;
 
 /**
  * Eine Factory die Tower erzeugt, stationaere Entities die sich drehen und
@@ -84,7 +83,7 @@ public class TowerFactory {
 		// Setze die RenderComponent
 		tower.addComponent(new ImageRenderComponent("flac.png"));
 		// Der Turm wird von der KI gesteuert
-		tower.addComponent(new TowerAI(Tanks.player1, shotFactory, debug));
+		tower.addComponent(new TowerAI(LaunchTanks.player1, shotFactory, debug));
 
 		// Die Munition des Turms soll regelmaessig nachgeladen werden
 		EEAEvent reloadEvent = new TimeEvent(1000, true);

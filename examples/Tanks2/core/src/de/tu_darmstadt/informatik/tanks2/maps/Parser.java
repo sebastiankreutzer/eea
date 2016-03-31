@@ -1,5 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.maps;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
@@ -13,10 +14,9 @@ import de.tu_darmstadt.informatik.tanks2.factories.TankFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.TowerFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.WallFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMap;
-import de.tu_darmstadt.informatik.tanks2.misc.ErrorReporter;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options;
-import de.tu_darmstadt.informatik.tanks2.misc.Scanner;
+import de.tu_darmstadt.informatik.tanks2.misc.Lexer;
 import de.tu_darmstadt.informatik.tanks2.misc.SourcePosition;
 import de.tu_darmstadt.informatik.tanks2.misc.Token;
 
@@ -33,12 +33,10 @@ public class Parser {
 	 * 
 	 */
 
-	private Scanner lexicalAnalyser;
-	private ErrorReporter errorReporter;
+	private Lexer lexicalAnalyser;
 	private Token currentToken;
 	private SourcePosition previousTokenPosition;
 	private boolean debug;
-	private IResourceManager resourcesManager;
 
 	private ExplosionFactory explosionFactory;
 	private PickupFactory pickUpFactory;
@@ -48,13 +46,13 @@ public class Parser {
 	private TowerFactory towerFactory;
 	private WallFactory wallFactory;
 
-	public Parser(Scanner lexer, ErrorReporter reporter, IResourceManager resourcesManager, Options options) {
+	public Parser(Lexer lexer, boolean debug) {
 		lexicalAnalyser = lexer;
-		errorReporter = reporter;
-		previousTokenPosition = new SourcePosition();
-		debug = false;
-		this.resourcesManager = resourcesManager;
+		IResourceManager resourcesManager = EEA.getResourceManager();
+		Options options = Options.getInstance();
 		
+		previousTokenPosition = new SourcePosition();
+
 		explosionFactory = new ExplosionFactory(resourcesManager, debug);
 		pickUpFactory = new PickupFactory(resourcesManager, debug);
 		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
@@ -68,13 +66,13 @@ public class Parser {
 		this.debug = debug;
 	}
 
-	public IMap parseMap() throws SyntaxException {
+	public IMap parseMap(Map map) throws SyntaxException {
 
 		previousTokenPosition.start = 0;
 		previousTokenPosition.finish = 0;
 		currentToken = lexicalAnalyser.scan();
 
-		Map map = parse(Map.getInstance());
+		parseMapInformation(map);
 		while (currentToken.getType() != Token.EOT) {
 			switch (currentToken.getType()) {
 			case Token.Tank:
@@ -161,7 +159,7 @@ public class Parser {
 		return map;
 	}
 
-	protected Map parse(Map map) throws SyntaxException {
+	protected void parseMapInformation(Map map) throws SyntaxException {
 
 		this.accept(Token.Map);
 
@@ -187,8 +185,6 @@ public class Parser {
 		String file = backgroundName.substring(1, backgroundName.length() - 1);
 		background.addComponent(new ImageRenderComponent(file));
 		map.addEntity(background);
-
-		return map;
 	}
 
 	protected Map parseTower(Map map) throws SyntaxException {
@@ -293,9 +289,23 @@ public class Parser {
 		return map;
 	}
 
-	private void SyntaxError(String messageTemplate, String tokenQuoted) throws SyntaxException {
+	/**
+	 * Generates an exception and writes debug information in the console.
+	 * 
+	 * @param message
+	 *            Should contain an '%' character to insert the quoted token at
+	 *            this position.
+	 * @param tokenQuoted
+	 *            The name of the token that caused this syntactic error.
+	 * @throws SyntaxException
+	 */
+	private void SyntaxError(String message, String tokenQuoted) throws SyntaxException {
 		SourcePosition pos = currentToken.getSourcePosition();
-		errorReporter.reportError(messageTemplate, tokenQuoted, pos);
+		int idx = message.indexOf('%');
+		if (idx > 0) {
+			message = message.substring(0, idx - 1) + tokenQuoted + message.substring(idx + 1);
+		}
+		System.out.print("ERROR: " + message + " " + pos.start + ".." + pos.finish);
 		throw (new SyntaxException());
 	}
 

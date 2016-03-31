@@ -8,13 +8,13 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.RWFile;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
+import de.tu_darmstadt.informatik.tanks2.LaunchTanks;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SemanticException;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMap;
-import de.tu_darmstadt.informatik.tanks2.misc.ErrorReporter;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options;
-import de.tu_darmstadt.informatik.tanks2.misc.Scanner;
+import de.tu_darmstadt.informatik.tanks2.misc.Lexer;
 import de.tu_darmstadt.informatik.tanks2.misc.SourceFile;
 
 /**
@@ -124,8 +124,6 @@ public class Map implements IMap {
 	 * 
 	 * @param resourcesManager
 	 *            Der ResourcesManager
-	 * @param options
-	 *            Die Optionen
 	 * @param debug
 	 *            Der Debugstatus
 	 * @throws SemanticException
@@ -133,19 +131,21 @@ public class Map implements IMap {
 	 * @throws SyntaxException
 	 *             Wenn die Map syntaktische Fehler aufweist
 	 */
-	public void parse(IResourceManager resourcesManager, Options options, boolean debug)
-			throws SemanticException, SyntaxException {
+	public void parse(IResourceManager resourcesManager, boolean debug) throws SemanticException, SyntaxException {
 		// Leere die Liste der zuvor geladenen Entities
 		clear();
+
 		// Oeffne ein neuen SourceFile und erstelle einen zugehoerigen Lexer und
 		// Parser
 		SourceFile sc = new SourceFile(path, resourcesManager);
-		Scanner lexer = new Scanner(sc);
-		Parser parser = new Parser(lexer, new ErrorReporter(), resourcesManager, options);
+		Lexer lexer = new Lexer(sc);
+		Parser parser = new Parser(lexer, debug);
 		parser.setDebug(debug);
+
 		// Parse die Map oder werfe eine Fehlermeldung
 		try {
-			new Checker(parser.parseMap()).check();
+			parser.parseMap(this);
+			check();
 		} catch (SemanticException e) {
 			resetToDefault();
 			throw e;
@@ -161,6 +161,58 @@ public class Map implements IMap {
 	public void clear() {
 		entities = new CopyOnWriteArrayList<Entity>();
 		GameplayLog.getInstance().setMultiplayer(false);
+	}
+
+	/**
+	 * Ueberprueft die Map auf Logikfehler, wie fehlende Gegner oder
+	 * kollidierende Entities.
+	 * 
+	 * @throws SemanticException
+	 *             Wenn ein solcher Fehler gefunden wurde.
+	 */
+	private void check() throws SemanticException {
+		int playerCount = 0;
+		int OpponentCount = 0;
+
+		for (Entity entity : entities) {
+			if (entity.getID().startsWith(LaunchTanks.player1)) {
+				playerCount++;
+				if (checkForCollision(entity, entities)) {
+					throw new SemanticException("PlayerOne collides with an other Entity in the map");
+				}
+			}
+			if (entity.getID().startsWith(LaunchTanks.opponentTank) || entity.getID().startsWith(LaunchTanks.player2)) {
+				OpponentCount++;
+				if (checkForCollision(entity, entities)) {
+					throw new SemanticException(entity.getID() + " collides with an other Entity in the map");
+				}
+			}
+		}
+
+		if (playerCount > 1) {
+			throw new SemanticException("More than one Player1 has been declared");
+		} else if (playerCount == 0) {
+			throw new SemanticException("No Player has been declared");
+		} else if (OpponentCount == 0) {
+			throw new SemanticException("No Opponent has been declared");
+		}
+	}
+
+	/**
+	 * Ueberprueft ob eine Entity mit mindestens einer Entity aus einer Liste
+	 * von Entities kollidiert. Testet nicht auf Kollision der Entities der Liste untereinander.
+	 * 
+	 * @param entity
+	 * @param entities
+	 * @return False falls keine Kollision vorliegt, ansonsten true
+	 */
+	private boolean checkForCollision(Entity entity, List<Entity> entities) {
+		for (Entity OtherEntity : entities) {
+			if (entity.collidesWith(OtherEntity))
+				return true;
+		}
+		return false;
+
 	}
 
 	/**

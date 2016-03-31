@@ -5,7 +5,8 @@ import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
 
 /**
- * Erzeugt eine neue Schuss Entity an der Stelle der agierenden Entity.
+ * Diese Action erzeugt eine neue Schuss Entity an der Stelle der ausfuehrenden
+ * Entity.
  * 
  * @author jr
  *

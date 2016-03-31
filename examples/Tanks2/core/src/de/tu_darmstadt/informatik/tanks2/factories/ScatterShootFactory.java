@@ -11,7 +11,6 @@ import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
 import de.tu_darmstadt.informatik.tanks2.actions.HitAction;
-import de.tu_darmstadt.informatik.tanks2.actions.SpawnShootAction;
 import de.tu_darmstadt.informatik.tanks2.entities.ScatterShoot;
 
 public class ScatterShootFactory extends ShootFactory {

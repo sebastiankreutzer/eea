@@ -2,14 +2,12 @@ package de.tu_darmstadt.informatik.customActions;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.dow2.DropOfWaterGame;
 import de.tu_darmstadt.informatik.dow2.GameplayState;
 import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;

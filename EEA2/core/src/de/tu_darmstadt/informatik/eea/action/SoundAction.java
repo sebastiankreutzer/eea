@@ -3,7 +3,6 @@ package de.tu_darmstadt.informatik.eea.action;
 import com.badlogic.gdx.audio.Sound;
 
 import de.tu_darmstadt.informatik.eea.EEA;
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 
 /**
  * This class provides an action that triggers the play back of a Sound file. A Sound file is a

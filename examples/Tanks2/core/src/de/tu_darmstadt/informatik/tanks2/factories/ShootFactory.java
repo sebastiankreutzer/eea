@@ -5,7 +5,6 @@ import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleTriggerComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;

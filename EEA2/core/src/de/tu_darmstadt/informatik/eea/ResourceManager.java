@@ -1,7 +1,5 @@
 package de.tu_darmstadt.informatik.eea;
 
-import java.io.FileNotFoundException;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;

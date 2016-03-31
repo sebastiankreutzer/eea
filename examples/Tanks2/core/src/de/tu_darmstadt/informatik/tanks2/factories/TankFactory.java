@@ -1,13 +1,10 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.action.RotateAction;
 import de.tu_darmstadt.informatik.eea.entity.EEAComponent;
-import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
@@ -16,6 +13,7 @@ import de.tu_darmstadt.informatik.eea.event.KeyDownEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
+import de.tu_darmstadt.informatik.tanks2.LaunchTanks;
 import de.tu_darmstadt.informatik.tanks2.AI.TankAI;
 import de.tu_darmstadt.informatik.tanks2.AI.TowerAI;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeMineAmmoAction;
@@ -29,7 +27,6 @@ import de.tu_darmstadt.informatik.tanks2.events.RandomEvent;
 import de.tu_darmstadt.informatik.tanks2.events.HasAmmunitionLeftEvent;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
 import de.tu_darmstadt.informatik.tanks2.misc.Options.Difficulty;
-import temp.removeASAP.Tanks;
 
 /**
  * Eine Factory zum erzeugen von Tanks, die entweder vom einem Spieler oder von einer AI gesteurt werden.
@@ -72,8 +69,8 @@ public class TankFactory {
 	 * @param x
 	 * @param y
 	 * @param name
-	 *            Die ID des Tanks, falls gleich {@link Tanks#player1} oder
-	 *            {@link Tanks#player2} ist der Tank spielergesteuert, ansonsten
+	 *            Die ID des Tanks, falls gleich {@link LaunchTanks#player1} oder
+	 *            {@link LaunchTanks#player2} ist der Tank spielergesteuert, ansonsten
 	 *            von einer AI
 	 * @param maxLife
 	 * @param life
@@ -105,7 +102,7 @@ public class TankFactory {
 		tank.setStrength(strength);
 
 		// Wenn der Tank von Spieler1 gesteuert werden soll
-		if (name.equals(Tanks.player1)) {
+		if (name.equals(LaunchTanks.player1)) {
 			// Setzte das Bild fuer Spieler1
 			tank.addComponent(new ImageRenderComponent("tankPlayer.png"));
 
@@ -113,7 +110,7 @@ public class TankFactory {
 			initPlayerControls(speed, tank, Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT,
 					Input.Keys.K, Input.Keys.M, Input.Keys.L);
 
-		} else if (name.equals(Tanks.player2)) {
+		} else if (name.equals(LaunchTanks.player2)) {
 			// Mehrspielermodus
 			GameplayLog.getInstance().setMultiplayer(true);
 
@@ -130,9 +127,9 @@ public class TankFactory {
 			// Waehle die AI je nach Schwierigkeitsgrad
 			EEAComponent componentAI;
 			if (this.difficulty.equals(Difficulty.EASY.toString()))
-				componentAI = new TowerAI(Tanks.player1, shotFactory, debug);
+				componentAI = new TowerAI(LaunchTanks.player1, shotFactory, debug);
 			else
-				componentAI = new TankAI(Tanks.player1, shotFactory, debug);
+				componentAI = new TankAI(LaunchTanks.player1, shotFactory, debug);
 			tank.addComponent(componentAI);
 
 			// Die Munition des Tanks soll automatisch alle 4 bis 6 Sekunden

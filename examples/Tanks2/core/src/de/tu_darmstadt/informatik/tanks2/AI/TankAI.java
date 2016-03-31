@@ -1,11 +1,9 @@
 package de.tu_darmstadt.informatik.tanks2.AI;
 
 import com.badlogic.gdx.math.Vector2;
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
-import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 

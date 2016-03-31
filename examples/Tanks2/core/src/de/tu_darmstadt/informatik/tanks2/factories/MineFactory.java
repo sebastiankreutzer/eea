@@ -5,7 +5,6 @@ import de.tu_darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu_darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleTriggerComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
