@@ -20,10 +20,8 @@ public class MainMenuState extends EEAGameState {
 		super(game);
 	}
 	
-	public void show(){
-		super.show();
-	}
 
+	@Override
 	public void init() {
 		
 		Entity background = new Entity("menu");
@@ -37,10 +35,10 @@ public class MainMenuState extends EEAGameState {
     	new_Game_Entity.setSize(330, 100);
     	
     	// Erstelle das Auslöse-Event und die zugehörige Action
-    	ANDEvent mainEvents = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
+    	ANDEvent changeStateEvent = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
     	Action new_Game_Action = new ChangeStateAction(game, DropOfWaterGame.GameplayState);
-    	mainEvents.addAction(new_Game_Action);
-    	new_Game_Entity.addComponent(mainEvents);
+    	changeStateEvent.addAction(new_Game_Action);
+    	new_Game_Entity.addComponent(changeStateEvent);
     	
     	// Füge die Entity zum StateBasedEntityManager hinzu
     	em.addEntity(new_Game_Entity);
