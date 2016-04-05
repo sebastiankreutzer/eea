@@ -9,7 +9,7 @@ import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.MineFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.PickupFactory;
-import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
+import de.tu_darmstadt.informatik.tanks2.factories.ShotFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.TankFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.TowerFactory;
 import de.tu_darmstadt.informatik.tanks2.factories.WallFactory;
@@ -41,7 +41,7 @@ public class Parser {
 	private ExplosionFactory explosionFactory;
 	private PickupFactory pickUpFactory;
 	private MineFactory mineFactory;
-	private ShootFactory shotFactory;
+	private ShotFactory shotFactory;
 	private TankFactory tankFactory;
 	private TowerFactory towerFactory;
 	private WallFactory wallFactory;
@@ -50,13 +50,13 @@ public class Parser {
 		lexicalAnalyser = lexer;
 		IResourceManager resourcesManager = EEA.getResourceManager();
 		Options options = Options.getInstance();
-		
+
 		previousTokenPosition = new SourcePosition();
 
 		explosionFactory = new ExplosionFactory(resourcesManager, debug);
 		pickUpFactory = new PickupFactory(resourcesManager, debug);
 		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
-		shotFactory = new ShootFactory(resourcesManager, explosionFactory, debug);
+		shotFactory = new ShotFactory(resourcesManager, explosionFactory, debug);
 		tankFactory = new TankFactory(options.getDifficulty(), resourcesManager, shotFactory, mineFactory, debug);
 		towerFactory = new TowerFactory(shotFactory, debug);
 		wallFactory = new WallFactory(debug);
@@ -73,8 +73,8 @@ public class Parser {
 		currentToken = lexicalAnalyser.scan();
 
 		parseMapInformation(map);
-		while (currentToken.getType() != Token.EOT) {
-			switch (currentToken.getType()) {
+		while (currentToken.getKind() != Token.EOT) {
+			switch (currentToken.getKind()) {
 			case Token.Tank:
 				this.acceptIt();
 				map = parseTank(map);
@@ -85,7 +85,7 @@ public class Parser {
 				break;
 			case Token.Shot:
 				this.acceptIt();
-				map = parseShoot(map);
+				map = parseShot(map);
 				break;
 			case Token.Explosion:
 				this.acceptIt();
@@ -101,44 +101,19 @@ public class Parser {
 				break;
 			case Token.Scattershot:
 				this.acceptIt();
-				map = parseScattershoot(map);
+				map = parseScattershot(map);
 				break;
 			case Token.Mine:
 				this.acceptIt();
 				map = parseMine(map);
 				break;
 			default:
-				SyntaxError("\"%\" expected here", Token.spell(Token.Tank) + " or " + Token.spell(Token.Wall)
-						+ " but was: " + currentToken.getType());
+				SyntaxError(
+						"\"\"% expected here but was: " + Token.spell(currentToken.getKind()) + " with value "
+								+ currentToken.getSpelling(),
+						Token.spell(Token.IDENTIFIER));
 			}
 		}
-		return map;
-	}
-
-	protected Map parseMine(Map map) throws SyntaxException {
-
-		int strength = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-		float scale = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling()) / 100.0f;
-		int x = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		map.addEntity(mineFactory.createMine(x, y, scale, strength));
-		return map;
-	}
-
-	protected Map parseScattershoot(Map map) throws SyntaxException {
-		float x = parseFloat();
-		float y = parseFloat();
-
-		int strength = parseInt();
-
-		float rotation = parseFloat();
-		float scale = parseFloat();
-
-		float time = parseFloat();
-
-		map.addEntity(shotFactory.createScatterShot(x, y, "NONE", strength, rotation, scale, time));
-
 		return map;
 	}
 
@@ -148,37 +123,35 @@ public class Parser {
 		if (this.accept(Token.IDENTIFIER).getSpelling().equalsIgnoreCase(PickupType.HEALTH.toString()))
 			type = PickupType.HEALTH;
 
-		int streangth = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
+		int strength = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
 		float scaling = parseFloat();
+
 		float x = parseFloat();
 		float y = parseFloat();
 
-		map.addEntity(pickUpFactory.createPickup(type, streangth, x, y, scaling));
+		map.addEntity(pickUpFactory.createPickup(type, strength, x, y, scaling));
 
 		return map;
 	}
 
 	protected void parseMapInformation(Map map) throws SyntaxException {
+		accept(Token.Map);
 
-		this.accept(Token.Map);
+		String backgroundName = accept(Token.IDENTIFIER).getSpelling();
+		String mapName = accept(Token.IDENTIFIER).getSpelling();
+		String nextMapName = accept(Token.IDENTIFIER).getSpelling();
 
-		String backgroundName = this.accept(Token.IDENTIFIER).getSpelling();
-		String mapName = this.accept(Token.IDENTIFIER).getSpelling();
-		String nextMapName = this.accept(Token.IDENTIFIER).getSpelling();
+		long timeLimit = parseInt();
+		long time = parseInt();
+		int shots = parseInt();
 
-		long timeLimit = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		long time = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		int shots = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		GameplayLog.getInstance().setBackground(backgroundName);
-		GameplayLog.getInstance().setMapName(mapName.substring(1, mapName.length() - 1));
-		GameplayLog.getInstance().setNextMap(nextMapName);
-		GameplayLog.getInstance().setTimeLimit(timeLimit);
-		GameplayLog.getInstance().timer.set(time);
-		GameplayLog.getInstance().setNumberOfShots(shots);
+		GameplayLog log = GameplayLog.getInstance();
+		log.setBackground(backgroundName);
+		log.setMapName(mapName.substring(1, mapName.length() - 1));
+		log.setNextMap(nextMapName);
+		log.setTimeLimit(timeLimit);
+		log.timer.setElapsedTime(time);
+		log.setNumberOfShots(shots);
 
 		// Add background
 		Entity background = new Entity("background");
@@ -198,40 +171,27 @@ public class Parser {
 		int maxShoots = parseInt();
 		int shoots = parseInt();
 
-		int streangth = parseInt();
+		int strength = parseInt();
 		float speed = parseFloat();
 
 		float rotation = parseFloat();
 		float scale = parseFloat();
 
 		map.addEntity(
-				towerFactory.createTower(x, y, maxLife, life, maxShoots, shoots, streangth, speed, rotation, scale));
+				towerFactory.createTower(x, y, maxLife, life, maxShoots, shoots, strength, speed, rotation, scale));
 
 		return map;
 	}
 
 	protected Map parseExplosion(Map map) throws SyntaxException {
-
-		int width = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		// this.accept(Token.COMMA);
-
-		int height = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		// this.accept(Token.COMMA);
+		int width = parseInt();
+		int height = parseInt();
 
 		float speed = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling()) / 100.0f;
 
-		// this.accept(Token.COMMA);
-
-		int x = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		// this.accept(Token.COMMA);
-
-		int y = Integer.valueOf(this.accept(Token.INTLITERAL).getSpelling());
-
-		// this.accept(Token.RPAREN);
-
+		float x = parseFloat();
+		float y = parseFloat();
+		
 		map.addEntity(explosionFactory.createExplosion(x, y, speed, width, height, debug));
 		return map;
 	}
@@ -239,48 +199,71 @@ public class Parser {
 	protected Map parseTank(Map map) throws SyntaxException {
 		String name = this.accept(Token.IDENTIFIER).getSpelling();
 
-		float x = parseFloat();
-		float y = parseFloat();
-
-		int maxLife = parseInt();
-		int life = parseInt();
-
-		int shootsMax = parseInt();
-		int shoots = parseInt();
-
-		int minesMax = parseInt();
-		int mines = parseInt();
+		float[] prs = parsePositionRotationScale();
 
 		int strength = parseInt();
 		float speed = parseFloat();
 
-		float rotation = parseFloat();
-		float scale = parseFloat();
+		int[] life = parseLifeOrAmmunitonOrMines();
+		int[] ammo = parseLifeOrAmmunitonOrMines();
+		int[] mines = parseLifeOrAmmunitonOrMines();
 
-		map.addEntity(tankFactory.createTank(x, y, name, maxLife, life, shootsMax, shoots, minesMax, mines, strength,
-				speed, rotation, scale));
+		map.addEntity(tankFactory.createTank(prs[0], prs[1], name, life[1], life[0], ammo[1], ammo[0], mines[1], mines[0], strength,
+				speed, prs[2], prs[3]));
 
 		return map;
 	}
 
-	protected Map parseShoot(Map map) throws SyntaxException {
-
-		float x = parseFloat();
-		float y = parseFloat();
+	protected Map parseShot(Map map) throws SyntaxException {
+		float[] v = parsePositionRotationScale();
 		int strength = parseInt();
-		float rotation = parseFloat();
-		float scale = parseFloat();
 
-		map.addEntity(shotFactory.createShot(x, y, "NONE", strength, rotation, scale));
+		map.addEntity(shotFactory.createShot(v[0], v[1], "NONE", strength, v[2], v[3]));
 		return map;
+	}
+	
+
+	protected Map parseScattershot(Map map) throws SyntaxException {
+		float[] v = parsePositionRotationScale();
+		int strength = parseInt();
+		float time = parseFloat();
+
+		map.addEntity(shotFactory.createScatterShot(v[0], v[1], "NONE", strength, v[2], v[3], time));
+
+		return map;
+	}
+	
+	protected Map parseMine(Map map) throws SyntaxException {
+		float[] v = parsePositionRotationScale();
+		int strength = parseInt();
+
+		map.addEntity(mineFactory.createMine(v[0], v[1], v[3], strength));
+		return map;
+	}
+
+	
+	private float[] parsePositionRotationScale() {
+		float[] v = new float[4];
+		v[0] = parseFloat();
+		v[1] = parseFloat();
+		v[2] = parseFloat();
+		v[3] = parseFloat();
+		return v;
+	}
+	
+	private int[] parseLifeOrAmmunitonOrMines() {
+		int[] v = new int[2];
+		v[0] = parseInt();
+		v[1] = parseInt();
+		return v;
 	}
 
 	protected Map parseWall(Map map) throws SyntaxException {
 
-		int maxLife = parseInt();
-		int life = parseInt();
 		float x = parseFloat();
 		float y = parseFloat();
+		int maxLife = parseInt();
+		int life = parseInt();
 		float rotation = parseFloat();
 		float scaling = parseFloat();
 
@@ -305,12 +288,12 @@ public class Parser {
 		if (idx > 0) {
 			message = message.substring(0, idx - 1) + tokenQuoted + message.substring(idx + 1);
 		}
-		System.out.print("ERROR: " + message + " " + pos.start + ".." + pos.finish);
+		System.out.print("ERROR: " + message + " " + pos.start + ".." + pos.finish + " ");
 		throw (new SyntaxException());
 	}
 
 	private Token accept(int tokenExpected) throws SyntaxException {
-		if (currentToken.getType() == tokenExpected) {
+		if (currentToken.getKind() == tokenExpected) {
 			previousTokenPosition = currentToken.getSourcePosition();
 			Token temp = currentToken;
 			currentToken = lexicalAnalyser.scan();

@@ -159,21 +159,19 @@ public class HighscoreList {
 			System.out.println("No highscore file for " + map);
 			return new HighscoreList(resourcesManager, LaunchTanks.finish);
 		}
-		// Oeffne einen RWFile und pruefe ob er existiert
-		RWFile file = resourcesManager.openRWFile(highscoreFolder + map + extension);
-		if (file.exists()) {
-			try {
-				// Oeffne einen InputStream und lade die Highscores
-				InputStream inputStream = file.read();
-				List<Highscore> highscoreList = loadHighscores(inputStream);
-				inputStream.close();
-				// Gebe die HighscoreList zurueck
-				System.out.println("Highscore for map " + map + " successfully loaded.");
-				return new HighscoreList(resourcesManager, map, highscoreList);
-			} catch (IOException e) {
-				System.out.println("Could not properly read or close the input stream.");
-				e.printStackTrace();
-			}
+		try {
+			// Oeffne einen RWFile
+			RWFile file = resourcesManager.openRWFile(highscoreFolder + map + extension);
+			// Oeffne einen InputStream und lade die Highscores
+			InputStream inputStream = file.read();
+			List<Highscore> highscoreList = loadHighscores(inputStream);
+			inputStream.close();
+			// Gebe die HighscoreList zurueck
+			System.out.println("Highscore for map " + map + " successfully loaded.");
+			return new HighscoreList(resourcesManager, map, highscoreList);
+		} catch (IOException e) {
+			System.out.println(e.getLocalizedMessage());
+			e.printStackTrace();
 		}
 		// Bei einem Fehler wird eine leere HighscoreList zurueckgegeben
 		System.out.println("No highscore file found for this map.");

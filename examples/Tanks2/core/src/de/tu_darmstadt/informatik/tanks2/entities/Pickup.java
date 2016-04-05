@@ -17,7 +17,7 @@ public class Pickup extends Entity implements IStrength {
 	 *
 	 */
 	public static enum PickupType {
-		HEALTH("Health PickUp"), AMMUNITION("Ammunition PickUp");
+		HEALTH("Health"), AMMUNITION("Ammunition");
 
 		private String pickupname;
 
@@ -49,13 +49,11 @@ public class Pickup extends Entity implements IStrength {
 		sb.append(" ");
 		sb.append(strength);
 		sb.append(" ");
-		sb.append((int) this.getRotation());
+		sb.append(getScaleX());
 		sb.append(" ");
-		sb.append((int) (this.getScaleX() * 100));
+		sb.append(getX());
 		sb.append(" ");
-		sb.append((int) this.getX());
-		sb.append(" ");
-		sb.append((int) this.getY());
+		sb.append(getY());
 		return sb.toString();
 	}
 

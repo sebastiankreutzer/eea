@@ -90,6 +90,19 @@ public class Lexer {
 	}
 
 	private int scanToken() {
+		if(currentChar == '-'){
+			takeIt();
+			if(isDigit(currentChar)) {
+				while (isDigit(currentChar) || currentChar == '.')
+					takeIt();
+				return Token.INTLITERAL;
+			} else {
+				while (isLetter(currentChar) || isDigit(currentChar))
+					takeIt();
+				return Token.IDENTIFIER;
+			}
+		}
+		
 		if (isLetter(currentChar)) {
 			takeIt();
 			while (isLetter(currentChar) || isDigit(currentChar))

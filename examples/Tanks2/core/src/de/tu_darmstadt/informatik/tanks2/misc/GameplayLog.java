@@ -86,7 +86,7 @@ public class GameplayLog {
 		stringBuffer.append(" ");
 		stringBuffer.append(timeLimit);
 		stringBuffer.append(" ");
-		stringBuffer.append(timer.get());
+		stringBuffer.append(timer.getElapsedTime());
 		stringBuffer.append(" ");
 		stringBuffer.append(numberOfShots);
 		return stringBuffer.toString();
@@ -109,15 +109,16 @@ public class GameplayLog {
 		}
 
 		public void stop() {
-			elapsedTime = elapsedTime + System.currentTimeMillis() - startTime;
+			elapsedTime = getElapsedTime();
 		}
 
-		public void set(long time) {
+		public void setElapsedTime(long time) {
 			elapsedTime = time;
+			startTime = System.currentTimeMillis();
 		}
 
-		public long get() {
-			return System.currentTimeMillis() - startTime;
+		public long getElapsedTime() {
+			return elapsedTime + System.currentTimeMillis() - startTime;
 		}
 
 		public void reset() {

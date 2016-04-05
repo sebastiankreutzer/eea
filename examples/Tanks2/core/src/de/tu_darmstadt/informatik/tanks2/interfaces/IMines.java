@@ -12,5 +12,5 @@ public interface IMines {
 	
 	public boolean hasMinesLeft();
 	
-	public int getActualMinesAmmo();
+	public int getMines();
 }

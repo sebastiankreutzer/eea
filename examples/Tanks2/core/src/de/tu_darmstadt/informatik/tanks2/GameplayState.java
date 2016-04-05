@@ -12,6 +12,7 @@ import com.badlogic.gdx.Input;
 import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.ResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -126,7 +127,7 @@ public class GameplayState extends EEAGameState {
 		Tank tank = ((Tank) em.getEntity(LaunchTanks.player1));
 		if (tank != null) {
 			ammo1Text.setText("Übrige Schüsse: " + tank.getAmmunition() + "/" + tank.getMaxAmmunition());
-			mine1Text.setText("Übrige Minen: " + tank.getActualMinesAmmo() + "/" + tank.getMaxMines());
+			mine1Text.setText("Übrige Minen: " + tank.getMines() + "/" + tank.getMaxMines());
 			life1Text.setText("Leben: " + tank.getLife() + "/" + tank.getMaxLife());
 		}
 		// Stelle im Mehrspielermodus die Informationen fuer Spieler2 dar, zeige
@@ -137,11 +138,11 @@ public class GameplayState extends EEAGameState {
 			if (tank2 != null) {
 				player2Text.setText("Spieler 2");
 				ammo2Text.setText("Übrige Schüsse: " + tank2.getAmmunition() + "/" + tank2.getMaxAmmunition());
-				mine2Text.setText("Übrige Minen: " + tank2.getActualMinesAmmo() + "/" + tank2.getMaxMines());
+				mine2Text.setText("Übrige Minen: " + tank2.getMines() + "/" + tank2.getMaxMines());
 				life2Text.setText("Leben: " + tank2.getLife() + "/" + tank2.getMaxLife());
 			}
 		} else {
-			player1Text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.get() / 1000 + " s");
+			player1Text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.getElapsedTime() / 1000 + " s");
 		}
 
 		fpsText.setText("FPS" + EEA.getGraphics().getFramerate());
@@ -153,7 +154,7 @@ public class GameplayState extends EEAGameState {
 		// Parse die Map. Bei Fehlern wird eine entsprechende Fehlermeldung
 		// erzeugt und ins Hauptmenue gewechselt.
 		try {
-			map.parse(resourcesManager, LaunchTanks.debug);
+			map.parse((ResourceManager) resourcesManager, LaunchTanks.debug);
 			// Alle Entities der Map dem EntityManager uebergeben
 			Iterator<Entity> it = map.getEntities().iterator();
 			while (it.hasNext()) {
@@ -253,7 +254,7 @@ public class GameplayState extends EEAGameState {
 		Entity player1 = em.getEntity(LaunchTanks.player1);
 		EEAEvent defeatEvent = new EntityDestroyedEvent(player1);
 		if (timeLimit > 0) {
-			EEAEvent event = new TimeEvent(timeLimit - GameplayLog.getInstance().timer.get(), false);
+			EEAEvent event = new TimeEvent(timeLimit - GameplayLog.getInstance().timer.getElapsedTime(), false);
 			defeatEvent = new OREvent(event, new EntityDestroyedEvent(player1));
 		}
 		// Zeige an das Spieler1 verloren hat und gehe danach ins Hauptmenue
@@ -292,7 +293,7 @@ public class GameplayState extends EEAGameState {
 				GameplayLog gameplayLog = GameplayLog.getInstance();
 				gameplayLog.timer.stop();
 				int shots = gameplayLog.getNumberOfShots();
-				long time = gameplayLog.timer.get();
+				long time = gameplayLog.timer.getElapsedTime();
 
 				JFrame frame = new JFrame("");
 

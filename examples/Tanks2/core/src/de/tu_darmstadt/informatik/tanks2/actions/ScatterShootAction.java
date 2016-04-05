@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.actions;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
+import de.tu_darmstadt.informatik.tanks2.factories.ShotFactory;
 
 /**
  * Eine Action welche einen Streuschuss erzeugt und initialisiert.
@@ -19,7 +19,7 @@ public class ScatterShootAction extends ShootAction {
 	 * @param shotFactory
 	 *            Die ShotFactory fuer den Schuss.
 	 */
-	public ScatterShootAction(float fuseTime, ShootFactory shotFactory) {
+	public ScatterShootAction(float fuseTime, ShotFactory shotFactory) {
 		this(fuseTime, shotFactory, false);
 	}
 
@@ -31,7 +31,7 @@ public class ScatterShootAction extends ShootAction {
 	 * @param debug
 	 *            Der Debugmodus
 	 */
-	public ScatterShootAction(float fuseTime, ShootFactory shotFactory, boolean debug) {
+	public ScatterShootAction(float fuseTime, ShotFactory shotFactory, boolean debug) {
 		super(shotFactory, debug);
 		this.fuseTime = fuseTime;
 	}

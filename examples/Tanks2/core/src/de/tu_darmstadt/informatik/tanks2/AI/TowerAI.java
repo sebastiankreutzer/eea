@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.tanks2.AI;
 
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
-import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
+import de.tu_darmstadt.informatik.tanks2.factories.ShotFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
@@ -15,7 +15,7 @@ import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 public class TowerAI extends AI {
 
 	public static final String ID = "TowerAI";
-	private ShootFactory shotFactory;
+	private ShotFactory shotFactory;
 
 	/**
 	 * Erzeugt eine neue TowerAI
@@ -27,7 +27,7 @@ public class TowerAI extends AI {
 	 * @param debug
 	 *            Der Debugmodus
 	 */
-	public TowerAI(String target, ShootFactory shotFactory, boolean debug) {
+	public TowerAI(String target, ShotFactory shotFactory, boolean debug) {
 		super(ID, target, debug);
 		this.shotFactory = shotFactory;
 	}

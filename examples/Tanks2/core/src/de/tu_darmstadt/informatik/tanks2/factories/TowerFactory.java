@@ -22,7 +22,7 @@ public class TowerFactory {
 	private static int counter = 0;
 
 	private final boolean debug;
-	private ShootFactory shotFactory;
+	private ShotFactory shotFactory;
 
 	/**
 	 * Erzeugt eine TowerFactory.
@@ -32,7 +32,7 @@ public class TowerFactory {
 	 * @param debug
 	 *            Der DebugModus
 	 */
-	public TowerFactory(ShootFactory shotFactory, boolean debug) {
+	public TowerFactory(ShotFactory shotFactory, boolean debug) {
 		this.debug = debug;
 		this.shotFactory = shotFactory;
 

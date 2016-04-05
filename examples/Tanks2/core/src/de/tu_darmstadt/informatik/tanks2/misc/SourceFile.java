@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.ROMFile;
+import de.tu_darmstadt.informatik.eea.ResourceManager;
 
 /**
  * Ein SourceFile oeffnet einen InputStream der dann Zeichen fuer Zeichen
@@ -23,19 +25,21 @@ public class SourceFile {
 	/**
 	 * Erzeuge einen neuen SourceFile.
 	 * 
-	 * @param path
-	 *            Der Dateipfad
-	 * @param resourcesManager
-	 *            Der ResourcesManager
+	 * @param file
+	 *            Der ROMFile
+	 * @throws IOException
+	 *             Falls der ROMFile nicht lesbar ist
 	 */
-	public SourceFile(String path, IResourceManager resourcesManager) {
+	public SourceFile(ROMFile file) throws IOException {
+
 		try {
-			source = resourcesManager.openROMFile(path).read();
+			source = file.read();
 			currentLine = 1;
 		} catch (IOException e) {
-			System.out.println("Error loading file " + path + " : " + e.toString());
+			System.out.println("Error loading file, " + e.toString() + " unreadable.");
 			source = null;
 			currentLine = 0;
+			throw e;
 		}
 	}
 

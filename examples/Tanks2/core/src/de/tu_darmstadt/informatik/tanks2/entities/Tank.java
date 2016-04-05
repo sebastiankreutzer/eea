@@ -1,6 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.entities;
 
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMines;
+import de.tu_darmstadt.informatik.tanks2.maps.Serializer;
 
 /**
  * Ein Tank erweitert einen Tower um die Minen Funktionalitaet.
@@ -38,34 +39,7 @@ public class Tank extends Tower implements  IMines {
 	}
 
 	public String toString() {
-		StringBuffer sb = new StringBuffer("Tank ");
-		sb.append(this.getID());
-		sb.append(" ");
-		sb.append(this.maxLife);
-		sb.append(" ");
-		sb.append(this.life);
-		sb.append(" ");
-		sb.append(this.ammunitionCapacity);
-		sb.append(" ");
-		sb.append(this.ammunition);
-		sb.append(" ");
-		sb.append(this.minesMaxAmmo);
-		sb.append(" ");
-		sb.append(this.minesAmmo);
-		sb.append(" ");
-		sb.append(this.strength);
-		sb.append(" ");
-		sb.append((int) (this.getSpeed() * 100));
-		sb.append(" ");
-		sb.append((int) this.getRotation());
-		sb.append(" ");
-		sb.append((int) (this.getScaleX() * 100));
-		sb.append(" ");
-		sb.append((int) this.getX());
-		sb.append(" ");
-		sb.append((int) this.getY());
-
-		return sb.toString();
+		return "Tank " + this.getID() + " " + Serializer.serialize(this);
 	}
 
 	@Override
@@ -96,7 +70,7 @@ public class Tank extends Tower implements  IMines {
 	}
 
 	@Override
-	public int getActualMinesAmmo() {
+	public int getMines() {
 		return minesAmmo;
 	}
 

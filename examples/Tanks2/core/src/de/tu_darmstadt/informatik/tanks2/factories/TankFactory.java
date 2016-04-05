@@ -37,7 +37,7 @@ public class TankFactory {
 	private final String difficulty;
 	private final boolean debug;
 	private IResourceManager resourcesManager;
-	private ShootFactory shotFactory;
+	private ShotFactory shotFactory;
 	private MineFactory mineFactory;
 
 	/**
@@ -54,7 +54,7 @@ public class TankFactory {
 	 * @param debug
 	 *            Der Debugmodus
 	 */
-	public TankFactory(String difficulty, IResourceManager resourcesManager, ShootFactory shotFactory,
+	public TankFactory(String difficulty, IResourceManager resourcesManager, ShotFactory shotFactory,
 			MineFactory mineFactory, boolean debug) {
 		this.difficulty = difficulty;
 		this.debug = debug;

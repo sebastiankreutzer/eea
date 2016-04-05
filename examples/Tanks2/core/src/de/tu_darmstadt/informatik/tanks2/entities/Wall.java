@@ -36,6 +36,7 @@ public class Wall extends Entity implements ILife {
 		return maxLife;
 	}
 
+	@Override
 	public void setLife(int value) {
 		this.life = value;
 		if (life < 0) {
@@ -51,6 +52,7 @@ public class Wall extends Entity implements ILife {
 
 	}
 
+	@Override
 	public int getLife() {
 		return life;
 	}
@@ -62,17 +64,17 @@ public class Wall extends Entity implements ILife {
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer("Wall ");
+		sb.append((int) getX());
+		sb.append(" ");
+		sb.append((int) getY());
+		sb.append(" ");
 		sb.append(this.maxLife);
 		sb.append(" ");
 		sb.append(this.maxLife);
 		sb.append(" ");
 		sb.append((int) this.getRotation());
 		sb.append(" ");
-		sb.append((int) (this.getScaleX() * 100));
-		sb.append(" ");
-		sb.append((int) getX());
-		sb.append(" ");
-		sb.append((int) getY());
+		sb.append(getScaleX());
 		return sb.toString();
 	}
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
+import de.tu_darmstadt.informatik.tanks2.factories.ShotFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
@@ -18,7 +18,7 @@ import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;
  */
 public class ShootAction extends EEAMovement {
 
-	protected ShootFactory shotFactory;
+	protected ShotFactory shotFactory;
 
 	/**
 	 * Erzeugt eine neue ShootAction.
@@ -26,7 +26,7 @@ public class ShootAction extends EEAMovement {
 	 * @param shotFactory
 	 *            Die ShotFactory fuer den Schuss.
 	 */
-	public ShootAction(ShootFactory shotFactory) {
+	public ShootAction(ShotFactory shotFactory) {
 		this(shotFactory, false);
 	}
 
@@ -38,7 +38,7 @@ public class ShootAction extends EEAMovement {
 	 * @param debug
 	 *            Der Debugmodus
 	 */
-	public ShootAction(ShootFactory shotFactory, boolean debug) {
+	public ShootAction(ShotFactory shotFactory, boolean debug) {
 		this.shotFactory = shotFactory;
 	}
 

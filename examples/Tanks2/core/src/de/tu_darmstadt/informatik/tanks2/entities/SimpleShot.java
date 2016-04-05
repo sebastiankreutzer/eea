@@ -2,6 +2,7 @@ package de.tu_darmstadt.informatik.tanks2.entities;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
+import de.tu_darmstadt.informatik.tanks2.maps.Serializer;
 
 /**
  * Eine Entity die einen Staerke Wert besitzt und zum parsen eines Schusses
@@ -10,7 +11,11 @@ import de.tu_darmstadt.informatik.tanks2.interfaces.IStrength;
  * @author jr
  *
  */
-public class Shoot extends Entity implements IStrength {
+public class SimpleShot extends Entity implements IStrength {
+	
+	public static final String ID = "Shot";
+	
+	protected static int counter = 0;
 
 	protected int damage;
 
@@ -22,24 +27,13 @@ public class Shoot extends Entity implements IStrength {
 	 * @param damage
 	 *            Der Schaden dieses Schusses
 	 */
-	public Shoot(String id, int damage) {
-		super(id);
+	public SimpleShot(String id, int damage) {
+		super(ID + id + counter++);
 		this.damage = damage;
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder("Shot ");
-		sb.append(damage);
-		sb.append(" ");
-		sb.append((int) this.getRotation());
-		sb.append(" ");
-		sb.append((int) (this.getScaleX() * 100));
-		sb.append(" ");
-		sb.append((int) this.getX());
-		sb.append(" ");
-		sb.append((int) this.getY());
-		return sb.toString();
-
+		return ID + " " + Serializer.serialize(this);
 	}
 
 	@Override

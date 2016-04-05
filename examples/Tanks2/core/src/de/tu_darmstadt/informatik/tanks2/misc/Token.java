@@ -34,8 +34,9 @@ public class Token {
 					currentKind++;
 				}
 			}
-		} else
+		} else {
 			this.kind = kind;
+		}
 
 		this.spelling = spelling;
 		this.position = position;
@@ -51,7 +52,7 @@ public class Token {
 		this.spelling = spelling;
 	}
 
-	public int getType() {
+	public int getKind() {
 		return kind;
 	}
 
