@@ -54,7 +54,7 @@ public class EEAGraphics {
 	 * @param filled
 	 *            Whether the shape is filled or lines only.
 	 */
-	public void drawRect(float x, float y, float width, float height, boolean filled) {
+	public void drawRectangle(float x, float y, float width, float height, boolean filled) {
 		prepareDrawShape(filled);
 		renderer.rect(x, y, width, height);
 		renderer.end();
