@@ -1,13 +1,15 @@
 package de.tu_darmstadt.informatik.eea;
 
 import java.io.FileNotFoundException;
-import com.badlogic.gdx.Files.FileType;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class ResourceManager implements IResourceManager {
 	private AssetManager assetManager = new AssetManager();
@@ -26,17 +28,17 @@ public class ResourceManager implements IResourceManager {
 	}
 
 	public ROMFile openROMFile(String path, PathName type, String charset) throws FileNotFoundException {
-		FileType fileType;
-		switch (type) {
-		case ABSOLUTE:
-			fileType = FileType.Absolute;
-			break;
+		try {
+			switch (type) {
+			case ABSOLUTE:
+				return new ROMFile(Gdx.files.absolute(path), charset);
 
-		default:
-			fileType = FileType.Internal;
-			break;
+			default:
+				return new ROMFile(Gdx.files.internal(path), charset);
+			}
+		} catch (GdxRuntimeException e) {
+			throw new FileNotFoundException(e.getLocalizedMessage());
 		}
-		return new ROMFile(path, fileType, charset);
 	}
 
 	public RWFile openRWFile(String path) {
@@ -48,17 +50,13 @@ public class ResourceManager implements IResourceManager {
 	}
 
 	public RWFile openRWFile(String path, PathName type, String charset) {
-		FileType fileType;
 		switch (type) {
 		case ABSOLUTE:
-			fileType = FileType.Absolute;
-			break;
+			return new RWFile(Gdx.files.absolute(path), charset);
 
 		default:
-			fileType = FileType.Local;
-			break;
+			return new RWFile(Gdx.files.local(path), charset);
 		}
-		return new RWFile(path, fileType, charset);
 	}
 	
 	@Override
