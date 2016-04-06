@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -16,20 +17,22 @@ import de.tu_darmstadt.informatik.eea.states.EEAGameState;
  */
 public abstract class EEAGame extends Game {
 
-	public EEAGraphics graphics;
+	protected EEAGraphics graphics;
+	protected ResourceManager resourceManager;
 	
-	private final List<EEAGameState> states = new ArrayList<EEAGameState>();
-	protected IResourceManager resourceManager;
 	private final Viewport viewport;
-	private final boolean debug;
+	
+	protected final List<EEAGameState> states = new ArrayList<EEAGameState>();
+	protected final boolean debug;
 	
 	/**
 	 * Creates a new game with a given width and height.
-	 * @param width The width of the viewport.
-	 * @param height The height of the viewport.
+	 * @param width The width of the world.
+	 * @param height The height of the world.
 	 */
 	public EEAGame(float width, float height, boolean debug) {
-		this.viewport = new StretchViewport(width, height);
+		//this.viewport = new StretchViewport(width, height);
+		viewport = new FitViewport(width, height);
 		this.debug = debug;
 	}
 	

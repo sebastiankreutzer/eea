@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class ResourceManager implements IResourceManager {
@@ -73,14 +74,14 @@ public class ResourceManager implements IResourceManager {
 	public Sound getSound(String path) {
 		return getAsset(path, Sound.class);
 	}
-
-	public Music getMusic(String path) {
-		return getAsset(path, Music.class);
-	}
-
+	
 	@Override
 	public void loadSoundAsync(String path) {
 		assetManager.load(path, Sound.class);
+	}
+
+	public Music getMusic(String path) {
+		return getAsset(path, Music.class);
 	}
 
 	@Override
@@ -96,6 +97,16 @@ public class ResourceManager implements IResourceManager {
 	@Override
 	public void loadTextureAtlasAsynch(String path) {
 		assetManager.load(path, TextureAtlas.class);
+	}
+	
+	@Override
+	public BitmapFont getFont(String path) {
+		return getAsset(path, BitmapFont.class);
+	}
+	
+	@Override
+	public void loadFontAsync(String path) {
+		assetManager.load(path, BitmapFont.class);
 	}
 
 	/**

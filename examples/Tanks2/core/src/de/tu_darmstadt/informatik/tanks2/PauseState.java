@@ -49,11 +49,11 @@ public class PauseState extends EEAGameState {
 		// Ueberschrift
 		Entity pauseMenuText = new Entity("PauseMenuText");
 		pauseMenuText.setPosition(70, 410);
-		pauseMenuText.addComponent(new TextRenderComponent("Spiel ist pausiert", game.graphics));
+		pauseMenuText.addComponent(new TextRenderComponent("Spiel ist pausiert"));
 		em.addEntity(pauseMenuText);
 
 		// Erzeuge und Initialisiere eine MenuEntryFactory
-		MenuEntryFactory mef = new MenuEntryFactory(EEA.getResourceManager(), game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory();
 		mef.setDimensions(55, 390, 380, 60);
 
 		// Erstelle einen Menuepunkt der zum Spiel zurueckfuehrt

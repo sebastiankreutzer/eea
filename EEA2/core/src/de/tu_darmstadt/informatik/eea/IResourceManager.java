@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public interface IResourceManager {
@@ -152,6 +153,22 @@ public interface IResourceManager {
 	 *            The file path
 	 */
 	public void loadMusicAsync(String path);
+	
+	/**
+	 * Loads a font from the given path.
+	 * 
+	 * @param path
+	 *            The file path
+	 */
+	public BitmapFont getFont(String path);
+	
+	/**
+	 * Starts loading a font asynchronously.
+	 * 
+	 * @param path
+	 *            The file path
+	 */
+	public void loadFontAsync(String path);
 
 	public void update();
 }

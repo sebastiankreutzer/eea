@@ -19,8 +19,8 @@ import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollision
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
-import de.tu_darmstadt.informatik.eea.event.IMouseStatus;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
+import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 public class CreateDropAction extends EEAAction {
@@ -28,9 +28,9 @@ public class CreateDropAction extends EEAAction {
 	private final EEAGame game;
 	private final Entity bucket;
 	private final GameplayState gameplayState;
-	private final IMouseStatus mouseMovedEvent;
+	private final MouseClickedEvent mouseMovedEvent;
 	
-	public CreateDropAction(EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
+	public CreateDropAction(EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, MouseClickedEvent mouseMovedEvent) {
 		this.em = em;
 		this.game = game;
 		this.bucket = bucket;

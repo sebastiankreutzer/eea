@@ -5,7 +5,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.MusicAction;
@@ -57,11 +56,11 @@ public class MainMenuState extends EEAGameState {
 
 		Entity mainMenuText = new Entity("MainManuText");
 		mainMenuText.setPosition(70, 410);
-		mainMenuText.addComponent(new TextRenderComponent("Hauptmenü", game.graphics));
+		mainMenuText.addComponent(new TextRenderComponent("Hauptmenü"));
 		em.addEntity(mainMenuText);
 
 		// Erzeuge mit einer Factory die unterschiedlichen Menueeintraege.
-		MenuEntryFactory mef = new MenuEntryFactory(EEA.getResourceManager(), game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory();
 		mef.setDimensions(55, 390, 380, 60);
 
 		mef.prepareMenuEntry("Neues Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {

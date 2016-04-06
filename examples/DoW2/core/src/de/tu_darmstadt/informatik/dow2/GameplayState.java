@@ -14,7 +14,7 @@ import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
-import de.tu_darmstadt.informatik.eea.event.LoopInputEvent;
+import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
@@ -57,7 +57,7 @@ public class GameplayState extends EEAGameState {
 	private void createScore() {
 		Entity score = new Entity("Score");
     	score.setPosition(10, 20);
-    	scoreRenderComponent = new TextRenderComponent("0 Drops catched", game.graphics);
+    	scoreRenderComponent = new TextRenderComponent("0 Drops catched");
     	score.addComponent(scoreRenderComponent);
     	em.addEntity(score);
 	}
@@ -78,8 +78,8 @@ public class GameplayState extends EEAGameState {
 		bucket.addComponent(new RectangleCollisionComponent());
 		
 		// Mausbewegungen verursachen eine Verschiebung
-		LoopInputEvent loopInputEvent = new LoopInputEvent();
-		loopInputEvent.addAction(new MoveBucketAction(loopInputEvent));
+		LoopEvent loopInputEvent = new LoopEvent();
+		loopInputEvent.addAction(new MoveBucketAction());
 		bucket.addComponent(loopInputEvent);
 		em.addEntity(bucket);
 		
@@ -114,6 +114,7 @@ public class GameplayState extends EEAGameState {
 
 	@Override
 	protected void update(float delta) {
+		
 	}
 
 	public int getScore() {

@@ -64,7 +64,7 @@ public class HighscoreState extends EEAGameState {
 			// Fuege der Entity eine TextRenderComponent mit der Fehlermeldung
 			// hinzu
 			error_Message.addComponent(new TextRenderComponent(
-					"Fuer diese Map wurden keine gespeicherten Highscores gefunden.", game.graphics));
+					"Fuer diese Map wurden keine gespeicherten Highscores gefunden."));
 			// Zentriere die Entity und fuege sie dem EntityManager hinzu
 			error_Message.setPosition(200, 300);
 			em.addEntity(error_Message);
@@ -96,7 +96,7 @@ public class HighscoreState extends EEAGameState {
 		if (highscores.isEmpty()) {
 			Entity empty_message = new Entity("empty_message");
 			empty_message.addComponent(
-					new TextRenderComponent("Es hat noch niemand einen Highscore erspielt.", game.graphics));
+					new TextRenderComponent("Es hat noch niemand einen Highscore erspielt."));
 			empty_message.setPosition(200, 300);
 			entries.add(empty_message);
 		} else {
@@ -121,7 +121,7 @@ public class HighscoreState extends EEAGameState {
 				sb.append(" Sekunden");
 
 				Entity highscoreEntity = new Entity("entry" + i);
-				highscoreEntity.addComponent(new TextRenderComponent(sb.toString(), game.graphics));
+				highscoreEntity.addComponent(new TextRenderComponent(sb.toString()));
 				highscoreEntity.setPosition(100, 450 - i * 50);
 				entries.add(highscoreEntity);
 			}

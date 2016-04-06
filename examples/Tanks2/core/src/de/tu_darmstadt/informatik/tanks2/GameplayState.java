@@ -73,31 +73,31 @@ public class GameplayState extends EEAGameState {
 	 * darzustellen.
 	 */
 	private void createUI() {
-		player1Text = new TextRenderComponent("Spieler 1", game.graphics);
+		player1Text = new TextRenderComponent("Spieler 1");
 		createLabel("Player1Text", 10, 20, player1Text);
 
-		ammo1Text = new TextRenderComponent("", game.graphics);
+		ammo1Text = new TextRenderComponent("");
 		createLabel("Player1Ammo", 10, 40, ammo1Text);
 
-		mine1Text = new TextRenderComponent("", game.graphics);
+		mine1Text = new TextRenderComponent("");
 		createLabel("Player1Mines", 10, 60, mine1Text);
 
-		life1Text = new TextRenderComponent("", game.graphics);
+		life1Text = new TextRenderComponent("");
 		createLabel("Player1Life", 10, 80, life1Text);
 
-		player2Text = new TextRenderComponent("", game.graphics);
+		player2Text = new TextRenderComponent("");
 		createLabel("Player2Text", 510, 20, player2Text);
 
-		ammo2Text = new TextRenderComponent("", game.graphics);
+		ammo2Text = new TextRenderComponent("");
 		createLabel("Player2Ammo", 510, 40, ammo2Text);
 
-		mine2Text = new TextRenderComponent("", game.graphics);
+		mine2Text = new TextRenderComponent("");
 		createLabel("Player2Mines", 510, 60, mine2Text);
 
-		life2Text = new TextRenderComponent("", game.graphics);
+		life2Text = new TextRenderComponent("");
 		createLabel("Player2Life", 510, 80, life2Text);
 
-		fpsText = new TextRenderComponent("", game.graphics);
+		fpsText = new TextRenderComponent("");
 		createLabel("FPSLabel", 320, 20, fpsText);
 	}
 

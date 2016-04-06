@@ -2,6 +2,7 @@ package de.tu_darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGraphics;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -35,15 +36,10 @@ public class MenuEntryFactory {
 	/**
 	 * Erzeugt eine neue MenuEntryFactory mit den Standardwerten fuer Position
 	 * und Groesse.
-	 * 
-	 * @param resourcesManager
-	 *            Der ResourcesManager zum erzeugen der Bilder
-	 * @param graphics
-	 *            Die Graphics Instanz fuer die Texte
 	 */
-	public MenuEntryFactory(IResourceManager resourcesManager, EEAGraphics graphics) {
-		this.resourcesManager = resourcesManager;
-		this.graphics = graphics;
+	public MenuEntryFactory() {
+		this.resourcesManager = EEA.getResourceManager();
+		this.graphics = EEA.getGraphics();
 	}
 
 	/**
@@ -112,7 +108,7 @@ public class MenuEntryFactory {
 	 */
 	public Entity makeMenuEntryText() {
 		Entity textEntity = new Entity(name + "Text");
-		textEntity.addComponent(new TextRenderComponent(name, graphics));
+		textEntity.addComponent(new TextRenderComponent(name));
 		textEntity.setBounds(startX + 10, startY, distX - 20, distY);
 
 		return textEntity;
