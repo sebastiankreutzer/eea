@@ -2,11 +2,14 @@ package de.tu_darmstadt.informatik.eea;
 
 import java.io.FileNotFoundException;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class ResourceManager implements IResourceManager {
 	private AssetManager assetManager = new AssetManager();
@@ -15,58 +18,103 @@ public class ResourceManager implements IResourceManager {
 		assetManager = new AssetManager();
 	}
 
-	/**
-	 * Creates a new ROM file.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
 	@Override
-	public ROMFile openROMFile(String path) {
-		return new ROMFile(path);
+	public ROMFile openROMFile(String path) throws FileNotFoundException {
+		return openROMFile(path, PathName.RELATIVE, null);
+	}
+	
+	public ROMFile openROMFile(String path, PathName type) throws FileNotFoundException {
+		return openROMFile(path, type, null);
 	}
 
-	/**
-	 * Creates a new RW file.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
+	public ROMFile openROMFile(String path, PathName type, String charset) throws FileNotFoundException {
+		try {
+			switch (type) {
+			case ABSOLUTE:
+				return new ROMFile(Gdx.files.absolute(path), charset);
+
+			default:
+				return new ROMFile(Gdx.files.internal(path), charset);
+			}
+		} catch (GdxRuntimeException e) {
+			throw new FileNotFoundException(e.getLocalizedMessage());
+		}
+	}
+
 	public RWFile openRWFile(String path) {
-		return new RWFile(path);
+		return openRWFile(path, PathName.RELATIVE, null);
+	}
+	
+	public RWFile openRWFile(String path, PathName type) {
+		return openRWFile(path, type, null);
 	}
 
-	/**
-	 * Loads a texture from the given path.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
+	public RWFile openRWFile(String path, PathName type, String charset) {
+		switch (type) {
+		case ABSOLUTE:
+			return new RWFile(Gdx.files.absolute(path), charset);
+
+		default:
+			return new RWFile(Gdx.files.local(path), charset);
+		}
+	}
+	
 	@Override
 	public Texture getTexture(String path) {
 		return getAsset(path, Texture.class);
 	}
+	
+	@Override
+	public void loadTextureAsync(String path) {
+		assetManager.load(path, Texture.class);
+	}
 
-	/**
-	 * Loads a sound from the given path.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
 	public Sound getSound(String path) {
 		return getAsset(path, Sound.class);
 	}
+	
+	@Override
+	public void loadSoundAsync(String path) {
+		assetManager.load(path, Sound.class);
+	}
 
-	/**
-	 * Loads music from the given path.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
 	public Music getMusic(String path) {
 		return getAsset(path, Music.class);
 	}
 
+	@Override
+	public void loadMusicAsync(String path) {
+		assetManager.load(path, Music.class);
+	}
+	
+	@Override
+	public TextureAtlas getTextureAtlas(String path) {
+		return getAsset(path, TextureAtlas.class);
+	}
+
+	@Override
+	public void loadTextureAtlasAsynch(String path) {
+		assetManager.load(path, TextureAtlas.class);
+	}
+	
+	@Override
+	public BitmapFont getFont(String path) {
+		return getAsset(path, BitmapFont.class);
+	}
+	
+	@Override
+	public void loadFontAsync(String path) {
+		assetManager.load(path, BitmapFont.class);
+	}
+
+	/**
+	 * Updates the underlying asset manager.
+	 */
+	@Override
+	public void update() {
+		assetManager.update();
+	}
+	
 	/**
 	 * Loads an asset from the given path.
 	 * 
@@ -76,53 +124,11 @@ public class ResourceManager implements IResourceManager {
 	 *            The type of the asset
 	 * @return The loaded asset object
 	 */
-	private <T> T getAsset(String path, Class<T> type) {
+	protected <T> T getAsset(String path, Class<T> type) {
 		if (!finishLoadingAsset(path, type)) {
-			// TODO Throw exception, so they can handle it?
-			return null;
+			throw new RuntimeException("Could not load asset of type " + type.getName() + " from " + path);
 		}
 		return assetManager.get(path, type);
-	}
-
-	/**
-	 * Starts loading a texture asynchronously.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
-	@Override
-	public void loadTextureAsync(String path) {
-		assetManager.load(path, Texture.class);
-	}
-
-	/**
-	 * Starts loading a sound asynchronously.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
-	@Override
-	public void loadSoundAsync(String path) {
-		assetManager.load(path, Sound.class);
-	}
-
-	/**
-	 * Starts loading music asynchronously.
-	 * 
-	 * @param path
-	 *            The file path
-	 */
-	@Override
-	public void loadMusicAsync(String path) {
-		assetManager.load(path, Music.class);
-	}
-
-	/**
-	 * Updates the underlying asset manager.
-	 */
-	@Override
-	public void update() {
-		assetManager.update();
 	}
 
 	/**
@@ -145,7 +151,7 @@ public class ResourceManager implements IResourceManager {
 	 * @return True, if loading has been completed, false if the asset could not
 	 *         be loaded.
 	 */
-	private <T> boolean finishLoadingAsset(String path, Class<T> type) {
+	protected <T> boolean finishLoadingAsset(String path, Class<T> type) {
 		do {
 			if (assetManager.isLoaded(path, type))
 				return true;
@@ -157,17 +163,7 @@ public class ResourceManager implements IResourceManager {
 
 		if (assetManager.isLoaded(path, type))
 			return true;
-		// The asset does not exist //TODO Exception here?
+		// The asset does not exist
 		return false;
-	}
-
-	@Override
-	public TextureAtlas getTextureAtlas(String path) {
-		return getAsset(path, TextureAtlas.class);
-	}
-
-	@Override
-	public void loadTextureAtlasAsynch(String path) {
-		assetManager.load(path, TextureAtlas.class);
 	}
 }

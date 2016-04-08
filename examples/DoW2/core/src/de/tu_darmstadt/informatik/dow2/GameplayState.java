@@ -4,7 +4,6 @@ import com.badlogic.gdx.Input;
 
 import de.tu_darmstadt.informatik.customActions.CreateDropAction;
 import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
@@ -14,7 +13,7 @@ import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
-import de.tu_darmstadt.informatik.eea.event.LoopInputEvent;
+import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
@@ -26,7 +25,7 @@ public class GameplayState extends EEAGameState {
 	
 	public GameplayState(EEAGame game) {
 		super(game);
-		IResourceManager rm = EEA.getResourceManager();
+		IResourceManager rm = EEAGame.getResourceManager();
 		rm.loadTextureAsync("drop.png");
 		rm.loadSoundAsync("WaterDrop.mp3");
 	}
@@ -57,7 +56,7 @@ public class GameplayState extends EEAGameState {
 	private void createScore() {
 		Entity score = new Entity("Score");
     	score.setPosition(10, 20);
-    	scoreRenderComponent = new TextRenderComponent("0 Drops catched", game.graphics);
+    	scoreRenderComponent = new TextRenderComponent("0 Drops catched");
     	score.addComponent(scoreRenderComponent);
     	em.addEntity(score);
 	}
@@ -78,8 +77,8 @@ public class GameplayState extends EEAGameState {
 		bucket.addComponent(new RectangleCollisionComponent());
 		
 		// Mausbewegungen verursachen eine Verschiebung
-		LoopInputEvent loopInputEvent = new LoopInputEvent();
-		loopInputEvent.addAction(new MoveBucketAction(loopInputEvent));
+		LoopEvent loopInputEvent = new LoopEvent();
+		loopInputEvent.addAction(new MoveBucketAction());
 		bucket.addComponent(loopInputEvent);
 		em.addEntity(bucket);
 		
@@ -107,13 +106,14 @@ public class GameplayState extends EEAGameState {
 	private void createEscapeAction() {		
     	Entity escListener = new Entity("ESC_Listener");
     	KeyPressedEvent escPressed = new KeyPressedEvent(Input.Keys.ESCAPE);
-    	escPressed.addAction(new ChangeStateAction(game, DropOfWaterGame.MainMenuState));
+    	escPressed.addAction(new ChangeStateAction(game, DropOfWaterGame.MainMenuState, false));
     	escListener.addComponent(escPressed);    	
     	em.addEntity(escListener);
 	}
 
 	@Override
 	protected void update(float delta) {
+		
 	}
 
 	public int getScore() {

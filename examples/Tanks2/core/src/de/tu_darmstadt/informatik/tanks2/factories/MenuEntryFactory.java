@@ -11,7 +11,6 @@ import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseEnteredEvent;
-import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 /**
  * Eine Factory zun Erzeugen von Menueeintraegen. Ein Menueeintrag besteht aus
@@ -37,15 +36,10 @@ public class MenuEntryFactory {
 	/**
 	 * Erzeugt eine neue MenuEntryFactory mit den Standardwerten fuer Position
 	 * und Groesse.
-	 * 
-	 * @param resourcesManager
-	 *            Der ResourcesManager zum erzeugen der Bilder
-	 * @param graphics
-	 *            Die Graphics Instanz fuer die Texte
 	 */
-	public MenuEntryFactory(IResourceManager resourcesManager, EEAGraphics graphics) {
-		this.resourcesManager = resourcesManager;
-		this.graphics = graphics;
+	public MenuEntryFactory() {
+		this.resourcesManager = EEAGame.getResourceManager();
+		this.graphics = EEAGame.getGraphics();
 	}
 
 	/**
@@ -114,7 +108,7 @@ public class MenuEntryFactory {
 	 */
 	public Entity makeMenuEntryText() {
 		Entity textEntity = new Entity(name + "Text");
-		textEntity.addComponent(new TextRenderComponent(name, graphics));
+		textEntity.addComponent(new TextRenderComponent(name));
 		textEntity.setBounds(startX + 10, startY, distX - 20, distY);
 
 		return textEntity;

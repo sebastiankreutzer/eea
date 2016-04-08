@@ -2,14 +2,11 @@ package de.tu_darmstadt.informatik.customActions;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.dow2.DropOfWaterGame;
 import de.tu_darmstadt.informatik.dow2.GameplayState;
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
@@ -21,8 +18,8 @@ import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollision
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
-import de.tu_darmstadt.informatik.eea.event.IMouseStatus;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
+import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 public class CreateDropAction extends EEAAction {
@@ -30,9 +27,9 @@ public class CreateDropAction extends EEAAction {
 	private final EEAGame game;
 	private final Entity bucket;
 	private final GameplayState gameplayState;
-	private final IMouseStatus mouseMovedEvent;
+	private final MouseClickedEvent mouseMovedEvent;
 	
-	public CreateDropAction(EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, IMouseStatus mouseMovedEvent) {
+	public CreateDropAction(EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, MouseClickedEvent mouseMovedEvent) {
 		this.em = em;
 		this.game = game;
 		this.bucket = bucket;
@@ -87,8 +84,8 @@ public class CreateDropAction extends EEAAction {
 	 */
 	private void positionDrop(Entity drop) {
 		Random random = new Random();
-		float x = random.nextInt((int) EEA.getGraphics().getWorldWidth());
-		float y = EEA.getGraphics().getWorldHeight();
+		float x = random.nextInt((int) EEAGame.getGraphics().getWorldWidth());
+		float y = EEAGame.getGraphics().getWorldHeight();
 		// Alternative:
 		// x = mouseMovedEvent.getMouseX();
 		drop.setPosition(x, y, Align.top | Align.center);

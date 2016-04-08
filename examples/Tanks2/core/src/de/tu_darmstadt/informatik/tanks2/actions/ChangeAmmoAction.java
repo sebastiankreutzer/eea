@@ -1,7 +1,5 @@
 package de.tu_darmstadt.informatik.tanks2.actions;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IMines;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;

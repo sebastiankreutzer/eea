@@ -42,25 +42,25 @@ public class Tower extends Entity implements ILife, IAmmunition, IStrength, ISpe
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Tower ");
-		sb.append(this.maxLife);
+		sb.append(getX());
 		sb.append(" ");
-		sb.append(this.life);
+		sb.append(getY());
 		sb.append(" ");
-		sb.append(this.ammunitionCapacity);
+		sb.append(maxLife);
 		sb.append(" ");
-		sb.append(this.ammunition);
+		sb.append(life);
 		sb.append(" ");
-		sb.append(this.strength);
+		sb.append(ammunitionCapacity);
 		sb.append(" ");
-		sb.append((int) speed);
+		sb.append(ammunition);
 		sb.append(" ");
-		sb.append((int) this.getRotation());
+		sb.append(getStrength());
 		sb.append(" ");
-		sb.append((int) (this.getScaleX() * 100));
+		sb.append(getSpeed());
 		sb.append(" ");
-		sb.append((int) this.getX());
+		sb.append((int) getRotation());
 		sb.append(" ");
-		sb.append((int) this.getY());
+		sb.append(getScaleX());
 		return sb.toString();
 	}
 

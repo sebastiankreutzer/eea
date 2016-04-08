@@ -9,7 +9,7 @@ public class CircleCollisionComponent extends CircleTriggerComponent {
 	}
 	
 	@Override
-	public boolean collide(EEACollisionComponent other) {
+	public boolean collide(EEACollisionTriggerComponent other) {
 		return other.collideWithCircle(this);
 	}
 }

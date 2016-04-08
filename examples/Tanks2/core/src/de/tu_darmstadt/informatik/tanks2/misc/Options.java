@@ -1,134 +1,125 @@
 package de.tu_darmstadt.informatik.tanks2.misc;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.RWFile;
 
+/**
+ * Speichert und Verwaltet Informationen ueber die vom Spieler gewuenschte
+ * Verhaltensweise des Spiels bezuegliche Tons und Schwierigkeitsgrad.
+ * 
+ * @author jr
+ *
+ */
 public class Options {
-	
-	public static enum Difficulty { EASY, NORMAL, HARD }
-	
-	private final RWFile file;
-	//private final String fileName = "options";
-	//private final String folderName = "options";
-	
-	// Difficulty settings
-	private Difficulty difficulty;
-	// Sound settings
-	private boolean soundEnabled;
-	
-	public Options (IResourceManager resourcesManager) {
-		// Default setting
-		difficulty = Difficulty.EASY;
-		soundEnabled = true;
-		
-		file = resourcesManager.openRWFile("options");
-		
-		// Load saved settings if existent
-		this.load();
+
+	public static enum Difficulty {
+		EASY, NORMAL, HARD
 	}
-	
+
+	private static Options instance = null;
+	private final RWFile file;
+
+	private Difficulty difficulty;
+	private boolean soundEnabled;
+
 	/**
-	 * Sets the difficulty
-	 * @param difficulty difficulty to be set
+	 * Erzeugt eine neue Options Instanz. Es wird versucht die vorherigen
+	 * Optionen wieder herzustellen, ansonsten werden die Standardwerte gesetzt.
 	 */
-	public void setDifficulty (Difficulty difficulty) {
+	private Options() {
+		file = EEAGame.getResourceManager().openRWFile("options");
+		try {
+			load();
+		} catch (IOException e) {
+			System.out.println("Could not load options.");
+			difficulty = Difficulty.EASY;
+			soundEnabled = true;
+		}
+	}
+
+	public static Options getInstance() {
+		if (instance == null) {
+			instance = new Options();
+		}
+		return instance;
+	}
+
+	/**
+	 * Setzt den Schwierigkeitsgrad auf einen Wert aus
+	 * {@link Options.Difficulty}.
+	 * 
+	 * @param difficulty
+	 *            Der neue Schwierigkeitsgrad.
+	 */
+	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
-		// Speichern
 		save();
 	}
-	
+
 	/**
-	 * Returns the difficulty settings
-	 * @return difficulty settings
+	 * Gibt den Namen des aktuellen Schwierigkeitsgrades zurueck.
+	 * 
+	 * @return Den Namen des Schwierigkeitsgrades.
 	 */
 	public String getDifficulty() {
 		return difficulty.toString();
 	}
-	
+
 	/**
-	 * Toggles the sound dependent on sound settings
-	 * @throws SlickException 
-	 */
-	private void toggleSound() {
-		// TODO Sound
-//		if(soundEnabled) {
-//			bgm = new Sound("assets/theme.ogg");
-//			bgm.loop();
-//			//bgm.play();
-//		} else if(bgm != null) {
-//			bgm.stop();
-//		}
-	}
-	
-	/**
-	 * Returns if the sound is enabled
-	 * @return true if the sound is enables otherwise false
+	 * @return true Wenn der Ton eingeschaltet ist, ansonsten false.
 	 */
 	public boolean isSoundEnabled() {
 		return soundEnabled;
 	}
-	
+
 	/**
-	 * Enables the sound
+	 * Schaltet den Ton ein.
 	 */
 	public void enableSound() {
 		soundEnabled = true;
-		toggleSound();
 		save();
 	}
-	
+
 	/**
-	 * Disables the sound
+	 * Schaltet den Ton aus.
 	 */
 	public void disableSound() {
 		soundEnabled = false;
-		toggleSound();
 		save();
 	}
 
 	/**
-	 * Saves the Options
+	 * Speichert die aktuellen Optionen.
 	 */
 	public void save() {
-		
-		ObjectOutputStream oos;
 		try {
-			oos = new ObjectOutputStream(file.write(false));
+			ObjectOutputStream oos = new ObjectOutputStream(file.write(false));
 			oos.writeObject(difficulty);
 			oos.writeBoolean(soundEnabled);
 			oos.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-	
-	
-	/**
-	 * Loads the options
-	 */
-	public void load() {
-		
-		// Check if file exists to avoid exceptions
-		if (file.exists()) {
-			try {
-				ObjectInputStream ois = new ObjectInputStream(file.read());
-				this.difficulty = (Difficulty) ois.readObject();
-				this.soundEnabled = (boolean) ois.readBoolean();
-				ois.close();
-			} catch (FileNotFoundException e) {
-				System.out.println("No options file found.");
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
 
+	/**
+	 * Laed die gespeicherten Optionen.
+	 * 
+	 * @throws IOException
+	 *             Wenn die Optionen nicht geladen werden konnten.
+	 */
+	public void load() throws IOException {
+		try {
+			ObjectInputStream ois = new ObjectInputStream(file.read());
+			this.difficulty = (Difficulty) ois.readObject();
+			this.soundEnabled = (boolean) ois.readBoolean();
+			ois.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
-

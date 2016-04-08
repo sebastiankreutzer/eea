@@ -1,6 +1,9 @@
 package de.tu_darmstadt.informatik.eea.event;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
+
+import de.tu_darmstadt.informatik.eea.EEAGame;
 
 public class EEAInputProcessor implements InputProcessor {
 	
@@ -27,30 +30,26 @@ public class EEAInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		screenX = CoordinateHelper.convertToViewSpaceX(screenX);
-		screenY = CoordinateHelper.convertToViewSpaceY(screenY);
-		return parent.touchDown(screenX, screenY, pointer, button);
+		Vector2 stagePosition = EEAGame.getGraphics().toStageCoordinates(screenX, screenY);
+		return parent.touchDown((int) stagePosition.x, (int) stagePosition.y, pointer, button);
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		screenX = CoordinateHelper.convertToViewSpaceX(screenX);
-		screenY = CoordinateHelper.convertToViewSpaceY(screenY);
-		return parent.touchUp(screenX, screenY, pointer, button);
+		Vector2 stagePosition = EEAGame.getGraphics().toStageCoordinates(screenX, screenY);
+		return parent.touchUp((int) stagePosition.x, (int) stagePosition.y, pointer, button);
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		screenX = CoordinateHelper.convertToViewSpaceX(screenX);
-		screenY = CoordinateHelper.convertToViewSpaceY(screenY);
-		return parent.touchDragged(screenX, screenY, pointer);
+		Vector2 stagePosition = EEAGame.getGraphics().toStageCoordinates(screenX, screenY);
+		return parent.touchDragged((int) stagePosition.x, (int) stagePosition.y, pointer);
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		screenX = CoordinateHelper.convertToViewSpaceX(screenX);
-		screenY = CoordinateHelper.convertToViewSpaceY(screenY);
-		return parent.mouseMoved(screenX, screenY);
+		Vector2 stagePosition = EEAGame.getGraphics().toStageCoordinates(screenX, screenY);
+		return parent.mouseMoved((int) stagePosition.x, (int) stagePosition.y);
 	}
 
 	@Override

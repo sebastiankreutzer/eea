@@ -1,7 +1,6 @@
 package de.tu_darmstadt.informatik.customActions;
 
 import de.tu_darmstadt.informatik.dow2.GameplayState;
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.SoundAction;

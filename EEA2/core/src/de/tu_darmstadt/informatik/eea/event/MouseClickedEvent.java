@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.eea.event;
 
 import com.badlogic.gdx.Input;
 
-public class MouseClickedEvent extends EEAInputEvent implements IMouseStatus {
+public class MouseClickedEvent extends EEAInputEvent {
 
 	public static final String ID = "MouseClickedEvent";
 
@@ -41,12 +41,10 @@ public class MouseClickedEvent extends EEAInputEvent implements IMouseStatus {
 		return false;
 	}
 
-	@Override
 	public int getMouseX() {
 		return mouseX;
 	}
 
-	@Override
 	public int getMouseY() {
 		return mouseY;
 	}

@@ -1,5 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.entities;
 
+import de.tu_darmstadt.informatik.tanks2.maps.Serializer;
+
 /**
  * Eine spezielle Schuss Entity die nach einer bestimmten Zeit in fuenf kleinere
  * Geschosse zerfaellt.
@@ -7,7 +9,7 @@ package de.tu_darmstadt.informatik.tanks2.entities;
  * @author jr
  *
  */
-public class ScatterShoot extends Shoot {
+public class ScatterShot extends SimpleShot {
 
 	protected float fuseTime;
 
@@ -21,19 +23,14 @@ public class ScatterShoot extends Shoot {
 	 * @param fuseTime
 	 *            Die Zeit bis der Schuss zerfaellt
 	 */
-	public ScatterShoot(String id, int damage, float fuseTime) {
+	public ScatterShot(String id, int damage, float fuseTime) {
 		super(id, damage);
 		this.fuseTime = fuseTime;
 	}
 
 	@Override
 	public String toString() {
-
-		StringBuilder sb = new StringBuilder("Scattershot ");
-		sb.append(fuseTime);
-		sb.append(super.toString().substring(4));
-		return sb.toString();
-
+		return "Scattershot " + Serializer.serialize(this) + " " + fuseTime;
 	}
 
 	/**

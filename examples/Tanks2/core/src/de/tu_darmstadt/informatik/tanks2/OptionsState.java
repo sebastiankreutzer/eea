@@ -3,7 +3,6 @@ package de.tu_darmstadt.informatik.tanks2;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -24,8 +23,8 @@ public class OptionsState extends EEAGameState {
 	public OptionsState(EEAGame game, Options options) {
 		super(game);
 		this.options = options;
-		difficultyText = new TextRenderComponent("", game.graphics);
-		soundText = new TextRenderComponent("", game.graphics);
+		difficultyText = new TextRenderComponent("");
+		soundText = new TextRenderComponent("");
 	}
 
 	@Override
@@ -44,7 +43,7 @@ public class OptionsState extends EEAGameState {
 		EEAEvent ESC_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
 		// Erzeuge die Action "Gehe ins Hauptmenue" und fuege sie dem 
 		// ESC_pressed Event hinzu
-		ESC_pressed.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu));
+		ESC_pressed.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, false));
 		background.addComponent(ESC_pressed);
 		
 		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
@@ -52,10 +51,10 @@ public class OptionsState extends EEAGameState {
 		
 		Entity mainMenuText = new Entity("OptionsText");
 		mainMenuText.setPosition(70, 410);
-		mainMenuText.addComponent(new TextRenderComponent("Einstellungen", game.graphics));
+		mainMenuText.addComponent(new TextRenderComponent("Einstellungen"));
 		em.addEntity(mainMenuText);
 		
-		MenuEntryFactory mef = new MenuEntryFactory(EEA.getResourceManager(), game.graphics);
+		MenuEntryFactory mef = new MenuEntryFactory();
 		mef.setDimensions(55, 330, 380, 60);
 		
     	// Ton einschalten/ausschalten

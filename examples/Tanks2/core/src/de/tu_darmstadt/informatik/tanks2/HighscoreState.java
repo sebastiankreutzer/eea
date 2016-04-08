@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Input.Keys;
 
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -55,7 +54,7 @@ public class HighscoreState extends EEAGameState {
 
 		// Lade die aktuelle HighscoreList
 		String map = Map.getInstance().getName();
-		HighscoreList highscoreList = HighscoreList.load(map, EEA.getResourceManager());
+		HighscoreList highscoreList = HighscoreList.load(map, EEAGame.getResourceManager());
 
 		// Pruefe ob die HighscoreList geladen wurde
 		if (!highscoreList.hasHighscoreLoaded()) {
@@ -64,7 +63,7 @@ public class HighscoreState extends EEAGameState {
 			// Fuege der Entity eine TextRenderComponent mit der Fehlermeldung
 			// hinzu
 			error_Message.addComponent(new TextRenderComponent(
-					"Fuer diese Map wurden keine gespeicherten Highscores gefunden.", game.graphics));
+					"Fuer diese Map wurden keine gespeicherten Highscores gefunden."));
 			// Zentriere die Entity und fuege sie dem EntityManager hinzu
 			error_Message.setPosition(200, 300);
 			em.addEntity(error_Message);
@@ -96,7 +95,7 @@ public class HighscoreState extends EEAGameState {
 		if (highscores.isEmpty()) {
 			Entity empty_message = new Entity("empty_message");
 			empty_message.addComponent(
-					new TextRenderComponent("Es hat noch niemand einen Highscore erspielt.", game.graphics));
+					new TextRenderComponent("Es hat noch niemand einen Highscore erspielt."));
 			empty_message.setPosition(200, 300);
 			entries.add(empty_message);
 		} else {
@@ -121,7 +120,7 @@ public class HighscoreState extends EEAGameState {
 				sb.append(" Sekunden");
 
 				Entity highscoreEntity = new Entity("entry" + i);
-				highscoreEntity.addComponent(new TextRenderComponent(sb.toString(), game.graphics));
+				highscoreEntity.addComponent(new TextRenderComponent(sb.toString()));
 				highscoreEntity.setPosition(100, 450 - i * 50);
 				entries.add(highscoreEntity);
 			}

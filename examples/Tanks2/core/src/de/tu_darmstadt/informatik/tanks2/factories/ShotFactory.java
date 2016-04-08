@@ -5,7 +5,6 @@ import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleTriggerComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
@@ -14,8 +13,8 @@ import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.TimeEvent;
 import de.tu_darmstadt.informatik.tanks2.actions.HitAction;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnShootAction;
-import de.tu_darmstadt.informatik.tanks2.entities.ScatterShoot;
-import de.tu_darmstadt.informatik.tanks2.entities.Shoot;
+import de.tu_darmstadt.informatik.tanks2.entities.ScatterShot;
+import de.tu_darmstadt.informatik.tanks2.entities.SimpleShot;
 
 /**
  * Eine Factory fuer Schuesse und Streuschuesse.
@@ -23,7 +22,7 @@ import de.tu_darmstadt.informatik.tanks2.entities.Shoot;
  * @author jr
  *
  */
-public class ShootFactory {
+public class ShotFactory {
 
 	protected IResourceManager resourcesManager;
 	protected ExplosionFactory explosionFactory;
@@ -40,7 +39,7 @@ public class ShootFactory {
 	 *            Der Debugmodus
 	 */
 
-	public ShootFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
+	public ShotFactory(IResourceManager resourcesManager, ExplosionFactory explosionFactory, boolean debug) {
 		this.resourcesManager = resourcesManager;
 		this.explosionFactory = explosionFactory;
 		this.debug = debug;
@@ -61,10 +60,10 @@ public class ShootFactory {
 	 *            Die Skalierung
 	 * @return Einen Shot
 	 */
-	public Shoot createShot(float x, float y, String owner, int strength, float rotation, float scale) {
+	public SimpleShot createShot(float x, float y, String owner, int strength, float rotation, float scale) {
 
 		// Erstelle einen Schuss und setzte Position, Rotation und Skalierung
-		Shoot simpleShot = new Shoot(owner + "SimpleShoot" + Math.random(), strength);
+		SimpleShot simpleShot = new SimpleShot(owner, strength);
 		initShot(simpleShot, strength, 75f, x, y, rotation, scale);
 
 		return simpleShot;
@@ -125,9 +124,9 @@ public class ShootFactory {
 	 *            Die Zeit bis die Muntion zerfaellt
 	 * @return Einen ScatterShot
 	 */
-	public ScatterShoot createScatterShot(float x, float y, String ownerID, int damage, float rotation, float scale,
+	public ScatterShot createScatterShot(float x, float y, String ownerID, int damage, float rotation, float scale,
 			float fuseTime) {
-		ScatterShoot scatterShoot = new ScatterShoot(ownerID, damage, fuseTime);
+		ScatterShot scatterShoot = new ScatterShot(ownerID, damage, fuseTime);
 
 		initShot(scatterShoot, damage, 60f, x, y, rotation, scale);
 

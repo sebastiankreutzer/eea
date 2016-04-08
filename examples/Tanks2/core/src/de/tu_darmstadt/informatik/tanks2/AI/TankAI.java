@@ -1,12 +1,10 @@
 package de.tu_darmstadt.informatik.tanks2.AI;
 
 import com.badlogic.gdx.math.Vector2;
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ShootAction;
-import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
-import de.tu_darmstadt.informatik.tanks2.factories.ShootFactory;
+import de.tu_darmstadt.informatik.tanks2.factories.ShotFactory;
 import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 
 /**
@@ -19,7 +17,7 @@ import de.tu_darmstadt.informatik.tanks2.interfaces.IAmmunition;
 public class TankAI extends AI {
 
 	public static final String ID = "TankAI";
-	private ShootFactory shotFactory;
+	private ShotFactory shotFactory;
 
 	/**
 	 * Erzeugt eine neue TankAI
@@ -31,7 +29,7 @@ public class TankAI extends AI {
 	 * @param debug
 	 *            Der Debugmodus
 	 */
-	public TankAI(String target, ShootFactory shotFactory, boolean debug) {
+	public TankAI(String target, ShotFactory shotFactory, boolean debug) {
 		super(ID, target, debug);
 		this.shotFactory = shotFactory;
 	}
