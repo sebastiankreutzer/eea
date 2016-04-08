@@ -3,10 +3,11 @@ package de.tu_darmstadt.informatik.eea.component;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**
- * The component class provides an abstract template for objects that belong to an
- * {@link de.tu_darmstadt.informatik.eea.entity.Entity} instance, its owner.
+ * The component class provides an abstract template for objects that belong to
+ * an {@link de.tu_darmstadt.informatik.eea.entity.Entity} instance, its owner.
  * Components can be identified and distinguished by their ID.
- * @author 
+ * 
+ * @author
  * @version 2.0
  */
 public abstract class EEAComponent {
@@ -14,12 +15,17 @@ public abstract class EEAComponent {
 	/** The internal ID of this component. */
 	protected String id;
 
-	/** The registered owner {@link de.tu_darmstadt.informatik.eea.entity.Entity} of this component */
+	/**
+	 * The registered owner {@link de.tu_darmstadt.informatik.eea.entity.Entity}
+	 * of this component
+	 */
 	protected Entity owner;
 
 	/**
 	 * Creates a new component with the given ID.
-	 * @param componentID The ID of this component.
+	 * 
+	 * @param componentID
+	 *            The ID of this component.
 	 */
 	public EEAComponent(String componentID) {
 		id = componentID;
@@ -27,6 +33,7 @@ public abstract class EEAComponent {
 
 	/**
 	 * Returns the ID of this component.
+	 * 
 	 * @return The ID of this component.
 	 */
 	public String getId() {
@@ -34,7 +41,9 @@ public abstract class EEAComponent {
 	}
 
 	/**
-	 * Returns the {@link de.tu_darmstadt.informatik.eea.entity.Entity} that is registered as the owner of this component.
+	 * Returns the {@link de.tu_darmstadt.informatik.eea.entity.Entity} that is
+	 * registered as the owner of this component.
+	 * 
 	 * @return The owner entity of this component.
 	 */
 	public Entity getOwnerEntity() {
@@ -42,32 +51,41 @@ public abstract class EEAComponent {
 	}
 
 	/**
-	 * Registers a {@link de.tu_darmstadt.informatik.eea.entity.Entity} as the events owner entity.
-	 * @param owner The entity that becomes the owner of this component.
+	 * Registers a {@link de.tu_darmstadt.informatik.eea.entity.Entity} as the
+	 * events owner entity.
+	 * 
+	 * @param owner
+	 *            The entity that becomes the owner of this component.
 	 */
 	public void setOwnerEntity(Entity owner) {
 		this.owner = owner;
 	}
 
 	/**
-	 * The update method is called every render cycle and represents the behavior of this component.
-	 * @return TODO
+	 * The update method is called every render cycle and represents the
+	 * behavior of this component.
+	 * 
+	 * @return false if the evaluation of further components/events and actions
+	 *         should be aborted because the entity does no longer exist, true
+	 *         will continue with the evaluation.
 	 */
 	public abstract boolean update(float delta);
 
 	/**
-	 * This method is a hook that is called when the component is added to an @link{de.tu.darmstadt.informatik.eea.entity.Entity},
-	 * after the entity is registered as the owner.
+	 * This method is a hook that is called when the component is added to
+	 * an @link{de.tu.darmstadt.informatik.eea.entity.Entity}, after the entity
+	 * is registered as the owner.
 	 */
-	public void onAddComponent(){
+	public void onAddComponent() {
 
 	};
 
 	/**
-	 * This method is a hook that is called when the component is removed from an @link{de.tu.darmstadt.informatik.eea.entity.Entity},
-	 * before the owner of this component is unregistered.
+	 * This method is a hook that is called when the component is removed from
+	 * an @link{de.tu.darmstadt.informatik.eea.entity.Entity}, before the owner
+	 * of this component is unregistered.
 	 */
-	public void onRemoveComponent(){
+	public void onRemoveComponent() {
 
 	};
 }

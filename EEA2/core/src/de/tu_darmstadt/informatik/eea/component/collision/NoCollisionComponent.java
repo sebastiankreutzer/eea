@@ -1,18 +1,24 @@
 package de.tu_darmstadt.informatik.eea.component.collision;
 
+/**
+ * This CollisionComponent does not trigger or detect any collision.
+ * 
+ * @author jr
+ *
+ */
 public class NoCollisionComponent extends EEACollisionTriggerComponent {
-	
+
 	public final static String ID = "NoCollisionComponent";
 
 	public NoCollisionComponent() {
 		super(ID);
 	}
-	
+
 	@Override
 	public void sizeChanged() {
 		// Nothing to do here.
 	}
-	
+
 	@Override
 	public boolean collide(EEACollisionTriggerComponent other) {
 		return false;

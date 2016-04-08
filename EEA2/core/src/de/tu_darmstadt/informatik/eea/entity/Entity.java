@@ -5,15 +5,11 @@ import static com.badlogic.gdx.utils.Align.left;
 import static com.badlogic.gdx.utils.Align.right;
 import static com.badlogic.gdx.utils.Align.top;
 
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
 import java.security.InvalidParameterException;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
@@ -28,9 +24,15 @@ import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
  * specific uses. Multiple
  * {@link de.tu_darmstadt.informatik.eea.component.EEAComponent} can be used to
  * determine the specific behavior of any entity, a special
+<<<<<<< HEAD
+ * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} determines
+ * how the entity should be displayed if necessary. Entities must be added to an
+ * {@link de.tu_darmstadt.informatik.eea.states.EntityManager}.
+=======
  * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent} determines how
  * the entity should be displayed if necessary. Entities must be added to an
  * {@link de.tu_darmstadt.informatik.eea.entity.EntityManager}.
+>>>>>>> d2c188de72ecd34bbc4f24b78f8955ed62c47afc
  * 
  * @author Tim Borowski, Sebastian Kreutzer, Johann Reinhard
  * @version 2.0
@@ -45,8 +47,6 @@ public class Entity extends Actor {
 	private EEACollisionTriggerComponent collisionComponent;
 
 	private EntityManager manager;
-
-	protected Vector2 center;
 
 	/**
 	 * Creates an entity with the given ID.
@@ -78,8 +78,8 @@ public class Entity extends Actor {
 
 		if (c instanceof EEARenderComponent)
 			this.renderComponent = (EEARenderComponent) c;
-		
-		if(c instanceof EEACollisionTriggerComponent)
+
+		if (c instanceof EEACollisionTriggerComponent)
 			this.collisionComponent = (EEACollisionTriggerComponent) c;
 
 		c.setOwnerEntity(this);
@@ -99,7 +99,12 @@ public class Entity extends Actor {
 	 * from the list of registered components of this
 	 * {@link de.tu.darmstadt.informatik.eea.entity.Entity}. This method does
 	 * not remove the registered
+<<<<<<< HEAD
+	 * {@link de.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}
+	 * .
+=======
 	 * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}.
+>>>>>>> d2c188de72ecd34bbc4f24b78f8955ed62c47afc
 	 * 
 	 * @param c
 	 *            The component to remove from this entity.
@@ -121,22 +126,25 @@ public class Entity extends Actor {
 		super.act(delta);
 		iterator = components.iterator();
 		while (iterator.hasNext() && iterator.next().update(delta)) {
-			
+
 		}
 	}
 
-	public Shape getShape() {
-		Shape shape = new Rectangle.Float(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
-		AffineTransform at = new AffineTransform();
-		at.rotate(Math.toRadians(getRotation()), getOriginX() * getScaleX() + getX(),
-				getOriginY() * getScaleY() + getY());
-		return at.createTransformedShape(shape);
-	}
-	
+	/**
+	 * @return The first {@link Entity} this entity collides with or null if it
+	 *         does not collide with any entity.
+	 */
 	public Entity collides() {
 		return manager.collides(this);
 	}
-	
+
+	/**
+	 * Determines whether this entity collides with another entity.
+	 * 
+	 * @param other
+	 *            The other Entity
+	 * @return true if these entities collide, otherwise false.
+	 */
 	public boolean collidesWith(Entity other) {
 		if (other == null || id.equals(other.getID()))
 			return false;
@@ -147,6 +155,9 @@ public class Entity extends Actor {
 		return id;
 	}
 
+	/**
+	 * @return The CollisionComponent of this Entity.
+	 */
 	public EEACollisionTriggerComponent getCollisionComponent() {
 		return collisionComponent;
 	}
@@ -173,10 +184,18 @@ public class Entity extends Actor {
 		return manager != null;
 	}
 
+	/**
+	 * @param manager
+	 *            Sets the {@link EntityManager} for this entity.
+	 */
 	public void setManager(EntityManager manager) {
 		this.manager = manager;
 	}
 
+	/**
+	 * @return The {@link EntityManager} of this entity or null if the entity is
+	 *         unmanaged.
+	 */
 	public EntityManager getManager() {
 		return manager;
 	}
@@ -284,9 +303,9 @@ public class Entity extends Actor {
 		this.setWidth(width);
 		this.setHeight(height);
 	}
-	
+
 	/** Set bounds the x, y, width, and height. */
-	public void setBounds (float x, float y, float width, float height) {
+	public void setBounds(float x, float y, float width, float height) {
 		if (getX() != x || getY() != y) {
 			setX(x);
 			setY(y);
@@ -306,37 +325,37 @@ public class Entity extends Actor {
 	public float getScaledHeight() {
 		return super.getHeight() * this.getScaleY();
 	}
-	
+
 	@Override
 	public void setScaleX(float scaleX) {
 		super.setScaleX(scaleX);
 		collisionComponent.sizeChanged();
 	}
-	
+
 	@Override
 	public void setScaleY(float scaleY) {
 		super.setScaleY(scaleY);
 		collisionComponent.sizeChanged();
 	}
-	
+
 	@Override
 	public void setScale(float scaleX, float scaleY) {
 		super.setScale(scaleX, scaleY);
 		collisionComponent.sizeChanged();
 	}
-	
+
 	@Override
 	public void setScale(float scaleXY) {
 		super.setScale(scaleXY);
 		collisionComponent.sizeChanged();
 	}
-	
+
 	@Override
 	public void scaleBy(float scale) {
 		super.scaleBy(scale);
 		collisionComponent.sizeChanged();
 	}
-	
+
 	@Override
 	public void scaleBy(float scaleX, float scaleY) {
 		super.scaleBy(scaleX, scaleY);

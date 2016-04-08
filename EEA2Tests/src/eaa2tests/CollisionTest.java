@@ -7,11 +7,11 @@ import org.junit.Test;
 
 import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderTriggerComponent.Border;
+import de.tu_darmstadt.informatik.eea.component.collision.BorderCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.CircleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.RectangleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.BorderTriggerComponent.Border;
 import testEntities.TestEntity;
 
 public class CollisionTest {

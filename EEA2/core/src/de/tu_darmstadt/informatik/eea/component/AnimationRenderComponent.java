@@ -1,45 +1,91 @@
 package de.tu_darmstadt.informatik.eea.component;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.utils.Array;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 
+/**
+ * A RenderComponent for drawing an animation of multiple images.
+ * 
+ * @author jr
+ *
+ */
 public class AnimationRenderComponent extends EEARenderComponent {
-	
+
 	final static private String ID = "AnimationRenderComponent";
-	
-    private TextureAtlas textureAtlas;
-    private Animation animation;
-    private float elapsedTime = 0;
-    private boolean removeWhenFinished;
-	
+
+	private Animation animation;
+	private float elapsedTime = 0;
+	private boolean removeWhenFinished;
+
+	/**
+	 * Creates a new AnimationRenderComponent from a TextureAtlas.
+	 * 
+	 * @param duration
+	 *            The duration for each animation loop in seconds.
+	 * @param file
+	 *            The path to the TextureAtlas, relative to the assets folder.
+	 */
 	public AnimationRenderComponent(float duration, String file) {
 		super(ID);
-		textureAtlas = EEAGame.getResourceManager().getTextureAtlas(file);
-		textureAtlas = new TextureAtlas(Gdx.files.internal("data/spritesheet.atlas"));
-        animation = new Animation(duration / textureAtlas.getTextures().size, textureAtlas.getRegions());
+		Array<AtlasRegion> regions = EEAGame.getResourceManager().getTextureAtlas(file).getRegions();
+		animation = new Animation(duration / regions.size, regions);
 	}
-	
-	public AnimationRenderComponent(float duration, TextureRegion... region){
+
+	/**
+	 * Creates a new AnimationRenderComponent from an array of textures.
+	 * 
+	 * @param duration
+	 *            The duration for each animation loop in seconds.
+	 * @param textures
+	 *            The Textures for this animation.
+	 */
+	public AnimationRenderComponent(float duration, Texture... textures) {
 		super(ID);
-		animation = new Animation(duration/ region.length , region);
+		TextureRegion[] keyFrames = new TextureRegion[textures.length];
+		for (int i = 0; i < textures.length; i++) {
+			keyFrames[i] = new TextureRegion(textures[i]);
+		}
+		animation = new Animation(duration, keyFrames);
 	}
-	
-	public AnimationRenderComponent(float duration, Animation.PlayMode playMode, TextureRegion... region){
-		this(duration, region);
-		setPlayMode(playMode);
+
+	/**
+	 * Creates a new AnimationRenderComponent from an array of TextureRegion.
+	 * 
+	 * @param duration
+	 *            The duration for each animation loop in seconds.
+	 * @param regions
+	 *            The TextureRegions for this animation.
+	 */
+	public AnimationRenderComponent(float duration, TextureRegion... regions) {
+		super(ID);
+		animation = new Animation(duration / regions.length, regions);
 	}
-	
-	public void setRemoveWhenFinished(boolean remove) {
+
+	/**
+	 * The owner entity will be destroyed after the animation playback is
+	 * finished.
+	 * 
+	 * @param remove
+	 *            If true the owner will be destroyed.
+	 */
+	public void setDestroyEntityAfter(boolean remove) {
 		this.removeWhenFinished = remove;
 	}
-	
-	public void setPlayMode(Animation.PlayMode mode){
+
+	/**
+	 * Sets the {@link Animation.PlayMode} for this animation.
+	 * @param mode
+	 * The playmode, default is {@link PlayMode.NORMAL}.
+	 */
+	public void setPlayMode(Animation.PlayMode mode) {
 		animation.setPlayMode(mode);
 	}
 
@@ -54,8 +100,9 @@ public class AnimationRenderComponent extends EEARenderComponent {
 
 	@Override
 	public void render(Batch batch) {
-		batch.draw(animation.getKeyFrame(elapsedTime, false), owner.getX(), owner.getY(), owner.getOriginX(), owner.getOriginY(), owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(), owner.getRotation());
+		batch.draw(animation.getKeyFrame(elapsedTime, false), owner.getX(), owner.getY(), owner.getOriginX(),
+				owner.getOriginY(), owner.getWidth(), owner.getHeight(), owner.getScaleX(), owner.getScaleY(),
+				owner.getRotation());
 	}
-	
 
 }

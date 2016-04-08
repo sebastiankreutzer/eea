@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.eea.component.collision;
 
 /**
- * This component enables colliding for rectangular entities. The
+ * This component enables collision detection for rectangular entities. The
  * dimensions will be determined by the entities size.
  * 
  * @author jr

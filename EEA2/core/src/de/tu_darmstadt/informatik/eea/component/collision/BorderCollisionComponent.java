@@ -1,7 +1,5 @@
 package de.tu_darmstadt.informatik.eea.component.collision;
 
-import javax.swing.border.Border;
-
 public class BorderCollisionComponent extends BorderTriggerComponent {
 
 	public static final String ID = "BorderCollisionComponent";
