@@ -4,7 +4,6 @@ import com.badlogic.gdx.Input;
 
 import de.tu_darmstadt.informatik.customActions.CreateDropAction;
 import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.EEAGameState;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
@@ -26,7 +25,7 @@ public class GameplayState extends EEAGameState {
 	
 	public GameplayState(EEAGame game) {
 		super(game);
-		IResourceManager rm = EEA.getResourceManager();
+		IResourceManager rm = EEAGame.getResourceManager();
 		rm.loadTextureAsync("drop.png");
 		rm.loadSoundAsync("WaterDrop.mp3");
 	}
@@ -107,7 +106,7 @@ public class GameplayState extends EEAGameState {
 	private void createEscapeAction() {		
     	Entity escListener = new Entity("ESC_Listener");
     	KeyPressedEvent escPressed = new KeyPressedEvent(Input.Keys.ESCAPE);
-    	escPressed.addAction(new ChangeStateAction(game, DropOfWaterGame.MainMenuState));
+    	escPressed.addAction(new ChangeStateAction(game, DropOfWaterGame.MainMenuState, false));
     	escListener.addComponent(escPressed);    	
     	em.addEntity(escListener);
 	}

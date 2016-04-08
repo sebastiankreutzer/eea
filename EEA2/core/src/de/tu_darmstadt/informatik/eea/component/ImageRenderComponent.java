@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.eea.component;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 public class ImageRenderComponent extends EEARenderComponent {
@@ -15,7 +15,7 @@ public class ImageRenderComponent extends EEARenderComponent {
 	public ImageRenderComponent(String texturePath) {
 		super(ID);
 		this.texturePath = texturePath;
-		texture = EEA.getResourceManager().getTexture(texturePath);
+		texture = EEAGame.getResourceManager().getTexture(texturePath);
 	}
 
 	@Override

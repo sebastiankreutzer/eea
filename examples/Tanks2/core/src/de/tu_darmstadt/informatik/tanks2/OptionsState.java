@@ -43,7 +43,7 @@ public class OptionsState extends EEAGameState {
 		EEAEvent ESC_pressed = new KeyPressedEvent(Input.Keys.ESCAPE);
 		// Erzeuge die Action "Gehe ins Hauptmenue" und fuege sie dem 
 		// ESC_pressed Event hinzu
-		ESC_pressed.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu));
+		ESC_pressed.addAction(new ChangeStateAction(game, LaunchTanks.mainMenu, false));
 		background.addComponent(ESC_pressed);
 		
 		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben

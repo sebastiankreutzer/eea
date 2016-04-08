@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.tanks2.factories;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.EEAGraphics;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
@@ -38,8 +38,8 @@ public class MenuEntryFactory {
 	 * und Groesse.
 	 */
 	public MenuEntryFactory() {
-		this.resourcesManager = EEA.getResourceManager();
-		this.graphics = EEA.getGraphics();
+		this.resourcesManager = EEAGame.getResourceManager();
+		this.graphics = EEAGame.getGraphics();
 	}
 
 	/**

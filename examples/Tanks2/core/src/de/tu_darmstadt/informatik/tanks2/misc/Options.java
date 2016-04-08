@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.RWFile;
 
 /**
@@ -31,7 +31,7 @@ public class Options {
 	 * Optionen wieder herzustellen, ansonsten werden die Standardwerte gesetzt.
 	 */
 	private Options() {
-		file = EEA.getResourceManager().openRWFile("options");
+		file = EEAGame.getResourceManager().openRWFile("options");
 		try {
 			load();
 		} catch (IOException e) {

@@ -15,8 +15,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 public abstract class EEAGame extends Game {
 
-	protected EEAGraphics graphics;
-	protected ResourceManager resourceManager;
+	private static EEAGraphics graphics;
+	private static ResourceManager resourceManager;
 	
 	private final Viewport viewport;
 	
@@ -70,8 +70,6 @@ public abstract class EEAGame extends Game {
 	public void create(){
 		graphics = new EEAGraphics(viewport);
 		resourceManager = new ResourceManager();
-		EEA.getInstance().setGraphics(graphics);
-		EEA.getInstance().setResourceManager(resourceManager);
 		initStates();
 		startGame();
 	}
@@ -106,6 +104,14 @@ public abstract class EEAGame extends Game {
 	
 	public final boolean isDebug(){
 		return debug;
+	}
+
+	public static EEAGraphics getGraphics() {
+		return graphics;
+	}
+
+	public static IResourceManager getResourceManager() {
+		return resourceManager;
 	}
 	
 }

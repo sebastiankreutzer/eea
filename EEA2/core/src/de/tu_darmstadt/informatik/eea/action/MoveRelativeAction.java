@@ -3,33 +3,59 @@ package de.tu_darmstadt.informatik.eea.action;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 
+/**
+ * This action moves an entity with respect to the rotation of the entity.
+ * 
+ * @author jr
+ *
+ */
 public class MoveRelativeAction extends EEAMovement {
-	
-	float deltaOrtho, deltaLinear;
-	
-	public MoveRelativeAction(float linear, float ortho) {
+
+	float dOrthogonal, deltaLinear;
+
+	/**
+	 * Creates a new MoveRelativeAction.
+	 * 
+	 * @param linear
+	 *            The magnitude of the movement in the direction the entity is
+	 *            facing.
+	 * @param orthogonal
+	 *            The magnitude of the movement orthogonal to the direction the
+	 *            entity is facing.
+	 */
+	public MoveRelativeAction(float linear, float orthogonal) {
 		super(Align.bottomLeft);
-		deltaOrtho = ortho;
+		dOrthogonal = orthogonal;
 		deltaLinear = linear;
 	}
-	
-	public MoveRelativeAction(float linear, float ortho, int alignment) {
+
+	/**
+	 * Creates a new MoveRelativeAction.
+	 * 
+	 * @param linear
+	 *            The magnitude of the movement in the direction the entity is
+	 *            facing.
+	 * @param orthogonal
+	 *            The magnitude of the movement orthogonal to the direction the
+	 *            entity is facing.
+	 * @param alignment
+	 *            The alignment for this movement.
+	 */
+	public MoveRelativeAction(float linear, float orthogonal, int alignment) {
 		super(alignment);
-		deltaOrtho = ortho;
+		dOrthogonal = orthogonal;
 		deltaLinear = linear;
 	}
 
 	@Override
 	public Vector2 getNextPosition(float delta) {
+		// Get rotation and calculate sine and cosine
 		double rotation = Math.toRadians(getActor().getRotation());
-		
 		float cos = (float) Math.cos(rotation);
 		float sin = (float) Math.sin(rotation);
-		
-		return new Vector2(
-				(deltaOrtho * cos - deltaLinear * sin) * delta + getActor().getX(),
-				(deltaOrtho * sin + deltaLinear * cos) * delta + getActor().getY()
-				);
+
+		return new Vector2((dOrthogonal * cos - deltaLinear * sin) * delta + getActor().getX(),
+				(dOrthogonal * sin + deltaLinear * cos) * delta + getActor().getY());
 	}
 
 }

@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.eea.action;
 
 import com.badlogic.gdx.audio.Sound;
 
-import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 
 /**
  * This class provides an action that triggers the play back of a Sound file. A Sound file is a
@@ -47,7 +47,7 @@ public class SoundAction extends EEAAudioAction {
 		super(volume, pan);
 		this.path = file;
 		this.pitch = Math.min(2f, Math.max(0.5f, pitch));
-		sound = EEA.getResourceManager().getSound(file);
+		sound = EEAGame.getResourceManager().getSound(file);
 	}
 
 	/**

@@ -19,8 +19,9 @@ import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 import de.tu_darmstadt.informatik.eea.component.EEARenderComponent;
-import de.tu_darmstadt.informatik.eea.component.collision.EEACollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.EEACollisionTriggerComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
+
 
 /**
  * The Entity class represents any object in your game, independent of the
@@ -41,7 +42,7 @@ public class Entity extends Actor {
 	private CopyOnWriteArrayList<EEAComponent> components = new CopyOnWriteArrayList<EEAComponent>();
 	private Iterator<EEAComponent> iterator;
 	private EEARenderComponent renderComponent;
-	private EEACollisionComponent collisionComponent;
+	private EEACollisionTriggerComponent collisionComponent;
 
 	private EntityManager manager;
 
@@ -78,8 +79,8 @@ public class Entity extends Actor {
 		if (c instanceof EEARenderComponent)
 			this.renderComponent = (EEARenderComponent) c;
 		
-		if(c instanceof EEACollisionComponent)
-			this.collisionComponent = (EEACollisionComponent) c;
+		if(c instanceof EEACollisionTriggerComponent)
+			this.collisionComponent = (EEACollisionTriggerComponent) c;
 
 		c.setOwnerEntity(this);
 		c.onAddComponent();
@@ -146,7 +147,7 @@ public class Entity extends Actor {
 		return id;
 	}
 
-	public EEACollisionComponent getCollisionComponent() {
+	public EEACollisionTriggerComponent getCollisionComponent() {
 		return collisionComponent;
 	}
 

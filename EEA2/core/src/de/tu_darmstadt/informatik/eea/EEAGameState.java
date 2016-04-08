@@ -30,7 +30,7 @@ public abstract class EEAGameState implements Screen {
 		this.game = game;
 
 		game.addState(this);
-		em = new EntityManager(EEA.getGraphics().getViewport());
+		em = new EntityManager(EEAGame.getGraphics().getViewport());
 		im = new InputMultiplexer();
 	}
 

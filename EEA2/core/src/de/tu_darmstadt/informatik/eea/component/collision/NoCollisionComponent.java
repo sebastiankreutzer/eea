@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.eea.component.collision;
 
-public class NoCollisionComponent extends EEACollisionComponent {
+public class NoCollisionComponent extends EEACollisionTriggerComponent {
 	
 	public final static String ID = "NoCollisionComponent";
 
@@ -9,12 +9,17 @@ public class NoCollisionComponent extends EEACollisionComponent {
 	}
 	
 	@Override
-	public boolean collide(EEACollisionComponent other) {
+	public void sizeChanged() {
+		// Nothing to do here.
+	}
+	
+	@Override
+	public boolean collide(EEACollisionTriggerComponent other) {
 		return false;
 	}
 
 	@Override
-	protected boolean collideWithBorder(BorderCollisionComponent other) {
+	protected boolean collideWithBorder(BorderTriggerComponent other) {
 		return false;
 	}
 
