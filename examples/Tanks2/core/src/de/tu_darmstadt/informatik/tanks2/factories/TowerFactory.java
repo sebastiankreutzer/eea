@@ -4,7 +4,7 @@ import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.CircleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
-import de.tu_darmstadt.informatik.eea.event.TimeEvent;
+import de.tu_darmstadt.informatik.eea.event.TimedEvent;
 import de.tu_darmstadt.informatik.tanks2.LaunchTanks;
 import de.tu_darmstadt.informatik.tanks2.AI.TowerAI;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeAmmunitionAction;
@@ -86,7 +86,7 @@ public class TowerFactory {
 		tower.addComponent(new TowerAI(LaunchTanks.player1, shotFactory, debug));
 
 		// Die Munition des Turms soll regelmaessig nachgeladen werden
-		EEAEvent reloadEvent = new TimeEvent(1000, true);
+		EEAEvent reloadEvent = new TimedEvent(1000, true);
 		reloadEvent.addAction(new ChangeAmmunitionAction(1));
 		tower.addComponent(reloadEvent);
 

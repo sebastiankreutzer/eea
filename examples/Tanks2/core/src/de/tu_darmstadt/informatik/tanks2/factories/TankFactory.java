@@ -12,7 +12,7 @@ import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyDownEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
-import de.tu_darmstadt.informatik.eea.event.TimeEvent;
+import de.tu_darmstadt.informatik.eea.event.TimedEvent;
 import de.tu_darmstadt.informatik.tanks2.LaunchTanks;
 import de.tu_darmstadt.informatik.tanks2.AI.TankAI;
 import de.tu_darmstadt.informatik.tanks2.AI.TowerAI;
@@ -188,7 +188,7 @@ public class TankFactory {
 		tank.addComponent(mainEvents);
 
 		// Lade regelmaessig nach
-		mainEvents = new TimeEvent(8, true);
+		mainEvents = new TimedEvent(8, true);
 		mainEvents.addAction(new ChangeMineAmmoAction(1));
 		mainEvents.addAction(new ChangeAmmunitionAction(2));
 		tank.addComponent(mainEvents);

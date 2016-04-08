@@ -23,7 +23,7 @@ import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityDestroyedEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.OREvent;
-import de.tu_darmstadt.informatik.eea.event.TimeEvent;
+import de.tu_darmstadt.informatik.eea.event.TimedEvent;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnPickupAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Tank;
 import de.tu_darmstadt.informatik.tanks2.events.RandomEvent;
@@ -253,7 +253,7 @@ public class GameplayState extends EEAGameState {
 		Entity player1 = em.getEntity(LaunchTanks.player1);
 		EEAEvent defeatEvent = new EntityDestroyedEvent(player1);
 		if (timeLimit > 0) {
-			EEAEvent event = new TimeEvent(timeLimit - GameplayLog.getInstance().timer.getElapsedTime(), false);
+			EEAEvent event = new TimedEvent(timeLimit - GameplayLog.getInstance().timer.getElapsedTime(), false);
 			defeatEvent = new OREvent(event, new EntityDestroyedEvent(player1));
 		}
 		// Zeige an das Spieler1 verloren hat und gehe danach ins Hauptmenue

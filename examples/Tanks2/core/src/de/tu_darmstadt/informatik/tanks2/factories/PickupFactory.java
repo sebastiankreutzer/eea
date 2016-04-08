@@ -10,7 +10,7 @@ import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.RectangleTriggerComponent;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
-import de.tu_darmstadt.informatik.eea.event.TimeEvent;
+import de.tu_darmstadt.informatik.eea.event.TimedEvent;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeAmmoAction;
 import de.tu_darmstadt.informatik.tanks2.actions.ChangeLifeAction;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup;
@@ -64,12 +64,12 @@ public class PickupFactory {
 		pickup.addComponent(new RectangleTriggerComponent());
 
 		// Nach 8 Sekunden soll das Pickup verschwinden
-		TimeEvent disappearEvent = new TimeEvent(8, false);
+		TimedEvent disappearEvent = new TimedEvent(8, false);
 		disappearEvent.addAction(new DestroyEntityAction());
 		pickup.addComponent(disappearEvent);
 
 		// Erzeuge ein Event mit Action welche das Pickup blinken laesst
-		EEAEvent blinkEvent = new TimeEvent(0.1f, true);
+		EEAEvent blinkEvent = new TimedEvent(0.1f, true);
 		blinkEvent.addAction(new Action() {
 
 			@Override
@@ -80,7 +80,7 @@ public class PickupFactory {
 		});
 
 		// Nach 5 Sekunden soll das Pickup anfange zu blinken
-		TimeEvent enableBlinking = new TimeEvent(5, false);
+		TimedEvent enableBlinking = new TimedEvent(5, false);
 		enableBlinking.addAction(new AddComponentsAction(pickup, blinkEvent));
 		enableBlinking.addAction(new RemoveEventAction(enableBlinking));
 		pickup.addComponent(enableBlinking);

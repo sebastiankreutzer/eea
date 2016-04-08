@@ -10,7 +10,7 @@ import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
-import de.tu_darmstadt.informatik.eea.event.TimeEvent;
+import de.tu_darmstadt.informatik.eea.event.TimedEvent;
 import de.tu_darmstadt.informatik.tanks2.actions.HitAction;
 import de.tu_darmstadt.informatik.tanks2.actions.SpawnShootAction;
 import de.tu_darmstadt.informatik.tanks2.entities.ScatterShot;
@@ -131,7 +131,7 @@ public class ShotFactory {
 		initShot(scatterShoot, damage, 60f, x, y, rotation, scale);
 
 		// Der Schuss soll nach der Zuendzeit in kleinere Schuesse zerfallen.
-		EEAEvent mainEvent = new TimeEvent(fuseTime, false);
+		EEAEvent mainEvent = new TimedEvent(fuseTime, false);
 		mainEvent.addAction(new SpawnShootAction(rotation - 90, damage / 5, this));
 		mainEvent.addAction(new SpawnShootAction(rotation - 45, damage / 5, this));
 		mainEvent.addAction(new SpawnShootAction(rotation, damage / 5, this));
