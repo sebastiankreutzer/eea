@@ -1,4 +1,6 @@
-package de.tu_darmstadt.informatik.eea.entity.component.collision;
+package de.tu_darmstadt.informatik.eea.component.collision;
+
+import javax.swing.border.Border;
 
 public class BorderCollisionComponent extends BorderTriggerComponent {
 

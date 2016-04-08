@@ -8,8 +8,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
-
 /**
  *\\TODO Description
  * @author Sebastian Kreutzer, Johann Reinhard
@@ -53,7 +51,7 @@ public abstract class EEAGame extends Game {
 	}
 	
 	/**
-	 * Adds a {@link de.tu_darmstadt.informatik.eea.states.EEAGameState} to the list of states.
+	 * Adds a {@link de.tu_darmstadt.informatik.eea.EEAGameState} to the list of states.
 	 * @param state The state to be added to the list of states.
 	 */
 	public void addState(EEAGameState state) {
@@ -61,7 +59,7 @@ public abstract class EEAGame extends Game {
 	}
 	
 	/**
-	 * Removes a {@link de.tu_darmstadt.informatik.eea.states.EEAGameState} from the list of states.
+	 * Removes a {@link de.tu_darmstadt.informatik.eea.EEAGameState} from the list of states.
 	 * @param state The state to be removed from the list of states.
 	 */
 	public void removeState(EEAGameState state) {
@@ -83,12 +81,12 @@ public abstract class EEAGame extends Game {
 	}
 	
 	/**
-	 * Initializes each {@link de.tu_darmstadt.informatik.eea.states.EEAGameState} after the game was created.
+	 * Initializes each {@link de.tu_darmstadt.informatik.eea.EEAGameState} after the game was created.
 	 */
 	protected abstract void initStates();
 	
 	/**
-	 * Starts the game after each {@link de.tu_darmstadt.informatik.eea.states.EEAGameState} was initialized.
+	 * Starts the game after each {@link de.tu_darmstadt.informatik.eea.EEAGameState} was initialized.
 	 */
 	protected abstract void startGame();
 	

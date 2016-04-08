@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.eea.states;
+package de.tu_darmstadt.informatik.eea.entity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,8 +7,6 @@ import java.util.List;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 public class EntityManager {
 

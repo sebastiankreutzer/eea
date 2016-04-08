@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
+import de.tu_darmstadt.informatik.eea.component.collision.BorderCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent;
 
 /**
  * Eine Factory zum Erzeugen der Spielfeldgrenzen.

@@ -3,6 +3,14 @@ package de.tu_darmstadt.informatik.eea.event;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 
+/**
+ * 
+ * This class serves as a base for all input events.
+ * It provides methods for handling mouse and keyboard events.
+ * 
+ * @author Johann Reinhard
+ *
+ */
 public abstract class EEAInputEvent extends EEAEvent {
 	
 	EEAInputProcessor inputProcessor;

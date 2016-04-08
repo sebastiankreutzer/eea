@@ -6,15 +6,15 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.EEAGameState;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.MusicAction;
 import de.tu_darmstadt.informatik.eea.action.QuitAction;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.factories.MenuEntryFactory;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;
 import de.tu_darmstadt.informatik.tanks2.misc.GameplayLog;

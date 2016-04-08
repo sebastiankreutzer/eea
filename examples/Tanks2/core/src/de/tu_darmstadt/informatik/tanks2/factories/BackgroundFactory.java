@@ -1,8 +1,8 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
 import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 
 public class BackgroundFactory {
 	

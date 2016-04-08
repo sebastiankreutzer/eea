@@ -2,10 +2,18 @@ package de.tu_darmstadt.informatik.eea.event;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * This event can be used to detect when an Entity leaves the screen.
+ * @author Johann Reinhard
+ *
+ */
 public class EntityOutOfScreenEvent extends EEAEvent {
 	
 	public static final String ID = "EntityOutOfScreenEvent";
 	
+	/**
+	 * Creates a new EntityOutOfScreenEvent.
+	 */
 	public EntityOutOfScreenEvent(){
 		super(ID);
 	}

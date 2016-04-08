@@ -1,4 +1,6 @@
-package de.tu_darmstadt.informatik.eea.entity;
+package de.tu_darmstadt.informatik.eea.component;
+
+import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**
  * The component class provides an abstract template for objects that belong to an

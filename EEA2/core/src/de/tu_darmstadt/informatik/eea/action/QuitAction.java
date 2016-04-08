@@ -2,8 +2,8 @@ package de.tu_darmstadt.informatik.eea.action;
 
 import com.badlogic.gdx.Gdx;
 
+import de.tu_darmstadt.informatik.eea.entity.EntityManager;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
-import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 /**
  * This action closes the application. Note that this action will abort the

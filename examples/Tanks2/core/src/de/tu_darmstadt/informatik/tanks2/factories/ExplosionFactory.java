@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.tanks2.factories;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.tu_darmstadt.informatik.eea.IResourceManager;
-import de.tu_darmstadt.informatik.eea.entity.AnimationRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.AnimationRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**

@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.tanks2.entities.Wall;
 
 /**

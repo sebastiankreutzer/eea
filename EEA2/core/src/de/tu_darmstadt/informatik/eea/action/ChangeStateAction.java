@@ -1,9 +1,9 @@
 package de.tu_darmstadt.informatik.eea.action;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.EEAGameState;
+import de.tu_darmstadt.informatik.eea.entity.EntityManager;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
-import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 /**
  * This actions performs the transition into a new {@link EEAGameState}. Note

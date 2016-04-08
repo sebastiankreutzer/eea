@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.eea.action;
 
-import de.tu_darmstadt.informatik.eea.states.EntityManager;
+import de.tu_darmstadt.informatik.eea.entity.EntityManager;
 
 /**
  * This action destroys its acting entity, that is, it removes it from the

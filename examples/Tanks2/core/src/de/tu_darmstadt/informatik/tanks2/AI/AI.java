@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.tanks2.AI;
 
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.action.RotateAction;
-import de.tu_darmstadt.informatik.eea.entity.EEAComponent;
+import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
 import de.tu_darmstadt.informatik.tanks2.interfaces.ISpeed;

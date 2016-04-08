@@ -5,10 +5,18 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
+/**
+ * This event is triggered whenever the mouse enters the owning entity.
+ * @author Johann Reinhard
+ *
+ */
 public class MouseEnteredEvent extends EEAEvent {
 	
 	public static final String ID = "MouseEnteredEvent";
 
+	/**
+	 * Creates a new MouseEnteredEvent.
+	 */
 	public MouseEnteredEvent() {
 		super(ID);
 	}
