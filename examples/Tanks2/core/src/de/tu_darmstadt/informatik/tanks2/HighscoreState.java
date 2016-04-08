@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Input.Keys;
 
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -55,7 +54,7 @@ public class HighscoreState extends EEAGameState {
 
 		// Lade die aktuelle HighscoreList
 		String map = Map.getInstance().getName();
-		HighscoreList highscoreList = HighscoreList.load(map, EEA.getResourceManager());
+		HighscoreList highscoreList = HighscoreList.load(map, EEAGame.getResourceManager());
 
 		// Pruefe ob die HighscoreList geladen wurde
 		if (!highscoreList.hasHighscoreLoaded()) {

@@ -63,7 +63,7 @@ public class MainMenuState extends EEAGameState {
 		MenuEntryFactory mef = new MenuEntryFactory();
 		mef.setDimensions(55, 390, 380, 60);
 
-		mef.prepareMenuEntry("Neues Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {
+		mef.prepareMenuEntry("Neues Spiel", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState, false) {
 			@Override
 			public boolean act(float delta) {
 				super.act(delta);
@@ -75,7 +75,7 @@ public class MainMenuState extends EEAGameState {
 		em.addEntity(mef.makeMenuEntry());
 		em.addEntity(mef.makeMenuEntryText());
 
-		mef.prepareMenuEntry("Spielstand laden", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState) {
+		mef.prepareMenuEntry("Spielstand laden", "entry.png", new ChangeStateAction(game, LaunchTanks.gameState, false) {
 
 			@Override
 			public boolean act(float delta) {
@@ -112,11 +112,11 @@ public class MainMenuState extends EEAGameState {
 		em.addEntity(mef.makeMenuEntry());
 		em.addEntity(mef.makeMenuEntryText());
 
-		mef.prepareMenuEntry("Highscore", "entry.png", new ChangeStateAction(game, LaunchTanks.highScoreState));
+		mef.prepareMenuEntry("Highscore", "entry.png", new ChangeStateAction(game, LaunchTanks.highScoreState, false));
 		em.addEntity(mef.makeMenuEntry());
 		em.addEntity(mef.makeMenuEntryText());
 
-		mef.prepareMenuEntry("Einstellungen", "entry.png", new ChangeStateAction(game, LaunchTanks.optionsState));
+		mef.prepareMenuEntry("Einstellungen", "entry.png", new ChangeStateAction(game, LaunchTanks.optionsState, false));
 		em.addEntity(mef.makeMenuEntry());
 		em.addEntity(mef.makeMenuEntryText());
 

@@ -3,7 +3,6 @@ package de.tu_darmstadt.informatik.tanks2;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
@@ -58,7 +57,7 @@ public class PauseState extends EEAGameState {
 
 		// Erstelle einen Menuepunkt der zum Spiel zurueckfuehrt
 		mef.prepareMenuEntry("Zurück zum pausierten Spiel", "entry.png",
-				new ChangeStateAction(game, LaunchTanks.gameState) {
+				new ChangeStateAction(game, LaunchTanks.gameState, false) {
 					@Override
 					public boolean act(float delta) {
 						// Starte den Timer wieder
@@ -114,7 +113,7 @@ public class PauseState extends EEAGameState {
 				String name = JOptionPane.showInputDialog(new JFrame(""), "Spielstand speichern unter dem Namen:",
 						"Spielstand speichern", 1);
 				Map map = Map.getInstance();
-				IResourceManager resourcesManager = EEA.getResourceManager();
+				IResourceManager resourcesManager = EEAGame.getResourceManager();
 				map.save(name, LaunchTanks.gameState.getEntities(), resourcesManager);
 				return true;
 			}

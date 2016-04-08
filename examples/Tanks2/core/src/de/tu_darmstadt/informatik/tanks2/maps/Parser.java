@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.maps;
 
-import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
@@ -48,7 +48,7 @@ public class Parser {
 
 	public Parser(Lexer lexer, boolean debug) {
 		lexicalAnalyser = lexer;
-		IResourceManager resourcesManager = EEA.getResourceManager();
+		IResourceManager resourcesManager = EEAGame.getResourceManager();
 		Options options = Options.getInstance();
 
 		previousTokenPosition = new SourcePosition();

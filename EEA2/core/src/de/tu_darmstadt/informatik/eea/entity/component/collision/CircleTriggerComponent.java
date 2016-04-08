@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.eea.entity.component.collision;
 
 import com.badlogic.gdx.utils.Align;
 
-public class CircleTriggerComponent extends EEACollisionComponent {
+public class CircleTriggerComponent extends EEACollisionTriggerComponent {
 	
 	public final static String ID = "CircleCollisionComponent";
 	
@@ -34,12 +34,12 @@ public class CircleTriggerComponent extends EEACollisionComponent {
 	}
 
 	@Override
-	public boolean collide(EEACollisionComponent other) {
+	public boolean collide(EEACollisionTriggerComponent other) {
 		return false;
 	}
 
 	@Override
-	protected boolean collideWithBorder(BorderCollisionComponent borderCollisionComponent) {
+	protected boolean collideWithBorder(BorderTriggerComponent borderCollisionComponent) {
 		return borderCollisionComponent.collideWithCircle(this);
 	}
 	

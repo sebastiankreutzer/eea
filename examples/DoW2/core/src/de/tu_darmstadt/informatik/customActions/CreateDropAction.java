@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.dow2.DropOfWaterGame;
 import de.tu_darmstadt.informatik.dow2.GameplayState;
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
@@ -85,8 +84,8 @@ public class CreateDropAction extends EEAAction {
 	 */
 	private void positionDrop(Entity drop) {
 		Random random = new Random();
-		float x = random.nextInt((int) EEA.getGraphics().getWorldWidth());
-		float y = EEA.getGraphics().getWorldHeight();
+		float x = random.nextInt((int) EEAGame.getGraphics().getWorldWidth());
+		float y = EEAGame.getGraphics().getWorldHeight();
 		// Alternative:
 		// x = mouseMovedEvent.getMouseX();
 		drop.setPosition(x, y, Align.top | Align.center);

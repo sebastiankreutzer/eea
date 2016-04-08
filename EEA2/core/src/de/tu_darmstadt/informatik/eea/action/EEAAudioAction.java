@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.eea.action;
 
 /**
- * Audio template with volume and pan.
+ * Audio action template with volume and pan.
  * @author Johann Reinhard
  * @version 1.0
  */

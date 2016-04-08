@@ -3,7 +3,7 @@ package de.tu_darmstadt.informatik.eea.entity;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 
 public class TextRenderComponent extends EEARenderComponent {
 	
@@ -13,7 +13,7 @@ public class TextRenderComponent extends EEARenderComponent {
 	protected BitmapFont font;
 	
 	public TextRenderComponent(String text){
-		this(text, EEA.getGraphics().getFont());
+		this(text, EEAGame.getGraphics().getFont());
 	}
 	
 	public TextRenderComponent(String text, BitmapFont font) {

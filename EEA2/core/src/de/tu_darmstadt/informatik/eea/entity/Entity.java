@@ -17,7 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.eea.entity.component.collision.EEACollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.EEACollisionTriggerComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
 import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
@@ -40,7 +40,7 @@ public class Entity extends Actor {
 	private CopyOnWriteArrayList<EEAComponent> components = new CopyOnWriteArrayList<EEAComponent>();
 	private Iterator<EEAComponent> iterator;
 	private EEARenderComponent renderComponent;
-	private EEACollisionComponent collisionComponent;
+	private EEACollisionTriggerComponent collisionComponent;
 
 	private EntityManager manager;
 
@@ -77,8 +77,8 @@ public class Entity extends Actor {
 		if (c instanceof EEARenderComponent)
 			this.renderComponent = (EEARenderComponent) c;
 		
-		if(c instanceof EEACollisionComponent)
-			this.collisionComponent = (EEACollisionComponent) c;
+		if(c instanceof EEACollisionTriggerComponent)
+			this.collisionComponent = (EEACollisionTriggerComponent) c;
 
 		c.setOwnerEntity(this);
 		c.onAddComponent();
@@ -145,7 +145,7 @@ public class Entity extends Actor {
 		return id;
 	}
 
-	public EEACollisionComponent getCollisionComponent() {
+	public EEACollisionTriggerComponent getCollisionComponent() {
 		return collisionComponent;
 	}
 

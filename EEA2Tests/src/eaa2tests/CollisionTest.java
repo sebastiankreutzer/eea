@@ -11,7 +11,7 @@ import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollision
 import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent.Border;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderTriggerComponent.Border;
 import testEntities.TestEntity;
 
 public class CollisionTest {

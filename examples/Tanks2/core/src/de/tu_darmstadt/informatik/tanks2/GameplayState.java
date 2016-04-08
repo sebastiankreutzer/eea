@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.Input;
 
-import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.ResourceManager;
@@ -17,7 +16,7 @@ import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderCollisionComponent.Border;
+import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderTriggerComponent.Border;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityDestroyedEvent;
@@ -63,7 +62,7 @@ public class GameplayState extends EEAGameState {
 	 */
 	public GameplayState(EEAGame game, Options options) {
 		super(game);
-		IResourceManager _resourcesManager = EEA.getResourceManager();
+		IResourceManager _resourcesManager = EEAGame.getResourceManager();
 		this.resourcesManager = _resourcesManager;
 		map = Map.getInstance();
 	}
@@ -145,7 +144,7 @@ public class GameplayState extends EEAGameState {
 			player1Text.setText("Vergangene Zeit: " + GameplayLog.getInstance().timer.getElapsedTime() / 1000 + " s");
 		}
 
-		fpsText.setText("FPS" + EEA.getGraphics().getFramerate());
+		fpsText.setText("FPS" + EEAGame.getGraphics().getFramerate());
 	}
 
 	@Override
@@ -183,7 +182,7 @@ public class GameplayState extends EEAGameState {
 		// Wird die Escape-Taste gedrueckt, wechsel in den PauseState
 		Entity escapeListener = new Entity("EscapeListener");
 		EEAEvent escapePressedEvent = new KeyPressedEvent(Input.Keys.ESCAPE);
-		escapePressedEvent.addAction(new ChangeStateAction(game, LaunchTanks.pauseState) {
+		escapePressedEvent.addAction(new ChangeStateAction(game, LaunchTanks.pauseState, false) {
 			@Override
 			public boolean act(float delta) {
 				// ... und stoppe den Timer
@@ -198,8 +197,8 @@ public class GameplayState extends EEAGameState {
 		em.addEntity(createGameLogic());
 
 		// Erzeuge die Spielfeldbegrenzun mit der Factory
-		BorderFactory borderFactory = new BorderFactory(EEA.getGraphics().getWorldWidth(),
-				EEA.getGraphics().getWorldHeight());
+		BorderFactory borderFactory = new BorderFactory(EEAGame.getGraphics().getWorldWidth(),
+				EEAGame.getGraphics().getWorldHeight());
 		em.addEntity(borderFactory.createBorder(Border.LEFT));
 		em.addEntity(borderFactory.createBorder(Border.RIGHT));
 		em.addEntity(borderFactory.createBorder(Border.BOTTOM));

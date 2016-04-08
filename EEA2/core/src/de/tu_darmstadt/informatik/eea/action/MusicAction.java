@@ -2,7 +2,7 @@ package de.tu_darmstadt.informatik.eea.action;
 
 import com.badlogic.gdx.audio.Music;
 
-import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.EEAGame;
 
 /**
  * This class provides an action that triggers the play back of a Music file. A Music file is a
@@ -42,7 +42,7 @@ public class MusicAction extends EEAAudioAction {
 	 */
 	public MusicAction(String file, float volume, float pan) {
 		super(volume, pan);
-		music = EEA.getResourceManager().getMusic(file);
+		music = EEAGame.getResourceManager().getMusic(file);
 		music.setPan(pan, volume);
 		music.setLooping(true);
 	}
