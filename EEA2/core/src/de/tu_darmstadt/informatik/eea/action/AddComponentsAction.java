@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.eea.action;
 
-import de.tu_darmstadt.informatik.eea.entity.EEAComponent;
+import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**

@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.badlogic.gdx.utils.GdxRuntimeException;
-
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.IResourceManager.PathName;
 import de.tu_darmstadt.informatik.eea.ROMFile;

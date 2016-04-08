@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import de.tu_darmstadt.informatik.eea.entity.EEAComponent;
+import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**

@@ -6,12 +6,12 @@ import java.util.List;
 import com.badlogic.gdx.Input.Keys;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.EEAGameState;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.highscore.Highscore;
 import de.tu_darmstadt.informatik.tanks2.highscore.HighscoreList;
 import de.tu_darmstadt.informatik.tanks2.maps.Map;

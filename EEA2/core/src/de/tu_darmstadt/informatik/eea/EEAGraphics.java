@@ -2,14 +2,13 @@ package de.tu_darmstadt.informatik.eea;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 
 /**
  * This class is responsible for certain graphic functions and provides a range

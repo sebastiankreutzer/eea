@@ -3,9 +3,7 @@ package de.tu_darmstadt.informatik.tanks2.misc;
 import java.io.IOException;
 import java.io.InputStream;
 
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.ROMFile;
-import de.tu_darmstadt.informatik.eea.ResourceManager;
 
 /**
  * Ein SourceFile oeffnet einen InputStream der dann Zeichen fuer Zeichen

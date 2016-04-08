@@ -1,13 +1,20 @@
 package de.tu_darmstadt.informatik.eea.event;
 
+/**
+ * This event is triggered whenever the mouse is moved.
+ * @author Johann Reinhard
+ *
+ */
 public class MouseMovedEvent extends EEAInputEvent {
+
 	public static final String ID = "KeyPressedEvent";
+	
 	private boolean mouseWasMoved = false;
 	private int mouseX;
 	private int mouseY;
 	
 	/**
-	 * @param key Key from the libGDX @Input.Keys
+	 * Creates a new MouseMovedEvent.
 	 */
 	public MouseMovedEvent(){
 		super(ID);

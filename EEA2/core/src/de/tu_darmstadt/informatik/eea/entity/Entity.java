@@ -5,30 +5,34 @@ import static com.badlogic.gdx.utils.Align.left;
 import static com.badlogic.gdx.utils.Align.right;
 import static com.badlogic.gdx.utils.Align.top;
 
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
 import java.security.InvalidParameterException;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
-import de.tu_darmstadt.informatik.eea.entity.component.collision.EEACollisionTriggerComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.NoCollisionComponent;
-import de.tu_darmstadt.informatik.eea.states.EntityManager;
+import de.tu_darmstadt.informatik.eea.component.EEAComponent;
+import de.tu_darmstadt.informatik.eea.component.EEARenderComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.EEACollisionTriggerComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
+
 
 /**
  * The Entity class represents any object in your game, independent of the
  * specific uses. Multiple
- * {@link de.tu_darmstadt.informatik.eea.entity.EEAComponent} can be used to
+ * {@link de.tu_darmstadt.informatik.eea.component.EEAComponent} can be used to
  * determine the specific behavior of any entity, a special
+<<<<<<< HEAD
  * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} determines
  * how the entity should be displayed if necessary. Entities must be added to an
  * {@link de.tu_darmstadt.informatik.eea.states.EntityManager}.
+=======
+ * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent} determines how
+ * the entity should be displayed if necessary. Entities must be added to an
+ * {@link de.tu_darmstadt.informatik.eea.entity.EntityManager}.
+>>>>>>> d2c188de72ecd34bbc4f24b78f8955ed62c47afc
  * 
  * @author Tim Borowski, Sebastian Kreutzer, Johann Reinhard
  * @version 2.0
@@ -61,9 +65,9 @@ public class Entity extends Actor {
 	}
 
 	/**
-	 * Adds a {@link de.tu_darmstadt.informatik.eea.entity.EEAComponent} to the
+	 * Adds a {@link de.tu_darmstadt.informatik.eea.component.EEAComponent} to the
 	 * components of this entity. If this component is a
-	 * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} the
+	 * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent} the
 	 * current, if any, will be replaced.
 	 * 
 	 * @param c
@@ -91,12 +95,16 @@ public class Entity extends Actor {
 	}
 
 	/**
-	 * Removes this {@link de.tu.darmstadt.informatik.eea.entity.EEAComponent}
+	 * Removes this {@link de.tu_darmstadt.informatik.eea.component.tu.darmstadt.informatik.eea.entity.EEAComponent}
 	 * from the list of registered components of this
 	 * {@link de.tu.darmstadt.informatik.eea.entity.Entity}. This method does
 	 * not remove the registered
+<<<<<<< HEAD
 	 * {@link de.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}
 	 * .
+=======
+	 * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}.
+>>>>>>> d2c188de72ecd34bbc4f24b78f8955ed62c47afc
 	 * 
 	 * @param c
 	 *            The component to remove from this entity.
@@ -168,7 +176,7 @@ public class Entity extends Actor {
 
 	/**
 	 * Checks whether this entity has a registered
-	 * {@link de.tu_darmstadt.informatik.eea.states.EntityManager}.
+	 * {@link de.tu_darmstadt.informatik.eea.entity.EntityManager}.
 	 * 
 	 * @return true if this entity has a registered manager, otherwise.
 	 */

@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.dow2;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
+import de.tu_darmstadt.informatik.eea.EEAGameState;
 
 public class DropOfWaterGame extends EEAGame {
 	public static EEAGameState MainMenuState;
