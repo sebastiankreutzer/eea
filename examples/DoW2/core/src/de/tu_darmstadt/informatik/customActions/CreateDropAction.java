@@ -13,15 +13,15 @@ import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.MoveAction;
 import de.tu_darmstadt.informatik.eea.action.SoundAction;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.CircleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.CircleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.entity.EntityManager;
 import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
-import de.tu_darmstadt.informatik.eea.states.EntityManager;
 
 public class CreateDropAction extends EEAAction {
 	private final EntityManager em;

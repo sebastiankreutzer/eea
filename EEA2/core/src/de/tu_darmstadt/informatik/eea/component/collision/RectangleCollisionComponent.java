@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.eea.entity.component.collision;
+package de.tu_darmstadt.informatik.eea.component.collision;
 
 public class RectangleCollisionComponent extends RectangleTriggerComponent {
 	

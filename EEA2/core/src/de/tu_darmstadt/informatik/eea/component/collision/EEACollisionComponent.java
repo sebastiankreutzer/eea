@@ -1,6 +1,6 @@
-package de.tu_darmstadt.informatik.eea.entity.component.collision;
+package de.tu_darmstadt.informatik.eea.component.collision;
 
-import de.tu_darmstadt.informatik.eea.entity.EEAComponent;
+import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 
 public abstract class EEACollisionComponent extends EEAComponent {
 

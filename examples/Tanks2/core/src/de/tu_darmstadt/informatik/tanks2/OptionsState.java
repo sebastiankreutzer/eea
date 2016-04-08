@@ -4,13 +4,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.EEAGameState;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 import de.tu_darmstadt.informatik.tanks2.factories.MenuEntryFactory;
 import de.tu_darmstadt.informatik.tanks2.misc.Options;
 

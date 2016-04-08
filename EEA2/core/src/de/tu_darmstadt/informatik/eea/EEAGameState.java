@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.eea.states;
+package de.tu_darmstadt.informatik.eea;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -12,8 +12,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 
-import de.tu_darmstadt.informatik.eea.EEA;
-import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.entity.EntityManager;
 
 public abstract class EEAGameState implements Screen {
 

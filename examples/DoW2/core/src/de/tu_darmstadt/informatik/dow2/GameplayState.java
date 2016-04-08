@@ -6,17 +6,17 @@ import de.tu_darmstadt.informatik.customActions.CreateDropAction;
 import de.tu_darmstadt.informatik.customActions.MoveBucketAction;
 import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.EEAGameState;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.MusicAction;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
 
 public class GameplayState extends EEAGameState {
 

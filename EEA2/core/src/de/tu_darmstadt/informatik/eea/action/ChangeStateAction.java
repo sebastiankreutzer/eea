@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.eea.action;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
-import de.tu_darmstadt.informatik.eea.states.EEAGameState;
+import de.tu_darmstadt.informatik.eea.EEAGameState;
 
 public class ChangeStateAction extends EEAAction {
 	

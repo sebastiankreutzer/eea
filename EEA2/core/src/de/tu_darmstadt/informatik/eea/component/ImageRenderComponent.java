@@ -1,9 +1,10 @@
-package de.tu_darmstadt.informatik.eea.entity;
+package de.tu_darmstadt.informatik.eea.component;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import de.tu_darmstadt.informatik.eea.EEA;
+import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 public class ImageRenderComponent extends EEARenderComponent {
 	

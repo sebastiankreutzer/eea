@@ -1,5 +1,12 @@
 package de.tu_darmstadt.informatik.eea.event;
 
+/**
+ * This event is triggered after a predefined time interval.
+ * It can be configurated to either activate once, or loop indefinitely.
+ * 
+ * @author Johann Reinhard
+ *
+ */
 public class TimeEvent extends EEAEvent {
 	
 	public static final String ID = "TimeEvent";
@@ -8,9 +15,9 @@ public class TimeEvent extends EEAEvent {
 	private boolean loop, ended = false;
 
 	/**
-	 * Ein Event, welches nach einem definierten Zeitraum ausloest.
-	 * @param period Der Zeitraum nach dem das Event ausloest in Sekunden.
-	 * @param loop Bestimmt ob das Event wieder zurueckgesetzt wird.
+	 * Creates a new TimeEvent.
+	 * @param period The time interval in seconds.
+	 * @param loop If true, the event is reset after completion.
 	 */
 	public TimeEvent(float period, boolean loop) {
 		super(ID);

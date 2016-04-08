@@ -2,8 +2,8 @@ package de.tu_darmstadt.informatik.tanks2.maps;
 
 import de.tu_darmstadt.informatik.eea.EEA;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.entity.ImageRenderComponent;
 import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 import de.tu_darmstadt.informatik.tanks2.exceptions.SyntaxException;
 import de.tu_darmstadt.informatik.tanks2.factories.ExplosionFactory;
