@@ -16,13 +16,8 @@ import de.tu_darmstadt.informatik.eea.ResourceManager;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
-import de.tu_darmstadt.informatik.eea.component.collision.BorderCollisionComponent.Border;
+import de.tu_darmstadt.informatik.eea.component.collision.BorderTriggerComponent.Border;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-<<<<<<< HEAD
-=======
-import de.tu_darmstadt.informatik.eea.entity.TextRenderComponent;
-import de.tu_darmstadt.informatik.eea.entity.component.collision.BorderTriggerComponent.Border;
->>>>>>> johann
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityDestroyedEvent;
