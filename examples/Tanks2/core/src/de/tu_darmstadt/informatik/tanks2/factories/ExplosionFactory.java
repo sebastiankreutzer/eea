@@ -69,7 +69,7 @@ public class ExplosionFactory {
 		// Erstelle eine AnimationRenderComponent
 		AnimationRenderComponent animation = new AnimationRenderComponent(duration, animationFrames);
 		// Nach dem Ende der Animation soll die Entity entfernt werden
-		animation.setRemoveWhenFinished(true);
+		animation.setDestroyEntityAfter(true);
 
 		// Fuege die RenderComponent hinzu und gebe die Entity zurueck
 		explosion.addComponent(animation);
