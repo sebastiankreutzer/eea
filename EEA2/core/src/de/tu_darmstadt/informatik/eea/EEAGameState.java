@@ -24,8 +24,10 @@ public abstract class EEAGameState implements Screen {
 	private boolean paused = false;
 	private boolean initialized = false;
 
-	Writer writer = null;
-
+	/**
+	 * Creates a new game state.
+	 * @param game The current game object.
+	 */
 	public EEAGameState(EEAGame game) {
 		this.game = game;
 
@@ -35,7 +37,9 @@ public abstract class EEAGameState implements Screen {
 	}
 
 	/**
-	 * @param delta
+	 * Updates the game.
+	 * Any changes in the current game state are performed here.
+	 * @param delta Elapsed time in seconds.
 	 */
 	protected abstract void update(float delta);
 
@@ -43,15 +47,6 @@ public abstract class EEAGameState implements Screen {
 
 	@Override
 	public void show() {
-		if (game.isDebug()) {
-			try {
-				writer = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream(this.getClass().toString() + ".txt"), "utf-8"));
-			} catch (IOException ex) {
-				// report
-			}
-		}
-
 		Gdx.input.setInputProcessor(im);
 		updateBackgroundColor();
 		if (!initialized) {
@@ -60,14 +55,29 @@ public abstract class EEAGameState implements Screen {
 		}
 	}
 
+	/**
+	 * Sets the background color that is used to clear the screen.
+	 * Color components should be in range 0 - 255.
+	 * @param r Red component
+	 * @param g Green component
+	 * @param b Blue component
+	 */
 	public void setBackgroundColor(int r, int g, int b) {
 		this.backgroundColor = new Color(r / 255f, g / 255f, b / 255f, 1.0f);
+		updateBackgroundColor();
 	}
 
-	public void updateBackgroundColor() {
+	/**
+	 * Updates the background color.
+	 */
+	protected void updateBackgroundColor() {
 		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, 1.0f);
 	}
 
+	/**
+	 * Updates and renders the game.
+	 * @param delta Elapsed time in seconds.
+	 */
 	@Override
 	public void render(float delta) {
 		if (!paused) {
@@ -80,17 +90,17 @@ public abstract class EEAGameState implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-
 	}
 
+	/**
+	 * Resets the game state.
+	 */
 	public void reset() {
 		em.reset();
 		initialized = false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see com.badlogic.gdx.Screen#pause()
 	 */
 	@Override
@@ -105,13 +115,11 @@ public abstract class EEAGameState implements Screen {
 
 	@Override
 	public void hide() {
-		// em.reset();
-		try {
-			writer.close();
-		} catch (Exception ex) {
-			/* ignore */}
 	}
 
+	/**
+	 * Disposes this game state.
+	 */
 	@Override
 	public void dispose() {
 		em.dispose();
