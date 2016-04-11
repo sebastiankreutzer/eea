@@ -4,15 +4,11 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import de.tu_darmstadt.informatik.eea.component.RenderableShape;
 import de.tu_darmstadt.informatik.eea.component.ShapeRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 
@@ -58,15 +54,23 @@ public class EEAGraphics {
 		renderer.setProjectionMatrix(viewport.getCamera().combined);
 		renderer.begin(filled ? ShapeType.Filled : ShapeType.Line);
 	}
-	
+
+	/**
+	 * Queues a shape to be rendered.
+	 * 
+	 * @param shape
+	 */
 	public void drawShape(ShapeRenderComponent shape) {
 		shapes.add(shape);
 	}
-	
+
+	/**
+	 * Draws the queued shapes and clears the queue.
+	 */
 	public void drawShapes() {
 		renderer.setProjectionMatrix(viewport.getCamera().combined);
 		renderer.begin();
-		for(ShapeRenderComponent s : shapes) {
+		for (ShapeRenderComponent s : shapes) {
 			s.renderShape(renderer);
 		}
 		renderer.end();
