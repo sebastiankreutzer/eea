@@ -27,14 +27,11 @@ public class CreateDropAction extends EEAAction {
 	private final EEAGame game;
 	private final Entity bucket;
 	private final GameplayState gameplayState;
-	private final MouseClickedEvent mouseMovedEvent;
-	
 	public CreateDropAction(EntityManager em, EEAGame game, Entity bucket, GameplayState gameplayState, MouseClickedEvent mouseMovedEvent) {
 		this.em = em;
 		this.game = game;
 		this.bucket = bucket;
 		this.gameplayState = gameplayState;
-		this.mouseMovedEvent = mouseMovedEvent;
 	}
 	
 	@Override
