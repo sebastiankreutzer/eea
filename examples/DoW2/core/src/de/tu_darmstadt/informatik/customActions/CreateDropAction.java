@@ -34,6 +34,10 @@ public class CreateDropAction extends EEAAction {
 		this.gameplayState = gameplayState;
 	}
 	
+	/**
+	 * Erzeugt und initialisiert einen Tropen. 
+	 * Dies ist ein Beispiel, wie innerhalb einer Action eine neue Entity erzeugt werden kann, welche wiederum Actions und Events nutzt.
+	 */
 	@Override
 	public boolean act(float delta) {
 		// Wassertropfen wird erzeugt
