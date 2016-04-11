@@ -1,13 +1,19 @@
 package de.tu_darmstadt.informatik.eea;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import de.tu_darmstadt.informatik.eea.component.RenderableShape;
+import de.tu_darmstadt.informatik.eea.component.ShapeRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 
 /**
@@ -23,7 +29,8 @@ public class EEAGraphics {
 	protected BitmapFont font;
 	protected Color color = Color.BLACK;
 
-	protected final ShapeRenderer renderer;
+	protected final ShapeRendererEEA renderer;
+	protected final ArrayList<ShapeRenderComponent> shapes = new ArrayList<ShapeRenderComponent>();
 
 	/**
 	 * Creates a new EEAGrapics instance with the given viewport.
@@ -35,64 +42,10 @@ public class EEAGraphics {
 		this.viewport = viewport;
 		// Initialize text and shape rendering.
 		font = new BitmapFont();
-		renderer = new ShapeRenderer();
+		renderer = new ShapeRendererEEA();
+
+		renderer.setAutoShapeType(true);
 		renderer.setColor(color);
-	}
-
-	/**
-	 * Draws a rectangular shape.
-	 * 
-	 * @param x
-	 *            The horizontal position of the left border.
-	 * @param y
-	 *            The vertical position of the bottom border.
-	 * @param width
-	 *            The rectangles width.
-	 * @param height
-	 *            The rectangles height.
-	 * @param filled
-	 *            Whether the shape is filled or lines only.
-	 */
-	public void drawRectangle(float x, float y, float width, float height, boolean filled) {
-		prepareDrawShape(filled);
-		renderer.rect(x, y, width, height);
-		renderer.end();
-	}
-
-	/**
-	 * Draws a circular shape.
-	 * 
-	 * @param x
-	 *            The horizontal coordinate of the center.
-	 * @param y
-	 *            The vertical coordinate of the center.
-	 * @param radius
-	 *            The radius of this circle.
-	 * @param filled
-	 *            Whether the shape is filled or lines only.
-	 */
-	public void drawCircle(float x, float y, float radius, boolean filled) {
-		prepareDrawShape(filled);
-		renderer.circle(x, y, radius);
-		renderer.end();
-	}
-
-	/**
-	 * Draws a line.
-	 * 
-	 * @param x1
-	 *            The horizontal coordinate of the first point.
-	 * @param y1
-	 *            The vertical coordinate of the first point.
-	 * @param x2
-	 *            The horizontal coordinate of the end point.
-	 * @param y2
-	 *            The vertical coordinate of the end point.
-	 */
-	public void drawLine(float x1, float y1, float x2, float y2) {
-		prepareDrawShape(false);
-		renderer.line(x1, y1, x2, y2);
-		renderer.end();
 	}
 
 	/**
@@ -104,6 +57,20 @@ public class EEAGraphics {
 	protected void prepareDrawShape(boolean filled) {
 		renderer.setProjectionMatrix(viewport.getCamera().combined);
 		renderer.begin(filled ? ShapeType.Filled : ShapeType.Line);
+	}
+	
+	public void drawShape(ShapeRenderComponent shape) {
+		shapes.add(shape);
+	}
+	
+	public void drawShapes() {
+		renderer.setProjectionMatrix(viewport.getCamera().combined);
+		renderer.begin();
+		for(ShapeRenderComponent s : shapes) {
+			s.renderShape(renderer);
+		}
+		renderer.end();
+		shapes.clear();
 	}
 
 	/**
