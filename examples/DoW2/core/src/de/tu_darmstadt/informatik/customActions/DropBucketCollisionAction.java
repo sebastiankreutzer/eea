@@ -16,17 +16,26 @@ public class DropBucketCollisionAction extends EEAAction{
 		this.gameplayState = gameplayState;
 	}
 
+	/**
+	 * Prüft, ob sich die Entity (in diesem Falle ein Tropfen) mit dem bucket Kollidieren und behandelt diesen Fall.
+	 */
 	@Override
 	public boolean act(float delta) {
+		// getTarget() gibt das kollidierte Entity zurück. Beachte, wenn mit 2 Entities eine Kollision stattfindet, dann wird die Action 2x ausgeführt.
 		if ( getTarget() == bucket ){
+			// erzeuge einen Sound (keine Sorge der aufruf ist gecached ;) )
 			SoundAction fetchDropSound = new SoundAction("SlimeSplash.mp3");
+			// spiele den Sound ab
 			getEntity().addAction(fetchDropSound);
+			
+			// führe die Destroy-Action auf dem Tropfen aus. getEntity() gibt den der Action zugeordneten Tropfen.
 			getEntity().addAction(new DestroyEntityAction());
+			
+			// erhöhe den Score
 			gameplayState.setScore(gameplayState.getScore() + 1);
 			gameplayState.scoreRenderComponent.setText(gameplayState.getScore()+" Drops catched");
 		}
 
-		
 		return true;
 	}
 
