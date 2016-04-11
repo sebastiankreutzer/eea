@@ -31,6 +31,7 @@ public class ExampleTest {
 		app.exit();
 	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void test1() {
 		game.setScreen(game.GameplayState);

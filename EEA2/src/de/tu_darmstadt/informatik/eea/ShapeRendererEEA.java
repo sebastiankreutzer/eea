@@ -19,7 +19,6 @@ package de.tu_darmstadt.informatik.eea;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ImmediateModeRenderer;
 import com.badlogic.gdx.graphics.glutils.ImmediateModeRenderer20;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -904,7 +903,6 @@ public class ShapeRendererEEA implements Disposable {
 			renderer.vertex(x + cx, y + cy, 0);
 		}
 
-		float temp = cx;
 		cx = 0;
 		cy = 0;
 		renderer.color(colorBits);
@@ -965,7 +963,6 @@ public class ShapeRendererEEA implements Disposable {
 			renderer.vertex(x + cx, y + cy, 0);
 		}
 
-		float temp = cx;
 		cx = radius;
 		cy = 0;
 		renderer.color(colorBits);
