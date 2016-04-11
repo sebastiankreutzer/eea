@@ -43,6 +43,9 @@ public abstract class EEAGameState implements Screen {
 	 */
 	protected abstract void update(float delta);
 
+	/**
+	 * Initializes the game state.
+	 */
 	protected abstract void init();
 
 	@Override
