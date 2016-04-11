@@ -7,13 +7,13 @@ buildscript {
     }
 }
 
-allprojects {
-    apply plugin: "eclipse"
-    apply plugin: "idea"
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "idea"
 
     version = '1.0'
     ext {
-        appName = "eea2"
+        appName = "EEA2"
         gdxVersion = '1.7.0'
         roboVMVersion = '1.8.0'
         box2DLightsVersion = '1.4'
@@ -26,27 +26,20 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
-}
 
-project(":core") {
-    apply plugin: "java"
+sourceCompatibility = 1.6
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+sourceSets.main.java.srcDirs = [ "src/" ]
 
-    dependencies {
+dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
     }
+
+eclipse.project {
+    name = appName
 }
 
-project(":desktop") {
-    apply plugin: "java"
-
-
-    dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-    }
-}
 
 tasks.eclipse.doLast {
     delete ".project"
