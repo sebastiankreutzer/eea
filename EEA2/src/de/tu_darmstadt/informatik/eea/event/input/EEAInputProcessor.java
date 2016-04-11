@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.eea.event;
+package de.tu_darmstadt.informatik.eea.event.input;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;

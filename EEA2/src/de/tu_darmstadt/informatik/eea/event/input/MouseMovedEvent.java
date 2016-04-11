@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.eea.event;
+package de.tu_darmstadt.informatik.eea.event.input;
 
 /**
  * This event is triggered whenever the mouse is moved.

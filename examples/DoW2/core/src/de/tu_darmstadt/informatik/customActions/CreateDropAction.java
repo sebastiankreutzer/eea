@@ -20,7 +20,7 @@ import de.tu_darmstadt.informatik.eea.event.CollisionEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.EntityOutOfScreenEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
-import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
+import de.tu_darmstadt.informatik.eea.event.input.MouseClickedEvent;
 
 public class CreateDropAction extends EEAAction {
 	private final EntityManager em;

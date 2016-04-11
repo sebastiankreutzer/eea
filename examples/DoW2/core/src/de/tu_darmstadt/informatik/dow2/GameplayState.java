@@ -13,9 +13,9 @@ import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.RectangleCollisionComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
-import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
-import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
+import de.tu_darmstadt.informatik.eea.event.input.KeyPressedEvent;
+import de.tu_darmstadt.informatik.eea.event.input.MouseClickedEvent;
 
 public class GameplayState extends EEAGameState {
 

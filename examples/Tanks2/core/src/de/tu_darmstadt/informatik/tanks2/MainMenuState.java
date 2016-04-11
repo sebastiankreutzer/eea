@@ -97,13 +97,6 @@ public class MainMenuState extends EEAGameState {
 					File file = fc.getSelectedFile();
 					Map.getInstance().loadSavegame(file.getPath());
 					super.act(delta);
-					// TODO Verify init
-					// sb.enterState(Tanks.GAMEPLAYSTATE);
-					// try {
-					// sb.init(gc);
-					// } catch (SlickException e) {
-					// e.printStackTrace();
-					// }
 				}
 
 				return true;

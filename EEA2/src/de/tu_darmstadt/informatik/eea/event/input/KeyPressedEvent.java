@@ -1,10 +1,10 @@
-package de.tu_darmstadt.informatik.eea.event;
+package de.tu_darmstadt.informatik.eea.event.input;
 
 /**
  * This event is triggered when the key with the specified key code is pressed.
  * Note that this event triggers only once, event the key is held down for
  * multiple updates. If you want the actions to fire continuously, use
- * {@link de.tu_darmstadt.informatik.eea.event.KeyDownEvent} instead.
+ * {@link de.tu_darmstadt.informatik.eea.event.input.KeyDownEvent} instead.
  * 
  * @author Johann Reinhard
  *

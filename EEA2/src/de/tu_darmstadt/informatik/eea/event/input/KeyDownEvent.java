@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.eea.event;
+package de.tu_darmstadt.informatik.eea.event.input;
 
 import com.badlogic.gdx.Gdx;
 
@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
  * This event is triggered when the key with the specified key code is pressed.
  * The actions are executed on every update as long as the key is down. To
  * trigger only once, use
- * {@link de.tu_darmstadt.informatik.eea.event.KeyPressedEvent} instead.
+ * {@link de.tu_darmstadt.informatik.eea.event.input.KeyPressedEvent} instead.
  * 
  * @author Johann Reinhard
  *

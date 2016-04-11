@@ -1,9 +1,10 @@
-package de.tu_darmstadt.informatik.eea.event;
+package de.tu_darmstadt.informatik.eea.event.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import de.tu_darmstadt.informatik.eea.entity.Entity;
+import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 
 /**
  * This event is triggered whenever the mouse enters the owning entity.

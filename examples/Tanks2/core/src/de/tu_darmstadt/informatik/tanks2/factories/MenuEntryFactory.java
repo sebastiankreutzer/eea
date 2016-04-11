@@ -9,8 +9,8 @@ import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
-import de.tu_darmstadt.informatik.eea.event.MouseClickedEvent;
-import de.tu_darmstadt.informatik.eea.event.MouseEnteredEvent;
+import de.tu_darmstadt.informatik.eea.event.input.MouseClickedEvent;
+import de.tu_darmstadt.informatik.eea.event.input.MouseEnteredEvent;
 
 /**
  * Eine Factory zun Erzeugen von Menueeintraegen. Ein Menueeintrag besteht aus

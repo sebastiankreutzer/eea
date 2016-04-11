@@ -10,13 +10,12 @@ import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
-import de.tu_darmstadt.informatik.eea.event.KeyPressedEvent;
+import de.tu_darmstadt.informatik.eea.event.input.KeyPressedEvent;
 import de.tu_darmstadt.informatik.tanks2.factories.MenuEntryFactory;
 import de.tu_darmstadt.informatik.tanks2.misc.Options;
 
 public class OptionsState extends EEAGameState {
 	
-	// TODO move this to the Game class?
 	private Options options;
 	private TextRenderComponent difficultyText, soundText;
 

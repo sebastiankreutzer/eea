@@ -1,7 +1,9 @@
-package de.tu_darmstadt.informatik.eea.event;
+package de.tu_darmstadt.informatik.eea.event.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+
+import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 
 /**
  * 
