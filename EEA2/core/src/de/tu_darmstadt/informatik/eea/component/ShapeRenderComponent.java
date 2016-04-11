@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import de.tu_darmstadt.informatik.eea.EEAGame;
+import de.tu_darmstadt.informatik.eea.RenderableShape;
 import de.tu_darmstadt.informatik.eea.ShapeRendererEEA;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 

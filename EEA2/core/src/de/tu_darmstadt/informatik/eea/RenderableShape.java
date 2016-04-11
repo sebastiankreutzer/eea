@@ -1,8 +1,7 @@
-package de.tu_darmstadt.informatik.eea.component;
+package de.tu_darmstadt.informatik.eea;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import de.tu_darmstadt.informatik.eea.ShapeRendererEEA;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 public interface RenderableShape {
