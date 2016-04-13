@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 import de.tu_darmstadt.informatik.eea.component.EEARenderComponent;
-import de.tu_darmstadt.informatik.eea.component.collision.EEACollisionTriggerComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.EEACollisionComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
 
 
@@ -44,7 +44,7 @@ public class Entity extends Actor {
 	private CopyOnWriteArrayList<EEAComponent> components = new CopyOnWriteArrayList<EEAComponent>();
 	private Iterator<EEAComponent> iterator;
 	private EEARenderComponent renderComponent;
-	private EEACollisionTriggerComponent collisionComponent;
+	private EEACollisionComponent collisionComponent;
 
 	private EntityManager manager;
 
@@ -79,8 +79,8 @@ public class Entity extends Actor {
 		if (c instanceof EEARenderComponent)
 			this.renderComponent = (EEARenderComponent) c;
 
-		if (c instanceof EEACollisionTriggerComponent)
-			this.collisionComponent = (EEACollisionTriggerComponent) c;
+		if (c instanceof EEACollisionComponent)
+			this.collisionComponent = (EEACollisionComponent) c;
 
 		c.setOwnerEntity(this);
 		c.onAddComponent();
@@ -158,7 +158,7 @@ public class Entity extends Actor {
 	/**
 	 * @return The CollisionComponent of this Entity.
 	 */
-	public EEACollisionTriggerComponent getCollisionComponent() {
+	public EEACollisionComponent getCollisionComponent() {
 		return collisionComponent;
 	}
 

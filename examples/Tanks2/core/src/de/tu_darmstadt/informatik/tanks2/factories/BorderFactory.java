@@ -1,6 +1,6 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import de.tu_darmstadt.informatik.eea.component.collision.BorderCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.BorderColliderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**
@@ -27,10 +27,10 @@ public class BorderFactory {
 	 * @param border Die Richtung der Begrenzung
 	 * @return Eine Entity mir BorderCollisionComponent
 	 */
-	public Entity createBorder(BorderCollisionComponent.Border border) {
+	public Entity createBorder(BorderColliderComponent.Border border) {
 		// Erzeuge eine Entity und fuege die BorderCollisionComponent hinzu
 		Entity entity = new Entity("Border"+border.toString());
-		entity.addComponent(new BorderCollisionComponent(border));
+		entity.addComponent(new BorderColliderComponent(border));
 		// Setzte die korrekte Position je nach Richtung
 		switch (border) {
 		case RIGHT:

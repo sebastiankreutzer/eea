@@ -7,19 +7,19 @@ package de.tu_darmstadt.informatik.eea.component.collision;
  * @author jr
  *
  */
-public class RectangleCollisionComponent extends RectangleTriggerComponent {
+public class RectangleColliderComponent extends RectangleTriggerComponent {
 	
 	public static final String ID = "RectangleCollisionComponent";
 
 	/**
 	 * Creates a new RectangleCollisionComponent.
 	 */
-	public RectangleCollisionComponent() {
+	public RectangleColliderComponent() {
 		super(ID);
 	}
 
 	@Override
-	public boolean collide(EEACollisionTriggerComponent other) {
+	public boolean collide(EEACollisionComponent other) {
 		return other.collideWithRectangle(this);
 	}
 

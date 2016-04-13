@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.component.collision.CircleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.CircleColliderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.TimedEvent;
@@ -79,7 +79,7 @@ public class TowerFactory {
 		tower.setSpeed(speed);
 
 		// Der Turm ist rund, waehle eine entsprechende CollisionComponent
-		tower.addComponent(new CircleCollisionComponent());
+		tower.addComponent(new CircleColliderComponent());
 		// Setze die RenderComponent
 		tower.addComponent(new ImageRenderComponent("flac.png"));
 		// Der Turm wird von der KI gesteuert

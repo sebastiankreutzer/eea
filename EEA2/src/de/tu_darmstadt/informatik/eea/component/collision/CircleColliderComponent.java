@@ -7,19 +7,19 @@ package de.tu_darmstadt.informatik.eea.component.collision;
  * @author jr
  *
  */
-public class CircleCollisionComponent extends CircleTriggerComponent {
+public class CircleColliderComponent extends CircleTriggerComponent {
 
-	public final static String ID = "CircleCollisionComponent";
+	public final static String ID = "CircleColliderComponent";
 
 	/**
 	 * Creates a new CircleCollisionComponent.
 	 */
-	public CircleCollisionComponent() {
+	public CircleColliderComponent() {
 		super(ID);
 	}
 
 	@Override
-	public boolean collide(EEACollisionTriggerComponent other) {
+	public boolean collide(EEACollisionComponent other) {
 		return other.collideWithCircle(this);
 	}
 }

@@ -1,7 +1,7 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.component.collision.RectangleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.RectangleColliderComponent;
 import de.tu_darmstadt.informatik.tanks2.entities.Wall;
 
 /**
@@ -39,7 +39,7 @@ public class WallFactory {
 		wall.setLife(life);
 		wall.setPosition(x, y);
 		wall.setScale(scale);
-		wall.addComponent(new RectangleCollisionComponent());
+		wall.addComponent(new RectangleColliderComponent());
 		
 		wall.addComponent(new ImageRenderComponent("thematrixer-net_stahlwand.jpg"));
 		

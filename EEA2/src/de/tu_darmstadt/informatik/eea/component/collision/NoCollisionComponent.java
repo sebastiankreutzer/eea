@@ -6,7 +6,7 @@ package de.tu_darmstadt.informatik.eea.component.collision;
  * @author jr
  *
  */
-public class NoCollisionComponent extends EEACollisionTriggerComponent {
+public class NoCollisionComponent extends EEACollisionComponent {
 
 	public final static String ID = "NoCollisionComponent";
 
@@ -20,7 +20,7 @@ public class NoCollisionComponent extends EEACollisionTriggerComponent {
 	}
 
 	@Override
-	public boolean collide(EEACollisionTriggerComponent other) {
+	public boolean collide(EEACollisionComponent other) {
 		return false;
 	}
 

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align;
  * @author jr
  *
  */
-public class RectangleTriggerComponent extends EEACollisionTriggerComponent {
+public class RectangleTriggerComponent extends EEACollisionComponent {
 
 	public static final String ID = "RectangleTriggerComponent";
 
@@ -71,7 +71,7 @@ public class RectangleTriggerComponent extends EEACollisionTriggerComponent {
 	}
 
 	@Override
-	public boolean collide(EEACollisionTriggerComponent other) {
+	public boolean collide(EEACollisionComponent other) {
 		return false;
 	}
 

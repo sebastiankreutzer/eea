@@ -1,8 +1,8 @@
 package de.tu_darmstadt.informatik.eea.component.collision;
 
-public class BorderCollisionComponent extends BorderTriggerComponent {
+public class BorderColliderComponent extends BorderTriggerComponent {
 
-	public static final String ID = "BorderCollisionComponent";
+	public static final String ID = "BorderColliderComponent";
 
 	/**
 	 * Creates a new BorderCollisionComponent.
@@ -10,12 +10,12 @@ public class BorderCollisionComponent extends BorderTriggerComponent {
 	 * @param border
 	 *            The {@link Border} determining the direction of this border.
 	 */
-	public BorderCollisionComponent(Border border) {
+	public BorderColliderComponent(Border border) {
 		super(ID, border);
 	}
 
 	@Override
-	public boolean collide(EEACollisionTriggerComponent other) {
+	public boolean collide(EEACollisionComponent other) {
 		return other.collideWithBorder(this);
 	}
 

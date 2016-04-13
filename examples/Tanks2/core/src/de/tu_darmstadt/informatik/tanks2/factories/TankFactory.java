@@ -6,7 +6,7 @@ import de.tu_darmstadt.informatik.eea.action.MoveRelativeAction;
 import de.tu_darmstadt.informatik.eea.action.RotateAction;
 import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
-import de.tu_darmstadt.informatik.eea.component.collision.RectangleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.RectangleColliderComponent;
 import de.tu_darmstadt.informatik.eea.event.ANDEvent;
 import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 import de.tu_darmstadt.informatik.eea.event.MovementDoesNotCollideEvent;
@@ -90,7 +90,7 @@ public class TankFactory {
 
 		// Erzeugt einen neuen Tank und setzt die Parameter
 		Tank tank = new Tank(name, x, y, rotation, scale);
-		tank.addComponent(new RectangleCollisionComponent());
+		tank.addComponent(new RectangleColliderComponent());
 
 		tank.setSpeed(speed);
 		tank.setMaxLife(maxLife);

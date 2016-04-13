@@ -11,7 +11,7 @@ import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
 import de.tu_darmstadt.informatik.eea.action.MusicAction;
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
-import de.tu_darmstadt.informatik.eea.component.collision.RectangleCollisionComponent;
+import de.tu_darmstadt.informatik.eea.component.collision.RectangleColliderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 import de.tu_darmstadt.informatik.eea.event.LoopEvent;
 import de.tu_darmstadt.informatik.eea.event.input.KeyPressedEvent;
@@ -74,7 +74,7 @@ public class GameplayState extends EEAGameState {
 		bucket.addComponent(new ImageRenderComponent("bucket.png"));
 		
 		// damit Kollisionen beachtet werden
-		bucket.addComponent(new RectangleCollisionComponent());
+		bucket.addComponent(new RectangleColliderComponent());
 		
 		// Mausbewegungen verursachen eine Verschiebung
 		LoopEvent loopInputEvent = new LoopEvent();

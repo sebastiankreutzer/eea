@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author jr
  *
  */
-public abstract class BorderTriggerComponent extends EEACollisionTriggerComponent {
+public abstract class BorderTriggerComponent extends EEACollisionComponent {
 
 	public static final String ID = "BorderCollisionComponent";
 
@@ -48,7 +48,7 @@ public abstract class BorderTriggerComponent extends EEACollisionTriggerComponen
 	}
 
 	@Override
-	public boolean collide(EEACollisionTriggerComponent other) {
+	public boolean collide(EEACollisionComponent other) {
 		return false;
 	}
 

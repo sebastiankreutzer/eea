@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Align;
  * @author jr
  *
  */
-public class CircleTriggerComponent extends EEACollisionTriggerComponent {
+public class CircleTriggerComponent extends EEACollisionComponent {
 
 	public final static String ID = "CircleCollisionComponent";
 
@@ -60,7 +60,7 @@ public class CircleTriggerComponent extends EEACollisionTriggerComponent {
 	}
 
 	@Override
-	public boolean collide(EEACollisionTriggerComponent other) {
+	public boolean collide(EEACollisionComponent other) {
 		return false;
 	}
 
