@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.component.EEAComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
@@ -33,18 +34,30 @@ public abstract class EEAEvent extends EEAComponent {
 	}
 
 	/**
-	 * Adds an action to this event and sets its actor to the owner of this
-	 * event.
+	 * Adds an Action to the list of actions of this EEAEvent and sets the owner
+	 * of this Event as the Actions Actor.
 	 * 
 	 * @param action
-	 *            The action that should be added to the list of actions.
+	 *            The {@link EEAAction} that should be added to the list of
+	 *            actions.
 	 */
 	public void addAction(Action action) {
 		actions.add(action);
 		action.setActor(owner);
 	}
 
-	public void setAction(int index, Action action) {
+	/**
+	 * Adds an Action to the list of actions of this EEAEvent at an specified
+	 * index and sets the owner of this Event as the Actions Actor.
+	 * 
+	 * @param action
+	 *            The {@link EEAAction} that should be added to the list of
+	 *            actions.
+	 * @param index
+	 *            The position in the list of actions, determines the evaluation
+	 *            order.
+	 */
+	public void addAction(Action action, int index) {
 		if (actions.isEmpty()) {
 			addAction(action);
 		} else {
