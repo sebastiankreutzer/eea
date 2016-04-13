@@ -1,14 +1,12 @@
 package de.tu_darmstadt.informatik.eea.event;
 
-import com.badlogic.gdx.math.Vector2;
-
 import de.tu_darmstadt.informatik.eea.action.EEAMovement;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**
  * This event is triggered when the given
  * {@link de.tu_darmstadt.informatik.eea.action.EEAMovement} can be applied to
- * the owning entity without a collision occuring.
+ * the owning entity without a collision occurring.
  * 
  * @author Johann Reinhard
  *
@@ -21,7 +19,9 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 
 	/**
 	 * Creates a new MovementDoesNotCollideEvent.
-	 * @param move The EEAMovement to test with.
+	 * 
+	 * @param move
+	 *            The EEAMovement to test with.
 	 */
 	public MovementDoesNotCollideEvent(EEAMovement move) {
 		super(ID);
@@ -30,7 +30,9 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 
 	/**
 	 * Sets the EEAMovement that is used for collision testing.
-	 * @param movement The new EEAMovement.
+	 * 
+	 * @param movement
+	 *            The new EEAMovement.
 	 */
 	public void setMovement(EEAMovement movement) {
 		this.move = movement;
@@ -39,15 +41,20 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 
 	@Override
 	public boolean eventTriggered(float delta) {
-		Vector2 oldPosition = new Vector2(owner.getX(), owner.getY());
-		float oldRotation = owner.getRotation();
+		// Temporary save the current position and rotation
+		float x = owner.getX();
+		float y = owner.getY();
+		float rot = owner.getRotation();
 
+		// Perform the move and get the colliding entity
 		move.act(delta);
-
 		Entity other = owner.collides();
 
-		owner.setPosition(oldPosition.x, oldPosition.y);
-		owner.setRotation(oldRotation);
+		// Restore the position and rotation
+		owner.setPosition(x, y);
+		owner.setRotation(rot);
+		// Return whether the colliding object is null and therefore no
+		// collision occurred
 		return (other == null);
 	}
 
