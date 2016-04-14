@@ -23,11 +23,9 @@ public class ShapeRenderComponent extends EEARenderComponent {
 		Rectangle, Ellipse
 	};
 
-	public static String ID = "ShapeRenderComponent";
+	public static final String ID = "ShapeRenderComponent";
 
 	protected final RenderableShape shape;
-	//protected final ShapeRenderer shapeRenderer;
-
 	protected Color color = Color.BLACK;
 	protected final ShapeType type;
 
@@ -75,7 +73,6 @@ public class ShapeRenderComponent extends EEARenderComponent {
 	public ShapeRenderComponent(RenderableShape shape, boolean filled) {
 		super(ID);
 		this.shape = shape;
-		//shapeRenderer = EEAGame.getGraphics().getShapeRenderer();
 		type = filled ? ShapeType.Filled : ShapeType.Line;
 	}
 
@@ -96,9 +93,6 @@ public class ShapeRenderComponent extends EEARenderComponent {
 	@Override
 	public void render(Batch batch) {
 		EEAGame.getGraphics().drawShape(this);
-		// shapeRenderer.set(type);
-		// shapeRenderer.setColor(color);
-		// shape.render(owner, shapeRenderer);
 	}
 
 	/**

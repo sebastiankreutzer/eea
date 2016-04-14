@@ -19,9 +19,9 @@ import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
  */
 public class AnimationRenderComponent extends EEARenderComponent {
 
-	final static private String ID = "AnimationRenderComponent";
+	public static final String ID = "AnimationRenderComponent";
 
-	private Animation animation;
+	private final Animation animation;
 	private float elapsedTime = 0;
 	private boolean removeWhenFinished;
 
@@ -88,11 +88,18 @@ public class AnimationRenderComponent extends EEARenderComponent {
 	public void setPlayMode(Animation.PlayMode mode) {
 		animation.setPlayMode(mode);
 	}
+	
+	/**
+	 * @return true if the animation has finished, otherwise false
+	 */
+	public boolean isAnimationFinished() {
+		return animation.isAnimationFinished(elapsedTime);
+	}
 
 	@Override
 	public boolean update(float delta) {
 		elapsedTime += delta;
-		if (removeWhenFinished && animation.isAnimationFinished(elapsedTime)) {
+		if (removeWhenFinished && isAnimationFinished()) {
 			getOwnerEntity().addAction(new DestroyEntityAction());
 		}
 		return super.update(delta);

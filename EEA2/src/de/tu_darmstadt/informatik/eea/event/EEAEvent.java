@@ -71,9 +71,10 @@ public abstract class EEAEvent extends EEAComponent {
 	 * 
 	 * @param action
 	 *            The action that should be removed from the list of actions.
+	 * @return true if the list if actions has changed
 	 */
-	public void removeAction(Action action) {
-		actions.remove(action);
+	public boolean removeAction(Action action) {
+		return actions.remove(action);
 	}
 
 	/**

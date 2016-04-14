@@ -15,7 +15,7 @@ import de.tu_darmstadt.informatik.eea.event.EEAEvent;
  */
 public abstract class EEAInputEvent extends EEAEvent {
 	
-	EEAInputProcessor inputProcessor;
+	protected EEAInputProcessor inputProcessor;
 
 	public EEAInputEvent(String componentID) {
 		super(componentID);

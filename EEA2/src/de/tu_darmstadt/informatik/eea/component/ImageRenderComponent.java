@@ -7,7 +7,8 @@ import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**
- * A RenderComponent for drawing single images.
+ * A RenderComponent for drawing single images. Note that adding this component
+ * to an entity will set the entities size to the size of the image.
  * 
  * @author Johann Reinhard
  *
@@ -15,12 +16,13 @@ import de.tu_darmstadt.informatik.eea.entity.Entity;
 public class ImageRenderComponent extends EEARenderComponent {
 
 	public static final String ID = "ImageRenderComponent";
-	private Texture texture;
+	private final Texture texture;
 
 	/**
 	 * Creates a new ImageRenderComponent.
+	 * 
 	 * @param texturePath
-	 * The path of the image file, relative to the assets folder.
+	 *            The path of the image file, relative to the assets folder.
 	 */
 	public ImageRenderComponent(String texturePath) {
 		super(ID);

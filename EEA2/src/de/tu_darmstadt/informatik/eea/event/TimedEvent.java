@@ -11,8 +11,8 @@ public class TimedEvent extends EEAEvent {
 
 	public static final String ID = "TimeEvent";
 
-	private float time, period;
-	private boolean loop, ended = false;
+	protected float time, period;
+	protected boolean loop, ended = false;
 
 	/**
 	 * Creates a new TimedEvent.
