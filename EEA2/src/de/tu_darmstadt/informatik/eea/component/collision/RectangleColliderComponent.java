@@ -9,7 +9,7 @@ package de.tu_darmstadt.informatik.eea.component.collision;
  */
 public class RectangleColliderComponent extends RectangleTriggerComponent {
 	
-	public static final String ID = "RectangleCollisionComponent";
+	public static final String ID = "RectangleColliderComponent";
 
 	/**
 	 * Creates a new RectangleCollisionComponent.

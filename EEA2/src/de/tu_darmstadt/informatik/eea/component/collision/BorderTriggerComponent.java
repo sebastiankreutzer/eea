@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class BorderTriggerComponent extends EEACollisionComponent {
 
-	public static final String ID = "BorderCollisionComponent";
+	public static final String ID = "BorderTriggerComponent";
 
 	public static enum Border {
 		TOP, BOTTOM, LEFT, RIGHT

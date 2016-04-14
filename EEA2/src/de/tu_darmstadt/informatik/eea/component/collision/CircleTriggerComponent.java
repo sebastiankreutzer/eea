@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Align;
  */
 public class CircleTriggerComponent extends EEACollisionComponent {
 
-	public final static String ID = "CircleCollisionComponent";
+	public final static String ID = "CircleTriggerComponent";
 
 	float radius;
 
