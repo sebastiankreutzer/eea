@@ -11,7 +11,7 @@ import de.tu_darmstadt.informatik.eea.event.EEAEvent;
  * and {@link EEAEvent} from the remaining Entities in the current EEAGameStates
  * {@link EntityManager}.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class ChangeStateAction extends EEAAction {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.EEAGameState;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
+import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -57,7 +58,7 @@ public class OptionsState extends EEAGameState {
 		mef.setDimensions(55, 330, 380, 60);
 		
     	// Ton einschalten/ausschalten
-    	Action toggleSound = new Action() {
+    	EEAAction toggleSound = new EEAAction() {
     		@Override
 			public boolean act(float delta) {
     			// Toggle sound
@@ -72,7 +73,7 @@ public class OptionsState extends EEAGameState {
 		soundTextEntity.addComponent(soundText);
 		em.addEntity(soundTextEntity);
 		
-		Action difficulty = new Action() {
+		EEAAction difficulty = new EEAAction() {
 			@Override
 			public boolean act(float delta) {
 				if(options.getDifficulty().equals("EASY")) {

@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
  * This class provides simplified access to files in a read-only mode. Useful
  * for opening files located in the asset folder.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class ROMFile {

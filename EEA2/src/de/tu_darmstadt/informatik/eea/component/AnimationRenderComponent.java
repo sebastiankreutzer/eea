@@ -14,7 +14,7 @@ import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
 /**
  * A RenderComponent for drawing an animation of multiple images.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class AnimationRenderComponent extends EEARenderComponent {

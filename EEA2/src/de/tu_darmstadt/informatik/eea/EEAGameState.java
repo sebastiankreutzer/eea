@@ -13,7 +13,7 @@ public abstract class EEAGameState implements Screen {
 	protected final EEAGame game;
 	protected final EntityManager em;
 	protected final InputMultiplexer im;
-	private Color backgroundColor = new Color(0,0,0,0);//new Color(101f / 255, 156f / 255, 239f / 255, 1.0f);
+	private Color backgroundColor = new Color(0,0,0,0);
 
 	private boolean paused = false;
 	private boolean initialized = false;

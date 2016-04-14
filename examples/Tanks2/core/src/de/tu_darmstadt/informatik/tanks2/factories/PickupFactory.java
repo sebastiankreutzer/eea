@@ -1,10 +1,8 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
-import de.tu_darmstadt.informatik.eea.IResourceManager;
 import de.tu_darmstadt.informatik.eea.action.AddComponentsAction;
 import de.tu_darmstadt.informatik.eea.action.DestroyEntityAction;
+import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.RemoveEventAction;
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.RectangleTriggerComponent;
@@ -25,18 +23,13 @@ import de.tu_darmstadt.informatik.tanks2.entities.Pickup.PickupType;
 public class PickupFactory {
 
 	private final boolean debug;
-	private IResourceManager resourcesManager;
 
 	/**
 	 * Erzeugt eine neue PickupFactory
-	 * 
-	 * @param resourcesManager
-	 *            Der ResourcesManager fuer die Bilder
 	 * @param debug
 	 *            Der Debugmodus
 	 */
-	public PickupFactory(IResourceManager resourcesManager, boolean debug) {
-		this.resourcesManager = resourcesManager;
+	public PickupFactory(boolean debug) {
 		this.debug = debug;
 	}
 
@@ -70,7 +63,7 @@ public class PickupFactory {
 
 		// Erzeuge ein Event mit Action welche das Pickup blinken laesst
 		EEAEvent blinkEvent = new TimedEvent(0.1f, true);
-		blinkEvent.addAction(new Action() {
+		blinkEvent.addAction(new EEAAction() {
 
 			@Override
 			public boolean act(float delta) {

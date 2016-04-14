@@ -36,7 +36,7 @@ public class MovementDoesNotCollideEvent extends EEAEvent {
 	 */
 	public void setMovement(EEAMovement movement) {
 		this.move = movement;
-		setAction(0, movement);
+		addAction(movement, 0);
 	}
 
 	@Override

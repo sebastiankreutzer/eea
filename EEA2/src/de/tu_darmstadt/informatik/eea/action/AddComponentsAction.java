@@ -7,7 +7,7 @@ import de.tu_darmstadt.informatik.eea.entity.Entity;
  * This action adds one or more {@link EEAComponent} to an Entity. Note that
  * this action does not keep track whether it already acted.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class AddComponentsAction extends EEAAction {

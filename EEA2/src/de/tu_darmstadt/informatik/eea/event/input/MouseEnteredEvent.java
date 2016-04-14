@@ -8,6 +8,7 @@ import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 
 /**
  * This event is triggered whenever the mouse enters the owning entity.
+ *
  * @author Johann Reinhard
  *
  */

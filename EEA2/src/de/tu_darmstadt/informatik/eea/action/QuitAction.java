@@ -10,7 +10,7 @@ import de.tu_darmstadt.informatik.eea.event.EEAEvent;
  * execution of all remaining {@link EEAAction} and {@link EEAEvent} from the
  * remaining Entities in the current EEAGameStates {@link EntityManager}.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class QuitAction extends EEAAction {

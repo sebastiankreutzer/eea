@@ -1,10 +1,9 @@
 package de.tu_darmstadt.informatik.tanks2.factories;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.EEAGraphics;
 import de.tu_darmstadt.informatik.eea.IResourceManager;
+import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
 import de.tu_darmstadt.informatik.eea.entity.Entity;
@@ -30,7 +29,7 @@ public class MenuEntryFactory {
 	private float space = 10f;
 
 	private String name;
-	private Action[] actions;
+	private EEAAction[] actions;
 	private String texturePath;
 
 	/**
@@ -71,7 +70,7 @@ public class MenuEntryFactory {
 	 * @param action
 	 *            Die mit diesem Menueeintrag verknuepften Actions
 	 */
-	public void prepareMenuEntry(String text, String texturePath, Action... action) {
+	public void prepareMenuEntry(String text, String texturePath, EEAAction... action) {
 		this.name = text;
 		this.texturePath = texturePath;
 		this.actions = action;
@@ -94,7 +93,7 @@ public class MenuEntryFactory {
 		imageEntity.setBounds(startX, startY, distX, distY);
 		// Beim anklicken des Entrags sollen die Actions ausgefuehrt werden
 		ANDEvent event = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
-		for (Action a : actions)
+		for (EEAAction a : actions)
 			event.addAction(a);
 		imageEntity.addComponent(event);
 

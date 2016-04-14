@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import de.tu_darmstadt.informatik.eea.EEAGame;
 import de.tu_darmstadt.informatik.eea.EEAGameState;
 import de.tu_darmstadt.informatik.eea.action.ChangeStateAction;
+import de.tu_darmstadt.informatik.eea.action.EEAAction;
 import de.tu_darmstadt.informatik.eea.action.QuitAction;
 import de.tu_darmstadt.informatik.eea.component.ImageRenderComponent;
 import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
@@ -36,7 +37,7 @@ public class MainMenuState extends EEAGameState {
     	
     	// Erstelle das Auslöse-Event und die zugehörige Action
     	ANDEvent changeStateEvent = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
-    	Action new_Game_Action = new ChangeStateAction(game, DropOfWaterGame.GameplayState, false);
+    	EEAAction new_Game_Action = new ChangeStateAction(game, DropOfWaterGame.GameplayState, false);
     	changeStateEvent.addAction(new_Game_Action);
     	new_Game_Entity.addComponent(changeStateEvent);
     	
@@ -56,7 +57,7 @@ public class MainMenuState extends EEAGameState {
     	
     	// Erstelle das Auslöse-Event und die zugehörige Action
     	ANDEvent mainEvents_q = new ANDEvent(new MouseClickedEvent(), new MouseEnteredEvent());
-    	Action quit_Action = new QuitAction();
+    	EEAAction quit_Action = new QuitAction();
     	mainEvents_q.addAction(quit_Action);
     	quit_Entity.addComponent(mainEvents_q);
     	

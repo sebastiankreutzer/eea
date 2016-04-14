@@ -54,7 +54,7 @@ public class Parser {
 		previousTokenPosition = new SourcePosition();
 
 		explosionFactory = new ExplosionFactory(resourcesManager, debug);
-		pickUpFactory = new PickupFactory(resourcesManager, debug);
+		pickUpFactory = new PickupFactory(debug);
 		mineFactory = new MineFactory(resourcesManager, explosionFactory, debug);
 		shotFactory = new ShotFactory(resourcesManager, explosionFactory, debug);
 		tankFactory = new TankFactory(options.getDifficulty(), resourcesManager, shotFactory, mineFactory, debug);

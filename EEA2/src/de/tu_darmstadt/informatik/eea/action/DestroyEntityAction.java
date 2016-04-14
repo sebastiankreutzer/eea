@@ -6,7 +6,7 @@ import de.tu_darmstadt.informatik.eea.entity.EntityManager;
  * This action destroys its acting entity, that is, it removes it from the
  * {@link EntityManager} and clears its fields.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class DestroyEntityAction extends EEAAction {

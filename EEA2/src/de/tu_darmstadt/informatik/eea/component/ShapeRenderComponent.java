@@ -14,7 +14,7 @@ import de.tu_darmstadt.informatik.eea.entity.Entity;
  * rendered after the other {@link EEARenderComponent} and therefore always are
  * on top of other RenderComponents.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class ShapeRenderComponent extends EEARenderComponent {
@@ -117,7 +117,7 @@ public class ShapeRenderComponent extends EEARenderComponent {
 /**
  * The default implementation for a rectangular renderable shape.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 class RectangleShape implements RenderableShape {
@@ -133,7 +133,7 @@ class RectangleShape implements RenderableShape {
 /**
  * The default imlementation for a elliptic/circular shape.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 class EllipticShape implements RenderableShape {

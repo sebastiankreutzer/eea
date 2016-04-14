@@ -9,7 +9,7 @@ import de.tu_darmstadt.informatik.eea.entity.Entity;
 /**
  * A RenderComponent for drawing single images.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class ImageRenderComponent extends EEARenderComponent {

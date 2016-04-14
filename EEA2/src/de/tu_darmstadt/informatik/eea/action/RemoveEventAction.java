@@ -6,7 +6,7 @@ import de.tu_darmstadt.informatik.eea.event.EEAEvent;
 /**
  * This action removes an {@link EEAEvent} from the acting entity.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class RemoveEventAction extends EEAAction {

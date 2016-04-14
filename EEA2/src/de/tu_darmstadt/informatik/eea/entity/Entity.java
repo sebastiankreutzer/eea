@@ -24,15 +24,9 @@ import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
  * specific uses. Multiple
  * {@link de.tu_darmstadt.informatik.eea.component.EEAComponent} can be used to
  * determine the specific behavior of any entity, a special
-<<<<<<< HEAD
  * {@link de.tu_darmstadt.informatik.eea.entity.EEARenderComponent} determines
  * how the entity should be displayed if necessary. Entities must be added to an
  * {@link de.tu_darmstadt.informatik.eea.states.EntityManager}.
-=======
- * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent} determines how
- * the entity should be displayed if necessary. Entities must be added to an
- * {@link de.tu_darmstadt.informatik.eea.entity.EntityManager}.
->>>>>>> d2c188de72ecd34bbc4f24b78f8955ed62c47afc
  * 
  * @author Tim Borowski, Sebastian Kreutzer, Johann Reinhard
  * @version 2.0

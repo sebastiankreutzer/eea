@@ -6,11 +6,11 @@ import de.tu_darmstadt.informatik.eea.entity.Entity;
 
 /**
  * This event can be used to test for collisions with other
- * {@link de.tu_darmstadt.informatik.eea.entity.Entity}s. The actions are
- * triggered when a collision occurs. Note that the owning entity has to have a
- * valid
- * {@link de.tu_darmstadt.informatik.eea.component.collision.EEACollisionComponent}
- * .
+ * {@link de.tu_darmstadt.informatik.eea.entity.Entity}s. The event is triggered
+ * and the target for each of this events actions are set to the colliding
+ * entity when a collision occurs. Note that the owning entity must not have a
+ * {@link de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent}
+ * , otherwise this event cannot trigger.
  * 
  * @author Johann Reinhard
  *
@@ -19,11 +19,11 @@ public class CollisionEvent extends EEAEvent {
 
 	public static final String ID = "CollisionEvent";
 
-	private Entity collidedEntity;
+	protected Entity collidedEntity;
 
 	/**
-	 * IMPORTANT! This event will not be triggered if the owning entities
-	 * collision component is a NoCollisionComponent.
+	 * Creates a new CollisionEvent. IMPORTANT! This event will not be triggered
+	 * if the owning entities collision component is a NoCollisionComponent.
 	 */
 	public CollisionEvent() {
 		super(ID);
@@ -39,9 +39,7 @@ public class CollisionEvent extends EEAEvent {
 			for (Action a : actions) {
 				a.setTarget(entity);
 			}
-			// if there is such an entity, store a reference and indicate the
-			// willingness
-			// to perform the action(s)
+			// if there is such an entity, store a reference
 			collidedEntity = entity;
 			return true;
 		}
@@ -54,7 +52,8 @@ public class CollisionEvent extends EEAEvent {
 	 * Returns the {@link de.tu_darmstadt.informatik.eea.entity.Entity} that
 	 * collided with the owning entity.
 	 * 
-	 * @return The colliding entity.
+	 * @return The entity that most recently collided with this entity or null
+	 *         if there has not yet been a collision.
 	 */
 	public Entity getCollidedEntity() {
 		return collidedEntity;

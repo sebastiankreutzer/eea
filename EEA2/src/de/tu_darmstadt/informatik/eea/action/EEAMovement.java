@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Align;
  * This action template provides a consistent way of predicting movements, which
  * is useful to check for collisions or AI support.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public abstract class EEAMovement extends EEAAction {

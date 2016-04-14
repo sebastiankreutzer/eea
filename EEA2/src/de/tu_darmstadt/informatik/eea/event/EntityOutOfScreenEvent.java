@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * This event can be used to detect when an Entity leaves the screen.
+ *
  * @author Johann Reinhard
  *
  */

@@ -16,7 +16,7 @@ import de.tu_darmstadt.informatik.eea.component.TextRenderComponent;
  * This class is responsible for certain graphic functions and provides a range
  * of utility functions such as coordinate transformations.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class EEAGraphics {

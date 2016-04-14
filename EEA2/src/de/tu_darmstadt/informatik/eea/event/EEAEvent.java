@@ -20,7 +20,7 @@ import de.tu_darmstadt.informatik.eea.entity.Entity;
  */
 public abstract class EEAEvent extends EEAComponent {
 
-	protected ArrayList<Action> actions;
+	protected ArrayList<EEAAction> actions;
 
 	/**
 	 * Creates a new EEAEvent.
@@ -30,7 +30,7 @@ public abstract class EEAEvent extends EEAComponent {
 	 */
 	public EEAEvent(String componentID) {
 		super(componentID);
-		actions = new ArrayList<Action>();
+		actions = new ArrayList<EEAAction>();
 	}
 
 	/**
@@ -41,7 +41,7 @@ public abstract class EEAEvent extends EEAComponent {
 	 *            The {@link EEAAction} that should be added to the list of
 	 *            actions.
 	 */
-	public void addAction(Action action) {
+	public void addAction(EEAAction action) {
 		actions.add(action);
 		action.setActor(owner);
 	}
@@ -57,7 +57,7 @@ public abstract class EEAEvent extends EEAComponent {
 	 *            The position in the list of actions, determines the evaluation
 	 *            order.
 	 */
-	public void addAction(Action action, int index) {
+	public void addAction(EEAAction action, int index) {
 		if (actions.isEmpty()) {
 			addAction(action);
 		} else {

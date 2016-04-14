@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
  * This class provides additional methods for writing to a file. Note that files
  * in the asset folder cannot be used, due to their read-only nature.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class RWFile extends ROMFile {

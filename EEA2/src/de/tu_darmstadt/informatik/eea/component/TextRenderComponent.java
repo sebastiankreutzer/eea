@@ -9,7 +9,7 @@ import de.tu_darmstadt.informatik.eea.EEAGraphics;
 /**
  * A component for drawing text.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class TextRenderComponent extends EEARenderComponent {

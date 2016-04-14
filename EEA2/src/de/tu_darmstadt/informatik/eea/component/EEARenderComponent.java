@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * A template for components that determine the graphical representation of an
  * entity.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public abstract class EEARenderComponent extends EEAComponent {

@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Align;
 /**
  * This action rotates the entity.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class RotateAction extends EEAMovement {

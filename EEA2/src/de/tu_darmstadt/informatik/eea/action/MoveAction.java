@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Align;
 /**
  * This action moves an entity without respect for the entities rotation.
  * 
- * @author jr
+ * @author Johann Reinhard
  *
  */
 public class MoveAction extends EEAMovement {
