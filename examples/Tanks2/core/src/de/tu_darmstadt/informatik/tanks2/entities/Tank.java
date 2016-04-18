@@ -39,7 +39,7 @@ public class Tank extends Tower implements  IMines {
 	}
 
 	public String toString() {
-		return "Tank " + this.getID() + " " + Serializer.serialize(this);
+		return "Tank " + this.getName() + " " + Serializer.serialize(this);
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class EntityManager {
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext()) {
 			Entity e = it.next();
-			if (e.getID().equals(name))
+			if (e.getName().equals(name))
 				return e;
 		}
 		return null;
@@ -62,7 +62,7 @@ public class EntityManager {
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext()) {
 			Entity e = it.next();
-			if (e.getID().startsWith(prefix))
+			if (e.getName().startsWith(prefix))
 				return true;
 		}
 		return false;

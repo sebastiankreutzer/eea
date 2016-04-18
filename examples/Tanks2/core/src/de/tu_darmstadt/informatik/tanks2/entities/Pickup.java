@@ -45,7 +45,7 @@ public class Pickup extends Entity implements IStrength {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Pickup ");
-		sb.append(this.getID());
+		sb.append(this.getName());
 		sb.append(" ");
 		sb.append(strength);
 		sb.append(" ");

@@ -52,7 +52,7 @@ public class ShootAction extends EEAMovement {
 			int strength = ((IStrength) owner).getStrength();
 			float rotation = owner.getRotation();
 			float scale = owner.getScaleX();
-			Entity bullet = createShot(owner.getID(), strength, rotation, scale);
+			Entity bullet = createShot(owner.getName(), strength, rotation, scale);
 			// Konvertiere die Rotation und kalkuliere Sinus und Cosinus
 			rotation = (float) (Math.PI * rotation / 180);
 			float sin = (float) Math.sin(rotation);
@@ -65,7 +65,7 @@ public class ShootAction extends EEAMovement {
 			bullet.setPosition(x, y, Align.center);
 
 			owner.getManager().addEntity(bullet);
-			if (owner.getID().equals("\"PlayerOne\"")) {
+			if (owner.getName().equals("\"PlayerOne\"")) {
 				GameplayLog.getInstance().incrementNumberOfShots(1);
 			}
 		}

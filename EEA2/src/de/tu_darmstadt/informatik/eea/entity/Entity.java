@@ -18,7 +18,6 @@ import de.tu_darmstadt.informatik.eea.component.EEARenderComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.EEACollisionComponent;
 import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
 
-
 /**
  * The Entity class represents any object in your game, independent of the
  * specific uses. Multiple
@@ -33,10 +32,9 @@ import de.tu_darmstadt.informatik.eea.component.collision.NoCollisionComponent;
  */
 public class Entity extends Actor {
 
-	private final String id;
-
 	private CopyOnWriteArrayList<EEAComponent> components = new CopyOnWriteArrayList<EEAComponent>();
 	private Iterator<EEAComponent> iterator;
+	
 	private EEARenderComponent renderComponent;
 	private EEACollisionComponent collisionComponent;
 
@@ -49,18 +47,14 @@ public class Entity extends Actor {
 	 *            The ID that identifies this entity.
 	 */
 	public Entity(String id) {
-		if (id == null)
-			throw new InvalidParameterException("ID cannot be null!");
-		else
-			this.id = id;
-
+		setName(id);
 		collisionComponent = new NoCollisionComponent();
 		manager = null;
 	}
 
 	/**
-	 * Adds a {@link de.tu_darmstadt.informatik.eea.component.EEAComponent} to the
-	 * components of this entity. If this component is a
+	 * Adds a {@link de.tu_darmstadt.informatik.eea.component.EEAComponent} to
+	 * the components of this entity. If this component is a
 	 * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent} the
 	 * current, if any, will be replaced.
 	 * 
@@ -89,16 +83,12 @@ public class Entity extends Actor {
 	}
 
 	/**
-	 * Removes this {@link de.tu_darmstadt.informatik.eea.component.tu.darmstadt.informatik.eea.entity.EEAComponent}
+	 * Removes this
+	 * {@link de.tu_darmstadt.informatik.eea.component.tu.darmstadt.informatik.eea.entity.EEAComponent}
 	 * from the list of registered components of this
 	 * {@link de.tu.darmstadt.informatik.eea.entity.Entity}. This method does
 	 * not remove the registered
-<<<<<<< HEAD
-	 * {@link de.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}
-	 * .
-=======
-	 * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent.darmstadt.informatik.eea.entity.RenderComponent}.
->>>>>>> d2c188de72ecd34bbc4f24b78f8955ed62c47afc
+	 * {@link de.tu_darmstadt.informatik.eea.component.EEARenderComponent}.
 	 * 
 	 * @param c
 	 *            The component to remove from this entity.
@@ -140,13 +130,24 @@ public class Entity extends Actor {
 	 * @return true if these entities collide, otherwise false.
 	 */
 	public boolean collidesWith(Entity other) {
-		if (other == null || id.equals(other.getID()))
+		if (other == null || getName().equals(other.getName()))
 			return false;
 		return other.collisionComponent.collide(collisionComponent);
 	}
+	
+	@Override
+	public void setName(String id) {
+		if (id == null)
+			throw new InvalidParameterException("ID cannot be null!");
+		super.setName(id);
+	}
 
-	public String getID() {
-		return id;
+	/** 
+	 * Returns the name of this entity.
+	 * @return the name, is not null.
+	 */
+	public String getName() {
+		return super.getName();
 	}
 
 	/**

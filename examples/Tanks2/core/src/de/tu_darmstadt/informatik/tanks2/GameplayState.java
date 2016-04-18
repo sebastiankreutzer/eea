@@ -223,7 +223,7 @@ public class GameplayState extends EEAGameState {
 		// zerstoert sind
 		List<EEAEvent> enemyDestroyedEvents = new ArrayList<EEAEvent>();
 		for (Entity e : em.getAllEntities()) {
-			if (e instanceof Tank && !e.getID().equals(LaunchTanks.player1)) {
+			if (e instanceof Tank && !e.getName().equals(LaunchTanks.player1)) {
 				enemyDestroyedEvents.add(new EntityDestroyedEvent(e));
 			}
 		}

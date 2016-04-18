@@ -37,7 +37,7 @@ public class SpawnShootAction extends EEAAction {
 	@Override
 	public boolean act(float delta) {
 		Entity owner = getEntity();
-		Entity simpleShoot = shotFactory.createShot(owner.getX(), owner.getY(), owner.getID(), strength, rotation,
+		Entity simpleShoot = shotFactory.createShot(owner.getX(), owner.getY(), owner.getName(), strength, rotation,
 				owner.getScaleX() / 2);
 		owner.getManager().addEntity(simpleShoot);
 		return true;

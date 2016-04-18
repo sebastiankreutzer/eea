@@ -199,16 +199,16 @@ public class Map implements IMap {
 		int OpponentCount = 0;
 
 		for (Entity entity : entities) {
-			if (entity.getID().startsWith(LaunchTanks.player1)) {
+			if (entity.getName().startsWith(LaunchTanks.player1)) {
 				playerCount++;
 				if (checkForCollision(entity, entities)) {
 					throw new SemanticException("PlayerOne collides with an other Entity in the map");
 				}
 			}
-			if (entity.getID().startsWith(LaunchTanks.opponentTank) || entity.getID().startsWith(LaunchTanks.player2)) {
+			if (entity.getName().startsWith(LaunchTanks.opponentTank) || entity.getName().startsWith(LaunchTanks.player2)) {
 				OpponentCount++;
 				if (checkForCollision(entity, entities)) {
-					throw new SemanticException(entity.getID() + " collides with an other Entity in the map");
+					throw new SemanticException(entity.getName() + " collides with an other Entity in the map");
 				}
 			}
 		}
@@ -285,7 +285,7 @@ public class Map implements IMap {
 		// Parsen der Map wieder benoetigt werden
 		for (Entity entity : entities) {
 			String s = entity.toString();
-			System.out.println(entity.getID() + ": " + s);
+			System.out.println(entity.getName() + ": " + s);
 			if (s.startsWith("Tank") || s.startsWith("Wall") || s.startsWith("Shot") || s.startsWith("Explosion")
 					|| s.startsWith("Border") || s.startsWith("Mine") || s.startsWith("Tower") || s.startsWith("Pickup")
 					|| s.startsWith("Scattershot")) {
